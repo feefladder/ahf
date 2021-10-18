@@ -9,32 +9,35 @@ public class Decision_Handler : MonoBehaviour
     //static public Decision_Handler instance { get { return s_Instance; } }
     public Decision_Handler s_Instance;
     [Header("Farm parameters")]
+    #region 
     public List<Crops> crops = new List<Crops>(10);
-    public int money = 1000000;
-    public int fertility=60;
+    public double money = 100000d;
+    public double fertility=60d;
     public int salinity;
     public int labor=250;
     //public Toggle manureapplied;
-    public Toggle isterracebuilt;
+    public Toggle isterracebuilt; 
     public bool isterracemaintained;
-    public Toggle isgrassstripplaced;
+    public Toggle isgrassstripplaced;  
     public Toggle isdripirrigation;
     public Toggle isgreenhousebuilt;
     public Toggle washfield;
     public int years = 1;
-    public int labor_cost = 1000;
+    public int labor_cost = 1500;
     public Toggle hire_labor;
     public int off_farm_job = 2000;
+    public int labourers;
     public Toggle isofffarmjob;
-    public int Chnum,Conum,Gonum;
-    public GameObject Nomoney,Nolabour;
-    public int newcow,newgoat,newchicken;
-    public Chicken c;
-    public Goat g;
+    public int number_of_chickens,number_of_cows,number_of_goats;
+    
+    public double newcow,newgoat,newchicken;
+    public Chicken chicken;
+    public Goat goat;
     public Cow cow;
-    public int startamount;
-
+    public double startamount;
+    #endregion
     [Header("Family parameters")]
+    #region
     public Children eldest = new Children(18,4,true,false,false);
     public Children second = new Children(12, 0, true, false, false);
     public Toggle health_insurance;
@@ -44,7 +47,7 @@ public class Decision_Handler : MonoBehaviour
     public int basic_expenses = 5000;
     public int increment_per_child = 750;
     public int school_fees = 1000;
-    public int birth_cost = 300;
+    public int birth_control_cost = 300;
     public List<Children> kids = new List<Children>();
     public int sec_kids;
     public int uni_kids;
@@ -56,13 +59,15 @@ public class Decision_Handler : MonoBehaviour
     public Text uniavai;
     public Toggle buy_house;
     public Toggle buy_car;
-    public int house = 15000;
-    public int car = 10000;
-
+    public int house_cost = 15000;
+    public int car_cost = 10000;
+    #endregion
     [Header("UI")]
+    #region
     public GameObject grass_strips, terraces;
+    public GameObject Nomoney,Nolabour;
     public Text Money, Fertility, Salinity, Labor, Year, cownum, chickennum, goatnum,
-    cowcount, chickencount, goatcount;
+    cowcount, chickencount, goatcount,num_of_labourers;
     public Image[] crop_placeholders;
     public Sprite blank;
     public List<Crops> uicrops;
@@ -71,9 +76,9 @@ public class Decision_Handler : MonoBehaviour
 
 
     [HideInInspector]
-    public int total_income;
-    public int total_expenses;
-  
+    public double total_income;
+    public double total_expenses;
+    #endregion
     #endregion
 
     void Start()
@@ -83,59 +88,36 @@ public class Decision_Handler : MonoBehaviour
         kids.Add(second);
         startamount = money;
         Year.text = years.ToString();
-        
-       
 
+        foreach (Crops c in uicrops)
+        {
+            c.ToggleHandler();
+        }
+        #region Toggles
+        health_insurance.GetComponent<Toggle_Handler>().money = HI_cost+HI_inperchild;
+        birth_control.GetComponent<Toggle_Handler>().money = birth_control_cost;
+        buy_car.GetComponent<Toggle_Handler>().money = car_cost;
+        buy_house.GetComponent<Toggle_Handler>().money = house_cost;
+        isterracebuilt.GetComponent<Toggle_Handler>().labor = 25;
+        isdripirrigation.GetComponent<Toggle_Handler>().money = 50000;
+        
+        #endregion
 
     }
 
 
     void Update()
     {
-        #region toggles
         
-        if (HI_cost+(kids.Count*HI_inperchild)> money)
-        {
-            health_insurance.interactable = false;
-        }
-        if (labor<25)
-        {
-            isgrassstripplaced.interactable = false;
-        }
-        if (labor < 25)
-        {
-            isterracebuilt.interactable = false;
-        }
-        if (birth_cost > money)
-        {
-            birth_control.interactable = false;
-        }
-        if (house> money)
-        {
-            buy_house.interactable = false;
-        }
-        if (car > money)
-        {
-            buy_car.interactable = false;
-        }
-        for (int i = 0; i < uicrops.Count; i++)
-        {
-            if (uicrops[i].pest_price>money)
-            {
-                uicrops[i].pesticide.interactable = false;
-            }
-            
-        }
-
-        //drip here
-        #endregion
         chickennum.text = chickencount.text;
         goatnum.text = goatcount.text;
         cownum.text = cowcount.text;
         Money.text = money.ToString();
         Labor.text = labor.ToString();
-        
-            for (int i = 0; i < cropprices.Length; i++)
+        terraces.SetActive(isterracebuilt.isOn);
+        grass_strips.SetActive(isgrassstripplaced.isOn);
+        num_of_labourers.text = labourers.ToString();
+        for (int i = 0; i < cropprices.Length; i++)
         {
             cropprices[i].text= uicrops[i].seed_cost.ToString();
             
@@ -177,14 +159,14 @@ public class Decision_Handler : MonoBehaviour
         uniavai.text = unikidsavailable.ToString();
     }
 
-    #region Livestock functions
+    #region Livestock Functions
     
     public void Add_livestock( Livestock type)
      {
 
         if (type.type == "Cow")
         {
-            if (Conum == type.max)
+            if (number_of_cows == type.max)
             {
                 return;
             }
@@ -192,13 +174,13 @@ public class Decision_Handler : MonoBehaviour
         if (type.type == "Chicken")
         {
             
-            if (Chnum == type.max) {
+            if (number_of_chickens == type.max) {
                 
             return; }
         }
         if (type.type == "Goat")
         {
-            if (Gonum == type.max) { 
+            if (number_of_goats == type.max) { 
             return; }
         }
 
@@ -224,22 +206,22 @@ public class Decision_Handler : MonoBehaviour
         }
         
         if (type.type == "Cow") {
-            Conum += 1;
-            cowcount.text = Conum.ToString();
+            number_of_cows += 1;
+            cowcount.text = number_of_cows.ToString();
             newcow += 1;
             
         }
 
         if (type.type == "Goat") {
-            Gonum += 1;
-            goatcount.text = Gonum.ToString();
+            number_of_goats += 1;
+            goatcount.text = number_of_goats.ToString();
             newgoat += 1;
 
         }
         if (type.type == "Chicken") {
-            Chnum += 1;
+            number_of_chickens += 1;
             newchicken += 1;
-            chickencount.text = Chnum.ToString();
+            chickencount.text = number_of_chickens.ToString();
             
 
         }  
@@ -247,63 +229,62 @@ public class Decision_Handler : MonoBehaviour
 
     public void Remove_livestock(Livestock type)
     {
-       if (type.type == "Cow" & Conum>=1)
+       if (type.type == "Cow" & number_of_cows>=1)
         {
-            Conum -= 1;
+            number_of_cows -= 1;
             if (newcow == 0)
             {
-                money += type.cost-(type.cost*(10/100));
+                money += type.cost-(type.cost*(10d/100d));
             }
             else { newcow -= 1; money += type.cost; }
             labor += type.required_labor;
             //total_expenses -= type.cost;
-            cowcount.text = Conum.ToString();
+            cowcount.text = number_of_cows.ToString();
         }
 
-        if (type.type == "Goat" & Gonum>=1)
+        if (type.type == "Goat" & number_of_goats>=1)
         {
-            Gonum -= 1;
+            number_of_goats -= 1;
             if (newgoat == 0)
             {
-                money += type.cost - (type.cost * (10 / 100));
+                money += type.cost - (type.cost * (10d / 100d));
             }
             else { newgoat -= 1; money += type.cost; }
             labor += type.required_labor;
            // total_expenses -= type.cost;
-            goatcount.text = Gonum.ToString();
+            goatcount.text = number_of_goats.ToString();
         }
-        if (type.type == "Chicken" & Chnum>=1)
+        if (type.type == "Chicken" & number_of_chickens>=1)
         {
-            Chnum -= 1;
+            number_of_chickens -= 1;
             if (newchicken == 0)
             {
-                money += type.cost - (type.cost * (10 / 100));
+                money += type.cost - (type.cost * (10d / 100d));
             }
             else { newchicken -= 1; money += type.cost; }
             labor += type.required_labor;
-            //
-total_expenses -= type.cost;
-            chickencount.text = Chnum.ToString();
+            //total_expenses -= type.cost;
+            chickencount.text = number_of_chickens.ToString();
         }
     }
 
-    public int Livestockexpense()
+    public double LivestockExpense()
     {
-        int expense = 0;
+        double expense = 0;
         
-        expense += (c.cost * Chnum) + (g.cost * Gonum) + (cow.cost * Conum);
-
+        expense += (chicken.cost * newchicken) + (goat.cost * newgoat) + (cow.cost * newcow);
+        expense += (chicken.maintenance_cost * number_of_chickens) + (goat.maintenance_cost * number_of_goats) + (cow.maintenance_cost * number_of_cows);
         return expense;
     }
     public int LivestockIncome()
     {
         int income = 0;
-        income += (c.product_revenue * Chnum) + (g.product_revenue * Gonum) + (cow.cost * Conum);
+        income += (chicken.product_revenue * number_of_chickens) + (goat.product_revenue * number_of_goats) + (cow.product_revenue * number_of_cows);
         return income;
     }
     #endregion
 
-    #region Crops -_-
+    #region Crop Functions
     public void PurchaseCrops(Crops type)
     {   if (crops.Count <= 9)
         {
@@ -340,7 +321,8 @@ total_expenses -= type.cost;
                     }
 
                 }
-                c.displaynumber.text = c.num.ToString();
+                //c.displaynumber.text = c.num.ToString();
+                //c.area = (c.num / 10) * 100;
             }
             for (int i = 0; i < crops.Count; i++)
             {
@@ -379,9 +361,10 @@ total_expenses -= type.cost;
                 {
                     c.num++;
                 }
-
+                
             }
-            c.displaynumber.text = c.num.ToString();
+           // c.displaynumber.text = c.num.ToString();
+            //c.area = (c.num / 10) * 100;
         }
         for (int i = 0; i < crops.Capacity; i++)
         {
@@ -454,7 +437,7 @@ total_expenses -= type.cost;
             }
         }
     }
-    public int Familyexpense()
+    public int FamilyExpense()
     {
         int expenses=0;
         if (health_insurance.isOn)
@@ -463,15 +446,15 @@ total_expenses -= type.cost;
         }
         if (birth_control.isOn)
         {
-            expenses += birth_cost;
+            expenses += birth_control_cost;
         }
         if (buy_house.isOn)
         {
-            expenses += house;
+            expenses += house_cost;
         }
         if (buy_car.isOn)
         {
-            expenses += car;
+            expenses += car_cost;
         }
         expenses += school_fees*sec_kids+((school_fees*2)*uni_kids);
         expenses += basic_expenses + (increment_per_child * kids.Count);
@@ -479,7 +462,7 @@ total_expenses -= type.cost;
         return expenses;
 
     }
-    public int Familyrevenue()
+    public int FamilyRevenue()
     {
         int revenue = 0;
         foreach (Children kid in kids)
@@ -491,19 +474,37 @@ total_expenses -= type.cost;
         }
         return revenue;
     }
-  
-    
+
+
     #endregion
+
+    #region Labour
+    public void AddLabour()
+    {
+        labourers += 1;
+        labor += 80;
+        money -= labor_cost;
+    }
+    public void RemoveLabour()
+    {
+        labourers -= 1;
+        labor -= 80;
+        money -= labor_cost;
+    }
+    #endregion
+
 
     #region Annual Review
     #region variables
+    [Header (" Annual Review UI")]
     public GameObject panel;
     //so 
     //many
     //textboxes -_-
-    
+    public AutoList CropIncomeList, CropExpenseList;
     public Text t_expenses, t_income, start_amount, year, household, net_total,
-    llc_expense, llc_income, crop_inc, crop_ex;
+    livestock_expense, livestock_income,labor_income,labor_expense,living_expense,
+    health_bills,child_pension,event_text;
     public Image net;
     public Image farmzy;
     //event variables
@@ -514,66 +515,56 @@ total_expenses -= type.cost;
     public void Play()
     {
         Event();
-        int totalinc = 0;
-        int totalex = 0;
-        int laborin = 0;
-        int laborex = 0;
+        double totalincome = 0D;
+        double totalexpense = 0D;
+        double laborincome = 0D;
+        double laborexpense = 0D;
         
         if (isofffarmjob.isOn)
         {
-            laborin = off_farm_job;
+            laborincome = off_farm_job;
         }
-        if (hire_labor.isOn)
-        {
-            laborex = labor_cost;
-        }
-        for (int i = 0; i < uicrops.Count; i++)
-        {
-            if (uicrops[i].pesticide.isOn)
-            {
-                totalex += uicrops[i].pest_price;
-            }
-        }
+        laborexpense = labourers * labor_cost;
+        
         start_amount.text = startamount.ToString();
        
 
-        household.text = "2 Adults + "+kids.Count.ToString()+ " Children";
-        llc_expense.text = Livestockexpense().ToString() + "\n" + laborex + "\n" + Familyexpense().ToString() + "\n" + healthbills.ToString();
-        llc_income.text = LivestockIncome().ToString() + "\n" + laborin+ "\n" + Familyrevenue().ToString();
-
+        household.text = "2 Adults + " +kids.Count.ToString()+ " Children";
+      
+        livestock_income.text = LivestockIncome().ToString();
+        livestock_expense.text = LivestockExpense().ToString();
+        labor_income.text = laborincome.ToString();
+        labor_expense.text = laborexpense.ToString();
+        child_pension.text = FamilyRevenue().ToString();
+        
+        living_expense.text = FamilyExpense().ToString();
+        health_bills.text = healthbills.ToString();
+        
         foreach (Crops c in uicrops)
         {
-            c.num = 0;
-            for (int i = 0; i < crops.Count; i++)
-            {
-                if (crops[i]=c)
-                {
-                    c.num++;
-                }
-            }
-            c.area = c.num / 100;
-            c.totalincome= ((c.area * c.base_yield * c.unitprice) +(c.base_yield * fertility))-(c.base_yield*(c.loss/100)) +(c.base_yield*(c.profit/100));
-            c.totalexpense = c.area * c.seed_cost + c.pest_price;
-            totalex += c.totalexpense;
-            totalinc += c.totalincome;
-            c.income_dets.text = c.unitprice.ToString() + ".00   "+c.area.ToString() +"%    "+fertility.ToString()+"%   "+c.loss.ToString()+"%" ;
-            c.expense_dets.text = c.seed_cost.ToString() + ".00   " + c.area.ToString() + "%        " + c.pest_price.ToString();
-            crop_ex.text = uicrops[0].totalexpense.ToString() + "AHC"+ "\n" + uicrops[1].totalexpense.ToString() + "AHC" + "\n"
-                + uicrops[2].totalexpense.ToString() + "AHC" + "\n" +uicrops[3].totalexpense.ToString();
-            crop_inc.text = uicrops[0].totalincome.ToString() + "AHC" + "\n" + uicrops[1].totalincome.ToString() + "AHC" + "\n"
-                + uicrops[2].totalincome.ToString() + "AHC" + "\n" + uicrops[3].totalincome.ToString();
-            c.loss = 0;
-            c.totalexpense = 0;
-            c.totalincome = 0;
+
+            c.totalincome = (c.num * (c.base_yield *(fertility/100d))* c.unitprice);
+
+            c.totalincome -= (c.totalincome * (c.loss / 100d));
+            c.totalincome += (c.totalincome * (c.profit/100d));
+
+            if (c.pesticide.isOn) { c.totalexpense += c.pest_price; }
+            totalexpense += c.totalexpense;
+            totalincome += c.totalincome;
         }
-        totalex += Livestockexpense() + Familyexpense() + healthbills+laborex;
-        totalinc += LivestockIncome() + Familyrevenue() + laborin;
-        t_expenses.text = totalex.ToString();
-        t_income.text = total_income.ToString();
-        print(totalex); print(totalinc); print(money);
-        money += totalinc - totalex;
-        net_total.text = money.ToString();
-        startamount = money;
+           CropIncomeList.Populate();
+           CropExpenseList.Populate();
+        
+        totalexpense += LivestockExpense() + FamilyExpense() + healthbills+laborexpense;
+        totalincome  += LivestockIncome() + FamilyRevenue() + laborincome;
+        
+        t_expenses.text = totalexpense.ToString();
+        t_income.text   = totalincome.ToString();
+      
+        startamount += System.Convert.ToInt32(totalincome -totalexpense);
+       
+        net_total.text = startamount.ToString();
+        money= startamount;
         if (money>0)
         {
             net.color = Color.green;
@@ -599,15 +590,18 @@ total_expenses -= type.cost;
         }
         if (salinity==100)
         {
-            fertility = 100;
+            fertility = 0;
         }
         if (isgrassstripplaced)
         {
             fertility += 20;
         }
+
         #endregion
+        Fertility.text = fertility.ToString();
         panel.SetActive(true);
-        healthbills = 0;
+        
+       
         if (years<=12)
         {
             years++;
@@ -617,6 +611,26 @@ total_expenses -= type.cost;
         {
             End();
         }
+    }
+    public void NewYear()
+    {
+        foreach (Crops c in uicrops)
+        {
+            c.loss = 0;
+            c.totalexpense = 0;
+            c.totalincome = 0;
+            c.num = 0;
+        }
+         var toggles = FindObjectsOfType<Toggle>();
+        foreach (var toggle in toggles)
+        {
+            toggle.isOn = false;
+        }
+        healthbills = 0;
+        newchicken = 0;
+        newgoat = 0;
+        newcow = 0;
+        labourers = 0;
     }
     public void Event()
     {
@@ -660,7 +674,7 @@ total_expenses -= type.cost;
 
     }
     #endregion
-
+    //to do upgrades and manure
 
    
 }

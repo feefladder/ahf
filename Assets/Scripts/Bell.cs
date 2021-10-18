@@ -13,5 +13,6 @@ public class Bell : Crops
         base_yield = 80;
         seed_cost = 40;
         required_labor = 10;
+        pest_price = 100;
     }
 }

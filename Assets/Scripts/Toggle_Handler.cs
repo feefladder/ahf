@@ -7,7 +7,7 @@ public class Toggle_Handler : MonoBehaviour
 {
     public int money;
     public int labor;
-    public Toggle toggle;
+    private Toggle toggle;
     public Decision_Handler _Handler;
     void Start()
     {
@@ -15,7 +15,10 @@ public class Toggle_Handler : MonoBehaviour
         toggle.onValueChanged.AddListener(delegate { TogglesValueChanged(money, labor, toggle); });
 
     }
-
+    void Update()
+    {
+        toggle.interactable = !(money > _Handler.money);
+    }
     public void TogglesValueChanged(int amount, int labor, Toggle toggle)
     {
         if (toggle.isOn)

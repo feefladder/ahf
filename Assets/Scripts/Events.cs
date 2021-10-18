@@ -4,35 +4,20 @@ using UnityEngine;
 
 public class Events
 {
-    //public List<Events> events;
+    
     public Sprite[] banners;
     public string info;
-    //public Events e;
-    //public Events d = new Drought();
-    //public Events di = new Disease();
-    //public Events g = new Gullying();
-    //public Events i = new Illness();
-    //public Events lc = new LivingCosts();
-    //public Events lm = new LowmarketPrice();
-    //public Events il = new Illness();
+ 
     // Start is called before the first frame update
     void Start()
     {
-
-        //events.Add(d);
-        //events.Add(di);
-        //events.Add(g);
-        //events.Add(i);
-        //events.Add(lc);
-        //events.Add(lm);
-        //events.Add(il);
 
     }
 
 
     public virtual void Operation(Decision_Handler Handler)
     {
-
+        Handler.event_text.text = info;
     }
 }
     public class Drought : Events
@@ -63,7 +48,8 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
-            if (Handler.isdripirrigation.isOn)
+        Handler.event_text.text = info;
+        if (Handler.isdripirrigation.isOn)
             {
                 return;
             }
@@ -85,7 +71,8 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
-            if (Handler.isgrassstripplaced.isOn)
+        Handler.event_text.text = info;
+        if (Handler.isgrassstripplaced.isOn)
             {
                 return;
             }
@@ -114,8 +101,9 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
+        Handler.event_text.text = info;
 
-            for (int i = 0; i < Handler.uicrops.Count; i++)
+        for (int i = 0; i < Handler.uicrops.Count; i++)
             {
                 if (Handler.uicrops[i].pesticide.isOn)
                 {
@@ -137,7 +125,8 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
-            Handler.basic_expenses += Handler.basic_expenses * (20 / 100);
+        Handler.event_text.text = info;
+        Handler.basic_expenses += Handler.basic_expenses * (20 / 100);
 
         }
     }
@@ -149,7 +138,8 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
-            for (int i = 0; i < Handler.uicrops.Count; i++)
+        Handler.event_text.text = info;
+        for (int i = 0; i < Handler.uicrops.Count; i++)
             {
                 Handler.uicrops[i].loss = 10;
 
@@ -165,8 +155,8 @@ public class Events
         }
         public override void Operation(Decision_Handler Handler)
         {
-
-                if (Handler.health_insurance)
+        Handler.event_text.text = info;
+        if (Handler.health_insurance)
                 {
 
                 }
@@ -177,14 +167,7 @@ public class Events
             
         }
 
-
     }
 
-    //public Events d = new Events.Drought();
-    //public Events di = new Events.Disease();
-    //public Events g = new Events.Gullying();
-    //public Events i = new Events.Illness();
-    //public Events lc = new Events.LivingCosts();
-    //public Events lm = new Events.LowmarketPrice();
-    //public Events il = new Events.Illness();
+   
 
