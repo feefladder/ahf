@@ -18,7 +18,8 @@ public class Decision_Handler : MonoBehaviour
     //public Toggle manureapplied;
     public Toggle isterracebuilt; 
     public bool isterracemaintained;
-    public Toggle isgrassstripplaced;  
+    public Toggle isgrassstripplaced;
+    public Toggle applymanure;
     public Toggle isdripirrigation;
     public Toggle isgreenhousebuilt;
     public Toggle washfield;
@@ -36,10 +37,11 @@ public class Decision_Handler : MonoBehaviour
     public Cow cow;
     public double startamount;
     #endregion
+
     [Header("Family parameters")]
     #region
-    public Children eldest = new Children(18,4,true,false,false);
-    public Children second = new Children(12, 0, true, false, false);
+    public Children eldest = new Children(18,1,true,true,false);
+    public Children second = new Children(12, 2, true, false, false);
     public Toggle health_insurance;
     public Toggle birth_control;
     public int HI_cost = 1500;
@@ -53,8 +55,8 @@ public class Decision_Handler : MonoBehaviour
     public int uni_kids;
     int seckidsavailable=0;
     int unikidsavailable = 0;
-    public Text seckids;
-    public Text unikids;
+    public Text seckidstext;
+    public Text unikidstext;
     public Text secavai;
     public Text uniavai;
     public Toggle buy_house;
@@ -93,16 +95,34 @@ public class Decision_Handler : MonoBehaviour
         {
             c.ToggleHandler();
         }
-        #region Toggles
+        #region Define parameters in Toggle_Handler
         health_insurance.GetComponent<Toggle_Handler>().money = HI_cost+HI_inperchild;
         birth_control.GetComponent<Toggle_Handler>().money = birth_control_cost;
         buy_car.GetComponent<Toggle_Handler>().money = car_cost;
         buy_house.GetComponent<Toggle_Handler>().money = house_cost;
         isterracebuilt.GetComponent<Toggle_Handler>().labor = 25;
         isdripirrigation.GetComponent<Toggle_Handler>().money = 50000;
-        
+
         #endregion
 
+        
+            foreach (Children child in kids)
+            {
+                if (!child.primarycomplete)
+                {
+
+                }
+                if (!child.sec_complete && child.primarycomplete)
+                {
+                    seckidsavailable += 1;
+                }
+
+                if (!child.uni_complete && child.sec_complete && child.primarycomplete)
+                {
+                    unikidsavailable += 1;
+                }
+            }
+     
     }
 
 
@@ -117,44 +137,18 @@ public class Decision_Handler : MonoBehaviour
         terraces.SetActive(isterracebuilt.isOn);
         grass_strips.SetActive(isgrassstripplaced.isOn);
         num_of_labourers.text = labourers.ToString();
+        applymanure.interactable= number_of_chickens==15 || number_of_cows==1 || number_of_goats==5 ;
         for (int i = 0; i < cropprices.Length; i++)
         {
             cropprices[i].text= uicrops[i].seed_cost.ToString();
             
         }
-        if (seckidsavailable + unikidsavailable < kids.Count)
-        {
-            foreach (Children child in kids)
-            {
-                if (!child.primarycomplete)
-                {
 
-                }
-                if (!child.sec_complete)
-                {
-                    seckidsavailable += 1;
-                }
-
-                if (!child.uni_complete)
-                {
-                    unikidsavailable += 1;
-                }
-            }
-        }
-                if (sec_kids >= seckidsavailable)
-                {
-                    sectog.interactable = false;
-                }
-
-                if (uni_kids >= unikidsavailable)
-                {
-                    unitog.interactable = false;
-                }
-            
-        
-        
-        seckids.text = sec_kids.ToString();
-        unikids.text = uni_kids.ToString();
+        sectog.interactable = !(sec_kids >= seckidsavailable);
+        unitog.interactable = !(uni_kids >= unikidsavailable);
+ 
+        seckidstext.text = sec_kids.ToString();
+        unikidstext.text = uni_kids.ToString();
         secavai.text = seckidsavailable.ToString();
         uniavai.text = unikidsavailable.ToString();
     }
@@ -391,24 +385,27 @@ public class Decision_Handler : MonoBehaviour
 
     public void School(int grade)
     {
-        if (grade == 0 )
+        if (grade ==0 )
         {
             if (money > school_fees)
             {
                 seckidsavailable--;
                 sec_kids++;
-            }else
-        {
+                
+            }
+            else
+            {
             Nomoney.SetActive(true);
-        }
+            }
         }
         
-        if (grade == 1 )
+        if (grade ==1)
         {
             if (money > school_fees * 1.5)
             {
                 unikidsavailable--;
                 uni_kids++;
+                labor -= 50;
             }
             else
             {
@@ -434,6 +431,7 @@ public class Decision_Handler : MonoBehaviour
             { 
                 unikidsavailable ++;
                 uni_kids --;
+                labor += 50;
             }
         }
     }
@@ -498,18 +496,17 @@ public class Decision_Handler : MonoBehaviour
     #region variables
     [Header (" Annual Review UI")]
     public GameObject panel;
-    //so 
-    //many
-    //textboxes -_-
+    
     public AutoList CropIncomeList, CropExpenseList;
     public Text t_expenses, t_income, start_amount, year, household, net_total,
     livestock_expense, livestock_income,labor_income,labor_expense,living_expense,
     health_bills,child_pension,event_text;
     public Image net;
     public Image farmzy;
-    //event variables
     public int healthbills;
-   // public int loss;
+
+    int terrace_stage;
+    public GameObject terrace_maintenace_request,newbaby;
     int living_increase;
     #endregion
     public void Play()
@@ -574,15 +571,12 @@ public class Decision_Handler : MonoBehaviour
             net.color = Color.red;
         }
         
-        #region salinity
-        if (isdripirrigation)
+        #region Fertility and salinity
+        if (isdripirrigation.isOn)
         {
             salinity += 25;
         }
-        if (washfield)
-        {
-            salinity = 0;
-        }
+        
         fertility -= 15;
         if (salinity==75)
         {
@@ -592,11 +586,18 @@ public class Decision_Handler : MonoBehaviour
         {
             fertility = 0;
         }
-        if (isgrassstripplaced)
+        if (washfield.isOn)
         {
-            fertility += 20;
+            salinity = 0;
         }
-
+        if (isgrassstripplaced.isOn)
+        {
+            fertility += 5;
+        }
+        if (applymanure.isOn)
+        {
+            fertility += 15;
+        }
         #endregion
         Fertility.text = fertility.ToString();
         panel.SetActive(true);
@@ -614,6 +615,66 @@ public class Decision_Handler : MonoBehaviour
     }
     public void NewYear()
     {
+        labor = 250;
+        unikidsavailable = 0;
+        seckidsavailable = 0;
+
+        foreach (Children child in kids)
+        {
+            if (!child.uni_complete )
+            {
+                if (child.sec_complete && child.primarycomplete)
+                {
+                    unikidsavailable++;
+                    if (uni_kids >= 1)
+                    {
+                        child.stage_in_school++;
+                        uni_kids--;
+
+                    }
+                    if (child.stage_in_school == 4)
+                    {
+                        child.uni_complete = true;
+                        //unikidsavailable--;
+                    }
+                }
+            }
+            if (!child.sec_complete)
+            {
+                
+                if (child.primarycomplete)
+                {   seckidsavailable++;
+                    if (sec_kids >= 1)
+                    {
+                        child.stage_in_school++;
+                        sec_kids--;
+                    }
+                    if (child.stage_in_school == 6)
+                    {
+                        child.sec_complete = true;
+                        child.stage_in_school = 0;
+                        seckidsavailable--;
+                    }
+                }
+            }
+            child.age++;
+            if (child.age>= 18)
+            {
+                labor += 50;
+            }
+
+        }
+        if (!birth_control.isOn)
+        {
+            int chance = Random.Range(0, 11);
+            if (chance>=5)
+            {
+                Children baby = new Children(1, 0, false, false, false);
+                kids.Add(baby);
+                newbaby.SetActive(true);
+            }
+        }
+       
         foreach (Crops c in uicrops)
         {
             c.loss = 0;
@@ -621,16 +682,36 @@ public class Decision_Handler : MonoBehaviour
             c.totalincome = 0;
             c.num = 0;
         }
-         var toggles = FindObjectsOfType<Toggle>();
-        foreach (var toggle in toggles)
-        {
-            toggle.isOn = false;
-        }
+         
         healthbills = 0;
         newchicken = 0;
         newgoat = 0;
         newcow = 0;
         labourers = 0;
+        if (isterracebuilt.isOn && terrace_stage==0)
+        {
+            terrace_stage = 1;
+            terrace_maintenace_request.SetActive(true);
+        }
+        if (terrace_stage==1 && isterracemaintained )
+        {
+            terrace_stage = 2;
+            isterracebuilt.isOn = true;
+            isterracebuilt.interactable = false;
+        }
+        if (buy_car.isOn)
+        {
+            buy_car.interactable = false;
+        }
+        if (buy_house.isOn)
+        {
+            buy_house.interactable = false;
+        }
+        var toggles = FindObjectsOfType<Toggle>();
+        foreach (var toggle in toggles)
+        {
+            toggle.isOn = false;
+        }
     }
     public void Event()
     {
@@ -672,6 +753,12 @@ public class Decision_Handler : MonoBehaviour
     public void End()
     {
 
+    }
+    public void TerraceMaintenace()
+    {
+        isterracebuilt.isOn = true;
+        isterracemaintained = true;
+       
     }
     #endregion
     //to do upgrades and manure

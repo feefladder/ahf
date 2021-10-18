@@ -40,7 +40,7 @@ public class AutoList : MonoBehaviour
             if (type=="expense")
             {
                 itm.sellprice.text = Crops[i].seed_cost.ToString();
-                print(Crops[i].totalexpense);
+
                 itm.total.text = Crops[i].totalexpense.ToString();
                 if (Crops[i].pesticide.isOn)
                 {
