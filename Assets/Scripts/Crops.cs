@@ -35,7 +35,11 @@ public class Crops : MonoBehaviour
     {
         area = (num * 100)/10;
         totalexpense = num * seed_cost;
-        displaynumber.text = num.ToString();
+        if (displaynumber!=null)
+        {
+            displaynumber.text = num.ToString();
+        }
+        
     }
     public void ToggleHandler()
     {

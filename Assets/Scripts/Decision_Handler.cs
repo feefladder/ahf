@@ -8,14 +8,16 @@ public class Decision_Handler : MonoBehaviour
     #region variables
     //static public Decision_Handler instance { get { return s_Instance; } }
     public Decision_Handler s_Instance;
+    public Livestock_Handler Livestock_Handler;
+    public Crop_Handler Crop_Handler;
     [Header("Farm parameters")]
     #region 
-    public List<Crops> crops = new List<Crops>(10);
+    //public List<Crops> crops = new List<Crops>(10);
     public double money = 100000d;
     public double fertility=60d;
     public int salinity;
     public int labor=250;
-    //public Toggle manureapplied;
+    
     public Toggle isterracebuilt; 
     public bool isterracemaintained;
     public Toggle isgrassstripplaced;
@@ -29,12 +31,7 @@ public class Decision_Handler : MonoBehaviour
     public int off_farm_job = 2000;
     public int labourers;
     public Toggle isofffarmjob;
-    public int number_of_chickens,number_of_cows,number_of_goats;
-    
-    public double newcow,newgoat,newchicken;
-    public Chicken chicken;
-    public Goat goat;
-    public Cow cow;
+   
     public double startamount;
     #endregion
 
@@ -68,18 +65,13 @@ public class Decision_Handler : MonoBehaviour
     #region
     public GameObject grass_strips, terraces;
     public GameObject Nomoney,Nolabour;
-    public Text Money, Fertility, Salinity, Labor, Year, cownum, chickennum, goatnum,
-    cowcount, chickencount, goatcount,num_of_labourers;
-    public Image[] crop_placeholders;
-    public Sprite blank;
-    public List<Crops> uicrops;
-    public Text[] cropprices;
+    public Text Money, Fertility, Salinity, Labor, Year,  num_of_labourers;
+    //public Image[] crop_placeholders;
+    //public Sprite blank;
+    //public List<Crops> uicrops;
+    //public Text[] cropprices;
     public Button sectog, unitog;
 
-
-    [HideInInspector]
-    public double total_income;
-    public double total_expenses;
     #endregion
     #endregion
 
@@ -89,13 +81,10 @@ public class Decision_Handler : MonoBehaviour
         kids.Add(eldest);
         kids.Add(second);
         startamount = money;
-        Year.text = years.ToString();
+        Year.text = years.ToString()+"12";
 
-        foreach (Crops c in uicrops)
-        {
-            c.ToggleHandler();
-        }
-        #region Define parameters in Toggle_Handler
+        
+        #region Definition of parameters in Toggle_Handler
         health_insurance.GetComponent<Toggle_Handler>().money = HI_cost+HI_inperchild;
         birth_control.GetComponent<Toggle_Handler>().money = birth_control_cost;
         buy_car.GetComponent<Toggle_Handler>().money = car_cost;
@@ -128,21 +117,19 @@ public class Decision_Handler : MonoBehaviour
 
     void Update()
     {
-        
-        chickennum.text = chickencount.text;
-        goatnum.text = goatcount.text;
-        cownum.text = cowcount.text;
         Money.text = money.ToString();
         Labor.text = labor.ToString();
         terraces.SetActive(isterracebuilt.isOn);
         grass_strips.SetActive(isgrassstripplaced.isOn);
         num_of_labourers.text = labourers.ToString();
-        applymanure.interactable= number_of_chickens==15 || number_of_cows==1 || number_of_goats==5 ;
-        for (int i = 0; i < cropprices.Length; i++)
-        {
-            cropprices[i].text= uicrops[i].seed_cost.ToString();
+        applymanure.interactable= Livestock_Handler.number_of_chickens==15
+                                 || Livestock_Handler.number_of_cows == 1 
+                                 || Livestock_Handler.number_of_goats == 5 ;
+        //for (int i = 0; i < cropprices.Length; i++)
+        //{
+        //    cropprices[i].text= uicrops[i].seed_cost.ToString();
             
-        }
+        //}
 
         sectog.interactable = !(sec_kids >= seckidsavailable);
         unitog.interactable = !(uni_kids >= unikidsavailable);
@@ -153,234 +140,7 @@ public class Decision_Handler : MonoBehaviour
         uniavai.text = unikidsavailable.ToString();
     }
 
-    #region Livestock Functions
-    
-    public void Add_livestock( Livestock type)
-     {
-
-        if (type.type == "Cow")
-        {
-            if (number_of_cows == type.max)
-            {
-                return;
-            }
-        }
-        if (type.type == "Chicken")
-        {
-            
-            if (number_of_chickens == type.max) {
-                
-            return; }
-        }
-        if (type.type == "Goat")
-        {
-            if (number_of_goats == type.max) { 
-            return; }
-        }
-
-        if (money >= type.cost)
-        {
-            money -= type.cost;
-            total_expenses += type.cost;
-            
-        }
-        else {
-            Nomoney.SetActive(true);
-            return;
-        }
-        if (labor >= type.required_labor)
-        {
-            labor -= type.required_labor;
-            
-        }
-        else
-        {
-            Nolabour.SetActive(true);
-            return;
-        }
-        
-        if (type.type == "Cow") {
-            number_of_cows += 1;
-            cowcount.text = number_of_cows.ToString();
-            newcow += 1;
-            
-        }
-
-        if (type.type == "Goat") {
-            number_of_goats += 1;
-            goatcount.text = number_of_goats.ToString();
-            newgoat += 1;
-
-        }
-        if (type.type == "Chicken") {
-            number_of_chickens += 1;
-            newchicken += 1;
-            chickencount.text = number_of_chickens.ToString();
-            
-
-        }  
-     }
-
-    public void Remove_livestock(Livestock type)
-    {
-       if (type.type == "Cow" & number_of_cows>=1)
-        {
-            number_of_cows -= 1;
-            if (newcow == 0)
-            {
-                money += type.cost-(type.cost*(10d/100d));
-            }
-            else { newcow -= 1; money += type.cost; }
-            labor += type.required_labor;
-            //total_expenses -= type.cost;
-            cowcount.text = number_of_cows.ToString();
-        }
-
-        if (type.type == "Goat" & number_of_goats>=1)
-        {
-            number_of_goats -= 1;
-            if (newgoat == 0)
-            {
-                money += type.cost - (type.cost * (10d / 100d));
-            }
-            else { newgoat -= 1; money += type.cost; }
-            labor += type.required_labor;
-           // total_expenses -= type.cost;
-            goatcount.text = number_of_goats.ToString();
-        }
-        if (type.type == "Chicken" & number_of_chickens>=1)
-        {
-            number_of_chickens -= 1;
-            if (newchicken == 0)
-            {
-                money += type.cost - (type.cost * (10d / 100d));
-            }
-            else { newchicken -= 1; money += type.cost; }
-            labor += type.required_labor;
-            //total_expenses -= type.cost;
-            chickencount.text = number_of_chickens.ToString();
-        }
-    }
-
-    public double LivestockExpense()
-    {
-        double expense = 0;
-        
-        expense += (chicken.cost * newchicken) + (goat.cost * newgoat) + (cow.cost * newcow);
-        expense += (chicken.maintenance_cost * number_of_chickens) + (goat.maintenance_cost * number_of_goats) + (cow.maintenance_cost * number_of_cows);
-        return expense;
-    }
-    public int LivestockIncome()
-    {
-        int income = 0;
-        income += (chicken.product_revenue * number_of_chickens) + (goat.product_revenue * number_of_goats) + (cow.product_revenue * number_of_cows);
-        return income;
-    }
-    #endregion
-
-    #region Crop Functions
-    public void PurchaseCrops(Crops type)
-    {   if (crops.Count <= 9)
-        {
-            
-            if (money >= type.seed_cost)
-            {
-                money -= type.seed_cost;
-                total_expenses += type.seed_cost;
-
-            }
-            else
-            {
-                Nomoney.SetActive(true);
-                return;
-            }
-            if (labor >= type.required_labor)
-            {
-                labor -= type.required_labor;
-            }
-            else
-            {
-                Nolabour.SetActive(true);
-                return;
-            }
-            crops.Add(type);
-            foreach (Crops c in uicrops)
-            {
-                c.num = 0;
-                for (int i = 0; i < crops.Count; i++)
-                {
-                    if (crops[i] == c)
-                    {
-                        c.num++;
-                    }
-
-                }
-                //c.displaynumber.text = c.num.ToString();
-                //c.area = (c.num / 10) * 100;
-            }
-            for (int i = 0; i < crops.Count; i++)
-            {
-                
-                if (crops[i] != null)
-                {
-                    crop_placeholders[i].sprite = crops[i].sprite;
-                }
-                else
-                {
-                    crop_placeholders[i].sprite = blank;
-                }
-            }
-
-        }
-    }
-
-    public void  SellCrops(Crops type)
-    {
-        if (!crops.Contains(type))
-        {
-            return;
-        }
-        money += type.seed_cost;
-        total_expenses -= type.seed_cost;
-        labor += type.required_labor;
-        
-        //crop_placeholders[crops.LastIndexOf(type)].sprite=blank;
-        crops.Remove(type);
-        foreach (Crops c in uicrops)
-        {
-            c.num = 0;
-            for (int i = 0; i < crops.Count; i++)
-            {
-                if (crops[i] == c)
-                {
-                    c.num++;
-                }
-                
-            }
-           // c.displaynumber.text = c.num.ToString();
-            //c.area = (c.num / 10) * 100;
-        }
-        for (int i = 0; i < crops.Capacity; i++)
-        {
-            crop_placeholders[i].sprite = blank;
-            
-        }
-        for (int i = 0; i < crops.Count; i++)
-        {
-
-            if (crops[i] != null)
-            {
-                crop_placeholders[i].sprite = crops[i].sprite;
-            }
-            else
-            {
-                crop_placeholders[i].sprite = blank;
-            }
-        }
-    }
-    
-    #endregion
-
+  
     #region Family
 
     public void School(int grade)
@@ -401,11 +161,19 @@ public class Decision_Handler : MonoBehaviour
         
         if (grade ==1)
         {
-            if (money > school_fees * 1.5)
+            if (money > school_fees * 1.5 )
             {
-                unikidsavailable--;
-                uni_kids++;
-                labor -= 50;
+                if (labor>=50)
+                {
+                    unikidsavailable--;
+                    uni_kids++;
+                    labor -= 50;
+                }
+                else
+                {
+                    Nolabour.SetActive(true);
+                }
+                
             }
             else
             {
@@ -528,8 +296,8 @@ public class Decision_Handler : MonoBehaviour
 
         household.text = "2 Adults + " +kids.Count.ToString()+ " Children";
       
-        livestock_income.text = LivestockIncome().ToString();
-        livestock_expense.text = LivestockExpense().ToString();
+        livestock_income.text = Livestock_Handler.LivestockIncome().ToString();
+        livestock_expense.text = Livestock_Handler.LivestockExpense().ToString();
         labor_income.text = laborincome.ToString();
         labor_expense.text = laborexpense.ToString();
         child_pension.text = FamilyRevenue().ToString();
@@ -537,7 +305,7 @@ public class Decision_Handler : MonoBehaviour
         living_expense.text = FamilyExpense().ToString();
         health_bills.text = healthbills.ToString();
         
-        foreach (Crops c in uicrops)
+        foreach (Crops c in Crop_Handler.uicrops)
         {
 
             c.totalincome = (c.num * (c.base_yield *(fertility/100d))* c.unitprice);
@@ -552,8 +320,8 @@ public class Decision_Handler : MonoBehaviour
            CropIncomeList.Populate();
            CropExpenseList.Populate();
         
-        totalexpense += LivestockExpense() + FamilyExpense() + healthbills+laborexpense;
-        totalincome  += LivestockIncome() + FamilyRevenue() + laborincome;
+        totalexpense += Livestock_Handler.LivestockExpense() + FamilyExpense() + healthbills+laborexpense;
+        totalincome  += Livestock_Handler.LivestockIncome() + FamilyRevenue() + laborincome;
         
         t_expenses.text = totalexpense.ToString();
         t_income.text   = totalincome.ToString();
@@ -598,15 +366,21 @@ public class Decision_Handler : MonoBehaviour
         {
             fertility += 15;
         }
+        if (fertility<0)
+        {
+            fertility = 0;
+        }
+         Fertility.text = fertility.ToString();
         #endregion
-        Fertility.text = fertility.ToString();
+       
         panel.SetActive(true);
         
        
         if (years<=12)
         {
+            print(years);
             years++;
-            Year.text = years.ToString();
+            Year.text = years.ToString()+"/12";
         }
         else
         {
@@ -615,7 +389,7 @@ public class Decision_Handler : MonoBehaviour
     }
     public void NewYear()
     {
-        labor = 250;
+        labor = 150;
         unikidsavailable = 0;
         seckidsavailable = 0;
 
@@ -675,7 +449,7 @@ public class Decision_Handler : MonoBehaviour
             }
         }
        
-        foreach (Crops c in uicrops)
+        foreach (Crops c in  Crop_Handler.uicrops)
         {
             c.loss = 0;
             c.totalexpense = 0;
@@ -684,9 +458,9 @@ public class Decision_Handler : MonoBehaviour
         }
          
         healthbills = 0;
-        newchicken = 0;
-        newgoat = 0;
-        newcow = 0;
+        Livestock_Handler.newchicken = 0;
+        Livestock_Handler.newgoat = 0;
+        Livestock_Handler.newcow = 0;
         labourers = 0;
         if (isterracebuilt.isOn && terrace_stage==0)
         {
@@ -761,7 +535,7 @@ public class Decision_Handler : MonoBehaviour
        
     }
     #endregion
-    //to do upgrades and manure
+    //to do end
 
    
 }

@@ -18,7 +18,7 @@ public class Toggle_Handler : MonoBehaviour
     }
     void Update()
     {
-        //toggle.interactable = !(money > _Handler.money);
+        
     }
     public void TogglesValueChanged(int amount, int labor, Toggle toggle)
     {

@@ -8,7 +8,7 @@ public class AutoList : MonoBehaviour
     public GameObject prefabItem;
     public RectTransform listRoot;
     public string type;
-    public Decision_Handler Decision_Handler;
+    public Crop_Handler Handler;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class AutoList : MonoBehaviour
     }
 
     public  void Populate()
-    {  Crops = Decision_Handler.uicrops;
+    {  Crops = Handler.uicrops;
         //m_RefreshCallback = null;
         foreach (Transform t in listRoot)
         {
@@ -35,7 +35,7 @@ public class AutoList : MonoBehaviour
             itm.sellprice.text = Crops[i].unitprice.ToString();
             itm.area.text = Crops[i].area.ToString();
             // fertility=pesticide
-            itm.fertility.text = Decision_Handler.fertility.ToString();
+            itm.fertility.text = Handler.Handler.fertility.ToString();
             itm.total.text = Crops[i].totalincome.ToString();
             if (type=="expense")
             {
