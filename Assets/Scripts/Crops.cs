@@ -10,6 +10,7 @@ public class Crops : MonoBehaviour
     public string common_pests = "pest";
     public double base_yield = 100;
     public double seed_cost = 20;
+    public Text seed_cost_text;
     public Sprite sprite;
     public int required_labor;
     public Text income_dets;
@@ -38,6 +39,10 @@ public class Crops : MonoBehaviour
         if (displaynumber!=null)
         {
             displaynumber.text = num.ToString();
+        }
+        if (seed_cost_text!=null)
+        {
+            seed_cost_text.text = seed_cost.ToString();
         }
         
     }

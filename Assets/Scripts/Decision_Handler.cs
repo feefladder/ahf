@@ -16,8 +16,7 @@ public class Decision_Handler : MonoBehaviour
     public double money = 100000d;
     public double fertility=60d;
     public int salinity;
-    public int labor=250;
-    
+    public int labor=250; 
     public Toggle isterracebuilt; 
     public bool isterracemaintained;
     public Toggle isgrassstripplaced;
@@ -31,10 +30,8 @@ public class Decision_Handler : MonoBehaviour
     public int off_farm_job = 2000;
     public int labourers;
     public Toggle isofffarmjob;
-   
     public double startamount;
     #endregion
-
     [Header("Family parameters")]
     #region
     public Children eldest = new Children(18,1,true,true,false);
@@ -64,14 +61,10 @@ public class Decision_Handler : MonoBehaviour
     [Header("UI")]
     #region
     public GameObject grass_strips, terraces;
-    public GameObject Nomoney,Nolabour;
+    public GameObject Nomoney,Nolabour, Endpanel;
     public Text Money, Fertility, Salinity, Labor, Year,  num_of_labourers;
-    //public Image[] crop_placeholders;
-    //public Sprite blank;
-    //public List<Crops> uicrops;
-    //public Text[] cropprices;
+    
     public Button sectog, unitog;
-
     #endregion
     #endregion
 
@@ -114,7 +107,6 @@ public class Decision_Handler : MonoBehaviour
      
     }
 
-
     void Update()
     {
         Money.text = money.ToString();
@@ -123,13 +115,9 @@ public class Decision_Handler : MonoBehaviour
         grass_strips.SetActive(isgrassstripplaced.isOn);
         num_of_labourers.text = labourers.ToString();
         applymanure.interactable= Livestock_Handler.number_of_chickens==15
-                                 || Livestock_Handler.number_of_cows == 1 
-                                 || Livestock_Handler.number_of_goats == 5 ;
-        //for (int i = 0; i < cropprices.Length; i++)
-        //{
-        //    cropprices[i].text= uicrops[i].seed_cost.ToString();
-            
-        //}
+                                 || Livestock_Handler.number_of_cows >= 1 
+                                 || Livestock_Handler.number_of_goats >= 8 ;
+        
 
         sectog.interactable = !(sec_kids >= seckidsavailable);
         unitog.interactable = !(uni_kids >= unikidsavailable);
@@ -140,9 +128,7 @@ public class Decision_Handler : MonoBehaviour
         uniavai.text = unikidsavailable.ToString();
     }
 
-  
     #region Family
-
     public void School(int grade)
     {
         if (grade ==0 )
@@ -182,7 +168,6 @@ public class Decision_Handler : MonoBehaviour
         }
         
     }
-    
     public  void RevomeSchool(int grade)
     {
         if (grade == 0)
@@ -240,8 +225,6 @@ public class Decision_Handler : MonoBehaviour
         }
         return revenue;
     }
-
-
     #endregion
 
     #region Labour
@@ -259,7 +242,6 @@ public class Decision_Handler : MonoBehaviour
     }
     #endregion
 
-
     #region Annual Review
     #region variables
     [Header (" Annual Review UI")]
@@ -271,7 +253,7 @@ public class Decision_Handler : MonoBehaviour
     health_bills,child_pension,event_text;
     public Image net;
     public Image farmzy;
-    public int healthbills;
+    public int healthbills, end_in_debt;
 
     int terrace_stage;
     public GameObject terrace_maintenace_request,newbaby;
@@ -382,109 +364,133 @@ public class Decision_Handler : MonoBehaviour
             years++;
             Year.text = years.ToString()+"/12";
         }
-        else
-        {
-            End();
-        }
+      
     }
     public void NewYear()
     {
-        labor = 150;
-        unikidsavailable = 0;
-        seckidsavailable = 0;
-
-        foreach (Children child in kids)
+        if (end_in_debt==2)
         {
-            if (!child.uni_complete )
+            Endpanel.GetComponent<End>().GameOver("lose");
+            return;
+        }
+        if (years <= 12)
+        {
+            years++;
+            Year.text = years.ToString() + "/12";
+            labor = 150;
+            unikidsavailable = 0;
+            seckidsavailable = 0;
+
+            foreach (Children child in kids)
             {
-                if (child.sec_complete && child.primarycomplete)
+                if (!child.uni_complete)
                 {
-                    unikidsavailable++;
-                    if (uni_kids >= 1)
+                    if (child.sec_complete && child.primarycomplete)
                     {
-                        child.stage_in_school++;
-                        uni_kids--;
+                        unikidsavailable++;
+                        if (uni_kids >= 1)
+                        {
+                            child.stage_in_school++;
+                            uni_kids--;
 
-                    }
-                    if (child.stage_in_school == 4)
-                    {
-                        child.uni_complete = true;
-                        //unikidsavailable--;
+                        }
+                        if (child.stage_in_school == 4)
+                        {
+                            child.uni_complete = true;
+                            //unikidsavailable--;
+                        }
                     }
                 }
-            }
-            if (!child.sec_complete)
-            {
-                
-                if (child.primarycomplete)
-                {   seckidsavailable++;
-                    if (sec_kids >= 1)
+                if (!child.sec_complete)
+                {
+
+                    if (child.primarycomplete)
                     {
-                        child.stage_in_school++;
-                        sec_kids--;
-                    }
-                    if (child.stage_in_school == 6)
-                    {
-                        child.sec_complete = true;
-                        child.stage_in_school = 0;
-                        seckidsavailable--;
+                        seckidsavailable++;
+                        if (sec_kids >= 1)
+                        {
+                            child.stage_in_school++;
+                            sec_kids--;
+                        }
+                        if (child.stage_in_school == 6)
+                        {
+                            child.sec_complete = true;
+                            child.stage_in_school = 0;
+                            seckidsavailable--;
+                        }
                     }
                 }
+                child.age++;
+                if (child.age >= 18)
+                {
+                    labor += 50;
+                }
+
             }
-            child.age++;
-            if (child.age>= 18)
+            if (!birth_control.isOn)
             {
-                labor += 50;
+                int chance = Random.Range(0, 11);
+                if (chance >= 5)
+                {
+                    Children baby = new Children(1, 0, false, false, false);
+                    kids.Add(baby);
+                    newbaby.SetActive(true);
+                }
+            }
+
+            Crop_Handler.NewYear();
+
+            healthbills = 0;
+            Livestock_Handler.newchicken = 0;
+            Livestock_Handler.newgoat = 0;
+            Livestock_Handler.newcow = 0;
+            labourers = 0;
+            if (isterracebuilt.isOn && terrace_stage == 0)
+            {
+                terrace_stage = 1;
+                terrace_maintenace_request.SetActive(true);
+            }
+            if (terrace_stage == 1 && isterracemaintained)
+            {
+                terrace_stage = 2;
+                isterracebuilt.isOn = true;
+                isterracebuilt.interactable = false;
+            }
+            if (buy_car.isOn)
+            {
+                buy_car.interactable = false;
+            }
+            if (buy_house.isOn)
+            {
+                buy_house.interactable = false;
+            }
+            var toggles = FindObjectsOfType<Toggle>();
+            foreach (var toggle in toggles)
+            {
+                toggle.isOn = false;
             }
 
         }
-        if (!birth_control.isOn)
+        else
         {
-            int chance = Random.Range(0, 11);
-            if (chance>=5)
+            var toggles = FindObjectsOfType<Toggle>();
+            foreach (var toggle in toggles)
             {
-                Children baby = new Children(1, 0, false, false, false);
-                kids.Add(baby);
-                newbaby.SetActive(true);
+                toggle.isOn = false;
             }
-        }
-       
-        foreach (Crops c in  Crop_Handler.uicrops)
-        {
-            c.loss = 0;
-            c.totalexpense = 0;
-            c.totalincome = 0;
-            c.num = 0;
-        }
-         
-        healthbills = 0;
-        Livestock_Handler.newchicken = 0;
-        Livestock_Handler.newgoat = 0;
-        Livestock_Handler.newcow = 0;
-        labourers = 0;
-        if (isterracebuilt.isOn && terrace_stage==0)
-        {
-            terrace_stage = 1;
-            terrace_maintenace_request.SetActive(true);
-        }
-        if (terrace_stage==1 && isterracemaintained )
-        {
-            terrace_stage = 2;
-            isterracebuilt.isOn = true;
-            isterracebuilt.interactable = false;
-        }
-        if (buy_car.isOn)
-        {
-            buy_car.interactable = false;
-        }
-        if (buy_house.isOn)
-        {
-            buy_house.interactable = false;
-        }
-        var toggles = FindObjectsOfType<Toggle>();
-        foreach (var toggle in toggles)
-        {
-            toggle.isOn = false;
+            panel.SetActive(false);
+            Endpanel.SetActive(true);
+            string endresult="bad";
+            if (fertility>=80 && money>=50000)
+            {
+                endresult = "good";
+                if (kids[0].uni_complete && kids[1].sec_complete)
+                {
+                    endresult = "very good";
+                }
+            }
+            End end = Endpanel.GetComponent<End>();
+            end.GameOver(endresult);
         }
     }
     public void Event()
@@ -524,10 +530,7 @@ public class Decision_Handler : MonoBehaviour
         }
         events.Operation(s_Instance);
     }
-    public void End()
-    {
-
-    }
+   
     public void TerraceMaintenace()
     {
         isterracebuilt.isOn = true;

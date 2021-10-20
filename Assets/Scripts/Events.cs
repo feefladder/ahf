@@ -32,9 +32,9 @@ public class Events
             }
             else
             {
-                for (int i = 0; i < Handler.uicrops.Count; i++)
+                for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
                 {
-                    Handler.uicrops[i].loss = 25;
+                    Handler.Crop_Handler.uicrops[i].loss = 25;
                 }
             }
         }
@@ -55,9 +55,9 @@ public class Events
             }
             else
             {
-                for (int i = 0; i < Handler.uicrops.Count; i++)
+                for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
                 {
-                    Handler.uicrops[i].loss = 30;
+                    Handler.Crop_Handler.uicrops[i].loss = 30;
                 }
             }
         }
@@ -78,16 +78,16 @@ public class Events
             }
             else if (Handler.isterracebuilt.isOn)
             {
-                for (int i = 0; i < Handler.uicrops.Count; i++)
+                for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
                 {
-                    Handler.uicrops[i].loss = 10;
+                    Handler.Crop_Handler.uicrops[i].loss = 10;
                 }
             }
             else
             {
-                for (int i = 0; i < Handler.uicrops.Count; i++)
+                for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
                 {
-                    Handler.uicrops[i].loss = 20;
+                    Handler.Crop_Handler.uicrops[i].loss = 20;
                 }
             }
         }
@@ -103,15 +103,15 @@ public class Events
         {
         Handler.event_text.text = info;
 
-        for (int i = 0; i < Handler.uicrops.Count; i++)
+        for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
             {
-                if (Handler.uicrops[i].pesticide.isOn)
+                if (Handler.Crop_Handler.uicrops[i].pesticide.isOn)
                 {
 
                 }
                 else
                 {
-                    Handler.uicrops[i].loss = 30;
+                    Handler.Crop_Handler.uicrops[i].loss = 30;
                 }
             }
         }
@@ -139,9 +139,9 @@ public class Events
         public override void Operation(Decision_Handler Handler)
         {
         Handler.event_text.text = info;
-        for (int i = 0; i < Handler.uicrops.Count; i++)
+        for (int i = 0; i < Handler.Crop_Handler.uicrops.Count; i++)
             {
-                Handler.uicrops[i].loss = 10;
+                Handler.Crop_Handler.uicrops[i].loss = 10;
 
             }
         }

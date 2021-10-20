@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Crop_Handler : MonoBehaviour
 {
-    public double money,labor;
+    
     public Decision_Handler Handler;
     public Image[] crop_placeholders;
     public Sprite blank;
     public List<Crops> uicrops;
-    public Text[] cropprices;
+    
     public List<Crops> crops = new List<Crops>(10);
     void Start()
     {
@@ -20,25 +20,16 @@ public class Crop_Handler : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        money = Handler.money;
-        labor = Handler.labor;
-        for (int i = 0; i < cropprices.Length; i++)
-        {
-            cropprices[i].text = uicrops[i].seed_cost.ToString();
-
-        }
-    }
+    
 
     public void PurchaseCrops(Crops type)
     {
         if (crops.Count <= 9)
         {
 
-            if (money >= type.seed_cost)
+            if (Handler.money >= type.seed_cost)
             {
-                money -= type.seed_cost;
+                Handler.money -= type.seed_cost;
 
 
             }
@@ -47,9 +38,9 @@ public class Crop_Handler : MonoBehaviour
                 Handler.Nomoney.SetActive(true);
                 return;
             }
-            if (labor >= type.required_labor)
+            if (Handler.labor >= type.required_labor)
             {
-                labor -= type.required_labor;
+                Handler.labor -= type.required_labor;
             }
             else
             {
@@ -92,9 +83,9 @@ public class Crop_Handler : MonoBehaviour
         {
             return;
         }
-        money += type.seed_cost;
+        Handler.money += type.seed_cost;
         //total_expenses -= type.seed_cost;
-        labor += type.required_labor;
+        Handler.labor += type.required_labor;
 
         //crop_placeholders[crops.LastIndexOf(type)].sprite=blank;
         crops.Remove(type);
@@ -128,6 +119,17 @@ public class Crop_Handler : MonoBehaviour
             {
                 crop_placeholders[i].sprite = blank;
             }
+        }
+    }
+
+    public void NewYear()
+    {
+        foreach (Crops c in uicrops)
+        {
+            c.loss = 0;
+            c.totalexpense = 0;
+            c.totalincome = 0;
+            c.num = 0;
         }
     }
 }

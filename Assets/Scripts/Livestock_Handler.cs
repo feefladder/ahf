@@ -151,4 +151,11 @@ public class Livestock_Handler : MonoBehaviour
         income += (chicken.product_revenue * number_of_chickens) + (goat.product_revenue * number_of_goats) + (cow.product_revenue * number_of_cows);
         return income;
     }
+
+    public void NewGame()
+    {
+        number_of_chickens = 0;
+        number_of_cows = 0;
+        number_of_goats = 0;
+}
 }
