@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Events
+public class Events 
 {
     
-    public Sprite[] banners;
+    
     public string info;
+    public Sprite eventSprite;
  
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,8 @@ public class Events
     public virtual void Operation(Decision_Handler Handler)
     {
         Handler.event_text.text = info;
+        if(eventSprite!=null){
+        Handler.eventImage.sprite= eventSprite;}
     }
 }
     public class Drought : Events
@@ -45,6 +48,7 @@ public class Events
         public Disease()
         {
             info = "There was an outbreak of a crop disease affecting all your crops. You lost 30% of your crop production.";
+            
         }
         public override void Operation(Decision_Handler Handler)
         {
@@ -122,10 +126,12 @@ public class Events
         public LivingCosts()
         {
             info = "Market prices for general living goods were increased due to inflation. Thus, your living expenses were increased by 20%.";
+            
         }
         public override void Operation(Decision_Handler Handler)
         {
         Handler.event_text.text = info;
+    
         Handler.basic_expenses += Handler.basic_expenses * (20 / 100);
 
         }

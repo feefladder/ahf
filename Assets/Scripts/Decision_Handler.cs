@@ -252,12 +252,13 @@ public class Decision_Handler : MonoBehaviour
     livestock_expense, livestock_income,labor_income,labor_expense,living_expense,
     health_bills,child_pension,event_text;
     public Image net;
-    public Image farmzy;
+    public Image farmzy, eventImage;
     public int healthbills, end_in_debt;
 
     int terrace_stage;
     public GameObject terrace_maintenace_request,newbaby;
     int living_increase;
+    public Sprite[] eventSprites;
     #endregion
     public void Play()
     {
@@ -498,7 +499,10 @@ public class Decision_Handler : MonoBehaviour
       
         Events events = new Events();
         int evento = Random.Range(0, 6);
-
+        if(eventSprites[evento]!=null)
+        {
+            eventImage.sprite=eventSprites[evento];
+        }
         if (evento == 0)
         {
             events = new Disease();
@@ -523,6 +527,8 @@ public class Decision_Handler : MonoBehaviour
         if (evento == 5)
         {
             events = new LivingCosts();
+            eventImage.sprite=eventSprites[0];
+            
         }
         if (evento == 0)
         {
@@ -538,6 +544,20 @@ public class Decision_Handler : MonoBehaviour
        
     }
     #endregion
+
+     public void Rerun( )
+    {
+        money = 100000;
+
+        labor = 250;
+        Crop_Handler.NewYear();
+        Livestock_Handler.NewGame();
+        fertility = 60;
+        kids.Clear();
+        kids.Add(eldest);
+        kids.Add(second);
+        years = 1;
+    }
     //to do end
 
    

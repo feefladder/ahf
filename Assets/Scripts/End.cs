@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 public class End : MonoBehaviour
 {
     public GameObject gamepanel, angry_farmzy, normal_farmzy,
         happy_farmzy, sad_farmzy;
     public Text info;
+    public UnityEvent quit;
     void Start()
     {
         
@@ -39,20 +42,15 @@ public class End : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        Rerun();
+        AudioListener.volume=0f;
+        quit.Invoke();
+        
     }
 
-    public void Rerun( Decision_Handler handler)
+    public void Rerun( )
     {
-        handler.money = 100000;
-        handler.labor = 250;
-        handler.Crop_Handler.NewYear();
-        handler.Livestock_Handler.NewGame();
-        handler.fertility = 60;
-        handler.kids.Clear();
-        handler.kids.Add(handler.eldest);
-        handler.kids.Add(handler.second);
-        handler.years = 1;
+       
         angry_farmzy.SetActive(false);
         normal_farmzy.SetActive(false);
         happy_farmzy.SetActive(false);

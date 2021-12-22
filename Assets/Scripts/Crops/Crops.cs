@@ -7,7 +7,11 @@ public class Crops : MonoBehaviour
 {   
     public double unitprice = 100;
     public string crop_name = "defcrop";
+    [Multiline]
     public string common_pests = "pest";
+    [Multiline]
+    public string diseases="diseases";
+    public string best_time_to_plant = " best time to plant";
     public double base_yield = 100;
     public double seed_cost = 20;
     public Text seed_cost_text;
@@ -25,6 +29,8 @@ public class Crops : MonoBehaviour
     public Text pesticide_cost_label;
     public double loss;
     public double profit;
+   
+     
 
     public void Start()
     {
@@ -56,4 +62,5 @@ public class Crops : MonoBehaviour
         }
     }
 
+  
 }

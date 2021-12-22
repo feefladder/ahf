@@ -30,15 +30,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Color.r
-    value: 0.19607843
+    value: 0.01886791
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Color.g
-    value: 0.19607843
+    value: 0.0006051959
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Color.b
-    value: 0.19607843
+    value: 0.0006051959
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Color.a
