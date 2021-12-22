@@ -12,6 +12,8 @@ public class Crop_Handler : MonoBehaviour
     public List<Crops> uicrops;
     
     public List<Crops> crops = new List<Crops>(10);
+     public GameObject infopanel;
+    public Text[] infotext;
     void Start()
     {
         foreach (Crops c in uicrops)
@@ -20,7 +22,16 @@ public class Crop_Handler : MonoBehaviour
         }
     }
 
-    
+     public void DisplayInfo( Crops c)
+    {
+        infotext[0].text=c.name;
+        infotext[1].text=c.common_pests;
+        infotext[2].text=c.diseases;
+        infotext[3].text=c.best_time_to_plant;
+        infopanel.SetActive(true);        
+
+    }
+
 
     public void PurchaseCrops(Crops type)
     {
@@ -130,6 +141,11 @@ public class Crop_Handler : MonoBehaviour
             c.totalexpense = 0;
             c.totalincome = 0;
             c.num = 0;
+        }
+        for (int i = 0; i < crops.Capacity; i++)
+        {
+            crop_placeholders[i].sprite = blank;
+
         }
     }
 }
