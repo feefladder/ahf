@@ -167,7 +167,7 @@ public class Decision_Handler : MonoBehaviour
         }
         
     }
-    public  void RemoveeSchool(int grade)
+    public  void RemoveSchool(int grade)
     {
         if (grade == 0)
         {
