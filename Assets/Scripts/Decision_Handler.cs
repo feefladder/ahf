@@ -61,7 +61,7 @@ public class Decision_Handler : MonoBehaviour
     [Header("UI")]
     #region
     public GameObject grass_strips, terraces;
-    public GameObject Nomoney,Nolabour, Endpanel;
+    public GameObject Nomoney, Nolabour, Endpanel;
     public Text Money, Fertility, Salinity, Labor, Year,  num_of_labourers;
     
     public Button sectog, unitog;
@@ -137,7 +137,6 @@ public class Decision_Handler : MonoBehaviour
             {
                 seckidsavailable--;
                 sec_kids++;
-                
             }
             else
             {
@@ -168,7 +167,7 @@ public class Decision_Handler : MonoBehaviour
         }
         
     }
-    public  void RevomeSchool(int grade)
+    public  void RemoveeSchool(int grade)
     {
         if (grade == 0)
         {

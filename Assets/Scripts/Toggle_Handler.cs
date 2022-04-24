@@ -39,7 +39,6 @@ public class Toggle_Handler : MonoBehaviour
             else
             {
                 _Handler.Nolabour.SetActive(true);
-
             }
         }
         else
