@@ -24,21 +24,17 @@ public class Toggle_Handler : MonoBehaviour
     {
         if (toggle.isOn)
         {
-            if (amount < _Handler.money)
+            if (amount <= _Handler.money && labor <= _Handler.labor)
             {
                 _Handler.money -= amount;
-            }
-            else
-            {
-                _Handler.Nomoney.SetActive(true);
-            }
-            if (labor < _Handler.labor)
-            {
                 _Handler.labor -= labor;
             }
             else
             {
-                _Handler.Nolabour.SetActive(true);
+                if (amount > _Handler.money)
+                    _Handler.Nomoney.SetActive(true);
+                if (labor > _Handler.labor)
+                    _Handler.Nolabour.SetActive(true);
             }
         }
         else

@@ -146,23 +146,18 @@ public class Decision_Handler : MonoBehaviour
         
         if (grade ==1)
         {
-            if (money > school_fees * 1.5 )
+            if (money >= school_fees * 1.5 && labor >= 50)
             {
-                if (labor>=50)
-                {
-                    unikidsavailable--;
-                    uni_kids++;
-                    labor -= 50;
-                }
-                else
-                {
-                    Nolabour.SetActive(true);
-                }
-                
+                unikidsavailable--;
+                uni_kids++;
+                labor -= 50;
             }
             else
             {
-                Nomoney.SetActive(true);
+                if (money < school_fees *1.5)
+                    Nomoney.SetActive(true);
+                if (labor < 50)
+                    Nolabour.SetActive(true);
             }
         }
         
@@ -547,7 +542,6 @@ public class Decision_Handler : MonoBehaviour
      public void Rerun( )
     {
         money = 100000;
-
         labor = 250;
         Crop_Handler.NewYear();
         Livestock_Handler.NewGame();
