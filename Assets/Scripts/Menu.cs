@@ -34,14 +34,13 @@ public class Menu : MonoBehaviour
         story_counter += 1;
         if (story_counter > 4)
         {
+            // disable the story and contiue to the game
             Gamepanel.SetActive(true);
             Storypanel.SetActive(false);
-
+            return;
         }
         storytextbox.GetComponent<Text>().text = story_text[story_counter];
         story_images[story_counter].SetActive(true);
-        
-
     }
 
     public void ResetStory()

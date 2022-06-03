@@ -61,7 +61,7 @@ public class Decision_Handler : MonoBehaviour
     [Header("UI")]
     #region
     public GameObject grass_strips, terraces;
-    public GameObject Nomoney,Nolabour, Endpanel;
+    public GameObject Nomoney, Nolabour, Endpanel;
     public Text Money, Fertility, Salinity, Labor, Year,  num_of_labourers;
     
     public Button sectog, unitog;
@@ -137,7 +137,6 @@ public class Decision_Handler : MonoBehaviour
             {
                 seckidsavailable--;
                 sec_kids++;
-                
             }
             else
             {
@@ -147,28 +146,23 @@ public class Decision_Handler : MonoBehaviour
         
         if (grade ==1)
         {
-            if (money > school_fees * 1.5 )
+            if (money >= school_fees * 1.5 && labor >= 50)
             {
-                if (labor>=50)
-                {
-                    unikidsavailable--;
-                    uni_kids++;
-                    labor -= 50;
-                }
-                else
-                {
-                    Nolabour.SetActive(true);
-                }
-                
+                unikidsavailable--;
+                uni_kids++;
+                labor -= 50;
             }
             else
             {
-                Nomoney.SetActive(true);
+                if (money < school_fees *1.5)
+                    Nomoney.SetActive(true);
+                if (labor < 50)
+                    Nolabour.SetActive(true);
             }
         }
         
     }
-    public  void RevomeSchool(int grade)
+    public  void RemoveSchool(int grade)
     {
         if (grade == 0)
         {
@@ -548,7 +542,6 @@ public class Decision_Handler : MonoBehaviour
      public void Rerun( )
     {
         money = 100000;
-
         labor = 250;
         Crop_Handler.NewYear();
         Livestock_Handler.NewGame();

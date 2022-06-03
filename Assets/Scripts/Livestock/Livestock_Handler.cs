@@ -49,34 +49,24 @@ public class Livestock_Handler : MonoBehaviour
             }
         }
 
-        if (handler.money >= type.cost)
+        if (handler.money >= type.cost && handler.labor >= type.required_labor)
         {
             handler.money -= type.cost;
-
-
-        }
-        else
-        {
-            handler.Nomoney.SetActive(true);
-            return;
-        }
-        if (handler.labor >= type.required_labor)
-        {
             handler.labor -= type.required_labor;
-
         }
         else
         {
-            handler.Nolabour.SetActive(true);
+            if (handler.money < type.cost)
+                handler.Nomoney.SetActive(true);
+            if (handler.labor < type.required_labor)
+                handler.Nolabour.SetActive(true);
             return;
         }
-
         if (type.type == "Cow")
         {
             number_of_cows += 1;
             cowcount.text = number_of_cows.ToString();
             newcow += 1;
-
         }
 
         if (type.type == "Goat")
@@ -84,21 +74,19 @@ public class Livestock_Handler : MonoBehaviour
             number_of_goats += 1;
             goatcount.text = number_of_goats.ToString();
             newgoat += 1;
-
         }
+
         if (type.type == "Chicken")
         {
             number_of_chickens += 1;
             newchicken += 1;
             chickencount.text = number_of_chickens.ToString();
-
-
         }
     }
 
     public void Remove_livestock(Livestock type)
     {
-        if (type.type == "Cow" & number_of_cows >= 1)
+        if (type.type == "Cow" && number_of_cows >= 1)
         {
             number_of_cows -= 1;
             if (newcow == 0)
@@ -111,7 +99,7 @@ public class Livestock_Handler : MonoBehaviour
             cowcount.text = number_of_cows.ToString();
         }
 
-        if (type.type == "Goat" & number_of_goats >= 1)
+        if (type.type == "Goat" && number_of_goats >= 1)
         {
             number_of_goats -= 1;
             if (newgoat == 0)
@@ -123,7 +111,7 @@ public class Livestock_Handler : MonoBehaviour
             // total_expenses -= type.cost;
             goatcount.text = number_of_goats.ToString();
         }
-        if (type.type == "Chicken" & number_of_chickens >= 1)
+        if (type.type == "Chicken" && number_of_chickens >= 1)
         {
             number_of_chickens -= 1;
             if (newchicken == 0)
