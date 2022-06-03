@@ -12,7 +12,7 @@ public class Crop_Handler : MonoBehaviour
     public List<Crops> uicrops;
     
     public List<Crops> crops = new List<Crops>(10);
-     public GameObject infopanel;
+    public GameObject infopanel;
     public Text[] infotext;
     void Start()
     {
@@ -38,24 +38,18 @@ public class Crop_Handler : MonoBehaviour
         if (crops.Count <= 9)
         {
 
-            if (Handler.money >= type.seed_cost)
+            if (Handler.money >= type.seed_cost && Handler.labor >= type.required_labor)
             {
                 Handler.money -= type.seed_cost;
-
-
-            }
-            else
-            {
-                Handler.Nomoney.SetActive(true);
-                return;
-            }
-            if (Handler.labor >= type.required_labor)
-            {
                 Handler.labor -= type.required_labor;
             }
             else
             {
-                Handler.Nolabour.SetActive(true);
+                // we do not have enough money or labour -> cannot seed crops
+                if (Handler.money < type.seed_cost)
+                    Handler.Nomoney.SetActive(true);
+                if (Handler.labor < type.required_labor)
+                    Handler.Nolabour.SetActive(true);
                 return;
             }
             crops.Add(type);
