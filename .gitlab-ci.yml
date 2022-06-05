@@ -233,6 +233,10 @@ pages:
   stage: deploy
   script:
     - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
+    - cd build/
+    - apk add python3
+    - pip3 install awscli
+    - aws s3 sync ./public s3://fmp-react-staging-app/ahf
   artifacts:
     paths:
       - public
