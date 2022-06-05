@@ -236,7 +236,7 @@ pages:
     - cd public/
     - apk add python3
     - pip3 install awscli
-    - aws s3 sync ./public $URI_BUCKET
+    - aws s3 sync . $URI_BUCKET
   artifacts:
     paths:
       - public
