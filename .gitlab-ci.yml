@@ -253,6 +253,7 @@ s3:
       - public
   only:
     - production
+    - main
 
 workflow:
   rules:
