@@ -233,10 +233,10 @@ pages:
   stage: deploy
   script:
     - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
-    - cd public/
+    - cp -r public/ ahf
     - apk add python3
     - pip3 install awscli
-    - aws s3 sync . $URI_BUCKET
+    - aws s3 cp ahf/ $URI_BUCKET --recursive
   artifacts:
     paths:
       - public
