@@ -236,7 +236,7 @@ pages:
     - cd build/
     - apk add python3
     - pip3 install awscli
-    - aws s3 sync ./public s3://fmp-react-staging-app/ahf
+    - aws s3 sync ./public $URI_BUCKET
   artifacts:
     paths:
       - public
