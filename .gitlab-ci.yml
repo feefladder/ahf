@@ -229,7 +229,7 @@ build-android:
 #  needs: ["build-ios-xcode"]
 
 pages:
-  image: alpine:latest
+  image: docker:19.03.5
   stage: deploy
   script:
     - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
