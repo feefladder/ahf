@@ -86,7 +86,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -108,7 +108,8 @@ Project Link: [https://gitlab.com/farmz2u/african-highland-farmer](gitlab.com/fa
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [Choose an Open Source License](https://choosealicense.com)
 * [Wageningen university](https://www.wur.nl/)
+* [Choose an Open Source License](https://choosealicense.com)
+* [othneildrew's readme template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
