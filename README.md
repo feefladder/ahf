@@ -29,7 +29,7 @@
 African highland farmer is an open source simulation game. The aim is to mix farmer's education with fun. the game is built [unity](https://unity.com)
 
 The game deploys by CI/CD on:
-* Production: [play.farmz2u.com/ahf](play.farmz2u.com/ahf) - production branch
+* Production: [play.farmz2u.com/ahf](https://play.farmz2u.com/ahf) - production branch
 * Staging: [farmz2u.gitlab.io/african-highland-farmer](https://farmz2u.gitlab.io/african-highland-farmer/) - main branch
 
 
