@@ -110,6 +110,6 @@ Use this space to list resources you find helpful and would like to give credit 
 
 * [Wageningen university](https://www.wur.nl/)
 * [Choose an Open Source License](https://choosealicense.com)
-* [othneildrew's readme template](https://github.com/othneildrew/Best-README-Template)
+* [Othneildrew's readme template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
