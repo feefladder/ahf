@@ -95,7 +95,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@farmz2u](https://twitter.com/farmz2u) - email@example.com
+Your Name - [@farmz2u](https://twitter.com/farmz2u) - opensource@farmz2u.com
 
 Project Link: [https://gitlab.com/farmz2u/african-highland-farmer](gitlab.com/farmz2u/african-highland-farmer)
 
