@@ -38,47 +38,35 @@ public class Crop_Handler : MonoBehaviour
         if (crops.Count <= 9)
         {
 
-            if (Handler.money >= type.seed_cost && Handler.labor >= type.required_labor)
+            if (!Handler.DecreaseAssets(type.seed_cost, type.required_labor))
             {
-                Handler.money -= type.seed_cost;
-                Handler.labor -= type.required_labor;
-            }
-            else
-            {
-                // we do not have enough money or labour -> cannot seed crops
-                if (Handler.money < type.seed_cost)
-                    Handler.Nomoney.SetActive(true);
-                if (Handler.labor < type.required_labor)
-                    Handler.Nolabour.SetActive(true);
-                return;
-            }
-            crops.Add(type);
-            foreach (Crops c in uicrops)
-            {
-                c.num = 0;
-                for (int i = 0; i < crops.Count; i++)
+                crops.Add(type);
+                foreach (Crops c in uicrops)
                 {
-                    if (crops[i] == c)
+                    c.num = 0;
+                    for (int i = 0; i < crops.Count; i++)
                     {
-                        c.num++;
+                        if (crops[i] == c)
+                        {
+                            c.num++;
+                        }
+
                     }
 
                 }
-
-            }
-            for (int i = 0; i < crops.Count; i++)
-            {
-
-                if (crops[i] != null)
+                for (int i = 0; i < crops.Count; i++)
                 {
-                    crop_placeholders[i].sprite = crops[i].sprite;
-                }
-                else
-                {
-                    crop_placeholders[i].sprite = blank;
+
+                    if (crops[i] != null)
+                    {
+                        crop_placeholders[i].sprite = crops[i].sprite;
+                    }
+                    else
+                    {
+                        crop_placeholders[i].sprite = blank;
+                    }
                 }
             }
-
         }
     }
 
@@ -88,11 +76,8 @@ public class Crop_Handler : MonoBehaviour
         {
             return;
         }
-        Handler.money += type.seed_cost;
-        //total_expenses -= type.seed_cost;
-        Handler.labor += type.required_labor;
+        Handler.IncreaseAssets(type.seed_cost, type.required_labor);
 
-        //crop_placeholders[crops.LastIndexOf(type)].sprite=blank;
         crops.Remove(type);
         foreach (Crops c in uicrops)
         {

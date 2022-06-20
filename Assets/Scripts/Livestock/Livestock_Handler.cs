@@ -49,38 +49,29 @@ public class Livestock_Handler : MonoBehaviour
             }
         }
 
-        if (handler.money >= type.cost && handler.labor >= type.required_labor)
+        if (!handler.DecreaseAssets(decMoney: type.cost, decLabor: type.required_labor))
         {
-            handler.money -= type.cost;
-            handler.labor -= type.required_labor;
-        }
-        else
-        {
-            if (handler.money < type.cost)
-                handler.Nomoney.SetActive(true);
-            if (handler.labor < type.required_labor)
-                handler.Nolabour.SetActive(true);
-            return;
-        }
-        if (type.type == "Cow")
-        {
-            number_of_cows += 1;
-            cowcount.text = number_of_cows.ToString();
-            newcow += 1;
-        }
+            // we can buy the animal
+            if (type.type == "Cow")
+            {
+                number_of_cows += 1;
+                cowcount.text = number_of_cows.ToString();
+                newcow += 1;
+            }
 
-        if (type.type == "Goat")
-        {
-            number_of_goats += 1;
-            goatcount.text = number_of_goats.ToString();
-            newgoat += 1;
-        }
+            if (type.type == "Goat")
+            {
+                number_of_goats += 1;
+                goatcount.text = number_of_goats.ToString();
+                newgoat += 1;
+            }
 
-        if (type.type == "Chicken")
-        {
-            number_of_chickens += 1;
-            newchicken += 1;
-            chickencount.text = number_of_chickens.ToString();
+            if (type.type == "Chicken")
+            {
+                number_of_chickens += 1;
+                newchicken += 1;
+                chickencount.text = number_of_chickens.ToString();
+            }
         }
     }
 
