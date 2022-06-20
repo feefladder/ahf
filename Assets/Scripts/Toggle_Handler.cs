@@ -24,23 +24,16 @@ public class Toggle_Handler : MonoBehaviour
     {
         if (toggle.isOn)
         {
-            if (amount <= _Handler.money && labor <= _Handler.labor)
-            {
-                _Handler.money -= amount;
-                _Handler.labor -= labor;
-            }
-            else
-            {
-                if (amount > _Handler.money)
-                    _Handler.Nomoney.SetActive(true);
-                if (labor > _Handler.labor)
-                    _Handler.Nolabour.SetActive(true);
+            if(!_Handler.DecreaseAssets(decMoney: amount,decLabor: labor)){
+                // processing that needs to be done if successful
+            } else {
+                // processing for unsuccessful. -> set toggle back to false
+                toggle.SetIsOnWithoutNotify(false);
             }
         }
         else
         {
-            _Handler.money += amount;
-            _Handler.labor += labor;
+            _Handler.IncreaseAssets(amount, labor);
         }
     }
 }
