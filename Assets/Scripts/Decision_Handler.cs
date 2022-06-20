@@ -61,7 +61,8 @@ public class Decision_Handler : MonoBehaviour
     [Header("UI")]
     #region
     public GameObject grass_strips, terraces;
-    public GameObject Nomoney, Nolabour, Endpanel;
+    public GameObject Nomoney, Nolabour;
+    public GameObject Endpanel;
     public Text Money, Fertility, Salinity, Labor, Year,  num_of_labourers;
     
     public Button sectog, unitog;
@@ -128,36 +129,51 @@ public class Decision_Handler : MonoBehaviour
         uniavai.text = unikidsavailable.ToString();
     }
 
+    #region BuyLogic
+    public bool DecreaseAssets(double decMoney=0, int decLabor=0){
+        // Decrease the assets with given amounts. returns 0 if successful, in
+        // line with successful-program-completion conventions
+        // otherwise shows dialogs
+        if(money >= decMoney && labor >= decLabor){
+            money -= decMoney;
+            labor -= decLabor;
+            return false;
+        } else {
+            if(money < decMoney){
+                Nomoney.GetComponent<PopupInsufficient>().NotEnough((int)decMoney - (int)money);
+                Nomoney.SetActive(true);
+            };
+            if(labor < decLabor){
+                Nolabour.SetActive(true);
+                Nolabour.GetComponent<PopupInsufficient>().NotEnough(decLabor - labor);
+            }
+            return true;
+        }
+    }
+    public void IncreaseAssets(double incMoney = 0, int incLabor=0){
+        money += incMoney;
+        labor += incLabor;
+    }
+    #endregion
+
     #region Family
     public void School(int grade)
     {
         if (grade ==0 )
         {
-            if (money > school_fees)
+            if (!DecreaseAssets(decMoney: school_fees))
             {
                 seckidsavailable--;
                 sec_kids++;
-            }
-            else
-            {
-            Nomoney.SetActive(true);
             }
         }
         
         if (grade ==1)
         {
-            if (money >= school_fees * 1.5 && labor >= 50)
+            if (!DecreaseAssets(decMoney: school_fees * 1.5, decLabor: 50))
             {
                 unikidsavailable--;
                 uni_kids++;
-                labor -= 50;
-            }
-            else
-            {
-                if (money < school_fees *1.5)
-                    Nomoney.SetActive(true);
-                if (labor < 50)
-                    Nolabour.SetActive(true);
             }
         }
         
@@ -168,6 +184,7 @@ public class Decision_Handler : MonoBehaviour
         {
             if (sec_kids>0)
             {
+                IncreaseAssets(incMoney: school_fees);
                 seckidsavailable ++;
                 sec_kids --;
             }
@@ -176,9 +193,9 @@ public class Decision_Handler : MonoBehaviour
         {
             if (uni_kids > 0)
             { 
-                unikidsavailable ++;
+                IncreaseAssets(school_fees * 1.5, 50);
+                unikidsavailable++;
                 uni_kids --;
-                labor += 50;
             }
         }
     }
@@ -224,15 +241,17 @@ public class Decision_Handler : MonoBehaviour
     #region Labour
     public void AddLabour()
     {
-        labourers += 1;
-        labor += 80;
-        money -= labor_cost;
+        if (!DecreaseAssets(decMoney: labor_cost)){
+            labourers += 1;
+            IncreaseAssets(incLabor: 80);
+        }
     }
     public void RemoveLabour()
     {
-        labourers -= 1;
-        labor -= 80;
-        money -= labor_cost;
+        if (!DecreaseAssets(decLabor: 80) && labourers >= 1){
+            labourers -= 1;
+            IncreaseAssets(incMoney: labor_cost);
+        }
     }
     #endregion
 

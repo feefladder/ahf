@@ -59,7 +59,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [ ] Hausa
     - [ ] Swahili
 
-See the [open issues](https://gitlab.com/farmz2u/african-highland-farmer/-/issuess) for a full list of proposed features (and known issues).
+See the [open issues](https://gitlab.com/farmz2u/african-highland-farmer/-/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
