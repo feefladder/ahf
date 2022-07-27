@@ -95,7 +95,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@farmz2u](https://twitter.com/farmz2u) - opensource@farmz2u.com
+Farmz2u - [@farmz2u](https://twitter.com/farmz2u) - opensource@farmz2u.com
 
 Project Link: [https://gitlab.com/farmz2u/african-highland-farmer](gitlab.com/farmz2u/african-highland-farmer)
 
@@ -106,7 +106,7 @@ Project Link: [https://gitlab.com/farmz2u/african-highland-farmer](gitlab.com/fa
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Use this space to list resources you find helpful and would like to give credit to. We've included a few of our favorites to kick things off!
 
 * [Wageningen university](https://www.wur.nl/)
 * [Choose an Open Source License](https://choosealicense.com)
