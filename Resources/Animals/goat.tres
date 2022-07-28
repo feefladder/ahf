@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Resources/IntResources/animal_resource.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Animals/goat.png" type="Texture" id=2]
+
+[resource]
+resource_name = "goat"
+script = ExtResource( 1 )
+name = "goat"
+image = ExtResource( 2 )
+unit_price = 200.0
+unit_labour = 30.0
+tooltip_info = {
+"general": "",
+"long_term_pros": "",
+"short_term_cons": "",
+"short_term_pros": ""
+}
+current_number = 0
+max_number = 5
+yearly_expenses = 0.0
+yearly_revenue = 0.0
+water_use = 0.0
+spawn_point = Vector2( 100, -100 )
+scale = Vector2( 0.3, 0.3 )

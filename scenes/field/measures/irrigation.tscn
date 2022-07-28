@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/field/Measures/irrigation_horizontal.png" type="Texture" id=1]
+
+[node name="Irrigation" type="Sprite"]
+visible = false
+position = Vector2( -4.88501, -1.78699 )
+texture = ExtResource( 1 )

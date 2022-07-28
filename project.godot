@@ -1,0 +1,238 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "IntResource",
+"class": "AnimalResource",
+"language": "GDScript",
+"path": "res://scripts/resources/int_resources/animal_resource.gd"
+}, {
+"base": "SummaryResource",
+"class": "AnimalSummaryResource",
+"language": "GDScript",
+"path": "res://scripts/resources/summaries/animal_summary_resource.gd"
+}, {
+"base": "YSort",
+"class": "Animals",
+"language": "GDScript",
+"path": "res://scripts/field/animals.gd"
+}, {
+"base": "HBoxContainer",
+"class": "AssetManager",
+"language": "GDScript",
+"path": "res://scripts/controllers/asset_manager.gd"
+}, {
+"base": "SummaryResource",
+"class": "AssetSummaryResource",
+"language": "GDScript",
+"path": "res://scripts/resources/summaries/asset_summary_resource.gd"
+}, {
+"base": "Node",
+"class": "BigMenuIntItem",
+"language": "GDScript",
+"path": "res://scripts/UI/big_menu/big_menu_int_item.gd"
+}, {
+"base": "ToggleButton",
+"class": "BuyMenuItem",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item.gd"
+}, {
+"base": "ToggleButtonContainer",
+"class": "BuyMenuItemContainer",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd"
+}, {
+"base": "Resource",
+"class": "BuyResource",
+"language": "GDScript",
+"path": "res://scripts/resources/buy_resource.gd"
+}, {
+"base": "TabMenu",
+"class": "CropHandler",
+"language": "GDScript",
+"path": "res://scripts/controllers/crop_handler.gd"
+}, {
+"base": "BuyResource",
+"class": "CropResource",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/crop_resource.gd"
+}, {
+"base": "Node",
+"class": "CropSummaryContainer",
+"language": "GDScript",
+"path": "res://scripts/annual_review/crop_summary_container.gd"
+}, {
+"base": "Resource",
+"class": "FertilityResource",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/fertility_resource.gd"
+}, {
+"base": "BuyResource",
+"class": "FertilizerResource",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/fertilizer_resource.gd"
+}, {
+"base": "YSort",
+"class": "Field",
+"language": "GDScript",
+"path": "res://scripts/field/field.gd"
+}, {
+"base": "FieldBlockInputs",
+"class": "FieldBlock",
+"language": "GDScript",
+"path": "res://scripts/field/field_block.gd"
+}, {
+"base": "Node2D",
+"class": "FieldBlockInputs",
+"language": "GDScript",
+"path": "res://scripts/field/field_block_inputs.gd"
+}, {
+"base": "SummaryResource",
+"class": "FieldSummaryResource",
+"language": "GDScript",
+"path": "res://scripts/resources/summaries/field_summary_resource.gd"
+}, {
+"base": "Node",
+"class": "IncomeDisplay",
+"language": "GDScript",
+"path": "res://scripts/annual_review/summary_display.gd"
+}, {
+"base": "BuyResource",
+"class": "IntResource",
+"language": "GDScript",
+"path": "res://scripts/resources/int_resources/int_resource.gd"
+}, {
+"base": "BuyResource",
+"class": "IrrigationResource",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/irrigation_resource.gd"
+}, {
+"base": "BuyResource",
+"class": "MeasureResource",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/measure_resource.gd"
+}, {
+"base": "TabMenu",
+"class": "MeasuresHandler",
+"language": "GDScript",
+"path": "res://scripts/controllers/measures_handler.gd"
+}, {
+"base": "Panel",
+"class": "PopupInsufficient",
+"language": "GDScript",
+"path": "res://scripts/UI/popup_insufficient.gd"
+}, {
+"base": "Node",
+"class": "ResourceLoader",
+"language": "GDScript",
+"path": "res://scripts/controllers/resource_loader.gd"
+}, {
+"base": "CanvasItem",
+"class": "Stat",
+"language": "GDScript",
+"path": "res://scripts/UI/stat.gd"
+}, {
+"base": "Node",
+"class": "StateController",
+"language": "GDScript",
+"path": "res://scripts/controllers/state_controller.gd"
+}, {
+"base": "Resource",
+"class": "SummaryResource",
+"language": "GDScript",
+"path": "res://scripts/resources/summaries/summary_resource.gd"
+}, {
+"base": "ToggleButton",
+"class": "TabButton",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/tab_button.gd"
+}, {
+"base": "CanvasItem",
+"class": "TabMenu",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/tab_menu.gd"
+}, {
+"base": "Resource",
+"class": "Terrace",
+"language": "GDScript",
+"path": "res://scripts/resources/field_resources/terrace_working.gd"
+}, {
+"base": "CanvasItem",
+"class": "ToggleButton",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/toggle_button.gd"
+}, {
+"base": "Node",
+"class": "ToggleButtonContainer",
+"language": "GDScript",
+"path": "res://scripts/UI/toggle_menu/toggle_button_container.gd"
+}, {
+"base": "CanvasItem",
+"class": "Tooltip",
+"language": "GDScript",
+"path": "res://scripts/UI/tooltips/tooltip.gd"
+} ]
+_global_script_class_icons={
+"AnimalResource": "",
+"AnimalSummaryResource": "",
+"Animals": "",
+"AssetManager": "",
+"AssetSummaryResource": "",
+"BigMenuIntItem": "",
+"BuyMenuItem": "",
+"BuyMenuItemContainer": "",
+"BuyResource": "",
+"CropHandler": "",
+"CropResource": "",
+"CropSummaryContainer": "",
+"FertilityResource": "",
+"FertilizerResource": "",
+"Field": "",
+"FieldBlock": "",
+"FieldBlockInputs": "",
+"FieldSummaryResource": "",
+"IncomeDisplay": "",
+"IntResource": "",
+"IrrigationResource": "",
+"MeasureResource": "",
+"MeasuresHandler": "",
+"PopupInsufficient": "",
+"ResourceLoader": "",
+"Stat": "",
+"StateController": "",
+"SummaryResource": "",
+"TabButton": "",
+"TabMenu": "",
+"Terrace": "",
+"ToggleButton": "",
+"ToggleButtonContainer": "",
+"Tooltip": ""
+}
+
+[application]
+
+config/name="AHFGodotFarmz2U"
+run/main_scene="res://scenes/field/main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+XYPt="*res://scripts/XYPt.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

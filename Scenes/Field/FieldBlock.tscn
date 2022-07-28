@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Field/Measures/irrigation_connector.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Field/tile_slope.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Field/Measures/irrigation_horizontal.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Field/Measures/tile_terrace.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Field/Crops/tomato.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Field/field_block.gd" type="Script" id=6]
+
+[node name="FieldBlock" type="Sprite"]
+position = Vector2( 5.88501, 309.787 )
+texture = ExtResource( 2 )
+script = ExtResource( 6 )
+
+[node name="Terrace" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="Connector" type="Sprite" parent="."]
+visible = false
+position = Vector2( -7.77002, -41.574 )
+texture = ExtResource( 1 )
+
+[node name="Crop" type="Sprite" parent="."]
+visible = false
+position = Vector2( -9.88501, 3.21301 )
+scale = Vector2( 0.440594, 0.440594 )
+texture = ExtResource( 5 )
+offset = Vector2( 0, -160 )
+
+[node name="Irrigation" type="Sprite" parent="."]
+visible = false
+position = Vector2( -4.88501, -1.78699 )
+texture = ExtResource( 3 )
+
+[node name="FieldBlockCollisionArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FieldBlockCollisionArea"]
+polygon = PoolVector2Array( 0.11499, 31.213, 56.115, -7.78699, 0.11499, -30.787, -55.885, 7.21301 )
+
+[connection signal="input_event" from="FieldBlockCollisionArea" to="." method="_on_FieldBlockCollisionArea_input_event"]
+[connection signal="mouse_entered" from="FieldBlockCollisionArea" to="." method="_on_FieldBlockCollisionArea_mouse_entered"]

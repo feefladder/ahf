@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Field/Crops/maize.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Resources/FieldResources/crop_resource.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "maize"
+seed_price = 80.0
+labour = 11.0
+sell_price = 30.0
+max_yield = 180.0
+f_wlimited_yield = 120.0
+f_actual_yield = 90.0
+image = ExtResource( 1 )

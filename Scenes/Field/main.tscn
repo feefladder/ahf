@@ -1,0 +1,721 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://Assets/Theme/main_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/Controllers/crop_handler.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Animals/cock.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Theme/BuyMenu/buy_menu_item.tres" type="Theme" id=4]
+[ext_resource path="res://Assets/Background1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Field/field.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Field/FieldBlock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/UI/Buttons/icon_seeds.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/Buttons/icon_labour.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UI/Buttons/icon_family.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Animals/goat.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Animals/cow.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/Field/field.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/UI/ToggleMenus/toggle_button_container.gd" type="Script" id=15]
+[ext_resource path="res://Scenes/UI/Tabs/ToggleButton.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scripts/UI/BigMenu/big_menu_item_container.gd" type="Script" id=17]
+[ext_resource path="res://Scripts/Controllers/asset_manager.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/UI/BigMenu/big_menu_int_item.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scripts/Controllers/state_controller.gd" type="Script" id=20]
+[ext_resource path="res://Assets/Farmzy/farmz2u character-06.png" type="Texture" id=21]
+[ext_resource path="res://Scripts/UI/popup_insufficient.gd" type="Script" id=22]
+[ext_resource path="res://Scenes/UI/stat.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Scripts/Field/animals.gd" type="Script" id=24]
+[ext_resource path="res://Assets/Theme/african.ttf" type="DynamicFontData" id=25]
+[ext_resource path="res://Scripts/UI/ToggleMenus/BuyMenu/buy_menu_item_container.gd" type="Script" id=26]
+[ext_resource path="res://Scripts/UI/stat.gd" type="Script" id=27]
+[ext_resource path="res://Resources/Animals/cow.tres" type="Resource" id=28]
+[ext_resource path="res://Scripts/Controllers/resource_loader.gd" type="Script" id=29]
+[ext_resource path="res://Resources/Animals/goat.tres" type="Resource" id=30]
+[ext_resource path="res://Resources/Animals/chicken.tres" type="Resource" id=31]
+[ext_resource path="res://Scripts/UI/Tooltips/tooltip.gd" type="Script" id=32]
+[ext_resource path="res://Scripts/UI/ToggleMenus/tab_menu.gd" type="Script" id=33]
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 25 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.780392, 0, 0, 0.592157 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.615686, 0.501961, 0.227451, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="ResourceLoader" type="Node"]
+script = ExtResource( 29 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Animals" type="YSort" parent="."]
+position = Vector2( 341, 381 )
+script = ExtResource( 24 )
+
+[node name="Hill" type="Sprite" parent="."]
+position = Vector2( 534, 411 )
+scale = Vector2( 0.339849, 0.29375 )
+texture = ExtResource( 6 )
+
+[node name="Field" type="YSort" parent="."]
+position = Vector2( 580, 510 )
+script = ExtResource( 14 )
+field_block_scene = ExtResource( 7 )
+x_max = 3
+y_max = 4
+dx = Vector2( -58, -24 )
+dy = Vector2( 58, -40 )
+
+[node name="StateController" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabourMenu" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.9
+anchor_bottom = 0.85
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="StateController/LabourMenu"]
+anchor_right = 1.0
+anchor_bottom = 0.1
+custom_fonts/font = SubResource( 3 )
+text = "Labour menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StateController/LabourMenu"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
+margin_right = 737.0
+margin_bottom = 109.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer"]
+margin_top = 44.0
+margin_right = 182.0
+margin_bottom = 64.0
+text = "hire labourer"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
+margin_top = 149.0
+margin_right = 737.0
+margin_bottom = 258.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer2"]
+margin_top = 44.0
+margin_right = 182.0
+margin_bottom = 64.0
+text = "hire labourer"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
+margin_top = 298.0
+margin_right = 737.0
+margin_bottom = 408.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer3"]
+margin_top = 45.0
+margin_right = 182.0
+margin_bottom = 65.0
+text = "hire labourer"
+
+[node name="BackButton" type="Button" parent="StateController/LabourMenu"]
+anchor_left = 0.8
+anchor_top = 0.9
+anchor_right = 0.95
+anchor_bottom = 1.0
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="FamilyMenu" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.9
+anchor_bottom = 0.85
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="StateController/FamilyMenu"]
+anchor_right = 1.0
+anchor_bottom = 0.1
+custom_fonts/font = SubResource( 3 )
+text = "Labour menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StateController/FamilyMenu"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StateController/FamilyMenu/VBoxContainer"]
+margin_right = 737.0
+margin_bottom = 109.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/FamilyMenu/VBoxContainer/HBoxContainer"]
+margin_top = 44.0
+margin_right = 182.0
+margin_bottom = 64.0
+text = "hire labourer"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StateController/FamilyMenu/VBoxContainer"]
+margin_top = 149.0
+margin_right = 737.0
+margin_bottom = 258.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/FamilyMenu/VBoxContainer/HBoxContainer2"]
+margin_top = 44.0
+margin_right = 182.0
+margin_bottom = 64.0
+text = "hire labourer"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="StateController/FamilyMenu/VBoxContainer"]
+margin_top = 298.0
+margin_right = 737.0
+margin_bottom = 408.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StateController/FamilyMenu/VBoxContainer/HBoxContainer3"]
+margin_top = 45.0
+margin_right = 182.0
+margin_bottom = 65.0
+text = "hire labourer"
+
+[node name="BackButton" type="Button" parent="StateController/FamilyMenu"]
+anchor_left = 0.8
+anchor_top = 0.9
+anchor_right = 0.95
+anchor_bottom = 1.0
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimalMenu" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.9
+anchor_bottom = 0.85
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="StateController/AnimalMenu"]
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.15
+custom_fonts/font = SubResource( 3 )
+text = "Livestock"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimalMenuItemContainer" type="VBoxContainer" parent="StateController/AnimalMenu"]
+anchor_left = 0.1
+anchor_top = 0.25
+anchor_right = 0.9
+anchor_bottom = 0.75
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+big_menu_int_item_scene = ExtResource( 19 )
+my_int_resource_name = "animal_resource"
+
+[node name="BackButton" type="Button" parent="StateController/AnimalMenu"]
+anchor_left = 0.8
+anchor_top = 0.9
+anchor_right = 0.95
+anchor_bottom = 1.0
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ToggleButtonContainer" type="VBoxContainer" parent="StateController"]
+anchor_left = 0.85
+anchor_top = 0.1
+anchor_right = 1.02
+anchor_bottom = 0.8
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+modulateColorPressed = Color( 0.7, 0.7, 0.7, 1 )
+tooltip_path = NodePath("../Tooltip")
+
+[node name="CropsToggleButton" parent="StateController/ToggleButtonContainer" instance=ExtResource( 16 )]
+margin_right = 174.0
+margin_bottom = 52.0
+icon = ExtResource( 8 )
+title = "crops"
+my_tab = NodePath("../../CropHandler")
+
+[node name="AnimalsToggleButton" parent="StateController/ToggleButtonContainer" instance=ExtResource( 16 )]
+margin_top = 92.0
+margin_right = 174.0
+margin_bottom = 144.0
+icon = ExtResource( 13 )
+title = "Animals"
+my_tab = NodePath("../../AnimalMenu")
+
+[node name="LabourToggleButton" parent="StateController/ToggleButtonContainer" instance=ExtResource( 16 )]
+margin_top = 184.0
+margin_right = 174.0
+margin_bottom = 236.0
+icon = ExtResource( 10 )
+title = "Labour"
+my_tab = NodePath("../../LabourMenu")
+
+[node name="MeasuresToggleButton" parent="StateController/ToggleButtonContainer" instance=ExtResource( 16 )]
+margin_top = 276.0
+margin_right = 174.0
+margin_bottom = 328.0
+icon = ExtResource( 9 )
+title = "Measures"
+my_tab = NodePath("../../MeasuresMenu")
+
+[node name="FamilyToggleButton" parent="StateController/ToggleButtonContainer" instance=ExtResource( 16 )]
+margin_top = 368.0
+margin_right = 174.0
+margin_bottom = 420.0
+icon = ExtResource( 11 )
+title = "Family"
+my_tab = NodePath("../../FamilyMenu")
+
+[node name="AssetManager" type="HBoxContainer" parent="StateController"]
+anchor_top = 0.85
+anchor_right = 1.01
+anchor_bottom = 1.0
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+popup_insufficient_path = NodePath("../PopupInsufficient")
+money = 1000.0
+labour = 1000.0
+available_animals = [ ExtResource( 31 ), ExtResource( 30 ), ExtResource( 28 ) ]
+
+[node name="MoneyStat" parent="StateController/AssetManager" instance=ExtResource( 23 )]
+type = "money"
+unit = "NGT"
+
+[node name="LabourStat" type="ColorRect" parent="StateController/AssetManager"]
+margin_left = 144.0
+margin_right = 285.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+color = Color( 0.713726, 0, 0, 1 )
+script = ExtResource( 27 )
+type = "Labour"
+unit = "/7"
+
+[node name="Title" type="Label" parent="StateController/AssetManager/LabourStat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "Money"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="StateController/AssetManager/LabourStat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YearsStat" type="ColorRect" parent="StateController/AssetManager"]
+margin_left = 289.0
+margin_right = 430.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+color = Color( 0.235294, 0.341176, 0.615686, 1 )
+script = ExtResource( 27 )
+type = "Years"
+unit = "/20"
+
+[node name="Title" type="Label" parent="StateController/AssetManager/YearsStat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "Money"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="StateController/AssetManager/YearsStat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChickenStat" type="TextureRect" parent="StateController/AssetManager"]
+margin_left = 434.0
+margin_right = 574.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Amount" type="Label" parent="StateController/AssetManager/ChickenStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "100"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoatStat" type="TextureRect" parent="StateController/AssetManager"]
+margin_left = 578.0
+margin_right = 719.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Amount" type="Label" parent="StateController/AssetManager/GoatStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "100"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CowStat" type="TextureRect" parent="StateController/AssetManager"]
+margin_left = 723.0
+margin_right = 864.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+
+[node name="Amount" type="Label" parent="StateController/AssetManager/CowStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "100"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="StateController/AssetManager"]
+margin_left = 868.0
+margin_right = 1034.0
+margin_bottom = 90.0
+text = "Next year"
+
+[node name="CropHandler" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.15
+anchor_bottom = 0.8
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+toggle_menu_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+asset_manager_path = NodePath("../AssetManager")
+
+[node name="CropsBuyMenu" type="VBoxContainer" parent="StateController/CropHandler"]
+anchor_right = 1.0
+anchor_bottom = 1.05
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StateController/CropHandler/CropsBuyMenu"]
+margin_right = 153.0
+margin_bottom = 453.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuyMenuItemContainer" type="VBoxContainer" parent="StateController/CropHandler/CropsBuyMenu/ScrollContainer"]
+margin_right = 153.0
+size_flags_horizontal = 15
+script = ExtResource( 26 )
+tooltip_path = NodePath("../../../../Tooltip2")
+path_to_ResourceLoader = NodePath("../../../../..")
+my_resource_name = "crop_resource"
+
+[node name="BackButton" type="Button" parent="StateController/CropHandler/CropsBuyMenu"]
+margin_top = 463.0
+margin_right = 153.0
+margin_bottom = 503.0
+rect_min_size = Vector2( 0, 40 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MeasuresMenu" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.15
+anchor_bottom = 0.8
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuyMenu" type="VBoxContainer" parent="StateController/MeasuresMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.05
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StateController/MeasuresMenu/BuyMenu"]
+margin_right = 153.0
+margin_bottom = 453.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuyMenuItemContainer" type="VBoxContainer" parent="StateController/MeasuresMenu/BuyMenu/ScrollContainer"]
+margin_right = 153.0
+size_flags_horizontal = 15
+
+[node name="BackButton" type="Button" parent="StateController/MeasuresMenu/BuyMenu"]
+margin_top = 463.0
+margin_right = 153.0
+margin_bottom = 503.0
+rect_min_size = Vector2( 0, 40 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimalsBigMenu" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 0.15
+anchor_bottom = 0.8
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+asset_manager_path = NodePath("../AssetManager")
+
+[node name="BigMenu" type="VBoxContainer" parent="StateController/AnimalsBigMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.05
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StateController/AnimalsBigMenu/BigMenu"]
+margin_right = 153.0
+margin_bottom = 453.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BigMenuItemContainer" type="VBoxContainer" parent="StateController/AnimalsBigMenu/BigMenu/ScrollContainer"]
+margin_right = 153.0
+size_flags_horizontal = 15
+script = ExtResource( 17 )
+
+[node name="BackButton" type="Button" parent="StateController/AnimalsBigMenu/BigMenu"]
+margin_top = 463.0
+margin_right = 153.0
+margin_bottom = 503.0
+rect_min_size = Vector2( 0, 40 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupInsufficient" type="Panel" parent="StateController"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+label_path = NodePath("Panel/Label")
+
+[node name="Panel" type="Panel" parent="StateController/PopupInsufficient"]
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="StateController/PopupInsufficient/Panel"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.4
+text = "You don't have enough money"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="StateController/PopupInsufficient/Panel"]
+anchor_top = 0.4
+anchor_right = 0.3
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="StateController/PopupInsufficient/Panel"]
+anchor_left = 0.45
+anchor_top = 0.55
+anchor_right = 0.8
+anchor_bottom = 0.75
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Tooltip" type="PanelContainer" parent="StateController"]
+margin_bottom = 20.0
+mouse_filter = 2
+script = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextContainer" type="VBoxContainer" parent="StateController/Tooltip"]
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="StateController/Tooltip/TextContainer"]
+margin_bottom = 20.0
+size_flags_vertical = 3
+
+[node name="Tooltip2" type="PanelContainer" parent="StateController"]
+margin_bottom = 20.0
+mouse_filter = 2
+script = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+give_me_a_better_name = false
+
+[node name="TextContainer" type="VBoxContainer" parent="StateController/Tooltip2"]
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="StateController/Tooltip2/TextContainer"]
+margin_bottom = 20.0
+size_flags_vertical = 3
+
+[connection signal="field_pointed" from="Field" to="StateController" method="_on_Field_field_pointed"]
+[connection signal="wanted_to_plant_crop" from="StateController" to="StateController/CropHandler" method="try_plant_crop"]
+[connection signal="wanted_to_remove_crop" from="StateController" to="StateController/CropHandler" method="try_remove_crop"]
+[connection signal="pressed" from="StateController/LabourMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="pressed" from="StateController/FamilyMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="decreased_resource" from="StateController/AnimalMenu/AnimalMenuItemContainer" to="Animals" method="_on_AnimalMenuItemContainer_decreased_resource"]
+[connection signal="increased_resource" from="StateController/AnimalMenu/AnimalMenuItemContainer" to="Animals" method="_on_AnimalMenuItemContainer_increased_resource"]
+[connection signal="pressed" from="StateController/AnimalMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="labour_changed" from="StateController/AssetManager" to="StateController/AssetManager/LabourStat" method="_on_stat_changed"]
+[connection signal="money_changed" from="StateController/AssetManager" to="StateController/AssetManager/MoneyStat" method="_on_stat_changed"]
+[connection signal="pressed" from="StateController/CropHandler/CropsBuyMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="pressed" from="StateController/MeasuresMenu/BuyMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="pressed" from="StateController/AnimalsBigMenu/BigMenu/BackButton" to="StateController/ToggleButtonContainer" method="deselect"]
+[connection signal="pressed" from="StateController/PopupInsufficient/Panel/Button" to="StateController/PopupInsufficient" method="hide"]
+[connection signal="resized" from="StateController/Tooltip/TextContainer" to="StateController/Tooltip" method="_on_TextContainer_resized"]
+[connection signal="resized" from="StateController/Tooltip2/TextContainer" to="StateController/Tooltip2" method="_on_TextContainer_resized"]
