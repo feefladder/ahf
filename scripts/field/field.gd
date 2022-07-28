@@ -7,7 +7,7 @@ class_name Field
 # - keeping track of different measures that are applied and takes note of them
 # - crop and fertility calculations at the end of the year
 
-signal field_pointed(a_block)
+#signal field_pointed(a_block)
 
 export(Resource) var summary
 export(Resource) var fertility
@@ -40,7 +40,7 @@ func _ready():
             
             add_child(field_block)
 
-    assert(connect("field_pointed", state_controller, "_on_field_pointed") == 0)
+#    assert(connect("field_pointed", state_controller, "_on_field_pointed") == 0)
 
 func make_summary() -> FieldSummaryResource:
     summary.start_fertility = fertility

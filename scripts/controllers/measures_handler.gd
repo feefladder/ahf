@@ -17,8 +17,8 @@ func _ready():
 
 func _on_tab_changed(which: BuyMenuItem):
     current_measure = which.resource
+    current_measure.enter()
     emit_signal("tab_changed")
-    print("changed to: ", current_measure.resource_name)
 
 func field_clicked(a_block) -> void:
     if a_block.has(current_measure):
@@ -30,7 +30,7 @@ func field_clicked(a_block) -> void:
             a_block.connect("mouse_exited", current_measure, "pause")
             a_block.connect("mouse_entered", current_measure, "resume")
             a_block.connect("timeout", self, "_on_block_timeout")
-            connect("tab_changed", a_block, "stop_timer")
+            assert(connect("tab_changed", a_block, "stop_timer") == 0)
 
 func _on_block_timeout(a_block: FieldBlock):
     if current_measure is MeasureResource:

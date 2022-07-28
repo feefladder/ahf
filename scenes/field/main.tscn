@@ -158,6 +158,7 @@ margin_right = 153.0
 size_flags_horizontal = 15
 script = ExtResource( 39 )
 tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
+target_path = NodePath("../../..")
 path_to_ResourceLoader = NodePath("../../../../..")
 my_resource_name = "crop_resource"
 
@@ -342,6 +343,7 @@ margin_right = 153.0
 size_flags_horizontal = 15
 script = ExtResource( 39 )
 tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
+target_path = NodePath("../../..")
 my_resource_name = "measures_resource"
 
 [node name="BackButton" type="Button" parent="StateController/MeasuresMenu/BuyMenu"]
@@ -445,9 +447,9 @@ popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
-ExtResource( 26 ): NodePath("CowStat"),
+ExtResource( 19 ): NodePath("GoatStat"),
 ExtResource( 16 ): NodePath("ChickenStat"),
-ExtResource( 19 ): NodePath("GoatStat")
+ExtResource( 26 ): NodePath("CowStat")
 }
 
 [node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]
@@ -638,6 +640,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 tooltip_path = NodePath("../Tooltips/Tooltip")
+target_path = NodePath("../StateController")
 
 [node name="CropsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_right = 174.0
@@ -855,9 +858,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[connection signal="started_work" from="StateController" to="MouseIndicator" method="_on_StateController_started_work"]
-[connection signal="state_changed" from="StateController" to="MouseIndicator" method="_on_StateController_state_changed"]
-[connection signal="wanted_to_apply_measure" from="StateController" to="StateController/MeasuresMenu" method="_on_StateController_wanted_to_apply_measure"]
 [connection signal="change_mouse" from="StateController/CropsMenu" to="MouseIndicator" method="_set_mouse_cursor_image"]
 [connection signal="pressed" from="StateController/CropsMenu/CropsBuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="pressed" from="StateController/LivestockMenu/BackButton" to="ToggleButtonContainer" method="deselect"]

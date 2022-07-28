@@ -4,7 +4,7 @@ class_name FieldBlockInputs
 signal hovered(which)
 signal un_hovered(which)
 signal pressed(which)
-signal un_pressed(which)
+#signal un_pressed(which)
 signal timeout(which)
 
 var _is_dragging_over_field := false

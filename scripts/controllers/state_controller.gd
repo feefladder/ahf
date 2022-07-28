@@ -1,11 +1,11 @@
 extends Node
 class_name StateController
 
-signal state_changed(to_what, item)
-signal wanted_to_plant_crop(field_block, crop)
-signal wanted_to_remove_crop(field_block)
-signal wanted_to_apply_measure(field_block, measure)
-signal started_work(measure)
+#signal state_changed(to_what, item)
+#signal wanted_to_plant_crop(field_block, crop)
+#signal wanted_to_remove_crop(field_block)
+#signal wanted_to_apply_measure(field_block, measure)
+#signal started_work(measure)
 
 export(NodePath) var crop_handler_path = "CropHandler"
 export(Dictionary) var tabs
@@ -17,8 +17,8 @@ var current_node: TabMenu
 
 func _ready():
     print("crop_handler_path: ", crop_handler_path)
-    assert(connect("wanted_to_plant_crop", crop_handler, "try_plant_crop") == 0)
-    assert(connect("wanted_to_remove_crop", crop_handler, "try_remove_crop") == 0)
+#    assert(connect("wanted_to_plant_crop", crop_handler, "try_plant_crop") == 0)
+#    assert(connect("wanted_to_remove_crop", crop_handler, "try_remove_crop") == 0)
 
 func _on_tab_changed(a_tab):
     if current_node:
