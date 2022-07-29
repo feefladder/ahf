@@ -1,16 +1,21 @@
-extends Node
+extends Resource
+class_name MeasureStateResource
 
+var fsm: MeasureResource
+export(Resource) var default_next_state
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func should_enable(a_block: FieldBlock) -> bool:
+    print("unoverridden should_enable!")
+    return not a_block.has(fsm)
 
+func field_clicked(a_block) -> void:
+    print("unoverridden field clicked!")
+    fsm.current_block = a_block
+    exit()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-    pass # Replace with function body.
+func enter() -> void:
+    print("unoverridden enter!")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+func exit() -> void:
+    print("unoverriden exit!")
+    fsm.change_to(default_next_state)

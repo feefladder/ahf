@@ -17,20 +17,20 @@ func _ready():
 
 func _on_tab_changed(which: BuyMenuItem):
     current_measure = which.resource
+    current_measure.field_resource = field.field_resource
+    current_measure.connect("state_changed", self, "_on_measure_state_changed")
     current_measure.enter()
+    field.set_enable_with_measure(current_measure)
     emit_signal("tab_changed")
 
 func field_clicked(a_block) -> void:
+    field.set_enable_with_measure(current_measure)
     if a_block.has(current_measure):
         return
     if current_measure is MeasureResource:
         if asset_manager.has_enough(current_measure.unit_price, current_measure.unit_labour):
             field.set_enable_with_measure(current_measure)
-            a_block.start(current_measure.time_required)
-            a_block.connect("mouse_exited", current_measure, "pause")
-            a_block.connect("mouse_entered", current_measure, "resume")
-            a_block.connect("timeout", self, "_on_block_timeout")
-            assert(connect("tab_changed", a_block, "stop_timer") == 0)
+            current_measure.field_clicked(a_block)
 
 func _on_block_timeout(a_block: FieldBlock):
     if current_measure is MeasureResource:
@@ -41,8 +41,11 @@ func _on_block_timeout(a_block: FieldBlock):
             disconnect("tab_changed", a_block, "stop_timer")
             a_block.apply_measure(current_measure)
 
-func _on_deactivate(me):
+func _on_measure_state_changed():
+    field.set_enable_with_measure(current_measure)
+
+func _on_deactivate(_me):
     field.disable_all()
 
-func _on_activated(me):
+func _on_activated(_me):
     field.enable_all()

@@ -10,13 +10,7 @@ class_name Field
 #signal field_pointed(a_block)
 
 export(Resource) var summary
-export(Resource) var fertility
-
-export var field_block_scene: PackedScene
-export(int) var x_max
-export(int) var y_max
-export(Vector2) var dx
-export(Vector2) var dy
+export(Resource) var field_resource
 
 export(NodePath) var state_controller_path
 
@@ -27,12 +21,12 @@ var is_dragging_over_field: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
     #initialize the field
-    for x in range(x_max):
+    for x in range(field_resource.size_x):
         field_block_matrix.append([])
-        for y in range(y_max):
-            var field_block = field_block_scene.instance()
+        for y in range(field_resource.size_y):
+            var field_block = field_resource.field_block_scene.instance()
             field_block_matrix[x].append(field_block)
-            field_block.position = dx*x+dy*y
+            field_block.position = field_resource.dx*x+field_resource.dy*y
             field_block.x = x
             field_block.y = y
 #            field_block.disable()
@@ -43,11 +37,11 @@ func _ready():
 #    assert(connect("field_pointed", state_controller, "_on_field_pointed") == 0)
 
 func make_summary() -> FieldSummaryResource:
-    summary.start_fertility = fertility
+    summary.start_fertility = field_resource
     for row in field_block_matrix:
         for field_block in row:
             if field_block.has_crop:
-                summary.add_crop_data(field_block.crop_resource, field_block.calculate_yield(fertility))
+                summary.add_crop_data(field_block.crop_resource, field_block.calculate_yield(field_resource))
                 field_block.remove_crop()
             # TODO: add magic to actually calculate fertility influence
     

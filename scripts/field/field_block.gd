@@ -29,6 +29,10 @@ func apply_measure(a_measure):
     resources.append(a_measure)
     var scene = a_measure.scene.instance()
     add_child(scene)
+    if scene is CollisionObject2D:
+        var sp = $SoilPoly
+        remove_child(sp)
+        sp.queue_free()
 
 func plant_crop(a_crop: CropResource):
     $Crop.texture = a_crop.image

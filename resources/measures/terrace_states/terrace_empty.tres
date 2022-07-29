@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/resources/field_resources/terrace/terrace_empty.gd" type="Script" id=1]
+[ext_resource path="res://resources/measures/terrace_states/terrace_working.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+default_next_state = ExtResource( 2 )

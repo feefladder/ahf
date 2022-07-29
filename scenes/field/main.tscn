@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=2]
@@ -24,7 +24,6 @@
 [ext_resource path="res://assets/UI/Buttons/icon_family.png" type="Texture" id=22]
 [ext_resource path="res://assets/animals/cow.png" type="Texture" id=23]
 [ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
-[ext_resource path="res://scenes/field/field_block.tscn" type="PackedScene" id=25]
 [ext_resource path="res://resources/animals/03_cow.tres" type="Resource" id=26]
 [ext_resource path="res://scripts/UI/toggle_menu/tab_menu.gd" type="Script" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
@@ -95,12 +94,7 @@ texture = ExtResource( 28 )
 position = Vector2( 580, 510 )
 script = ExtResource( 17 )
 summary = SubResource( 4 )
-fertility = ExtResource( 41 )
-field_block_scene = ExtResource( 25 )
-x_max = 3
-y_max = 4
-dx = Vector2( -58, -24 )
-dy = Vector2( 58, -40 )
+field_resource = ExtResource( 41 )
 state_controller_path = NodePath("../StateController")
 
 [node name="MouseIndicator" type="Node2D" parent="."]
@@ -448,8 +442,8 @@ stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
 ExtResource( 19 ): NodePath("GoatStat"),
-ExtResource( 16 ): NodePath("ChickenStat"),
-ExtResource( 26 ): NodePath("CowStat")
+ExtResource( 26 ): NodePath("CowStat"),
+ExtResource( 16 ): NodePath("ChickenStat")
 }
 
 [node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]

@@ -8,25 +8,23 @@
 [ext_resource path="res://scenes/field/measures/irrigation.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/field/slope_collision.tscn" type="PackedScene" id=8]
 
-[node name="Soil" type="Sprite"]
-texture = ExtResource( 2 )
+[node name="FieldBlockCollisionArea" type="Area2D"]
 script = ExtResource( 6 )
 
+[node name="SoilPoly" parent="." instance=ExtResource( 8 )]
+
+[node name="SoilSprite" type="Sprite" parent="SoilPoly"]
+texture = ExtResource( 2 )
+
 [node name="Connector" parent="." instance=ExtResource( 1 )]
-visible = true
 
 [node name="Grass strips" parent="." instance=ExtResource( 3 )]
-visible = true
 
 [node name="Crop" type="Sprite" parent="."]
+visible = false
 position = Vector2( -9.88501, 3.21301 )
 scale = Vector2( 0.440594, 0.440594 )
 texture = ExtResource( 5 )
 offset = Vector2( 0, -160 )
 
 [node name="Irrigation" parent="." instance=ExtResource( 7 )]
-visible = true
-
-[node name="FieldBlockCollisionArea" type="Area2D" parent="."]
-
-[node name="CollisionPolygon2D" parent="FieldBlockCollisionArea" instance=ExtResource( 8 )]
