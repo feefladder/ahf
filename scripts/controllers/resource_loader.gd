@@ -1,6 +1,6 @@
 
 extends Node
-class_name ResourceLoader
+class_name Loader
 
 signal resources_loaded(which, crop_resources)
 

@@ -31,7 +31,7 @@ func _ready():
             field_block.y = y
 #            field_block.disable()
             field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
-            
+            field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")
             add_child(field_block)
 
 #    assert(connect("field_pointed", state_controller, "_on_field_pointed") == 0)

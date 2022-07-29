@@ -8,7 +8,6 @@ export(NodePath) var field_path = "../../Field"
 
 var current_crop: CropResource
 
-
 onready var asset_manager = get_node(asset_manager_path)
 onready var field = get_node(field_path)
 
@@ -18,7 +17,7 @@ func _on_tab_changed(which: BuyMenuItem):
         current_crop = which.resource
     emit_signal("change_mouse", current_crop.image)
 
-func field_clicked(a_block: FieldBlock):
+func fieldblock_pressed(a_block: FieldBlock):
     if current_crop:
         if current_crop.resource_name == "remove":
             try_remove_crop(a_block)

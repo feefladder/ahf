@@ -19,3 +19,5 @@ time_required = 1.0
 erosion_reduction = 0.0
 fertility_increase = 0.0
 salinity_effect = 0.0
+states = {
+}

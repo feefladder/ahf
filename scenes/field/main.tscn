@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=2]
@@ -40,10 +40,6 @@
 [ext_resource path="res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd" type="Script" id=39]
 [ext_resource path="res://scripts/UI/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/start_fertility.tres" type="Resource" id=41]
-[ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
-[ext_resource path="res://scenes/mouse/seeding.tscn" type="PackedScene" id=43]
-[ext_resource path="res://scenes/mouse/digging_shovel.tscn" type="PackedScene" id=44]
-[ext_resource path="res://scenes/mouse/applying_manure.tscn" type="PackedScene" id=45]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
 
 [sub_resource type="Resource" id=4]
@@ -97,15 +93,6 @@ summary = SubResource( 4 )
 field_resource = ExtResource( 41 )
 state_controller_path = NodePath("../StateController")
 
-[node name="MouseIndicator" type="Node2D" parent="."]
-script = ExtResource( 42 )
-mouse_modes = {
-"digging": ExtResource( 44 ),
-"manure": ExtResource( 45 ),
-"seeding": ExtResource( 43 ),
-Resource( "res://resources/measures/01_terraces.tres" ): ExtResource( 44 )
-}
-
 [node name="StateController" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -153,7 +140,6 @@ size_flags_horizontal = 15
 script = ExtResource( 39 )
 tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
 target_path = NodePath("../../..")
-path_to_ResourceLoader = NodePath("../../../../..")
 my_resource_name = "crop_resource"
 
 [node name="BackButton" type="Button" parent="StateController/CropsMenu/CropsBuyMenu"]
@@ -852,7 +838,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[connection signal="change_mouse" from="StateController/CropsMenu" to="MouseIndicator" method="_set_mouse_cursor_image"]
 [connection signal="pressed" from="StateController/CropsMenu/CropsBuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="pressed" from="StateController/LivestockMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="pressed" from="StateController/LabourMenu/BackButton" to="ToggleButtonContainer" method="deselect"]

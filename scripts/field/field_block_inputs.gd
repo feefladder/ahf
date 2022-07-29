@@ -4,7 +4,7 @@ class_name FieldBlockInputs
 #signal hovered(which)
 #signal un_hovered(which)
 signal pressed(which)
-signal un_pressed(which)
+signal unpressed(which)
 signal timeout(which)
 
 var _mouse_down := false
@@ -24,7 +24,10 @@ func start(time: float):
     _timer.start(time)
 
 func resume():
-    _timer.start()
+    _timer.set_paused(false)
+
+func pause():
+    _timer.set_paused(true)
 
 func _on_timeout():
     print("timeout!")
@@ -33,20 +36,29 @@ func _on_timeout():
 
 func _on_input_event(_viewport, event, _shape_idx):
     # mouse clicks on same block
-    if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT and _enabled:
-        _mouse_down = true
-        super_highlight()
-        emit_signal("pressed",self)
+    if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+        _mouse_down = event.pressed
+
+        if not _enabled:
+            return
+
+        if _mouse_down:
+            super_highlight()
+            emit_signal("pressed",self)
+        else:
+            emit_signal("unpressed", self)
+            un_highlight()
+            
 
 func _input(event):
     # mouse clicks next to block
-    if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and _enabled:
+    if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
         if event.pressed:
             _mouse_down = true
         else:
             _mouse_down = false
         
-        if _mouse_over:
+        if _mouse_over and _enabled:
             emit_signal("pressed", self)
             highlight()
 
@@ -54,8 +66,9 @@ func _on_mouse_entered():
     _mouse_over = true
     if not _enabled:
         return
-
+    print("mouse entered")
     if _mouse_down:
+        print("pressed me")
         super_highlight()
         emit_signal("pressed", self)
     else:
@@ -68,7 +81,7 @@ func _on_mouse_exited():
 
     un_highlight()
     if _mouse_down:
-        emit_signal("un_pressed", self)
+        emit_signal("unpressed", self)
 
 func disable():
     _enabled = false
@@ -76,8 +89,9 @@ func disable():
     modulate = Color("#666")
 
 func enable():
-    un_highlight()
-    _enabled = true
+    if not _enabled:
+        un_highlight()
+        _enabled = true
 
 func highlight():
     modulate = Color("#cfc")
