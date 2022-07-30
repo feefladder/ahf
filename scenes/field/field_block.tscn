@@ -15,8 +15,6 @@ texture = ExtResource( 2 )
 
 [node name="Crop" type="Sprite" parent="."]
 visible = false
-position = Vector2( -9.88501, 3.21301 )
 scale = Vector2( 0.440594, 0.440594 )
 z_index = 1
 texture = ExtResource( 5 )
-offset = Vector2( 0, -160 )

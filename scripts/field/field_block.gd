@@ -9,6 +9,10 @@ var has_crop := false
 var has_irrigation := false
 var resources := []
 
+func _ready():
+    
+    print($Crop.position)
+
 func has(something: BuyResource) -> bool:
     for resource in resources:
         if typeof(something) == typeof(resource):
@@ -38,6 +42,7 @@ func apply_measure(a_measure):
 func plant_crop(a_crop: CropResource):
     $Crop.texture = a_crop.image
     crop_resource = a_crop
+    $Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
     has_crop = true
     $Crop.show()
 
