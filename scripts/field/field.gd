@@ -26,9 +26,10 @@ func _ready():
         for y in range(field_resource.size_y):
             var field_block = field_resource.field_block_scene.instance()
             field_block_matrix[x].append(field_block)
-            field_block.position = field_resource.dx*x+field_resource.dy*y
+            field_block.position = (field_resource.dx*x+field_resource.dy*y)*scale
             field_block.x = x
             field_block.y = y
+            field_block.scale = scale
 #            field_block.disable()
             field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
             field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")

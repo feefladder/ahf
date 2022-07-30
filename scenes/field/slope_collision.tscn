@@ -6,4 +6,5 @@
 polygon = PoolVector2Array( 0.11499, 31.213, 56.115, -7.78699, 0.11499, -30.787, -55.885, 7.21301 )
 
 [node name="SoilSprite" type="Sprite" parent="."]
+z_index = -1
 texture = ExtResource( 1 )

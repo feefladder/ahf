@@ -29,7 +29,8 @@ func apply_measure(a_measure):
     resources.append(a_measure)
     var scene = a_measure.scene.instance()
     add_child(scene)
-    if scene is CollisionObject2D:
+    print(scene is CollisionPolygon2D)
+    if scene is CollisionPolygon2D:
         var sp = $SoilPoly
         remove_child(sp)
         sp.queue_free()

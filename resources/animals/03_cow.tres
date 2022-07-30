@@ -20,5 +20,5 @@ max_number = 5
 yearly_expenses = 0.0
 yearly_revenue = 0.0
 water_use = 0.0
-spawn_point = Vector2( 0, 0 )
+spawn_point = Vector2( 0, -5 )
 scale = Vector2( 0.3, 0.3 )
