@@ -3,7 +3,7 @@ class_name BuyMenuItemContainer
 
 export(PackedScene) var BuyMenuItemScene = preload("res://scenes/UI/buy_menu/buy_menu_item.tscn")
 
-export(NodePath) var path_to_Loader = "/root/ResourceLoader"
+export(NodePath) var path_to_Loader = "/root/Loader"
 export(String) var my_resource_name
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,6 @@ func add_MenuItem(a_resource: BuyResource):
 
 func _on_Loader_resources_loaded(which: String, resources: Array) -> void:
     if which == my_resource_name:
-        print("adding items", resources)
         for resource in resources:
             add_MenuItem(resource)
         _connect_children()

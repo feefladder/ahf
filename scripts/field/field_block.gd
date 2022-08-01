@@ -9,10 +9,6 @@ var has_crop := false
 var has_irrigation := false
 var resources := []
 
-func _ready():
-    
-    print($Crop.position)
-
 func has(something: BuyResource) -> bool:
     for resource in resources:
         if typeof(something) == typeof(resource):

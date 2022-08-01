@@ -1,11 +1,11 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/animals/goat.png" type="Texture" id=3]
 [ext_resource path="res://scenes/UI/stat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/Buttons/icon_labour.png" type="Texture" id=5]
-[ext_resource path="res://scripts/UI/popup_insufficient.gd" type="Script" id=6]
+[ext_resource path="res://scripts/UI/popups/popup_insufficient.gd" type="Script" id=6]
 [ext_resource path="res://scripts/controllers/crop_handler.gd" type="Script" id=7]
 [ext_resource path="res://scenes/UI/big_menu/big_menu_int_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
@@ -39,8 +39,9 @@
 [ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
 [ext_resource path="res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd" type="Script" id=39]
-[ext_resource path="res://scripts/UI/popup_max_reached.gd" type="Script" id=40]
+[ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/start_fertility.tres" type="Resource" id=41]
+[ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
 
 [sub_resource type="Resource" id=4]
@@ -64,7 +65,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="ResourceLoader" type="Node"]
+[node name="Loader" type="Node"]
 script = ExtResource( 10 )
 
 [node name="Background" type="Sprite" parent="."]
@@ -227,59 +228,35 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
 margin_right = 737.0
-margin_bottom = 98.0
+margin_bottom = 201.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer"]
-margin_top = 39.0
+margin_top = 91.0
 margin_right = 298.0
-margin_bottom = 58.0
+margin_bottom = 110.0
 text = "Take an off-farm job"
 
 [node name="Control" type="Control" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer"]
 margin_left = 302.0
 margin_right = 444.0
-margin_bottom = 98.0
+margin_bottom = 201.0
 size_flags_horizontal = 3
 
 [node name="CheckBox" type="CheckBox" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer"]
 margin_left = 448.0
 margin_right = 590.0
-margin_bottom = 98.0
+margin_bottom = 201.0
 size_flags_horizontal = 3
 
 [node name="Control2" type="Control" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer"]
 margin_left = 594.0
 margin_right = 737.0
-margin_bottom = 98.0
+margin_bottom = 201.0
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
-margin_top = 103.0
-margin_right = 737.0
-margin_bottom = 201.0
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer2"]
-margin_top = 39.0
-margin_right = 185.0
-margin_bottom = 58.0
-text = "hire labourer"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="StateController/LabourMenu/VBoxContainer"]
-margin_top = 206.0
-margin_right = 737.0
-margin_bottom = 304.0
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="StateController/LabourMenu/VBoxContainer/HBoxContainer3"]
-margin_top = 39.0
-margin_right = 185.0
-margin_bottom = 58.0
-text = "hire labourer"
-
 [node name="AnimalMenuItem" parent="StateController/LabourMenu/VBoxContainer" instance=ExtResource( 8 )]
-margin_top = 309.0
+margin_top = 206.0
 margin_bottom = 408.0
 resource = ExtResource( 36 )
 
@@ -430,9 +407,9 @@ popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
+ExtResource( 16 ): NodePath("ChickenStat"),
 ExtResource( 19 ): NodePath("GoatStat"),
-ExtResource( 26 ): NodePath("CowStat"),
-ExtResource( 16 ): NodePath("ChickenStat")
+ExtResource( 26 ): NodePath("CowStat")
 }
 
 [node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]
@@ -841,6 +818,10 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="MouseIndicator" type="Node2D" parent="."]
+script = ExtResource( 42 )
+
+[connection signal="change_mouse" from="StateController/CropsMenu" to="MouseIndicator" method="_on_CropsMenu_change_mouse"]
 [connection signal="pressed" from="StateController/CropsMenu/CropsBuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="decreased_int_item" from="StateController/LivestockMenu/VBoxContainer" to="Background/Animals" method="_on_decreased_int_item"]
 [connection signal="increased_int_item" from="StateController/LivestockMenu/VBoxContainer" to="Background/Animals" method="_on_increased_int_item"]

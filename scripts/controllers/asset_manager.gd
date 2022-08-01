@@ -9,7 +9,7 @@ export(float) var money
 export(float) var labour
 export(Array, Resource) var available_animals
 
-export(NodePath) var resource_loader_path = "/root/ResourceLoader"
+export(NodePath) var resource_loader_path = "/root/Loader"
 export(NodePath) var popup_insufficient_path
 export(NodePath) var popup_max_reached_path
 

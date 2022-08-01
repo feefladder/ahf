@@ -99,6 +99,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/summaries/field_summary_resource.gd"
 }, {
+"base": "Reference",
+"class": "GutHookScript",
+"language": "GDScript",
+"path": "res://addons/gut/hook_script.gd"
+}, {
+"base": "Node",
+"class": "GutTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
+}, {
 "base": "Node",
 "class": "IncomeDisplay",
 "language": "GDScript",
@@ -134,10 +144,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/measures_handler.gd"
 }, {
+"base": "Node2D",
+"class": "MouseIndicator",
+"language": "GDScript",
+"path": "res://scripts/UI/mouse_indicator.gd"
+}, {
 "base": "Panel",
 "class": "PopupInsufficient",
 "language": "GDScript",
-"path": "res://scripts/UI/popup_insufficient.gd"
+"path": "res://scripts/UI/popups/popup_insufficient.gd"
 }, {
 "base": "CanvasItem",
 "class": "Stat",
@@ -203,6 +218,8 @@ _global_script_class_icons={
 "FieldBlock": "",
 "FieldBlockInputs": "",
 "FieldSummaryResource": "",
+"GutHookScript": "",
+"GutTest": "",
 "IncomeDisplay": "",
 "IntResource": "",
 "IrrigationResource": "",
@@ -210,6 +227,7 @@ _global_script_class_icons={
 "MeasureResource": "",
 "MeasureState": "",
 "MeasuresHandler": "",
+"MouseIndicator": "",
 "PopupInsufficient": "",
 "Stat": "",
 "StateController": "",
@@ -228,9 +246,9 @@ config/name="AHFGodotFarmz2U"
 run/main_scene="res://scenes/field/main.tscn"
 config/icon="res://icon.png"
 
-[autoload]
+[editor_plugins]
 
-XYPt="*res://scripts/XYPt.gd"
+enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg" )
 
 [physics]
 

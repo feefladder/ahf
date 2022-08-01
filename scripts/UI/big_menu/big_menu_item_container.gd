@@ -3,9 +3,9 @@ extends Node
 signal increased_int_item(which)
 signal decreased_int_item(which)
 
-export(NodePath) var resource_loader_path = "/root/ResourceLoader"
-export(NodePath) var asset_manager_path = "/root/ResourceLoader/AssetManager"
-export(NodePath) var manager_path = "/root/ResourceLoader/AnimalsMenu"
+export(NodePath) var resource_loader_path = "/root/Loader"
+export(NodePath) var asset_manager_path = "/root/Loader/AssetManager"
+export(NodePath) var manager_path = "/root/Loader/AnimalsMenu"
 export(PackedScene) var big_menu_int_item_scene
 export(String) var my_int_resource_name = null
 
@@ -14,12 +14,12 @@ onready var manager = get_node_or_null(manager_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    assert(get_node(resource_loader_path).connect("resources_loaded", self, "_on_ResourceLoader_resources_loaded") == 0)
+    assert(get_node(resource_loader_path).connect("resources_loaded", self, "_on_Loader_resources_loaded") == 0)
 #    assert(connect("increased_int_item", manager, "_on_increased_int_item") == 0)
 #    assert(connect("decreased_int_item", manager, "_on_decreased_int_item") == 0)
     asset_manager = get_node(asset_manager_path)
 
-func _on_ResourceLoader_resources_loaded(which, resources):
+func _on_Loader_resources_loaded(which, resources):
     if which == my_int_resource_name:
         for resource in resources:
             add_menu_int_item(resource)

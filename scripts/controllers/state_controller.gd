@@ -7,9 +7,6 @@ onready var crop_handler = get_node(crop_handler_path)
 var current_item: BuyResource
 var current_node: TabMenu
 
-func _ready():
-    print("crop_handler_path: ", crop_handler_path)
-
 func _on_tab_changed(a_tab):
     if current_node:
         current_node.deactivate()

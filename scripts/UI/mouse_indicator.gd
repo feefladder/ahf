@@ -1,15 +1,21 @@
 extends Node2D
+class_name MouseIndicator
 
 export(Dictionary) var mouse_modes
-export(Dictionary) var unanimated_mouse_modes = {
-#    Enums.States.STATE_IDLE : null,
-#    Enums.States.STATE_PLANTING_CROPS : preload("res://assets/UI/mouse_icons/seedling_icon.png"),
-#    Enums.States.STATE_REMOVING_CROPS : preload("res://assets/UI/mouse_icons/shovel_icon.png"),
-#    Enums.States.STATE_APPLYING_MEASURES : preload("res://assets/UI/mouse_icons/shovel_icon.png"),
-#    Enums.States.STATE_MAKING_IRRIGATION : preload("res://assets/field/Measures/irrigation_horizontal.png")
-}
+
+signal finished
 
 var _visual: Sprite
+
+func _ready():
+    position = get_global_mouse_position()
+
+func play_for_time(animation_scene: PackedScene, time: float):
+    add_child(animation_scene.instance())
+    set_process(false)
+    yield(get_tree().create_timer(time), "timeout")
+    emit_signal("finished")
+    queue_free()
 
 func _process(_delta):
     position = get_global_mouse_position()
@@ -20,12 +26,6 @@ func _set_mouse_cursor_animated(to_what: PackedScene):
     add_child(_visual)
     _visual.show()
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-
-func _set_mouse_cursor(to_what):
-    print("setting mouse cursor to", to_what)
-    _reset_mouse_cursor()
-    if to_what in unanimated_mouse_modes:
-        Input.set_custom_mouse_cursor(unanimated_mouse_modes[to_what])
 
 func _set_mouse_cursor_image(image):
     _remove_visual()
@@ -48,21 +48,5 @@ func _reset_mouse_cursor():
     _remove_visual()
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-
-func _on_StateController_state_changed(to_what, item):
-    if to_what in unanimated_mouse_modes:
-        _set_mouse_cursor(to_what)
-    else:
-        print("setting to image!")
-        _set_mouse_cursor_image(item.image)
-
-
-func _on_MeasuresMenu_started_working(type):
-    print("random")
-    _set_mouse_cursor([type])
-
-
-func _on_StateController_started_work(measure):
-    print("stuff")
-    if measure in mouse_modes:
-        _set_mouse_cursor_animated(mouse_modes[measure])
+func _on_CropsMenu_change_mouse(to_what):
+    _set_mouse_cursor_image(to_what)

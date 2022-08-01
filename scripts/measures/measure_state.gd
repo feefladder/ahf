@@ -17,5 +17,4 @@ func enter() -> void:
     print("unoverridden enter!")
 
 func exit() -> void:
-    print("unoverriden exit!")
-    fsm.goto_previous()
+    print_debug("unoverriden exit!, not exiting!")

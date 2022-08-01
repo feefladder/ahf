@@ -59,7 +59,6 @@ func find_block(a_block: FieldBlock) -> Dictionary:
     for y in field_block_matrix.size():
         for x in field_block_matrix[y].size():
             if field_block_matrix[y][x] == a_block:
-                print("(", x, ", ", y, ")")
                 return {"y": y, "x": x}
     # this should never happen
     return {"x": null, "y": null}

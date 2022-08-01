@@ -39,7 +39,7 @@ func _on_button_pressed(a_button: ToggleButton):
     if (selected_button != null):
         selected_button.modulate = modulateColorNormal
     selected_button = a_button
-    print(selected_button)
+    print("tab changed!", selected_button)
     emit_signal("tab_changed", selected_button)
 
 func _on_button_hovered(a_button: ToggleButton):

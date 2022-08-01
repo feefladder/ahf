@@ -1,0 +1,11 @@
+{
+	"title": "CropCalculator",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1659353881,
+	"hash": "06f0eb6e34b55bb1e7224049963117a7f653dd873b9345d7723e57ad3a50f50e",
+	"description": "Split field end-of-year calculations to a dedicated node\n",
+	"todos": [
+
+	]
+}

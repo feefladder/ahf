@@ -30,7 +30,6 @@ func pause():
     _timer.set_paused(true)
 
 func _on_timeout():
-    print("timeout!")
     _timer.stop()
     emit_signal("timeout", self)
 
@@ -66,9 +65,7 @@ func _on_mouse_entered():
     _mouse_over = true
     if not _enabled:
         return
-    print("mouse entered")
     if _mouse_down:
-        print("pressed me")
         super_highlight()
         emit_signal("pressed", self)
     else:
