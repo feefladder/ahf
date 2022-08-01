@@ -407,9 +407,9 @@ popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
-ExtResource( 16 ): NodePath("ChickenStat"),
+ExtResource( 26 ): NodePath("CowStat"),
 ExtResource( 19 ): NodePath("GoatStat"),
-ExtResource( 26 ): NodePath("CowStat")
+ExtResource( 16 ): NodePath("ChickenStat")
 }
 
 [node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]

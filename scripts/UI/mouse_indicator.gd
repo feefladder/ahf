@@ -11,9 +11,13 @@ func _ready():
     position = get_global_mouse_position()
 
 func play_for_time(animation_scene: PackedScene, time: float):
-    add_child(animation_scene.instance())
+    var animation = animation_scene.instance()
+    add_child(animation)
     set_process(false)
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     yield(get_tree().create_timer(time), "timeout")
+    Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+    Input.warp_mouse_position(position)
     emit_signal("finished")
     queue_free()
 

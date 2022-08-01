@@ -15,6 +15,11 @@ func enter():
     get_tree().get_root().add_child(indicator)
     indicator.play_for_time(digging, fsm.resource.time_required)
     yield(indicator, "finished")
+    print("indicator finished")
+    exit()
+
+func fieldblock_pressed(which):
+    print("block pressed!")
 
 func exit():
     fsm.apply_current_block()
