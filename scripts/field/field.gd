@@ -30,6 +30,7 @@ func _ready():
             field_block.x = x
             field_block.y = y
             field_block.scale = scale
+            field_block.name = "block_%d%d" % [x, y]
 #            field_block.disable()
             field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
             field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")

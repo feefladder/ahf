@@ -10,7 +10,7 @@ var _visual: Sprite
 func _ready():
     position = get_global_mouse_position()
 
-func play_for_time(animation_scene: PackedScene, time: float):
+func play_for_time(animation_scene: PackedScene, time: float) -> void:
     var animation = animation_scene.instance()
     add_child(animation)
     set_process(false)
@@ -18,6 +18,12 @@ func play_for_time(animation_scene: PackedScene, time: float):
     yield(get_tree().create_timer(time), "timeout")
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     Input.warp_mouse_position(position)
+    emit_signal("finished")
+    queue_free()
+
+func play_non_blocking(animation: Node2D) -> void:
+    add_child(animation)
+    yield(animation, "animation_finished")
     emit_signal("finished")
     queue_free()
 

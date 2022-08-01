@@ -35,11 +35,13 @@ func apply_measure(a_measure):
         remove_child(sp)
         sp.queue_free()
 
-func plant_crop(a_crop: CropResource):
+func add_crop(a_crop: CropResource):
     $Crop.texture = a_crop.image
     crop_resource = a_crop
     $Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
     has_crop = true
+
+func show_crop() -> void:
     $Crop.show()
 
 func remove_crop():

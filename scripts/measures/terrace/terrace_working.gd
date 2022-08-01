@@ -18,7 +18,7 @@ func enter():
     print("indicator finished")
     exit()
 
-func fieldblock_pressed(which):
+func fieldblock_pressed(_which):
     print("block pressed!")
 
 func exit():

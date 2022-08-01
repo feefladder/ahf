@@ -821,7 +821,6 @@ __meta__ = {
 [node name="MouseIndicator" type="Node2D" parent="."]
 script = ExtResource( 42 )
 
-[connection signal="change_mouse" from="StateController/CropsMenu" to="MouseIndicator" method="_on_CropsMenu_change_mouse"]
 [connection signal="pressed" from="StateController/CropsMenu/CropsBuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="decreased_int_item" from="StateController/LivestockMenu/VBoxContainer" to="Background/Animals" method="_on_decreased_int_item"]
 [connection signal="increased_int_item" from="StateController/LivestockMenu/VBoxContainer" to="Background/Animals" method="_on_increased_int_item"]

@@ -1,10 +1,10 @@
 extends TabMenu
 class_name CropHandler
 
-signal change_mouse(to_what)
-
 export(NodePath) var asset_manager_path = "../../AssetManager"
 export(NodePath) var field_path = "../../Field"
+
+export(PackedScene) var planting_scene = preload("res://scenes/mouse/planting.tscn")
 
 var current_crop: CropResource
 
@@ -15,7 +15,6 @@ func _on_tab_changed(which: BuyMenuItem):
     if which != null:
         field.enable_all_without(which)
         current_crop = which.resource
-    emit_signal("change_mouse", current_crop.image)
 
 func fieldblock_pressed(a_block: FieldBlock):
     if current_crop:
@@ -27,7 +26,10 @@ func fieldblock_pressed(a_block: FieldBlock):
 func try_plant_crop(a_block):
     if not a_block.has_crop:
         if asset_manager.decrease_assets(current_crop.unit_price, current_crop.unit_labour):
-            a_block.plant_crop(current_crop)
+            a_block.add_crop(current_crop)
+            var planting = planting_scene.instance()
+            planting.crop = a_block.get_node("Crop")
+            a_block.add_child(planting)
 
 func try_remove_crop(a_block):
     if a_block.has_crop:
