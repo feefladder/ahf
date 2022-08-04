@@ -1,0 +1,4 @@
+extends BuyResource
+class_name ToggleResource
+
+

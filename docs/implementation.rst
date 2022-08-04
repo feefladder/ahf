@@ -2,6 +2,92 @@ Implementation
 ==============
 
 
+For the implementation, two patterns were used: State machines and a
+Model-View-Controller (MVC) pattern. The MVC pattern is repeated for several
+aspects of the farm, each for a specific part (Crops, Assets, Family, Labour).
+
+in general, it works like the following:
+
+.. uml::
+
+   @startuml
+   title generic Model-View-Controller setup
+
+   package Model {
+      struct CropResource {
+         blocks_placed
+      }
+
+      struct CropSummaryResource {
+         Dictionary : acquired
+         Dictionary : income
+         Dictionary : expenses
+      }
+   }
+
+   package View {
+      class FieldBlock {
+         bool : has_crop
+      }
+
+      class AnnualReview {
+
+      }
+   }
+
+   package Controller {
+      class CropHandler{
+
+      }
+
+      class AssetManager {
+
+      }
+
+      class YieldCalculator {
+      }
+   }
+
+.. uml::
+   
+   @startuml
+
+   title Planting a crop logic
+
+   Actor Player
+   Player -> TabButton: Click
+   TabButton -> StateController: Set state to CropHandler
+
+   Player -> FieldBlock: Click
+   FieldBlock -> StateController: FieldBlock is clicked
+   StateController -> CropHandler: FieldBlock is clicked
+   CropHandler -> FieldBlock: Has crop?
+   CropHandler -> AssetManager: decrease_assets
+   CropHandler -> CropResource: add(FieldBlock) to blocks_placed
+   CropHandler -> FieldBlock: plant_crop(CropResource)
+
+   @enduml
+
+.. uml::
+
+   @startuml
+
+   title end of year logic
+
+   Actor Player
+   Player -> EndOfYearButton: click
+
+   EndOfYearButton --> YieldCalculator: end_of_year_requested
+   create AnnualReview
+   EndOfYearButton -> AnnualReview: end_of_year_requested
+
+
+   create CropSummaryResource
+   YieldCalculator -> CropSummaryResource: add data
+   YieldCalculator --> AnnualReview: data
+   AnnualReview <-> CropSummaryResource: display data
+
+
 .. uml::
 
    @startuml
@@ -256,26 +342,7 @@ bla
 
    @enduml
 
-.. uml::
-   
-   @startuml
 
-   title Planting a crop logic
-
-   Actor Player
-   Player -> CropsBuyMenuItem: Click
-   CropsBuyMenuItem -> StateController: Clicked CropResource
-   StateController -> StateController: Set state to planting CropResource
-
-   Player -> FieldBlock: Click
-   FieldBlock -> Field: I am clicked
-   Field -> StateController: FieldBlock is clicked
-   StateController -> CropHandler: Try planting CropResource
-   CropHandler -> FieldBlock: Has crop?
-   CropHandler -> AssetManager: decrease_assets
-   CropHandler -> FieldBlock: plant_crop(CropResource)
-
-   @enduml
 
 .. uml::
 

@@ -1,12 +1,9 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://scripts/resources/field_resources/measure_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/PlaceableItems/measure_resource.gd" type="Script" id=1]
 [ext_resource path="res://assets/field/tile_terrace.png" type="Texture" id=2]
-[ext_resource path="res://scenes/field/measures/terrace_collision.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/measures/terrace/terrace_empty.gd" type="Script" id=4]
-[ext_resource path="res://scripts/measures/terrace/terrace_incomplete_row.gd" type="Script" id=5]
-[ext_resource path="res://scripts/measures/terrace/terrace_working.gd" type="Script" id=6]
-[ext_resource path="res://scripts/measures/terrace/terrace_completed_row.gd" type="Script" id=7]
+[ext_resource path="res://scenes/mouse/digging_shovel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/field/measures/terrace_collision.tscn" type="PackedScene" id=4]
 
 [resource]
 resource_name = "terraces"
@@ -14,20 +11,17 @@ script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 0.0
 unit_labour = 50.0
+persistent = true
 tooltip_info = {
 "general": "",
 "long_term_pros": "",
 "short_term_cons": "",
 "short_term_pros": ""
 }
-time_required = 2.0
-erosion_reduction = 50.0
+blocks_placed = [  ]
+time_required = 5.0
+erosion_reduction = 5.0
 fertility_increase = 0.0
 salinity_effect = 0.0
-scene = ExtResource( 3 )
-states = {
-"completed_row": ExtResource( 7 ),
-"incomplete": ExtResource( 5 ),
-"initial": ExtResource( 4 ),
-"working": ExtResource( 6 )
-}
+placing_scene = ExtResource( 3 )
+scene = ExtResource( 4 )

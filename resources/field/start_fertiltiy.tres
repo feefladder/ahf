@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/resources/field_resources/fertility_resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+salinity = 0.0
+nutrient_status = 0.183
+soil_structure = 0.249
+erosion_rate = 50.0
+compound_fertility = 0.0

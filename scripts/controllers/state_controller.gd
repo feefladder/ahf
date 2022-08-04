@@ -4,7 +4,7 @@ class_name StateController
 export(NodePath) var crop_handler_path = "CropHandler"
 
 onready var crop_handler = get_node(crop_handler_path)
-var current_item: BuyResource
+
 var current_node: TabMenu
 
 func _on_tab_changed(a_tab):
@@ -12,7 +12,8 @@ func _on_tab_changed(a_tab):
         current_node.deactivate()
     if not a_tab:
         return
-    current_node = get_node(a_tab.title + "Menu")
+
+    current_node = a_tab.get_node(a_tab.target)
     current_node.activate()
 
 func _on_fieldblock_pressed(a_block):

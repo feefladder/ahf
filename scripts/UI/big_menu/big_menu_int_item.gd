@@ -1,7 +1,7 @@
 extends Node
 class_name BigMenuIntItem
 
-export(Resource) var resource
+var resource: IntResource
 
 signal increase_pressed(which)
 signal decrease_pressed(which)

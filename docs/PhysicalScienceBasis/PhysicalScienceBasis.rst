@@ -19,6 +19,7 @@ effects of drought and irrigation can be estimated based on the FAO irrigation
 and drainage paper :xcite:`[@AllenFAOIrrigationDrainage1998]`.
 
 
+
 Erosion modelling
 -----------------
 Erosion is a big issue in the Jos plateau, and farmers are already taking
@@ -35,6 +36,14 @@ model that is:
 
 Two well knows erosion models are the (Revised) Universal Soil Loss Equation
 (R)USLE and the Morgan-Morgan Finley model. 
+
+We choose the MMF model, but only implement it in the back-end modelling
+framework, such that the game can remain lightweight.
+
+Influence of erosion on nutrients is determined as follows:
+ #. A concentration gradient is determined for concentration of nutrients
+ #. readily soluble and soil-bound nutrients are completely leeched from the top layer
+ #. good soil structure reduces erosion
 
 Salinity modelling
 ------------------

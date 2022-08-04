@@ -9,6 +9,7 @@ script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 200.0
 unit_labour = 30.0
+persistent = true
 tooltip_info = {
 "general": "",
 "long_term_pros": "",

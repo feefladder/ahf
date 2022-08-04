@@ -7,20 +7,18 @@ export(NodePath) var path_to_Loader = "/root/Loader"
 export(String) var my_resource_name
 
 export(NodePath) var asset_manager_path = "/root/Loader/AssetManager"
+export(NodePath) var controller_path = "../../../"
 onready var asset_manager = get_node(asset_manager_path)
+onready var controller = get_node(controller_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     assert(get_node(path_to_Loader).connect("resources_loaded",self,"_on_Loader_resources_loaded") == 0)
-    
 
 func add_MenuItem(a_resource: BuyResource):
     var menu_item = BuyMenuItemScene.instance()
-    menu_item.title = a_resource.resource_name
-    menu_item.icon = a_resource.image
     menu_item.resource = a_resource
-    menu_item.asset_manager = asset_manager
-#    menu_item.connect("pressed",get_node(path_to_StateController),"_on_BuyMenuItem_clicked")
+    menu_item.controller = controller
     add_child(menu_item)
 
 func _on_Loader_resources_loaded(which: String, resources: Array) -> void:

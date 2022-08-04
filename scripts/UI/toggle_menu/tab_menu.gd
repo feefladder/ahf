@@ -6,7 +6,7 @@ signal deactivated(who)
 
 export(NodePath) var toggle_menu_path
 
-onready var toggle_menu = get_node(toggle_menu_path) if toggle_menu_path else null
+onready var toggle_menu = get_node_or_null(toggle_menu_path)
 
 func activate():
     show()
@@ -17,6 +17,3 @@ func deactivate():
     if toggle_menu:
         toggle_menu.deselect()
     emit_signal("deactivated", self)
-
-func field_clicked(a_block):
-    print("wajow, ik ben geactiveerd!", a_block)

@@ -1,4 +1,7 @@
 extends SummaryResource
 class_name AssetSummaryResource
 
-export(Dictionary) var crop_summaries
+var income: Dictionary
+var expenses: Dictionary
+var persistent_income: Dictionary
+var persistent_expenses: Dictionary

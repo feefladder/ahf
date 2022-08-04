@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/resources/field_resources/crop_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/PlaceableItems/crop_resource.gd" type="Script" id=1]
 [ext_resource path="res://assets/field/Crops/cherry_tomato.png" type="Texture" id=2]
 
 [resource]

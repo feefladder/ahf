@@ -9,6 +9,7 @@ script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 200.0
 unit_labour = -100.0
+persistent = false
 tooltip_info = {
 "general": "Hire a labourer to help work on your farm!",
 "long_term_pros": "",

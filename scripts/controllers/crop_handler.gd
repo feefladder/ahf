@@ -13,7 +13,7 @@ onready var field = get_node(field_path)
 
 func _on_tab_changed(which: BuyMenuItem):
     if which != null:
-        field.enable_all_without(which)
+        field.enable_all()
         current_crop = which.resource
 
 func fieldblock_pressed(a_block: FieldBlock):

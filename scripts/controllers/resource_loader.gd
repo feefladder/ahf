@@ -9,7 +9,8 @@ export(Dictionary) var resources_paths = {
     "crop_resource" : "crops/",
     "animal_resource" : "animals/",
     "labour_resource" : "labour/",
-    "measures_resource" : "measures/"
+    "measures_resource" : "measures/",
+    "family_resource" : "family/"
 }
 
 func _ready():
