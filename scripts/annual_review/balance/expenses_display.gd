@@ -13,11 +13,10 @@ func add_crop_summary(summary: FieldSummaryResource):
 
 func add_asset_summary(summary: AssetSummaryResource):
     for resource in summary.expenses:
-        print("adding item for: ", summary.expenses, " with value ", summary.expenses[resource])
         # this is an income
         var asset_sum_item = asset_sum_item_scene.instance()
         asset_sum_item.resource = resource
         asset_sum_item.amount = summary.expenses[resource]
         asset_sum_container.add_child(asset_sum_item)
     for resource in summary.persistent_expenses:
-        print("adding item for: ", resource, summary.persistent_expenses[resource])
+        printerr("persistent expenses not implemented yet!")

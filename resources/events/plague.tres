@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://scripts/resources/PlaceableItems/crop_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/events/yield_event_resource.gd" type="Script" id=2]
+[ext_resource path="res://assets/events/plague.png" type="Texture" id=3]
+
+[resource]
+resource_name = "insect plague"
+script = ExtResource( 2 )
+image = ExtResource( 3 )
+description = "All your crops were affected by an insect plague. You lost 30% of your production. If you applied pesticides, your crops remained unharmed."
+affected_crop = ExtResource( 1 )
+yield_reduction = 0.35
+ameliorated_yield_reduction = 0.0

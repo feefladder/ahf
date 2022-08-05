@@ -1,11 +1,11 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
-[ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
+[ext_resource path="res://scripts/annual_review/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/animals/goat.png" type="Texture" id=3]
 [ext_resource path="res://scenes/UI/stat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/Buttons/icon_labour.png" type="Texture" id=5]
-[ext_resource path="res://scripts/UI/popups/popup_insufficient.gd" type="Script" id=6]
+[ext_resource path="res://scripts/annual_review/UI/popups/popup_insufficient.gd" type="Script" id=6]
 [ext_resource path="res://scripts/controllers/crop_handler.gd" type="Script" id=7]
 [ext_resource path="res://scenes/UI/big_menu/big_menu_int_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
@@ -13,18 +13,19 @@
 [ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
 [ext_resource path="res://scripts/controllers/asset_manager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
-[ext_resource path="res://scripts/UI/big_menu/big_menu_item_container.gd" type="Script" id=14]
-[ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
+[ext_resource path="res://scripts/annual_review/UI/big_menu/big_menu_item_container.gd" type="Script" id=14]
+[ext_resource path="res://scripts/annual_review/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
 [ext_resource path="res://scripts/calculators/asset_calculator.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
-[ext_resource path="res://scripts/UI/tooltips/tooltip.gd" type="Script" id=18]
+[ext_resource path="res://scripts/annual_review/UI/tooltips/tooltip.gd" type="Script" id=18]
+[ext_resource path="res://scripts/calculators/event_manager.gd" type="Script" id=19]
 [ext_resource path="res://assets/Background1.png" type="Texture" id=20]
 [ext_resource path="res://scripts/display/livestock/animals.gd" type="Script" id=21]
 [ext_resource path="res://assets/UI/Buttons/icon_family.png" type="Texture" id=22]
 [ext_resource path="res://assets/animals/cow.png" type="Texture" id=23]
-[ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
+[ext_resource path="res://scripts/annual_review/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
-[ext_resource path="res://scripts/UI/toggle_menu/tab_menu.gd" type="Script" id=27]
+[ext_resource path="res://scripts/annual_review/UI/toggle_menu/tab_menu.gd" type="Script" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
@@ -32,14 +33,14 @@
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
 [ext_resource path="res://assets/theme/buy_menu/buy_menu_item.tres" type="Theme" id=33]
 [ext_resource path="res://scripts/controllers/end_of_year.gd" type="Script" id=34]
-[ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
+[ext_resource path="res://scripts/annual_review/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/calculators/yield_calculator.gd" type="Script" id=36]
-[ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
+[ext_resource path="res://scripts/annual_review/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
-[ext_resource path="res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd" type="Script" id=39]
-[ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
+[ext_resource path="res://scripts/annual_review/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd" type="Script" id=39]
+[ext_resource path="res://scripts/annual_review/UI/popups/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/field/field_data.tres" type="Resource" id=41]
-[ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
+[ext_resource path="res://scripts/annual_review/UI/mouse_indicator.gd" type="Script" id=42]
 [ext_resource path="res://scripts/calculators/fertility_calculator.gd" type="Script" id=43]
 [ext_resource path="res://scripts/display/people/people.gd" type="Script" id=44]
 [ext_resource path="res://scenes/UI/big_menu/big_menu_toggle_item.tscn" type="PackedScene" id=45]
@@ -400,9 +401,9 @@ popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
-Resource( "res://resources/animals/02_goat.tres" ): NodePath("GoatStat"),
+Resource( "res://resources/animals/01_chicken.tres" ): NodePath("ChickenStat"),
 Resource( "res://resources/animals/03_cow.tres" ): NodePath("CowStat"),
-Resource( "res://resources/animals/01_chicken.tres" ): NodePath("ChickenStat")
+Resource( "res://resources/animals/02_goat.tres" ): NodePath("GoatStat")
 }
 
 [node name="AssetCalculator" type="Node" parent="AssetManager"]
@@ -411,7 +412,7 @@ script = ExtResource( 16 )
 [node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]
 margin_right = 119.0
 type = "money"
-unit = "NGT"
+unit = "₦"
 
 [node name="LabourStat" type="ColorRect" parent="AssetManager"]
 margin_left = 123.0
@@ -580,6 +581,9 @@ margin_right = 1034.0
 margin_bottom = 90.0
 text = "next year"
 script = ExtResource( 34 )
+
+[node name="EventManager" type="Node" parent="AssetManager/NextYearButton"]
+script = ExtResource( 19 )
 
 [node name="ToggleButtonContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.85

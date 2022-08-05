@@ -7,6 +7,7 @@ resource_name = "health insurance"
 script = ExtResource( 1 )
 unit_price = 0.0
 unit_labour = 0.0
+persistent = false
 tooltip_info = {
 "general": "",
 "long_term_pros": "",

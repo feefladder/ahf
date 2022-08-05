@@ -19,7 +19,7 @@ tooltip_info = {
 "short_term_pros": ""
 }
 blocks_placed = [  ]
-time_required = 5.0
+time_required = 1.0
 erosion_reduction = 5.0
 fertility_increase = 0.0
 salinity_effect = 0.0

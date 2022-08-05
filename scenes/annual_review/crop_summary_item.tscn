@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/field/Crops/maize.png" type="Texture" id=1]
-[ext_resource path="res://scripts/annual_review/crop_summary_item.gd" type="Script" id=2]
+[ext_resource path="res://scripts/annual_review/balance/crop_summary_item.gd" type="Script" id=2]
 [ext_resource path="res://assets/theme/small.tres" type="DynamicFont" id=3]
 
 [node name="crop_summary_item" type="HBoxContainer"]

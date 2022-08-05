@@ -23,7 +23,6 @@ func should_enable(block): #block is a fieldblock
         # empty field: enable only the bottom row
         return block.y == 0
     elif blocks_placed.size() % field.size_x != 0:
-        print("incomplete row")
         # incomplete row: only enable the same row
         return block.y == blocks_placed[-1].y
     else:

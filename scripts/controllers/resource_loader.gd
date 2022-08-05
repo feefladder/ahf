@@ -1,7 +1,7 @@
 extends Node
 class_name Loader
 
-signal resources_loaded(which, crop_resources)
+signal resources_loaded(which, resources)
 
 export(String) var base_path = "res://resources/"
 
@@ -10,7 +10,8 @@ export(Dictionary) var resources_paths = {
     "animal_resource" : "animals/",
     "labour_resource" : "labour/",
     "measures_resource" : "measures/",
-    "family_resource" : "family/"
+    "family_resource" : "family/",
+    "events_resource" : "events/"
 }
 
 func _ready():

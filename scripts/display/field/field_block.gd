@@ -9,19 +9,11 @@ var y: int
 
 var has_crop := false
 var has_irrigation := false
-#var resources := []
-
-#func has(something: BuyResource) -> bool:
-#    for resource in resources:
-#        if resource == something:
-#            return true
-#    return false
 
 func apply(a_measure: PlaceableResource):
 #    resources.append(a_measure)
     var scene = a_measure.scene.instance()
     self.add_child(scene)
-    print(scene is CollisionPolygon2D)
     if scene is CollisionPolygon2D:
         var sp = $SoilPoly
         sp.call_deferred("queue_free")

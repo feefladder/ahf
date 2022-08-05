@@ -21,7 +21,6 @@ func should_enable(block) -> bool:
         print("no blocks placed yet!")
         return block.x == field.size_x - 1 and block.y == field.size_y - 1
     else:
-        print("placed: ", blocks_placed)
         for placed in blocks_placed:
             # we can expand along the edge
             if placed.x == field.size_x - 1 and block.x == field.size_x - 1 and block.y == placed.y - 1:

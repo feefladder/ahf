@@ -11,10 +11,10 @@ func _ready():
     assert(eoy_button.connect("next_year_requested", self, "_on_next_year_requested") == 0)
     assert(connect("summary_completed", eoy_button, "_on_summary_completed") == 0)
 
-func _on_next_year_requested():
-    make_summary()
-    printerr(summary)
+func _on_next_year_requested(event: EventResource):
+    make_summary(event)
     emit_signal("summary_completed", summary)
 
-func make_summary():
+func make_summary(event: EventResource) -> SummaryResource:
     printerr("Non-overridden make_summary() in ", self.name)
+    return null

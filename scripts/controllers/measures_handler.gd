@@ -62,7 +62,6 @@ func get_min_number() -> int:
     return 1
 
 func set_current_measure(which: BuyMenuItem):
-    print("tab really changed to:", current_resource.resource_name)
     current_resource = which.resource
     if "field" in current_resource:
         current_resource.field = field.field_resource

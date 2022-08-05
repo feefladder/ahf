@@ -45,7 +45,6 @@ func add_menu_int_item(resource: IntResource):
     add_child(menu_item)
 
 func _try_toggle_button(menu_item: BigMenuToggleItem, is_pressed: bool):
-    print(menu_item, is_pressed)
     if asset_manager.try_toggle_item(menu_item.resource):
         emit_signal("toggle_item_set", menu_item, is_pressed)
     else:

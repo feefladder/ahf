@@ -18,6 +18,5 @@ func _ready():
     
     #apply the measure to the block
     get_parent().apply(measure)
-    print(measure.blocks_placed)
     emit_signal("applied")
     queue_free()
