@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-unit_price = 0.0
-unit_labour = 0.0
+unit_price = 20.0
+unit_labour = 10.0
 persistent = false
 tooltip_info = {
 "general": "",
@@ -14,7 +14,7 @@ tooltip_info = {
 "short_term_pros": ""
 }
 blocks_placed = [  ]
-sell_price = 0.0
-max_yield = 0.0
-f_wlimited_yield = 0.0
-f_actual_yield = 0.0
+sell_price = 100.0
+max_yield = 156.25
+f_wlimited_yield = 0.8
+f_actual_yield = 0.8

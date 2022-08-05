@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://assets/family/man.png" type="Texture" id=1]
+[ext_resource path="res://assets/farmerfam_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/farmzy/farmz2u character-07.png" type="Texture" id=3]
+[ext_resource path="res://scripts/story/story_resource.gd" type="Script" id=4]
+[ext_resource path="res://assets/family/man_02.png" type="Texture" id=5]
+
+[resource]
+script = ExtResource( 4 )
+story_texts = PoolStringArray( "Ade is an aspiring farmer with a growing family", "He has two children and a beautiful wife.", "Ade has been struggling to make ends meet for his family and now his oldest son wants to go to university to further his education. Ade wants to upscale his farming business to help his sons dreams come true and build a more comfortable life for his growing family.", "Farmz2U recognizes Ade\'s dream and wants to help. They have given him a finiancial loan and helped him lease a hectare of land. ", "Can you help Ade grow a sustainable farming business and achieve all his goals in 12 years\?Perhaps if go above and beyond you\'ll get a merit bagde to show off to your friends..." )
+story_images = [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 1 ) ]

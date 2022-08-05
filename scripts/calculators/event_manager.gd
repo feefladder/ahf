@@ -16,6 +16,11 @@ func _on_resources_loaded(which, resources):
         print(events)
 
 func get_event() -> EventResource:
+    if (randi() % 10 < 5):
+        var event_nothing = EventResource.new()
+        event_nothing.resource_name = "nothing"
+        event_nothing.description = "no events happened this year"
+        return event_nothing
     # return a random event
     if events.size():
         return events[randi() % events.size()]
