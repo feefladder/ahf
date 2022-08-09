@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/UI/big_menu/big_menu_int_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/UI/big_menu/big_menu.gd" type="Script" id=3]
+[ext_resource path="res://scripts/UI/big_menu/big_menu_item_container.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[node name="LivestockBigMenu" type="Panel"]
+visible = false
+anchor_right = 0.9
+anchor_bottom = 0.85
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.1
+custom_fonts/font = SubResource( 3 )
+text = "Livestock"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.1
+anchor_top = 0.15
+anchor_right = 0.9
+anchor_bottom = 0.85
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+big_menu_int_item_scene = ExtResource( 2 )
+
+[node name="BackButton" type="Button" parent="."]
+anchor_left = 0.8
+anchor_top = 0.9
+anchor_right = 0.95
+anchor_bottom = 1.0
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="pressed" from="BackButton" to="." method="deactivate"]

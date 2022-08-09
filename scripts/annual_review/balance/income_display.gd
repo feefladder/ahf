@@ -14,11 +14,11 @@ var total_income := 0.0
 
 func add_income(amount: float) -> void:
     total_income += amount
+    $VBoxContainer/Total/Amount.text = "%0.2f" % total_income
     emit_signal("income_changed", total_income)
 
 func add_crop_summary(summary: FieldSummaryResource):
-#    assert(crop_sum_container.connect("crop_income_calculated", self, "add_income") == 0)
-    crop_sum_container.add_crop_summary(summary)
+    add_income(crop_sum_container.add_crop_summary(summary))
 
 func add_asset_summary(summary: AssetSummaryResource):
     for resource in summary.income:

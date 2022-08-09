@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scripts/annual_review/UI/stat.gd" type="Script" id=1]
+[ext_resource path="res://scripts/UI/stat.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/Stats/money.png" type="Texture" id=2]
 
 [node name="Stat" type="TextureRect"]

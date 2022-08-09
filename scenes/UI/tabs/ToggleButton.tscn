@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/theme/button/button1.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=2]
-[ext_resource path="res://scripts/annual_review/UI/toggle_menu/tab_button.gd" type="Script" id=3]
+[ext_resource path="res://scripts/UI/toggle_menu/tab_button.gd" type="Script" id=3]
 
 [node name="ToggleButton" type="TextureRect"]
 margin_right = 276.0

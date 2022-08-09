@@ -50,7 +50,7 @@ __meta__ = {
 
 [node name="EventDisplay" type="Panel" parent="VBoxContainer"]
 margin_right = 983.0
-margin_bottom = 158.0
+margin_bottom = 145.0
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
 script = ExtResource( 6 )
@@ -76,7 +76,7 @@ __meta__ = {
 
 [node name="EventTitle" type="Label" parent="VBoxContainer/EventDisplay/VBoxContainer"]
 margin_right = 196.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 text = "nto Gullying"
 align = 1
 autowrap = true
@@ -85,9 +85,9 @@ __meta__ = {
 }
 
 [node name="EventImage" type="TextureRect" parent="VBoxContainer/EventDisplay/VBoxContainer"]
-margin_top = 24.0
+margin_top = 28.0
 margin_right = 196.0
-margin_bottom = 158.0
+margin_bottom = 145.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_vertical = 3
 texture = ExtResource( 15 )
@@ -98,23 +98,23 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_top = 163.0
+margin_top = 150.0
 margin_right = 983.0
-margin_bottom = 206.0
+margin_bottom = 203.0
 custom_fonts/font = ExtResource( 5 )
 text = "annual review"
 align = 1
 
 [node name="Balance" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 211.0
+margin_top = 208.0
 margin_right = 983.0
-margin_bottom = 425.0
+margin_bottom = 438.0
 size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="Income" type="PanelContainer" parent="VBoxContainer/Balance"]
 margin_right = 481.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 8 )
@@ -124,35 +124,35 @@ asset_sum_container_path = NodePath("VBoxContainer/AssetItemContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Income"]
 margin_right = 481.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 custom_constants/separation = 5
 
 [node name="Title" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer"]
 margin_right = 481.0
-margin_bottom = 23.0
+margin_bottom = 28.0
 custom_fonts/font = ExtResource( 4 )
 text = "income"
 align = 1
 
 [node name="Crops" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 28.0
+margin_top = 33.0
 margin_right = 481.0
-margin_bottom = 47.0
+margin_bottom = 56.0
 text = "crops"
 
 [node name="calculation" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 52.0
+margin_top = 61.0
 margin_right = 481.0
-margin_bottom = 65.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 11 )
 text = "yield x area x fertility x price = total"
 align = 2
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 70.0
+margin_top = 82.0
 margin_right = 481.0
-margin_bottom = 170.0
+margin_bottom = 182.0
 rect_min_size = Vector2( 0, 100 )
 
 [node name="CropSummaryContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Income/VBoxContainer/Panel"]
@@ -167,20 +167,20 @@ __meta__ = {
 crop_summary_item_packedscene = ExtResource( 9 )
 
 [node name="AssetItemContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 175.0
+margin_top = 187.0
 margin_right = 481.0
-margin_bottom = 175.0
+margin_bottom = 187.0
 
 [node name="Control" type="Control" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 180.0
+margin_top = 192.0
 margin_right = 481.0
-margin_bottom = 180.0
+margin_bottom = 192.0
 size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 185.0
+margin_top = 197.0
 margin_right = 481.0
-margin_bottom = 190.0
+margin_bottom = 202.0
 rect_min_size = Vector2( 0, 5 )
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
@@ -188,26 +188,26 @@ __meta__ = {
 }
 
 [node name="Total" type="HBoxContainer" parent="VBoxContainer/Balance/Income/VBoxContainer"]
-margin_top = 195.0
+margin_top = 207.0
 margin_right = 481.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 
-[node name="Label" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer/Total"]
+[node name="Title" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer/Total"]
 margin_right = 416.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "total income:"
 
-[node name="Label2" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer/Total"]
+[node name="Amount" type="Label" parent="VBoxContainer/Balance/Income/VBoxContainer/Total"]
 margin_left = 420.0
 margin_right = 481.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 text = "0.00"
 
 [node name="Expenses" type="PanelContainer" parent="VBoxContainer/Balance"]
 margin_left = 501.0
 margin_right = 983.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 3 )
@@ -218,34 +218,34 @@ asset_sum_container_path = NodePath("VBoxContainer/AssetItemContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Expenses"]
 margin_right = 482.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 custom_constants/separation = 5
 
 [node name="Title" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
 margin_right = 482.0
-margin_bottom = 23.0
+margin_bottom = 28.0
 custom_fonts/font = ExtResource( 4 )
 text = "expenses"
 align = 1
 
 [node name="Crops" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 28.0
+margin_top = 33.0
 margin_right = 482.0
-margin_bottom = 47.0
+margin_bottom = 56.0
 text = "crops"
 
 [node name="Calculation" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 52.0
+margin_top = 61.0
 margin_right = 482.0
-margin_bottom = 65.0
+margin_bottom = 77.0
 custom_fonts/font = ExtResource( 11 )
 text = "Area x seed price = total"
 align = 2
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 70.0
+margin_top = 82.0
 margin_right = 482.0
-margin_bottom = 170.0
+margin_bottom = 182.0
 rect_min_size = Vector2( 0, 100 )
 custom_styles/panel = SubResource( 4 )
 
@@ -259,20 +259,20 @@ __meta__ = {
 crop_summary_item_packedscene = ExtResource( 9 )
 
 [node name="AssetItemContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 175.0
+margin_top = 187.0
 margin_right = 482.0
-margin_bottom = 175.0
+margin_bottom = 187.0
 
 [node name="Control" type="Control" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 180.0
+margin_top = 192.0
 margin_right = 482.0
-margin_bottom = 180.0
+margin_bottom = 192.0
 size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 185.0
+margin_top = 197.0
 margin_right = 482.0
-margin_bottom = 190.0
+margin_bottom = 202.0
 rect_min_size = Vector2( 0, 5 )
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
@@ -280,24 +280,24 @@ __meta__ = {
 }
 
 [node name="Total" type="HBoxContainer" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]
-margin_top = 195.0
+margin_top = 207.0
 margin_right = 482.0
-margin_bottom = 214.0
+margin_bottom = 230.0
 
-[node name="Label" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer/Total"]
+[node name="Title" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer/Total"]
 margin_right = 417.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "total expenses:"
 
-[node name="Label2" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer/Total"]
+[node name="Amount" type="Label" parent="VBoxContainer/Balance/Expenses/VBoxContainer/Total"]
 margin_left = 421.0
 margin_right = 482.0
-margin_bottom = 19.0
+margin_bottom = 23.0
 text = "0.00"
 
 [node name="CenterContainer" type="Control" parent="VBoxContainer"]
-margin_top = 430.0
+margin_top = 443.0
 margin_right = 983.0
 margin_bottom = 588.0
 rect_min_size = Vector2( 0, 100 )

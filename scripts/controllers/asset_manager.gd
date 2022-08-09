@@ -64,7 +64,10 @@ func try_toggle_item(an_item: ToggleResource) -> bool:
         if not increase_assets(an_item.unit_price, an_item.unit_labour):
             return false
 
+
+        an_item.implemented = false
         if an_item in acquired_assets:
+            print("removed item: ", an_item.resource_name)
             assert(acquired_assets.erase(an_item) == true)
         else:
             #meaning we sell it (like a house or a car)
@@ -74,6 +77,8 @@ func try_toggle_item(an_item: ToggleResource) -> bool:
         # we don't have it yet
         if not decrease_assets(an_item.unit_price, an_item.unit_labour):
             return false
+
+        an_item.implemented = true
         # can afford -> buy it
         acquired_assets[an_item] = 1
         print("added item: ", an_item.resource_name)

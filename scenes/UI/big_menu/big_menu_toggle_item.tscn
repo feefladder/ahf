@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scripts/annual_review/UI/big_menu/big_menu_toggle_item.gd" type="Script" id=1]
+[ext_resource path="res://scripts/UI/big_menu/big_menu_toggle_item.gd" type="Script" id=1]
 
 [node name="BigMenuToggleItem" type="HBoxContainer"]
 margin_right = 737.0

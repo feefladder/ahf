@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/animals/cock.png" type="Texture" id=1]
-[ext_resource path="res://scripts/annual_review/UI/big_menu/big_menu_int_item.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/big_menu/big_menu_int_item.gd" type="Script" id=2]
 
 [node name="AnimalMenuItem" type="HBoxContainer"]
 margin_right = 737.0

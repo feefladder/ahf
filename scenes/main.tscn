@@ -1,61 +1,51 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=45 format=2]
 
-[ext_resource path="res://scripts/annual_review/UI/animal_stat.gd" type="Script" id=1]
-[ext_resource path="res://assets/theme/african.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/animals/goat.png" type="Texture" id=3]
 [ext_resource path="res://scenes/UI/stat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/Buttons/icon_labour.png" type="Texture" id=5]
-[ext_resource path="res://scripts/annual_review/UI/popups/popup_insufficient.gd" type="Script" id=6]
+[ext_resource path="res://scripts/UI/popups/popup_insufficient.gd" type="Script" id=6]
 [ext_resource path="res://scripts/controllers/crop_handler.gd" type="Script" id=7]
-[ext_resource path="res://scenes/UI/big_menu/big_menu_int_item.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/UI/Buttons/icon_livestock.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
 [ext_resource path="res://scripts/controllers/resource_loader.gd" type="Script" id=10]
 [ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
 [ext_resource path="res://scripts/controllers/asset_manager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
-[ext_resource path="res://scripts/annual_review/UI/big_menu/big_menu_item_container.gd" type="Script" id=14]
-[ext_resource path="res://scripts/annual_review/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
+[ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
 [ext_resource path="res://scripts/calculators/asset_calculator.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
-[ext_resource path="res://scripts/annual_review/UI/tooltips/tooltip.gd" type="Script" id=18]
+[ext_resource path="res://scripts/UI/tooltips/tooltip.gd" type="Script" id=18]
 [ext_resource path="res://scripts/calculators/event_manager.gd" type="Script" id=19]
 [ext_resource path="res://assets/Background1.png" type="Texture" id=20]
 [ext_resource path="res://scripts/display/livestock/animals.gd" type="Script" id=21]
 [ext_resource path="res://assets/UI/Buttons/icon_family.png" type="Texture" id=22]
 [ext_resource path="res://assets/animals/cow.png" type="Texture" id=23]
-[ext_resource path="res://scripts/annual_review/UI/stat.gd" type="Script" id=24]
+[ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
-[ext_resource path="res://scripts/annual_review/UI/toggle_menu/tab_menu.gd" type="Script" id=27]
+[ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
 [ext_resource path="res://assets/animals/cock.png" type="Texture" id=31]
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
-[ext_resource path="res://assets/theme/buy_menu/buy_menu_item.tres" type="Theme" id=33]
 [ext_resource path="res://scripts/controllers/end_of_year.gd" type="Script" id=34]
-[ext_resource path="res://scripts/annual_review/UI/tooltips/max_width_text.gd" type="Script" id=35]
+[ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/calculators/yield_calculator.gd" type="Script" id=36]
-[ext_resource path="res://scripts/annual_review/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
+[ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
-[ext_resource path="res://scripts/annual_review/UI/toggle_menu/BuyMenu/buy_menu_item_container.gd" type="Script" id=39]
-[ext_resource path="res://scripts/annual_review/UI/popups/popup_max_reached.gd" type="Script" id=40]
+[ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/field/field_data.tres" type="Resource" id=41]
-[ext_resource path="res://scripts/annual_review/UI/mouse_indicator.gd" type="Script" id=42]
+[ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
 [ext_resource path="res://scripts/calculators/fertility_calculator.gd" type="Script" id=43]
 [ext_resource path="res://scripts/display/people/people.gd" type="Script" id=44]
-[ext_resource path="res://scenes/UI/big_menu/big_menu_toggle_item.tscn" type="PackedScene" id=45]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 38 )
 crop_summary = {
 }
-
-[sub_resource type="DynamicFont" id=3]
-size = 48
-outline_size = 3
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.780392, 0, 0, 0.592157 )
@@ -69,6 +59,14 @@ corner_radius_bottom_left = 20
 
 [node name="Loader" type="Node"]
 script = ExtResource( 10 )
+resources_paths = {
+"crop_resource": "crops/",
+"events_resource": "events/",
+"family_resource": "family/",
+"labour_resource": "labour/",
+"livestock_resource": "livestock/",
+"measures_resource": "measures/"
+}
 
 [node name="Background" type="Sprite" parent="."]
 show_behind_parent = true
@@ -123,267 +121,39 @@ __meta__ = {
 }
 crop_handler_path = NodePath("CropsBuyMenu")
 
-[node name="CropsBuyMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.15
-anchor_bottom = 0.8
+[node name="CropsBuyMenu" parent="StateController" instance=ExtResource( 2 )]
 script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-toggle_menu_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
-field_path = NodePath("../../Background/Field")
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+title = "Crops"
+resource_name = "crop_resource"
 
-[node name="CropsBuyMenu" type="VBoxContainer" parent="StateController/CropsBuyMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.05
-theme = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="StateController/CropsBuyMenu/CropsBuyMenu"]
-margin_right = 153.0
-margin_bottom = 453.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BuyMenuItemContainer" type="VBoxContainer" parent="StateController/CropsBuyMenu/CropsBuyMenu/ScrollContainer"]
-margin_right = 153.0
-size_flags_horizontal = 15
-script = ExtResource( 39 )
-tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
-target_path = NodePath("../../..")
-my_resource_name = "crop_resource"
-
-[node name="BackButton" type="Button" parent="StateController/CropsBuyMenu/CropsBuyMenu"]
-margin_top = 463.0
-margin_right = 153.0
-margin_bottom = 503.0
-rect_min_size = Vector2( 0, 40 )
-text = "Back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MeasuresBuyMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.15
-anchor_bottom = 0.8
+[node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
 script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+title = "Measures"
+resource_name = "measures_resource"
 
-[node name="BuyMenu" type="VBoxContainer" parent="StateController/MeasuresBuyMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.05
-theme = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
+title = "Livestock"
+resource_name = "livestock_resource"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="StateController/MeasuresBuyMenu/BuyMenu"]
-margin_right = 153.0
-margin_bottom = 453.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+display_path = NodePath("")
+title = "Labour"
+resource_name = "labour_resource"
 
-[node name="BuyMenuItemContainer" type="VBoxContainer" parent="StateController/MeasuresBuyMenu/BuyMenu/ScrollContainer"]
-margin_right = 153.0
-size_flags_horizontal = 15
-script = ExtResource( 39 )
-tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
-target_path = NodePath("../../..")
-my_resource_name = "measures_resource"
+[node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+display_path = NodePath("")
+title = "Family"
+resource_name = "family_resource"
 
-[node name="BackButton" type="Button" parent="StateController/MeasuresBuyMenu/BuyMenu"]
-margin_top = 463.0
-margin_right = 153.0
-margin_bottom = 503.0
-rect_min_size = Vector2( 0, 40 )
-text = "Back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LivestockBigMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.9
-anchor_bottom = 0.85
-script = ExtResource( 27 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="StateController/LivestockBigMenu"]
-anchor_right = 1.0
-anchor_bottom = 0.1
-custom_fonts/font = SubResource( 3 )
-text = "Livestock"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StateController/LivestockBigMenu"]
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-big_menu_int_item_scene = ExtResource( 8 )
-my_int_resource_name = "animal_resource"
-
-[node name="BackButton" type="Button" parent="StateController/LivestockBigMenu"]
-anchor_left = 0.8
-anchor_top = 0.9
-anchor_right = 0.95
-anchor_bottom = 1.0
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="LabourBigMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.9
-anchor_bottom = 0.85
-script = ExtResource( 27 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="StateController/LabourBigMenu"]
-anchor_right = 1.0
-anchor_bottom = 0.1
-custom_fonts/font = SubResource( 3 )
-text = "Labour menu"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StateController/LabourBigMenu"]
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-big_menu_int_item_scene = ExtResource( 8 )
-my_int_resource_name = "labour_resource"
-
-[node name="BackButton" type="Button" parent="StateController/LabourBigMenu"]
-anchor_left = 0.8
-anchor_top = 0.9
-anchor_right = 0.95
-anchor_bottom = 1.0
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="FamilyBigMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.9
-anchor_bottom = 0.85
-script = ExtResource( 27 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="StateController/FamilyBigMenu"]
-anchor_right = 1.0
-anchor_bottom = 0.1
-custom_fonts/font = SubResource( 3 )
-text = "Family"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StateController/FamilyBigMenu"]
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-big_menu_int_item_scene = ExtResource( 8 )
-big_menu_toggle_item_scene = ExtResource( 45 )
-my_int_resource_name = "family_resource"
-
-[node name="BackButton" type="Button" parent="StateController/FamilyBigMenu"]
-anchor_left = 0.8
-anchor_top = 0.9
-anchor_right = 0.95
-anchor_bottom = 1.0
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="UpgradesBigMenu" type="Panel" parent="StateController"]
-visible = false
-anchor_right = 0.9
-anchor_bottom = 0.85
-script = ExtResource( 27 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="StateController/UpgradesBigMenu"]
-anchor_right = 1.0
-anchor_bottom = 0.1
-custom_fonts/font = SubResource( 3 )
-text = "Upgrades"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StateController/UpgradesBigMenu"]
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-big_menu_int_item_scene = ExtResource( 8 )
-big_menu_toggle_item_scene = ExtResource( 45 )
-my_int_resource_name = "upgrades_resource"
-
-[node name="BackButton" type="Button" parent="StateController/UpgradesBigMenu"]
-anchor_left = 0.8
-anchor_top = 0.9
-anchor_right = 0.95
-anchor_bottom = 1.0
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": true
-}
+[node name="UpgradesBigMenu" parent="StateController" instance=ExtResource( 26 )]
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+display_path = NodePath("")
+title = "Upgrades"
+resource_name = "upgrades_resource"
 
 [node name="AssetManager" type="HBoxContainer" parent="."]
 anchor_top = 0.85
@@ -401,9 +171,9 @@ popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 stat_trackers = {
 "labour": NodePath("LabourStat"),
 "money": NodePath("MoneyStat"),
-Resource( "res://resources/animals/01_chicken.tres" ): NodePath("ChickenStat"),
-Resource( "res://resources/animals/03_cow.tres" ): NodePath("CowStat"),
-Resource( "res://resources/animals/02_goat.tres" ): NodePath("GoatStat")
+Resource( "res://resources/livestock/01_chicken.tres" ): NodePath("ChickenStat"),
+Resource( "res://resources/livestock/02_goat.tres" ): NodePath("GoatStat"),
+Resource( "res://resources/livestock/03_cow.tres" ): NodePath("CowStat")
 }
 
 [node name="AssetCalculator" type="Node" parent="AssetManager"]
@@ -618,7 +388,7 @@ target = NodePath("../../StateController/MeasuresBuyMenu")
 margin_top = 143.0
 margin_right = 174.0
 margin_bottom = 205.0
-icon = ExtResource( 23 )
+icon = ExtResource( 8 )
 title = "Livestock"
 target = NodePath("../../StateController/LivestockBigMenu")
 
@@ -830,14 +600,6 @@ __meta__ = {
 [node name="MouseIndicator" type="Node2D" parent="."]
 script = ExtResource( 42 )
 
-[connection signal="pressed" from="StateController/CropsBuyMenu/CropsBuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
-[connection signal="pressed" from="StateController/MeasuresBuyMenu/BuyMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
-[connection signal="decreased_int_item" from="StateController/LivestockBigMenu/VBoxContainer" to="Background/Livestock" method="_on_decreased_int_item"]
-[connection signal="increased_int_item" from="StateController/LivestockBigMenu/VBoxContainer" to="Background/Livestock" method="_on_increased_int_item"]
-[connection signal="pressed" from="StateController/LivestockBigMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
-[connection signal="pressed" from="StateController/LabourBigMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
-[connection signal="pressed" from="StateController/FamilyBigMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
-[connection signal="pressed" from="StateController/UpgradesBigMenu/BackButton" to="ToggleButtonContainer" method="deselect"]
 [connection signal="pressed" from="AssetManager/NextYearButton" to="AssetManager/NextYearButton" method="_on_NextYearButton_pressed"]
 [connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]

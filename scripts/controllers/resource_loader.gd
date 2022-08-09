@@ -7,7 +7,7 @@ export(String) var base_path = "res://resources/"
 
 export(Dictionary) var resources_paths = {
     "crop_resource" : "crops/",
-    "animal_resource" : "animals/",
+    "livestock_resource" : "livestock/",
     "labour_resource" : "labour/",
     "measures_resource" : "measures/",
     "family_resource" : "family/",

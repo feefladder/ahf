@@ -1,4 +1,4 @@
-extends TabMenu
+extends BuyMenu
 class_name MeasuresHandler
 
 export(NodePath) var asset_manager_path = "../../AssetManager"

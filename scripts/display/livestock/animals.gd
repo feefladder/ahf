@@ -21,13 +21,13 @@ func make_summary() -> AnimalSummaryResource:
 func add_animal(an_animal: AnimalResource) -> void:
     var animal_sprite = Sprite.new()
     animal_sprite.texture = an_animal.image
-    
+
     var random_change = Vector2(random.randf_range(0,1), random.randf_range(0,1)) * 50
     animal_sprite.position = an_animal.spawn_point + random_change
     animal_sprite.scale = an_animal.scale
     animal_sprite.flip_h = random.randi() % 2
     self.add_child(animal_sprite)
-    
+
     #add a reference
     if(an_animal in animals):
         animals[an_animal].append(animal_sprite)
@@ -35,11 +35,10 @@ func add_animal(an_animal: AnimalResource) -> void:
         animals[an_animal] = [animal_sprite]
 
 
-func _on_increased_int_item(an_animal: AnimalResource) -> void:
+func increase_int_item(an_animal: AnimalResource) -> void:
     add_animal(an_animal)
 
-
-func _on_decreased_int_item(an_animal: AnimalResource) -> void:
+func decrease_int_item(an_animal: AnimalResource) -> void:
     if an_animal in animals:
         var animal_sprite = animals[an_animal].pop_back()
         animal_sprite.queue_free()

@@ -19,7 +19,7 @@ func calc_income_from_acquired_assets():
             if asset.unit_price > 0:
                 summary.expenses[asset] = int(acquired_assets[asset]) * asset.unit_price
             else:
-                summary.income[asset] = int(acquired_assets[asset]) * asset.unit_price
+                summary.income[asset] = abs(int(acquired_assets[asset]) * asset.unit_price)
         else:
             # we sold these
             if asset.unit_price < 0:

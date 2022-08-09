@@ -5,8 +5,8 @@ signal activated(who)
 signal deactivated(who)
 
 export(NodePath) var toggle_menu_path
-
 onready var toggle_menu = get_node_or_null(toggle_menu_path)
+
 
 func activate():
     show()
