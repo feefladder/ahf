@@ -8,11 +8,13 @@ func make_summary(event: EventResource):
     summary = AssetSummaryResource.new()
     summary.type = Resource
     summary.dict = get_parent().acquired_assets
-    calc_income_from_acquired_assets()
+    calc_income_from_acquired_assets(event)
     make_acquired_assets_persistent()
-    calc_income_from_persistent_assets()
+    calc_income_from_persistent_assets(event)
+    if event is CostEvent:
+        summary.dict[event] = event.costs
 
-func calc_income_from_acquired_assets():
+func calc_income_from_acquired_assets(_event):
     for asset in acquired_assets:
         if int(acquired_assets[asset]) > 0:
             # we bought these
@@ -27,7 +29,7 @@ func calc_income_from_acquired_assets():
             else:
                 summary.income[asset] = int(acquired_assets[asset]) * asset.unit_price
 
-func calc_income_from_persistent_assets():
+func calc_income_from_persistent_assets(_event):
     for asset in persistent_assets:
         if "yearly_revenue" in asset:
             summary.persistent_income[asset] = asset.yearly_revenue

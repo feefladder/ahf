@@ -36,3 +36,9 @@ func try_remove_crop(a_block):
     if a_block.has_crop:
         asset_manager.increase_assets(a_block.crop_resource.unit_price, a_block.crop_resource.unit_labour)
         a_block.remove_crop()
+
+func next_year():
+    for row in field.field_block_matrix:
+        for field_block in row:
+            if not field_block.crop.persistent:
+                field_block.remove_crop()

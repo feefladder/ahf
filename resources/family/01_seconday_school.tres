@@ -1,14 +1,14 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/resources/int_resources/int_resource.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/fontawesome_icons/graduation-cap-solid.svg" type="Texture" id=2]
+[ext_resource path="res://scripts/resources/int_resources/school_resource.gd" type="Script" id=1]
+[ext_resource path="res://resources/family/00_primary_school.tres" type="Resource" id=2]
 
 [resource]
 resource_name = "secondary school"
 script = ExtResource( 1 )
-image = ExtResource( 2 )
-unit_price = 0.0
+unit_price = 100.0
 unit_labour = 0.0
+persistent = false
 tooltip_info = {
 "general": "",
 "long_term_pros": "",
@@ -17,3 +17,7 @@ tooltip_info = {
 }
 current_number = 0
 max_number = 5
+min_age = 8
+max_age = 15
+years_till_finished = 3
+previous_education = ExtResource( 2 )

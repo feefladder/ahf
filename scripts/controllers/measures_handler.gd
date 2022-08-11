@@ -7,8 +7,8 @@ export(NodePath) var field_path = "../../Background/Field"
 var current_resource: BuyResource
 var state: Node
 
-onready var asset_manager = get_node(asset_manager_path)
-onready var field = get_node(field_path)
+onready var asset_manager: AssetManager = get_node(asset_manager_path)
+onready var field: Field = get_node(field_path)
 
 #func _ready():
 #    assert(connect("deactivated", self, "_on_deactivate") == 0)
@@ -98,3 +98,10 @@ func try_apply_irrigation(a_block: FieldBlock):
 
 func try_apply_fertilizer(a_block: FieldBlock):
     printerr("Applying fertilizer not implemented yet!")
+
+func next_year():
+    for row in field.field_block_matrix:
+        for field_block in row:
+            for measure in field_block.applied_measures:
+                if not measure.persistent:
+                    field_block.remove(measure)

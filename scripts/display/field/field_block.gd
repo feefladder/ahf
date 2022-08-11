@@ -2,7 +2,7 @@ extends FieldBlockInputs
 class_name FieldBlock
 
 # - keeping track of whether a measure or crop can be applied to a fieldblock
-
+var applied_measures: Dictionary
 var crop_resource: CropResource
 var x: int
 var y: int
@@ -12,11 +12,23 @@ var has_irrigation := false
 
 func apply(a_measure: PlaceableResource):
 #    resources.append(a_measure)
+    if a_measure in applied_measures:
+        return
+
     var scene = a_measure.scene.instance()
     self.add_child(scene)
     if scene is CollisionPolygon2D:
         var sp = $SoilPoly
         sp.call_deferred("queue_free")
+
+    applied_measures[a_measure] = scene
+
+func remove(a_measure: PlaceableResource):
+    if not a_measure in applied_measures:
+        return
+    
+    applied_measures[a_measure].queue_free()
+    assert(applied_measures.erase(a_measure) ==  true)
 
 func add_irrigation(irrigation_scene: PackedScene):
     var scene = irrigation_scene.instance()

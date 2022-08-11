@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/calculators/end_of_year_calculator.gd"
 }, {
+"base": "PersonResource",
+"class": "ChildResource",
+"language": "GDScript",
+"path": "res://scripts/resources/people_resources/child_resource.gd"
+}, {
 "base": "EventResource",
 "class": "CostEvent",
 "language": "GDScript",
@@ -128,6 +133,16 @@ _global_script_classes=[ {
 "class": "FamilyDisplay",
 "language": "GDScript",
 "path": "res://scripts/display/people/people.gd"
+}, {
+"base": "BigMenu",
+"class": "FamilyHandler",
+"language": "GDScript",
+"path": "res://scripts/controllers/family_handler.gd"
+}, {
+"base": "Resource",
+"class": "FamilyResource",
+"language": "GDScript",
+"path": "res://scripts/resources/people_resources/family_resource.gd"
 }, {
 "base": "Resource",
 "class": "FertilityResource",
@@ -209,7 +224,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/UI/mouse_indicator.gd"
 }, {
-"base": "IntResource",
+"base": "Resource",
 "class": "PersonResource",
 "language": "GDScript",
 "path": "res://scripts/resources/people_resources/person_resource.gd"
@@ -219,15 +234,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/PlaceableItems/placeable_resource.gd"
 }, {
-"base": "Panel",
+"base": "Control",
 "class": "PopupInsufficient",
 "language": "GDScript",
 "path": "res://scripts/UI/popups/popup_insufficient.gd"
+}, {
+"base": "Control",
+"class": "PopupMaxReached",
+"language": "GDScript",
+"path": "res://scripts/UI/popups/popup_max_reached.gd"
 }, {
 "base": "EventResource",
 "class": "PriceEventResource",
 "language": "GDScript",
 "path": "res://scripts/resources/events/price_event_resource.gd"
+}, {
+"base": "IntResource",
+"class": "SchoolResource",
+"language": "GDScript",
+"path": "res://scripts/resources/int_resources/school_resource.gd"
 }, {
 "base": "CanvasItem",
 "class": "Stat",
@@ -300,6 +325,7 @@ _global_script_class_icons={
 "BuyMenuItemContainer": "",
 "BuyResource": "",
 "CalculatorEOY": "",
+"ChildResource": "",
 "CostEvent": "",
 "CropExpensesContainer": "",
 "CropHandler": "",
@@ -309,6 +335,8 @@ _global_script_class_icons={
 "EventResource": "",
 "ExpensesDisplay": "",
 "FamilyDisplay": "",
+"FamilyHandler": "",
+"FamilyResource": "",
 "FertilityResource": "",
 "FertilizerResource": "",
 "Field": "",
@@ -328,7 +356,9 @@ _global_script_class_icons={
 "PersonResource": "",
 "PlaceableResource": "",
 "PopupInsufficient": "",
+"PopupMaxReached": "",
 "PriceEventResource": "",
+"SchoolResource": "",
 "Stat": "",
 "StateController": "",
 "StoryResource": "",
@@ -350,7 +380,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/gut/plugin.cfg" )
 
 [physics]
 

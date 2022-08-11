@@ -26,13 +26,17 @@ func _ready():
     asset_manager = get_node(asset_manager_path)
 
 func _on_Loader_resources_loaded(which, resources):
-    print(resource_name, "is not", which)
     if which == resource_name:
         for resource in resources:
             if resource is IntResource:
                 add_menu_int_item(resource)
             elif resource is ToggleResource:
                 add_menu_toggle_item(resource)
+            else:
+                print("Resource: ", resource.resource_name, "not used")
+            
+            if manager.has_method("use_resource"):
+                manager.use_resource(resource)
 
 func add_menu_toggle_item(resource: ToggleResource) -> void:
     var menu_item: HBoxContainer = big_menu_toggle_item_scene.instance()
@@ -56,10 +60,10 @@ func _try_toggle_button(menu_item: BigMenuToggleItem, is_pressed: bool):
 
 func _try_increase_resource(menu_item: BigMenuIntItem):
     if asset_manager.try_buy_item(menu_item.resource):
-            menu_item.change_number(menu_item.resource.current_number + 1)
+            menu_item.change_number(menu_item.resource.current_number)
             emit_signal("increased_int_item", menu_item.resource)
 
 func _try_decrease_resource(menu_item: BigMenuIntItem):
     if asset_manager.try_sell_item(menu_item.resource):
-        menu_item.change_number(menu_item.resource.current_number -1)
+        menu_item.change_number(menu_item.resource.current_number)
         emit_signal("decreased_int_item", menu_item.resource)

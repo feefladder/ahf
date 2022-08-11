@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
 [ext_resource path="res://scripts/controllers/asset_manager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
+[ext_resource path="res://scripts/controllers/family_handler.gd" type="Script" id=14]
 [ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
 [ext_resource path="res://scripts/calculators/asset_calculator.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
@@ -104,6 +105,7 @@ script = ExtResource( 36 )
 script = ExtResource( 43 )
 
 [node name="Family" type="YSort" parent="Background"]
+position = Vector2( 55.7099, 391.974 )
 script = ExtResource( 44 )
 
 [node name="FamilyCalculator" type="Node" parent="Background/Family"]
@@ -139,13 +141,14 @@ resource_name = "livestock_resource"
 
 [node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
-display_path = NodePath("")
+display_path = NodePath("../../Background/Family")
 title = "Labour"
 resource_name = "labour_resource"
 
 [node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
+script = ExtResource( 14 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
-display_path = NodePath("")
+display_path = NodePath("../../Background/Family")
 title = "Family"
 resource_name = "family_resource"
 
@@ -168,13 +171,6 @@ money = 1000.0
 labour = 1000.0
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
 popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
-stat_trackers = {
-"labour": NodePath("LabourStat"),
-"money": NodePath("MoneyStat"),
-Resource( "res://resources/livestock/01_chicken.tres" ): NodePath("ChickenStat"),
-Resource( "res://resources/livestock/02_goat.tres" ): NodePath("GoatStat"),
-Resource( "res://resources/livestock/03_cow.tres" ): NodePath("CowStat")
-}
 
 [node name="AssetCalculator" type="Node" parent="AssetManager"]
 script = ExtResource( 16 )
@@ -598,8 +594,13 @@ __meta__ = {
 }
 
 [node name="MouseIndicator" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 42 )
 
+[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/CropsBuyMenu" method="next_year"]
+[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/MeasuresBuyMenu" method="next_year"]
+[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/LabourBigMenu" method="next_year"]
+[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/FamilyBigMenu" method="next_year"]
 [connection signal="pressed" from="AssetManager/NextYearButton" to="AssetManager/NextYearButton" method="_on_NextYearButton_pressed"]
 [connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]

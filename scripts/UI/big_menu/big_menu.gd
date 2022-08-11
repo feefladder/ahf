@@ -29,3 +29,7 @@ func _on_int_item_decreased(which: IntResource) -> void:
 
 func _on_toggle_item_set(which: ToggleResource, to_what: bool) -> void:
     print("set ", which.resource_name, " to ", to_what)
+
+
+func next_year():
+    pass # Replace with function body.

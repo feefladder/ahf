@@ -1,8 +1,9 @@
-extends IntResource
+extends Resource
 class_name PersonResource
 
-export(float) var labour
-export(float) var yearly_costs
-export(float) var food_costs
-export(float) var food_needs
+export(StreamTexture) var image
+export(float) var labour := 100.0
+export(float) var yearly_costs := 500.0
+export(float) var food_costs := 250.0
+export(float) var food_needs := 20
 export(bool) var is_family_member := true
