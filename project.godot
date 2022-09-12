@@ -382,6 +382,12 @@ config/icon="res://icon.png"
 
 enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/gut/plugin.cfg" )
 
+[locale]
+
+test="nl"
+fallback="nl"
+translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ha_NG.translation", "res://assets/translations.nl.translation" )
+
 [physics]
 
 common/enable_pause_aware_picking=true

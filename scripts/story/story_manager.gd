@@ -21,9 +21,9 @@ func _ready():
 
 func draw_story(n: int):
     $Image.texture = story.story_images[n]
-    $Text.text = story.story_texts[n]
+    $Text.text = tr(story.story_texts[n])
     if n == story_length - 1:
-        $Button.text = "Start Game!"
+        $Button.text = tr("Start game!")
 
 func start_game():
     get_tree().change_scene("res://scenes/main.tscn")

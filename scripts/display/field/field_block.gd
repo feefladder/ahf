@@ -7,7 +7,7 @@ var crop_resource: CropResource
 var x: int
 var y: int
 
-var has_crop := false
+var has_crop := false   
 var has_irrigation := false
 
 func apply(a_measure: PlaceableResource):

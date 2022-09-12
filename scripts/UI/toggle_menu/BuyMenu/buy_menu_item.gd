@@ -14,5 +14,5 @@ var fully_implemented := false
 
 func _ready():
     $Icon.texture = resource.image
-    $Title.text = resource.resource_name
+    $Title.text = tr(resource.resource_name)
 

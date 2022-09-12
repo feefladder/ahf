@@ -13,7 +13,7 @@ func _ready():
     assert(connect("mouse_entered",self,"_on_mouse_entered") == 0)
     assert(connect("mouse_exited",self,"_on_mouse_exited") == 0)
     $Icon.texture = icon
-    $Title.text = title
+    $Title.text = tr(title)
 
 func _gui_input(event):
     if event is InputEventMouseButton:

@@ -40,5 +40,8 @@ func try_remove_crop(a_block):
 func next_year():
     for row in field.field_block_matrix:
         for field_block in row:
-            if not field_block.crop.persistent:
+            if not field_block.has_crop:
+                continue
+
+            if not field_block.crop_resource.persistent:
                 field_block.remove_crop()

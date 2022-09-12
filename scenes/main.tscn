@@ -187,7 +187,7 @@ margin_bottom = 90.0
 size_flags_horizontal = 3
 color = Color( 0.713726, 0, 0, 1 )
 script = ExtResource( 24 )
-type = "Labour"
+type = "labour"
 unit = "/7"
 
 [node name="Title" type="Label" parent="AssetManager/LabourStat"]
@@ -219,7 +219,7 @@ margin_bottom = 90.0
 size_flags_horizontal = 3
 color = Color( 0.235294, 0.341176, 0.615686, 1 )
 script = ExtResource( 24 )
-type = "Years"
+type = "years"
 unit = "/20"
 
 [node name="Title" type="Label" parent="AssetManager/YearsStat"]
@@ -251,7 +251,7 @@ margin_bottom = 90.0
 size_flags_horizontal = 3
 color = Color( 0.235294, 0.341176, 0.615686, 1 )
 script = ExtResource( 24 )
-type = "Fertility"
+type = "fertility"
 unit = "%"
 
 [node name="Title" type="Label" parent="AssetManager/FertilityStat"]
@@ -369,7 +369,7 @@ target_path = NodePath("../StateController")
 margin_right = 174.0
 margin_bottom = 61.0
 icon = ExtResource( 30 )
-title = "Crops"
+title = "crops"
 target = NodePath("../../StateController/CropsBuyMenu")
 
 [node name="MeasuresToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -377,7 +377,7 @@ margin_top = 71.0
 margin_right = 174.0
 margin_bottom = 133.0
 icon = ExtResource( 9 )
-title = "Measures"
+title = "measures"
 target = NodePath("../../StateController/MeasuresBuyMenu")
 
 [node name="AnimalsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -385,7 +385,7 @@ margin_top = 143.0
 margin_right = 174.0
 margin_bottom = 205.0
 icon = ExtResource( 8 )
-title = "Livestock"
+title = "livestock"
 target = NodePath("../../StateController/LivestockBigMenu")
 
 [node name="LabourToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -393,7 +393,7 @@ margin_top = 215.0
 margin_right = 174.0
 margin_bottom = 276.0
 icon = ExtResource( 5 )
-title = "Labour"
+title = "labour"
 target = NodePath("../../StateController/LabourBigMenu")
 
 [node name="FamilyToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -401,7 +401,7 @@ margin_top = 286.0
 margin_right = 174.0
 margin_bottom = 348.0
 icon = ExtResource( 22 )
-title = "Family"
+title = "family"
 target = NodePath("../../StateController/FamilyBigMenu")
 
 [node name="UpgradesToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -409,7 +409,7 @@ margin_top = 358.0
 margin_right = 174.0
 margin_bottom = 420.0
 icon = ExtResource( 22 )
-title = "Upgrades"
+title = "upgrades"
 target = NodePath("../../StateController/UpgradesBigMenu")
 
 [node name="Tooltips" type="Control" parent="."]
