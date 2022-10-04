@@ -1,4 +1,4 @@
-extends CalculatorEOY
+extends EOYCalculator
 
 #dictionaries are shared by reference, so they stay updated throughout
 onready var acquired_assets: Dictionary = get_parent().acquired_assets

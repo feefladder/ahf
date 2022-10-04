@@ -3,11 +3,11 @@ class_name BuyMenuItemContainer
 
 export(PackedScene) var BuyMenuItemScene = preload("res://scenes/UI/buy_menu/buy_menu_item.tscn")
 
-export(NodePath) var path_to_Loader = "/root/Loader"
+export(NodePath) var path_to_Loader = NodePath("/root/Loader")
 export(String) var my_resource_name
 
-export(NodePath) var asset_manager_path = "/root/Loader/AssetManager"
-export(NodePath) var controller_path = "../../../"
+export(NodePath) var asset_manager_path = NodePath("/root/Loader/AssetManager")
+export(NodePath) var controller_path = NodePath("../../../")
 onready var asset_manager = get_node(asset_manager_path)
 onready var controller = get_node(controller_path)
 

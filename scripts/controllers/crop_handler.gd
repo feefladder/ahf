@@ -2,8 +2,8 @@ extends BuyMenu
 class_name CropHandler
 
 
-export(NodePath) var asset_manager_path = "../../AssetManager"
-export(NodePath) var field_path = "../../Background/Field"
+export(NodePath) var asset_manager_path = NodePath("../../AssetManager")
+export(NodePath) var field_path = NodePath("../../Background/Field")
 
 export(PackedScene) var planting_scene = preload("res://scenes/mouse/planting.tscn")
 
@@ -37,11 +37,4 @@ func try_remove_crop(a_block):
         asset_manager.increase_assets(a_block.crop_resource.unit_price, a_block.crop_resource.unit_labour)
         a_block.remove_crop()
 
-func next_year():
-    for row in field.field_block_matrix:
-        for field_block in row:
-            if not field_block.has_crop:
-                continue
 
-            if not field_block.crop_resource.persistent:
-                field_block.remove_crop()

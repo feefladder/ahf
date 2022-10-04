@@ -33,24 +33,24 @@ const ARG_NOT_SET = '_*_argument_*_is_*_not_set_*_'
 # each time the signal was emitted.
 #
 # For example:
-#	_watched_signals => {
-#		ref1 => {
-#			'signal1' => [[], [], []],
-#			'signal2' => [[p1, p2]],
-#			'signal3' => [[p1]]
-#		},
-#		ref2 => {
-#			'some_signal' => [],
-#			'other_signal' => [[p1, p2, p3], [p1, p2, p3], [p1, p2, p3]]
-#		}
-#	}
+#    _watched_signals => {
+#        ref1 => {
+#            'signal1' => [[], [], []],
+#            'signal2' => [[p1, p2]],
+#            'signal3' => [[p1]]
+#        },
+#        ref2 => {
+#            'some_signal' => [],
+#            'other_signal' => [[p1, p2, p3], [p1, p2, p3], [p1, p2, p3]]
+#        }
+#    }
 #
 # In this sample:
-#	- signal1 on the ref1 object was emitted 3 times and each time, zero
-#	  parameters were passed.
-#	- signal3 on ref1 was emitted once and passed a single parameter
-#	- some_signal on ref2 was never emitted.
-#	- other_signal on ref2 was emitted 3 times, each time with 3 parameters.
+#    - signal1 on the ref1 object was emitted 3 times and each time, zero
+#      parameters were passed.
+#    - signal3 on ref1 was emitted once and passed a single parameter
+#    - some_signal on ref2 was never emitted.
+#    - other_signal on ref2 was emitted 3 times, each time with 3 parameters.
 var _watched_signals = {}
 var _utils = load('res://addons/gut/utils.gd').get_instance()
 

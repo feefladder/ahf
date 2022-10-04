@@ -79,11 +79,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/buy_resource.gd"
 }, {
-"base": "Node",
-"class": "CalculatorEOY",
-"language": "GDScript",
-"path": "res://scripts/calculators/end_of_year_calculator.gd"
-}, {
 "base": "PersonResource",
 "class": "ChildResource",
 "language": "GDScript",
@@ -118,6 +113,11 @@ _global_script_classes=[ {
 "class": "DependableMeasureResource",
 "language": "GDScript",
 "path": "res://scripts/resources/PlaceableItems/dependable_measure_resource.gd"
+}, {
+"base": "Node",
+"class": "EOYCalculator",
+"language": "GDScript",
+"path": "res://scripts/calculators/end_of_year_calculator.gd"
 }, {
 "base": "Resource",
 "class": "EventResource",
@@ -207,7 +207,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Loader",
 "language": "GDScript",
-"path": "res://scripts/controllers/resource_loader.gd"
+"path": "res://scripts/controllers/loader.gd"
 }, {
 "base": "PlaceableResource",
 "class": "MeasureResource",
@@ -223,6 +223,11 @@ _global_script_classes=[ {
 "class": "MouseIndicator",
 "language": "GDScript",
 "path": "res://scripts/UI/mouse_indicator.gd"
+}, {
+"base": "Node",
+"class": "NextYearButton",
+"language": "GDScript",
+"path": "res://scripts/controllers/next_year_button.gd"
 }, {
 "base": "Resource",
 "class": "PersonResource",
@@ -248,6 +253,11 @@ _global_script_classes=[ {
 "class": "PriceEventResource",
 "language": "GDScript",
 "path": "res://scripts/resources/events/price_event_resource.gd"
+}, {
+"base": "Node",
+"class": "RandomClass",
+"language": "GDScript",
+"path": "res://test/unit/calculators/random_class.gd"
 }, {
 "base": "IntResource",
 "class": "SchoolResource",
@@ -304,6 +314,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/UI/tooltips/tooltip.gd"
 }, {
+"base": "EOYCalculator",
+"class": "YieldCalculator",
+"language": "GDScript",
+"path": "res://scripts/calculators/yield_calculator.gd"
+}, {
 "base": "EventResource",
 "class": "YieldEventResource",
 "language": "GDScript",
@@ -324,7 +339,6 @@ _global_script_class_icons={
 "BuyMenuItem": "",
 "BuyMenuItemContainer": "",
 "BuyResource": "",
-"CalculatorEOY": "",
 "ChildResource": "",
 "CostEvent": "",
 "CropExpensesContainer": "",
@@ -332,6 +346,7 @@ _global_script_class_icons={
 "CropIncomeContainer": "",
 "CropResource": "",
 "DependableMeasureResource": "",
+"EOYCalculator": "",
 "EventResource": "",
 "ExpensesDisplay": "",
 "FamilyDisplay": "",
@@ -353,11 +368,13 @@ _global_script_class_icons={
 "MeasureResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",
+"NextYearButton": "",
 "PersonResource": "",
 "PlaceableResource": "",
 "PopupInsufficient": "",
 "PopupMaxReached": "",
 "PriceEventResource": "",
+"RandomClass": "",
 "SchoolResource": "",
 "Stat": "",
 "StateController": "",
@@ -369,6 +386,7 @@ _global_script_class_icons={
 "ToggleButtonContainer": "",
 "ToggleResource": "",
 "Tooltip": "",
+"YieldCalculator": "",
 "YieldEventResource": ""
 }
 
@@ -384,8 +402,6 @@ enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/gut/plugi
 
 [locale]
 
-test="nl"
-fallback="nl"
 translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ha_NG.translation", "res://assets/translations.nl.translation" )
 
 [physics]

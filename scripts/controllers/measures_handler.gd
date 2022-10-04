@@ -1,8 +1,8 @@
 extends BuyMenu
 class_name MeasuresHandler
 
-export(NodePath) var asset_manager_path = "../../AssetManager"
-export(NodePath) var field_path = "../../Background/Field"
+export(NodePath) var asset_manager_path = NodePath("../../AssetManager")
+export(NodePath) var field_path = NodePath("../../Background/Field")
 
 var current_resource: BuyResource
 var state: Node

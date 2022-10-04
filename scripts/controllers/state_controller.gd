@@ -1,7 +1,7 @@
 extends Node
 class_name StateController
 
-export(NodePath) var crop_handler_path = "CropHandler"
+export(NodePath) var crop_handler_path = NodePath("CropHandler")
 
 onready var crop_handler = get_node(crop_handler_path)
 

@@ -1,4 +1,5 @@
-extends CalculatorEOY
+extends EOYCalculator
+class_name YieldCalculator
 
 # - crop and fertility calculations at the end of the year
 var field: FieldResource
@@ -34,3 +35,5 @@ func calculate_yield(block: FieldBlock, event: YieldEventResource) -> void:
 
     final_yield *= summary.field.field_block_area
     summary.add_crop_data(block.crop_resource, final_yield)
+
+#    get_parent().remove_crops()

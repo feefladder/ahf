@@ -1,9 +1,9 @@
 extends Node
-class_name CalculatorEOY
+class_name EOYCalculator
 
 signal summary_completed(summary)
 
-export(NodePath) var eoy_button_path = "/root/Loader/AssetManager/NextYearButton"
+export(NodePath) var eoy_button_path = NodePath("/root/Loader/AssetManager/NextYearButton")
 onready var eoy_button = get_node(eoy_button_path)
 var summary: SummaryResource
 

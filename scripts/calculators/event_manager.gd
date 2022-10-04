@@ -1,6 +1,6 @@
 extends Node
 
-export(NodePath) var loader_path = "/root/Loader"
+export(NodePath) var loader_path = NodePath("/root/Loader")
 export(String) var resources_name = "events_resource"
 
 var events : Array

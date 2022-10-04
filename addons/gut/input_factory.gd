@@ -32,26 +32,26 @@
 
 
 # Implemented InputEvent* convenience methods
-# 	InputEventAction
-# 	InputEventKey
-# 	InputEventMouseButton
-# 	InputEventMouseMotion
+#     InputEventAction
+#     InputEventKey
+#     InputEventMouseButton
+#     InputEventMouseMotion
 
 # Yet to implement InputEvents
-# 	InputEventJoypadButton
-# 	InputEventJoypadMotion
-# 	InputEventMagnifyGesture
-# 	InputEventMIDI
-# 	InputEventPanGesture
-# 	InputEventScreenDrag
-# 	InputEventScreenTouch
+#     InputEventJoypadButton
+#     InputEventJoypadMotion
+#     InputEventMagnifyGesture
+#     InputEventMIDI
+#     InputEventPanGesture
+#     InputEventScreenDrag
+#     InputEventScreenTouch
 
 
 static func _to_scancode(which):
-	var key_code = which
-	if(typeof(key_code) == TYPE_STRING):
-		key_code = key_code.to_upper().to_ascii()[0]
-	return key_code
+    var key_code = which
+    if(typeof(key_code) == TYPE_STRING):
+        key_code = key_code.to_upper().to_ascii()[0]
+    return key_code
 
 
 static func new_mouse_button_event(position, global_position, pressed, button_index):
@@ -66,77 +66,77 @@ static func new_mouse_button_event(position, global_position, pressed, button_in
 
 
 static func key_up(which):
-	var event = InputEventKey.new()
-	event.scancode = _to_scancode(which)
-	event.pressed = false
-	return event
+    var event = InputEventKey.new()
+    event.scancode = _to_scancode(which)
+    event.pressed = false
+    return event
 
 
 static func key_down(which):
-	var event = InputEventKey.new()
-	event.scancode = _to_scancode(which)
-	event.pressed = true
-	return event
+    var event = InputEventKey.new()
+    event.scancode = _to_scancode(which)
+    event.pressed = true
+    return event
 
 
 static func action_up(which, strength=1.0):
-	var event  = InputEventAction.new()
-	event.action = which
-	event.strength = strength
-	return event
+    var event  = InputEventAction.new()
+    event.action = which
+    event.strength = strength
+    return event
 
 
 static func action_down(which, strength=1.0):
-	var event  = InputEventAction.new()
-	event.action = which
-	event.strength = strength
-	event.pressed = true
-	return event
+    var event  = InputEventAction.new()
+    event.action = which
+    event.strength = strength
+    event.pressed = true
+    return event
 
 
 static func mouse_left_button_down(position, global_position=null):
-	var event = new_mouse_button_event(position, global_position, true, BUTTON_LEFT)
-	return event
+    var event = new_mouse_button_event(position, global_position, true, BUTTON_LEFT)
+    return event
 
 
 static func mouse_left_button_up(position, global_position=null):
-	var event = new_mouse_button_event(position, global_position, false, BUTTON_LEFT)
-	return event
+    var event = new_mouse_button_event(position, global_position, false, BUTTON_LEFT)
+    return event
 
 
 static func mouse_double_click(position, global_position=null):
-	var event = new_mouse_button_event(position, global_position, false, BUTTON_LEFT)
-	event.doubleclick = true
-	return event
+    var event = new_mouse_button_event(position, global_position, false, BUTTON_LEFT)
+    event.doubleclick = true
+    return event
 
 
 static func mouse_right_button_down(position, global_position=null):
-	var event = new_mouse_button_event(position, global_position, true, BUTTON_RIGHT)
-	return event
+    var event = new_mouse_button_event(position, global_position, true, BUTTON_RIGHT)
+    return event
 
 
 static func mouse_right_button_up(position, global_position=null):
-	var event = new_mouse_button_event(position, global_position, false, BUTTON_RIGHT)
-	return event
+    var event = new_mouse_button_event(position, global_position, false, BUTTON_RIGHT)
+    return event
 
 
 static func mouse_motion(position, global_position=null):
-	var event = InputEventMouseMotion.new()
-	event.position = position
-	if(global_position != null):
-		event.global_position = global_position
-	return event
+    var event = InputEventMouseMotion.new()
+    event.position = position
+    if(global_position != null):
+        event.global_position = global_position
+    return event
 
 
 static func mouse_relative_motion(offset, last_motion_event=null, speed=Vector2(0, 0)):
-	var event = null
-	if(last_motion_event == null):
-		event = mouse_motion(offset)
-		event.speed = speed
-	else:
-		event = last_motion_event.duplicate()
-		event.position += offset
-		event.global_position += offset
-		event.relative = offset
-		event.speed = speed
-	return event
+    var event = null
+    if(last_motion_event == null):
+        event = mouse_motion(offset)
+        event.speed = speed
+    else:
+        event = last_motion_event.duplicate()
+        event.position += offset
+        event.global_position += offset
+        event.relative = offset
+        event.speed = speed
+    return event

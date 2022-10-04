@@ -1,7 +1,7 @@
 extends PlaceableResource
 class_name MeasureResource
 
-export(float) var time_required = 1
+export(float) var time_required = 1.0
 export(float) var erosion_reduction
 export(float) var fertility_increase
 export(float) var salinity_effect

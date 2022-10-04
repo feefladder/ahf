@@ -25,7 +25,7 @@ func hide_person(person: PersonResource):
     people_dict[person].hide()
 
 func update_family(family: FamilyResource):
-    if not family.family.size() == people_dict.size:
+    if not family.family.size() == people_dict.size():
         printerr("re-initialize of family display required (TODO)")
     for person in people_dict:
         if person in family.on_farm_members:

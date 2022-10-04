@@ -1,6 +1,6 @@
 extends Label
 
-export(float) var max_width = 300
+export(float) var max_width = 300.0
 
 enum Modes {
     MODE_SMALL

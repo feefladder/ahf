@@ -1,8 +1,8 @@
 extends Node
 class_name AnnualReview
 
-export(NodePath) var income_path = "VBoxContainer/Balance/Income"
-export(NodePath) var expenses_path = "VBoxContainer/Balance/Expenses"
+export(NodePath) var income_path = NodePath("VBoxContainer/Balance/Income")
+export(NodePath) var expenses_path = NodePath("VBoxContainer/Balance/Expenses")
 
 var total_income : float
 var total_expenses: float

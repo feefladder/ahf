@@ -11,13 +11,15 @@ export(Resource) var summary
 export(Resource) var field_resource
 export(NodePath) var state_controller_path
 
-onready var state_controller = get_node(state_controller_path)
+var state_controller: StateController
 
 var field_block_matrix: Array #2D array actually
 var is_dragging_over_field: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    state_controller = get_node(state_controller_path)
     #initialize the field
+    print(field_resource)
     for x in range(field_resource.size_x):
         field_block_matrix.append([])
         for y in range(field_resource.size_y):
@@ -78,3 +80,12 @@ func enable_all() -> void:
     for column in field_block_matrix:
         for field_block in column:
             field_block.enable()
+
+func remove_crops() -> void:
+    for row in field_block_matrix:
+        for field_block in row:
+            if not field_block.has_crop:
+                continue
+
+            if not field_block.crop_resource.persistent:
+                field_block.remove_crop()

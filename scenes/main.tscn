@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -26,12 +26,13 @@
 [ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
 [ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/mouse/planting.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
 [ext_resource path="res://assets/animals/cock.png" type="Texture" id=31]
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
-[ext_resource path="res://scripts/controllers/end_of_year.gd" type="Script" id=34]
+[ext_resource path="res://scripts/controllers/next_year_button.gd" type="Script" id=34]
 [ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/calculators/yield_calculator.gd" type="Script" id=36]
 [ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
@@ -118,9 +119,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 32 )
 script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 crop_handler_path = NodePath("CropsBuyMenu")
 
 [node name="CropsBuyMenu" parent="StateController" instance=ExtResource( 2 )]
@@ -128,12 +126,19 @@ script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Crops"
 resource_name = "crop_resource"
+buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+asset_manager_path = NodePath("../../AssetManager")
+field_path = NodePath("../../Background/Field")
+planting_scene = ExtResource( 27 )
 
 [node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
 script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Measures"
 resource_name = "measures_resource"
+buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+asset_manager_path = NodePath("../../AssetManager")
+field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
 title = "Livestock"

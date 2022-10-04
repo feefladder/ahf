@@ -5,10 +5,10 @@ signal increased_int_item(which)
 signal decreased_int_item(which)
 signal toggle_item_set(which, state)
 
-export(NodePath) var resource_loader_path = "/root/Loader"
-export(NodePath) var asset_manager_path = "/root/Loader/AssetManager"
-export(NodePath) var manager_path = "../"
-export(NodePath) var display_path = "/root/Loader/Family"
+export(NodePath) var resource_loader_path = NodePath("/root/Loader")
+export(NodePath) var asset_manager_path = NodePath("/root/Loader/AssetManager")
+export(NodePath) var manager_path = NodePath("../")
+export(NodePath) var display_path = NodePath("/root/Loader/Family")
 
 export(PackedScene) var big_menu_int_item_scene = load("res://scenes/UI/big_menu/big_menu_int_item.tscn")
 export(PackedScene) var big_menu_toggle_item_scene = load("res://scenes/UI/big_menu/big_menu_toggle_item.tscn")

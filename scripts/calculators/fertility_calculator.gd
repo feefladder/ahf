@@ -1,4 +1,4 @@
-extends CalculatorEOY
+extends EOYCalculator
 
 var field: FieldResource
 var fertility: FertilityResource
@@ -8,7 +8,7 @@ func _ready():
     field = get_parent().field_resource
     fertility = field.fertility
 
-func make_summary(event: EventResource) -> SummaryResource:
+func make_summary(_event: EventResource) -> SummaryResource:
     summary = FieldSummaryResource.new()
     calc_fertility()
     return summary

@@ -1375,7 +1375,7 @@ func double_singleton(singleton_name):
     return null
     # var to_return = null
     # if(_validate_singleton_name(singleton_name)):
-    # 	to_return = gut.get_doubler().double_singleton(singleton_name)
+    #     to_return = gut.get_doubler().double_singleton(singleton_name)
     # return to_return
 
 # ------------------------------------------------------------------------------
@@ -1385,7 +1385,7 @@ func partial_double_singleton(singleton_name):
     return null
     # var to_return = null
     # if(_validate_singleton_name(singleton_name)):
-    # 	to_return = gut.get_doubler().partial_double_singleton(singleton_name)
+    #     to_return = gut.get_doubler().partial_double_singleton(singleton_name)
     # return to_return
 
 # ------------------------------------------------------------------------------
