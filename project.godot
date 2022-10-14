@@ -398,7 +398,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [locale]
 
