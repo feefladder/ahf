@@ -55,7 +55,7 @@ func _get_screen_pos() -> Vector2:
         return _current_node.get_global_transform_with_canvas()
     elif _current_node is Control:
         return _current_node.rect_global_position
-    
+ 
     return Vector2()
 
 func _on_custom_show() -> void:

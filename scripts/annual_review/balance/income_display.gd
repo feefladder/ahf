@@ -27,7 +27,7 @@ func add_asset_summary(summary: AssetSummaryResource):
         asset_sum_item.resource = resource
         asset_sum_item.amount = summary.income[resource]
         asset_sum_container.add_child(asset_sum_item)
-        
+     
         add_income(summary.income[resource])
     for resource in summary.persistent_income:
         print("adding item for: ", resource, summary.persistent_income[resource])

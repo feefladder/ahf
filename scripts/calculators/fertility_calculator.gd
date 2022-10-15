@@ -29,10 +29,10 @@ func calc_soil_structure() -> void:
     print("soil structure: ", fertility.soil_structure)
 
 func calc_nutrients() -> void:
-    #this determines the slow nutrients, on which artificial fertilizer does not have any 
+    #this determines the slow nutrients, on which artificial fertilizer does not have any
     #effect, but manure, town ash and nitrogen-fixing plants do have an effect
     pass
 
 func calc_erosion() -> void:
     print("erosion rate: ", fertility.erosion_rate)
-    
+ 

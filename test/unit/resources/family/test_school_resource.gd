@@ -11,7 +11,7 @@ func before_each():
     child = ChildResource.new()
     child.age = 6
     family.family.append(child)
-    
+ 
     school = SchoolResource.new()
     school.min_age = 4
     school.max_age = 8
@@ -33,7 +33,7 @@ func test_eligible_age():
     assert_true(school.is_eligible(child))
     child.age = school.min_age - 1
     assert_false(school.is_eligible(child))
-    
+ 
     child.age = school.max_age
     assert_true(school.is_eligible(child))
     child.age = school.max_age + 1
@@ -62,7 +62,7 @@ func test_send_to_school_multiple():
 func test_call_from_school():
     school.initialize(family)
     assert_eq(school.send_child_to_school(), child)
-    
+ 
     assert_eq(school.call_child_from_school(), child)
     assert_eq_deep(school.children_going, [])
 
@@ -70,10 +70,10 @@ func test_next_year():
     school.initialize(family)
     assert_eq(school.send_child_to_school(), child)
     school.next_year()
-    
+ 
     assert_eq_deep(school.children_going, [])
     assert_eq_deep(school.eligible_children, {child: 1})
-      
+   
 
 func test_secondary_school():
     var secondary_school = SchoolResource.new()

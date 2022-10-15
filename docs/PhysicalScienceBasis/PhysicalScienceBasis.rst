@@ -6,7 +6,7 @@ Physical science basis
 
 In order for the game to be relevant and realistic in the context of the Jos
 plateau, different causes of land degradation should be incorporated, such that
-the player can take measures to combat them. 
+the player can take measures to combat them.
 
 Plant growth modelling
 ----------------------
@@ -23,7 +23,7 @@ and drainage paper :xcite:`[@AllenFAOIrrigationDrainage1998]`.
 Erosion modelling
 -----------------
 Erosion is a big issue in the Jos plateau, and farmers are already taking
-measures to combat them :xcite:`@YilaAdoptionAgriculturalLand2008`. 
+measures to combat them :xcite:`@YilaAdoptionAgriculturalLand2008`.
 
 For modelling erosion, several different models can be used. However, we want a
 model that is:
@@ -35,7 +35,7 @@ model that is:
 * using a daily timestep for coupling with plant growth models
 
 Two well knows erosion models are the (Revised) Universal Soil Loss Equation
-(R)USLE and the Morgan-Morgan Finley model. 
+(R)USLE and the Morgan-Morgan Finley model.
 
 We choose the MMF model, but only implement it in the back-end modelling
 framework, such that the game can remain lightweight.
@@ -85,7 +85,7 @@ text
    skinparam roundcorner 15
 
    title including a new farm
-   
+
    rectangle inp as "Input polygon of farm dimensions"
    cloud gee as "Google Earth Engine" {
       rectangle catch as "catchments intersecting with farm"

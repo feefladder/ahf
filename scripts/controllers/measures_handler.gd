@@ -32,7 +32,7 @@ func _on_tab_changed(which: BuyMenuItem):
             set_current_measure(which)
         else:
             $BuyMenu/ScrollContainer/BuyMenuItemContainer.deselect()
-    
+ 
     if asset_manager.has_enough(min_number*which.resource.unit_price, min_number*which.resource.unit_labour):
             set_current_measure(which)
     else:
@@ -88,11 +88,11 @@ func try_apply_irrigation(a_block: FieldBlock):
     if not current_resource is IrrigationResource:
         printerr("Tried to apply irriration with: ", current_resource.resource_name)
         return
-    
+ 
     if not asset_manager.decrease_assets(current_resource.unit_price, current_resource.unit_labour):
         return
 
-    a_block.apply(current_resource) 
+    a_block.apply(current_resource)
     current_resource.blocks_placed.append(a_block)
     field.set_enable_with_measure(current_resource)
 

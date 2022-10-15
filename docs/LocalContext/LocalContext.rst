@@ -8,7 +8,7 @@ socio-cultural context
 ----------------------
 
 The Jos plateau is inhabited by people from Berom tribe, and pastoralists from
-the Fulani tribe. 
+the Fulani tribe.
 
 biophysical context
 -------------------
@@ -28,7 +28,7 @@ topic. Farmers on the Jos plateau employ diverse management strategies,
 including farmyard manure, artificial fertilizers and waste ash
 :xcite:`[@YilaAdoptionAgriculturalLand2008; @PasquiniSoilFertilityManagement2005]`.
 These all have their respective benefits and drawbacks, as
-:xcite:`[@YilaAdoptionAgriculturalLand2008]` describes. 
+:xcite:`[@YilaAdoptionAgriculturalLand2008]` describes.
 
 .. csv-table:: Fertility management strategies
    :header-rows: 1
@@ -54,4 +54,4 @@ These all have their respective benefits and drawbacks, as
    waste and ease of transport of ash, as opposed to waste
    :xcite:`[@AlexanderEffectivenessSmallscaleIrrigated1996]`.
 
-Effects of legumes are 
+Effects of legumes are

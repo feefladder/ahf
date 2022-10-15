@@ -11,11 +11,11 @@ func before_all():
     chicken.unit_price = 10
     chicken.unit_labour = 5
     chicken.max_number = 10
-    
+ 
     goat.unit_price = 25
     goat.unit_labour = 25
     goat.max_number = 1
-    
+ 
     cow.unit_price = 150
     cow.unit_labour = 50
     cow.max_number = 2
@@ -25,15 +25,15 @@ func before_each():
     asset_manager = partial_double("res://scripts/controllers/asset_manager.gd").new()
     asset_manager.money = 100
     asset_manager.labour = 100
-    
+ 
     popup_insufficient = double("res://scripts/UI/popups/popup_insufficient.gd").new()
     asset_manager.popup_insufficient = popup_insufficient
-    
+ 
     popup_max_reached = double("res://scripts/UI/popups/popup_max_reached.gd").new()
     asset_manager.popup_max_reached = popup_max_reached
-    
+ 
     watch_signals(asset_manager)
-    
+ 
     chicken.current_number = 0
     goat.current_number = 0
     cow.current_number = 0
@@ -75,7 +75,7 @@ func test_increase_assets():
     assert_signal_emitted_with_parameters(asset_manager, "asset_changed", ["labour", 200.0], 1)
     assert_eq(asset_manager.money, 200.0)
     assert_eq(asset_manager.labour, 200.0)
-    
+ 
     assert_false(asset_manager.increase_assets(100.0, -205.0))
     assert_called(asset_manager, "has_enough", [-100.0, 205.0])
     assert_eq(asset_manager.money, 200.0)
@@ -147,7 +147,7 @@ func test_try_sell_item_not_have():
 func test_try_sell_item_multiple():
     assert_true(asset_manager.try_buy_item(chicken))
     assert_true(asset_manager.try_buy_item(chicken))
-    
+ 
     assert_true(asset_manager.try_sell_item(chicken))
     assert_has(asset_manager.acquired_assets, chicken)
     assert_eq_deep(asset_manager.acquired_assets, {chicken : 1})
@@ -157,12 +157,12 @@ func test_try_toggle_item():
     toggle.unit_price = 50
     toggle.unit_labour = -50
 
-    
+ 
     assert_true(asset_manager.try_toggle_item(toggle))
     assert_called(asset_manager, "decrease_assets", [toggle.unit_price, toggle.unit_labour])
     assert_signal_emitted_with_parameters(asset_manager, "asset_changed", [toggle, true])
     assert_eq_deep(asset_manager.acquired_assets, {toggle: 1})
-    
+ 
     assert_true(asset_manager.try_toggle_item(toggle))
     assert_called(asset_manager, "increase_assets", [toggle.unit_price, toggle.unit_labour])
     var num_signals = get_signal_emit_count(asset_manager, "asset_changed")

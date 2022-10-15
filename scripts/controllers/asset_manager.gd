@@ -52,7 +52,7 @@ func try_sell_item(an_item: IntResource) -> bool:
         acquired_assets[an_item] = -1
 
     if acquired_assets[an_item] == 0:
-        assert( acquired_assets.erase(an_item) == true)
+        assert( acquired_assets.erase(an_item))
 
     an_item.current_number -= 1
     emit_signal("asset_changed", an_item, an_item.current_number)
@@ -69,7 +69,7 @@ func try_toggle_item(an_item: ToggleResource) -> bool:
         an_item.implemented = false
         if an_item in acquired_assets:
             print("removed item: ", an_item.resource_name)
-            assert(acquired_assets.erase(an_item) == true)
+            assert(acquired_assets.erase(an_item))
         else:
             #meaning we sell it (like a house or a car)
             acquired_assets[an_item] = -1

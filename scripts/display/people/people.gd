@@ -61,17 +61,17 @@ func remove_all_labourers(labourer: IntResource) -> void:
     if not labourer in people_dict:
         printerr("remove_labourer called with invalid labourer! " + labourer.resource_name)
         return
-    
+ 
     for sprite in people_dict[labourer]:
         sprite.queue_free()
-    assert(people_dict.erase(labourer) == true)
+    assert(people_dict.erase(labourer))
 
 func remove_labourer(labourer: IntResource) -> void:
     if not labourer in people_dict:
         printerr("remove_labourer called with invalid labourer! " + labourer.resource_name)
         return
-    
+ 
     var sprite = people_dict[labourer].pop_back()
     sprite.queue_free()
     if not people_dict[labourer].size():
-        assert(people_dict.erase(labourer) == true)
+        assert(people_dict.erase(labourer))
