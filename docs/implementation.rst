@@ -31,17 +31,14 @@ in general, it works like the following:
       }
 
       class AnnualReview {
-
       }
    }
 
    package Controller {
       class CropHandler{
-
       }
 
       class AssetManager {
-
       }
 
       class YieldCalculator {
@@ -49,7 +46,7 @@ in general, it works like the following:
    }
 
 .. uml::
-   
+
    @startuml
 
    title Planting a crop logic
@@ -301,7 +298,6 @@ Data Structures
       }
 
       struct AssetSummaryResource {
-
       }
    }
 

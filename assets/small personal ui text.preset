@@ -10,7 +10,7 @@ Preset:
   m_TargetType:
     m_NativeTypeID: 114
     m_ManagedTypePPtr: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-    m_ManagedTypeFallback: 
+    m_ManagedTypeFallback:
   m_Properties:
   - target: {fileID: 0}
     propertyPath: m_Enabled
@@ -22,11 +22,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_EditorClassIdentifier
-    value: 
+    value:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Material
-    value: 
+    value:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Color.r
@@ -74,7 +74,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_FontData.m_Font
-    value: 
+    value:
     objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   - target: {fileID: 0}
     propertyPath: m_FontData.m_FontSize

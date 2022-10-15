@@ -14,7 +14,7 @@ func _ready():
 
 func make_summary() -> AnimalSummaryResource:
     var summary = AnimalSummaryResource.new()
-    
+
     return summary
 
 

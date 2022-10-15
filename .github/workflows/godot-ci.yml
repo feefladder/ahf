@@ -1,5 +1,8 @@
 name: "godot-ci export"
-on: push
+on:
+  pullrequest:
+  push:
+    branches: [godot, godot-ci]
 
 env:
   GODOT_VERSION: 3.5.1

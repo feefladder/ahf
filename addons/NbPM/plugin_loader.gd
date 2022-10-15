@@ -1,16 +1,16 @@
 ###############################################################################
 # Copyright (c) 2021 NimbleBeasts
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -69,18 +69,18 @@ var user_cfg_provided = true
 
 func _enter_tree():
     _load_configs()
-    
+
     # Setup main screen
     project_screen_instance = Scene_ProjectScreen.instance()
     project_screen_instance.setup(self, project_cfg_provided, user_cfg_provided)
     get_editor_interface().get_editor_viewport().add_child(project_screen_instance, true)
     make_visible(false)
-    
+
     # Setup todo dock
     todo_dock_instance = Scene_TodoDock.instance()
     todo_dock_instance.setup(self)
     add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, todo_dock_instance)
-    
+
     if todo_dock_instance and project_screen_instance:
         print(get_plugin_name() + ": Succesfully loaded")
     else:
@@ -137,13 +137,13 @@ func jump_to_main_screen(metadata):
 func _load_configs():
     var dir = Directory.new()
     var cfg = File.new()
-    
+
     # Create directories, if not exists
     if not dir.dir_exists(PM_DIRECTORY):
         dir.make_dir(PM_DIRECTORY)
     if not dir.dir_exists(PM_TASK_DIRECTORY):
         dir.make_dir(PM_TASK_DIRECTORY)
-    
+
     # Project config
     if not cfg.file_exists(PM_DIRECTORY + PM_PROJECT_CONFIG):
         # Create project config
@@ -152,7 +152,7 @@ func _load_configs():
     else:
         # Load project config
         config_project = _load_file(PM_PROJECT_CONFIG)
-    
+
     # User config
     if not cfg.file_exists(PM_DIRECTORY + PM_USER_CONFIG):
         # Create project config

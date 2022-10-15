@@ -47,7 +47,7 @@ func _on_input_event(_viewport, event, _shape_idx):
         else:
             emit_signal("unpressed", self)
             un_highlight()
-            
+   
 
 func _input(event):
     # mouse clicks next to block
@@ -56,7 +56,7 @@ func _input(event):
             _mouse_down = true
         else:
             _mouse_down = false
-        
+
         if _mouse_over and _enabled:
             emit_signal("pressed", self)
             highlight()

@@ -7,7 +7,7 @@ var crop_resource: CropResource
 var x: int
 var y: int
 
-var has_crop := false   
+var has_crop := false
 var has_irrigation := false
 
 func apply(a_measure: PlaceableResource):
@@ -26,7 +26,7 @@ func apply(a_measure: PlaceableResource):
 func remove(a_measure: PlaceableResource):
     if not a_measure in applied_measures:
         return
-    
+
     applied_measures[a_measure].queue_free()
     assert(applied_measures.erase(a_measure) ==  true)
 

@@ -34,7 +34,7 @@ func _on_Loader_resources_loaded(which, resources):
                 add_menu_toggle_item(resource)
             else:
                 print("Resource: ", resource.resource_name, "not used")
-            
+   
             if manager.has_method("use_resource"):
                 manager.use_resource(resource)
 
