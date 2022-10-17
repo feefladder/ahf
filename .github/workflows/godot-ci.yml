@@ -1,6 +1,6 @@
 name: "godot-ci export"
 on:
-  pullrequest:
+  pull_request:
   push:
     branches: [godot, godot-ci]
 
