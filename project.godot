@@ -393,12 +393,16 @@ _global_script_class_icons={
 [application]
 
 config/name="AHFGodotFarmz2U"
-run/main_scene="res://scenes/main_menu.tscn"
+run/main_scene="res://scenes/test_field_inputs.tscn"
 config/icon="res://icon.png"
 
 [editor_plugins]
 
 enabled=PoolStringArray(  )
+
+[global]
+
+scene=false
 
 [locale]
 

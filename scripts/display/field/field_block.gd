@@ -12,38 +12,38 @@ var has_irrigation := false
 
 func apply(a_measure: PlaceableResource):
 #    resources.append(a_measure)
-    if a_measure in applied_measures:
-        return
+	if a_measure in applied_measures:
+		return
 
-    var scene = a_measure.scene.instance()
-    self.add_child(scene)
-    if scene is CollisionPolygon2D:
-        var sp = $SoilPoly
-        sp.call_deferred("queue_free")
+	var scene = a_measure.scene.instance()
+	self.add_child(scene)
+	if scene is CollisionPolygon2D:
+		var sp = $SoilPoly
+		sp.call_deferred("queue_free")
 
-    applied_measures[a_measure] = scene
+	applied_measures[a_measure] = scene
 
 func remove(a_measure: PlaceableResource):
-    if not a_measure in applied_measures:
-        return
+	if not a_measure in applied_measures:
+		return
 
-    applied_measures[a_measure].queue_free()
-    assert(applied_measures.erase(a_measure) ==  true)
+	applied_measures[a_measure].queue_free()
+	assert(applied_measures.erase(a_measure) ==  true)
 
 func add_irrigation(irrigation_scene: PackedScene):
-    var scene = irrigation_scene.instance()
-    self.add_child(scene)
+	var scene = irrigation_scene.instance()
+	self.add_child(scene)
 
 func add_crop(a_crop: CropResource):
-    $Crop.texture = a_crop.image
-    crop_resource = a_crop
-    $Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
-    has_crop = true
+	$Crop.texture = a_crop.image
+	crop_resource = a_crop
+	$Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
+	has_crop = true
 
 func show_crop() -> void:
-    $Crop.show()
+	$Crop.show()
 
 func remove_crop():
-    $Crop.hide()
-    has_crop = false
-    crop_resource = null
+	$Crop.hide()
+	has_crop = false
+	crop_resource = null
