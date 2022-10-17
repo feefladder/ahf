@@ -15,7 +15,7 @@ onready var target_node = get_node(target_path)
 onready var tooltip: Tooltip = get_node(tooltip_path)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    assert(connect("tab_changed",target_node,"_on_tab_changed") == 0)
+    printerr(connect("tab_changed",target_node,"_on_tab_changed"))
     _connect_children()
 
 func _connect_children():

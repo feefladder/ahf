@@ -17,7 +17,7 @@ func _ready():
     hide()
     #initialize timer
     _timer = Timer.new()
-    assert(_timer.connect("timeout",self,"_on_custom_show") == 0)
+    printerr(_timer.connect("timeout",self,"_on_custom_show"))
     add_child(_timer)
 
 func _process(_delta):

@@ -35,7 +35,7 @@ func _ready():
             field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")
             add_child(field_block)
 
-#    assert(connect("field_pointed", state_controller, "_on_field_pointed") == 0)
+#    printerr(connect("field_pointed", state_controller, "_on_field_pointed"))
 
 func place_pump(pump_image: StreamTexture):
     var sprite = Sprite.new()

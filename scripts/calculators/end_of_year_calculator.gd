@@ -8,8 +8,8 @@ onready var eoy_button = get_node(eoy_button_path)
 var summary: SummaryResource
 
 func _ready():
-    assert(eoy_button.connect("next_year_requested", self, "_on_next_year_requested") == 0)
-    assert(connect("summary_completed", eoy_button, "_on_summary_completed") == 0)
+    printerr(eoy_button.connect("next_year_requested", self, "_on_next_year_requested"))
+    printerr(connect("summary_completed", eoy_button, "_on_summary_completed"))
 
 func _on_next_year_requested(event: EventResource):
     summary = make_summary(event)

@@ -10,7 +10,7 @@ enum Modes {
 var current_mode = Modes.MODE_SMALL
 
 func _ready():
-    assert(connect("resized",self,"maybe_set_width") == 0)
+    printerr(connect("resized",self,"maybe_set_width"))
 
 func maybe_set_width() -> void:
     if current_mode == Modes.MODE_SMALL:

@@ -400,6 +400,10 @@ config/icon="res://icon.png"
 
 enabled=PoolStringArray(  )
 
+[global]
+
+scene=false
+
 [locale]
 
 translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ha_NG.translation", "res://assets/translations.nl.translation" )

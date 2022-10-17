@@ -13,7 +13,7 @@ onready var controller = get_node(controller_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    assert(get_node(path_to_Loader).connect("resources_loaded",self,"_on_Loader_resources_loaded") == 0)
+    printerr(get_node(path_to_Loader).connect("resources_loaded",self,"_on_Loader_resources_loaded"))
 
 func add_MenuItem(a_resource: BuyResource):
     var menu_item = BuyMenuItemScene.instance()

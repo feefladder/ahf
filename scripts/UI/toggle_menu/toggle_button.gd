@@ -10,8 +10,8 @@ signal un_hovered(which)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    assert(connect("mouse_entered",self,"_on_mouse_entered") == 0)
-    assert(connect("mouse_exited",self,"_on_mouse_exited") == 0)
+    printerr(connect("mouse_entered",self,"_on_mouse_entered"))
+    printerr(connect("mouse_exited",self,"_on_mouse_exited"))
     $Icon.texture = icon
     $Title.text = tr(title)
 

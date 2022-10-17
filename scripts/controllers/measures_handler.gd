@@ -11,8 +11,8 @@ onready var asset_manager: AssetManager = get_node(asset_manager_path)
 onready var field: Field = get_node(field_path)
 
 #func _ready():
-#    assert(connect("deactivated", self, "_on_deactivate") == 0)
-#    assert(connect("activated", self, "_on_activated") == 0)
+#    printerr(connect("deactivated", self, "_on_deactivate"))
+#    printerr(connect("activated", self, "_on_activated"))
 
 func _on_tab_changed(which: BuyMenuItem):
     if current_resource:

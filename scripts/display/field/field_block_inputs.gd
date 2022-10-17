@@ -14,10 +14,10 @@ var _timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    assert(connect("mouse_entered", self, "_on_mouse_entered") == 0)
-    assert(connect("mouse_exited", self, "_on_mouse_exited") == 0)
-    assert(connect("input_event", self, "_on_input_event") == 0)
-    assert(_timer.connect("timeout", self, "_on_timeout") == 0)
+    printerr(connect("mouse_entered", self, "_on_mouse_entered"))
+    printerr(connect("mouse_exited", self, "_on_mouse_exited"))
+    printerr(connect("input_event", self, "_on_input_event"))
+    printerr(_timer.connect("timeout", self, "_on_timeout"))
     add_child(_timer)
 
 func start(time: float):
@@ -56,7 +56,6 @@ func _input(event):
             _mouse_down = true
         else:
             _mouse_down = false
-
         if _mouse_over and _enabled:
             emit_signal("pressed", self)
             highlight()
