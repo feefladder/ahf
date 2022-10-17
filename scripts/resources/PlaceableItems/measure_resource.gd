@@ -18,11 +18,6 @@ func get_min_number():
 func should_enable(block): #block is a fieldblock
     if block in blocks_placed:
         return false
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     if blocks_placed.size() == 0:
         # empty field: enable only the bottom row
         return block.y == 0
