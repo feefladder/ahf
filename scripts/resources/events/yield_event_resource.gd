@@ -11,7 +11,11 @@ func calc_yield_reduction(block: FieldBlock) -> float:
     if not (block.crop_resource is affected_crop or block.crop_resource == affected_crop):
         #no extra yield reduction
         return 0.0
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     if ameliorating_resource and "blocks_placed" in ameliorating_resource:
         if block in ameliorating_resource.blocks_placed:
             return ameliorated_yield_reduction

@@ -20,12 +20,20 @@ var _file_list = []
 ## Updates everytime the config was changed
 func update_project_config():
     var config = ref.config_project
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Parse exclude list
     exclude_dir_list = []
     for folder in config.exclude_folders:
         exclude_dir_list.append(folder)
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     var string = ""
     # Parse tags
     tags = config.tags.duplicate()
@@ -55,10 +63,17 @@ func setup(loader_ref):
 
     # Signals
     ref.get_editor_interface().get_resource_filesystem().connect("filesystem_changed", self, "_update_todos")
+<<<<<<< HEAD
 
     # Display results initialy
     _update_gui()
 
+=======
+ 
+    # Display results initialy
+    _update_gui()
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
 
 func setup_dropdown():
     $ToolbarBox/DropdownMenu.icon = ref.get_editor_interface().get_base_control().get_icon("GuiDropdown", "EditorIcons")
@@ -75,14 +90,22 @@ func setup_dropdown():
 
 func _popup_menu_id_pressed(id):
     var popup_menu = $ToolbarBox/DropdownMenu.get_popup()
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     if popup_menu.is_item_checked(id):
         popup_menu.set_item_checked(id, false)
         filter.append(tags[id])
     else:
         popup_menu.set_item_checked(id, true)
         filter.erase(tags[id])
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     print(filter)
     _update_gui()
 
@@ -102,7 +125,11 @@ func _update_todos(force = false):
 ## Delete non-existing files from db
 func _clean_deleted_files():
     var ids = []
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Check if file in db still exists in scanned list
     for i in range(ref.config_user.todo_database.size()):
         if not ref.config_user.todo_database[i].file_path in _file_list:
@@ -113,12 +140,20 @@ func _clean_deleted_files():
     ids.invert()
     for id in ids:
         ref.config_user.todo_database.remove(id)
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     _file_list = []
 
 func _update_gui():
     var tree = $Tree
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     tree.clear()
     var root = tree.create_item()
     tree.set_hide_root(true)
@@ -137,7 +172,11 @@ func _update_gui():
         child_file.set_icon(0, icon_ref.get_icon("Script", "EditorIcons"))
         child_file.set_text(0, file.file_path.substr(6))
         child_file.set_metadata(0, {"type": "SHOW_SOURCE", "line": 1, "path_file": file.file_path})
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
         for todo in file.todos:
             if not todo.type in filter:
                 #{"type": type, "line": line_count, "description": description}
@@ -150,7 +189,11 @@ func _update_gui():
 
 
                 # TODO REMOVE
+<<<<<<< HEAD
        
+=======
+             
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
                 var task = _has_task(file.file_path, todo.description)
                 if task == "":
                     #child_todo.add_button(2, icon_ref.get_icon("Add", "EditorIcons"))
@@ -171,11 +214,19 @@ func _has_task(path_file, description):
 func _scan_directory(path = "res://"):
     var changes = 0
     var dir = Directory.new()
+<<<<<<< HEAD
 
     if dir.open(path) == OK:
         dir.list_dir_begin(true, true)
         var file_name = dir.get_next()
 
+=======
+ 
+    if dir.open(path) == OK:
+        dir.list_dir_begin(true, true)
+        var file_name = dir.get_next()
+     
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
         # Scan directories
         while file_name != "":
             # Build path tree
@@ -184,7 +235,11 @@ func _scan_directory(path = "res://"):
                 file_path += file_name
             else:
                 file_path += "/" + file_name
+<<<<<<< HEAD
    
+=======
+         
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
             if dir.current_is_dir():
                 # Recursive call to scan directory
                 if not file_name in exclude_dir_list:
@@ -196,32 +251,52 @@ func _scan_directory(path = "res://"):
                     # Scan file
                     changes += _scan_file(path, file_name)
                     #print("-----------------------------------")
+<<<<<<< HEAD
    
             file_name = dir.get_next()
 
         dir.list_dir_end()
 
+=======
+         
+            file_name = dir.get_next()
+ 
+        dir.list_dir_end()
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     return changes
 
 
 func _scan_file(path, file_name):
     var changes = 0
     var file = File.new()
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Build file path
     var file_path = path
     if path == "res://":
         file_path += file_name
     else:
         file_path += "/" + file_name
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Get file hash
     var file_hash = file.get_sha256(file_path)
     # Look up file in database, check for modification
     var db_index = _db_find_index_by_file_path(file_path)
 
     #print("file: " + file_name)
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Check if we have an existing library
     if db_index != -1:
         if ref.config_user.todo_database[db_index].hash == file_hash:
@@ -232,7 +307,11 @@ func _scan_file(path, file_name):
         # Clear old entries
         ref.config_user.todo_database[db_index].todos = []
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     # Load source and parse the source code
     var source = load(file_path).source_code
     var regex_findings = regex.search_all(source)
@@ -248,7 +327,11 @@ func _scan_file(path, file_name):
         # 0 = complete line, 1 = type, 3 = description
         var type = finding.get_string(1)
         var description = finding.get_string(3)
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
         var line_count = 1
         for line in source.split("\n"):
             if line == finding.get_string(0): break
@@ -256,7 +339,11 @@ func _scan_file(path, file_name):
 
         ref.config_user.todo_database[db_index].todos.append({"type": type, "line": line_count, "description": description})
         changes += 1
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     #print("todos found: " + str(changes))
 #    print(file_path)
 #    print(file_hash)
@@ -271,7 +358,11 @@ func _db_find_index_by_file_path(path):
         if path == entry.file_path:
             return index
         index += 1
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     return -1
 
 

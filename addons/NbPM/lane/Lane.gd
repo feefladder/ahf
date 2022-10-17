@@ -16,7 +16,11 @@ func setup(ref, title, id, color):
     $v/Toolbar/Title.set_text(title)
     pm_ref = ref
     _id = id
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     base_color = color
     $v/Toolbar/ItemCount/Bg.color = base_color
 

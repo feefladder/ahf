@@ -47,7 +47,6 @@ func update_project_config():
     Settings_User = get_node("ProjectSettingsWindow/Users/scroll/v")
     Settings_Tag = get_node("ProjectSettingsWindow/Tags/scroll/v")
     Settings_Folder = get_node("ProjectSettingsWindow/ExcludeFolders/scroll/v")
-
     # Update Settings
     # Categories
     _clear_setting_items(Settings_Category)
@@ -61,7 +60,6 @@ func update_project_config():
     # Folders
     _clear_setting_items(Settings_Folder)
     _add_setting_items(Settings_Folder, ref.config_project.exclude_folders)
-
     # Clear olds
     $TaskView/Input/Stage.clear()
     $TaskView/Input/Assigned.clear()
@@ -80,14 +78,12 @@ func update_project_config():
         lane.setup(self, cat, id, base_color)
         $Scroll/h.add_child(lane)
         id += 1
-
     id = 0
     for user in ref.config_project.user_names:
         # Update Options
         $TaskView/Input/Assigned.add_item(user, id)
         $UserSettingsWindow/UserSelect.add_item(user, id)
         id += 1
-
     if _project_cfg_provided and _user_cfg_provided:
         needs_update = true
 
@@ -125,7 +121,6 @@ func _on_UserSettingsSaveButton_button_up():
         _user_cfg_provided = true
         setup_steps()
 
-
 # Get value of underlying item input fields
 func _get_setting_items(ref):
     var array = []
@@ -154,7 +149,6 @@ func _add_setting_items(ref, array):
             remove = "_remove_tag_item"
         _: #Settings_Folder
             remove = "_remove_folder_item"
-
     for item in array:
         _add_setting_item(ref, remove, item)
 
@@ -167,7 +161,6 @@ func setup(loader_ref, project_cfg_provided, user_cfg_provided):
     _project_cfg_provided = project_cfg_provided
     _user_cfg_provided = user_cfg_provided
     base_color = loader_ref.get_editor_interface().get_editor_settings().get_setting("interface/theme/base_color")
-
     # Setup project config window
     update_project_config()
     # Setup user config window
@@ -198,7 +191,6 @@ func setup_steps():
 ## Create a new task
 func new_task(category = 0, context = {}):
     task_timestamp = 0
-
     if context.empty():
         $TaskView/Input/Title.text = "Title"
         $TaskView/Description.text = ""
@@ -209,7 +201,6 @@ func new_task(category = 0, context = {}):
 
     $TaskView/Input/Stage.select(category)
     $TaskView/Input/Assigned.select(0)
-
     $TaskView/Input/TimestampLabel.set_text(_get_datetime_string(_get_local_unix_time()))
     $TaskView.show()
 
@@ -253,7 +244,6 @@ func save_task():
         "description": $TaskView/Description.text,
         "todos": []
     }
-
     var file = File.new()
     file.open(ref.PM_TASK_DIRECTORY + "/" + time_hash + ".task", File.WRITE)
     file.store_line(JSON.print(save_task, "\t"))
@@ -262,7 +252,6 @@ func save_task():
     # Reset
     task_timestamp = 0
     $TaskView.hide()
-
     if not task_context.empty():
         ref.config_project.linkage.append(
             {
@@ -282,7 +271,6 @@ func save_task():
 func delete_task(task_hash):
     var dir = Directory.new()
     dir.remove(ref.PM_TASK_DIRECTORY + "/" + task_hash + ".task")
-
     var id = 0
     for link in ref.config_project.linkage:
         if link.task == task_hash:
@@ -305,12 +293,10 @@ func _scan_tasks():
     var dir = Directory.new()
     # Clean tasks
     tasks = []
-
     # Scan task directory
     if dir.open(ref.PM_TASK_DIRECTORY) == OK:
         dir.list_dir_begin(true, true)
         var file_name = dir.get_next()
-
         while file_name != "":
             if not dir.current_is_dir():
                 if file_name.get_extension() == "task":
@@ -329,7 +315,6 @@ func _scan_file(file_name):
 func _update_gui():
     #TODO: only re-render, if file has changed
     var id = 0
-
     # Loop over categories
     for lane in $Scroll/h.get_children():
         lane.clear()

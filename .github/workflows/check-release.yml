@@ -11,7 +11,11 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
       release_tag: ${{ steps.parse.outputs.tag }}
+<<<<<<< HEAD
     steps:
+=======
+    steps: 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
       - id: parse
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

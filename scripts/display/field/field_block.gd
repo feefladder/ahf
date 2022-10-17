@@ -26,7 +26,11 @@ func apply(a_measure: PlaceableResource):
 func remove(a_measure: PlaceableResource):
     if not a_measure in applied_measures:
         return
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     applied_measures[a_measure].queue_free()
     assert(applied_measures.erase(a_measure) ==  true)
 

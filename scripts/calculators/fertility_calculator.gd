@@ -35,4 +35,8 @@ func calc_nutrients() -> void:
 
 func calc_erosion() -> void:
     print("erosion rate: ", fertility.erosion_rate)
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28

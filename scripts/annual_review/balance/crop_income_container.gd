@@ -19,5 +19,9 @@ func add_crop_summary(field_summary: FieldSummaryResource) -> float:
         self.add_child(crop_item)
 
         total += crop_item.total
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     return total

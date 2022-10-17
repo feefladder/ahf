@@ -10,12 +10,20 @@ var _context = {}
 func setup(ref, context, assigned_string, color):
     pm_ref = ref
     _context = context
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     $Bg/v/toolbar/Title.set_text(str(context.title))
     $Bg/v/Description.bbcode_text = str(context.description)
     $Bg.color = color
     $Bg/v/Content/Assigned.set_text(str(assigned_string))
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1f60ef31738acdafb1724825e3ce2d48df2afb28
     var popup_menu = $Bg/v/toolbar/Menu.get_popup()
     popup_menu.clear()
     popup_menu.add_item("View", 0)
