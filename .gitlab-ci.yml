@@ -10,11 +10,18 @@ cache:
     - .import/
 
 stages:
+  - test
   - export
   - deploy
 
 variables:
   EXPORT_NAME: african-highland-farmer
+
+test:
+  stage: test
+  script:
+    - chmod +x ./gut.sh
+    - ./gut.sh
 
 web:
   stage: export
