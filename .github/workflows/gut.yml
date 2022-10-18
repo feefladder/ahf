@@ -8,6 +8,9 @@ on:
 jobs:
   gut:
     runs-on: ubuntu-latest
+    container:
+      image:
+        barichello/godot-ci:3.5.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
