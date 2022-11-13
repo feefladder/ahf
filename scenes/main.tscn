@@ -169,9 +169,6 @@ anchor_right = 1.01
 anchor_bottom = 1.0
 theme = ExtResource( 32 )
 script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 money = 1000.0
 labour = 1000.0
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
