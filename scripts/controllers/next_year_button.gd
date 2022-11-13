@@ -19,7 +19,7 @@ func _ready():
 
 func _on_NextYearButton_pressed():
     current_year += 1
-    years_stat._on_stat_changed(current_year)
+    years_stat._on_stat_changed("year", current_year)
 
     if current_year == max_years:
         get_tree().get_root().add_child(end_of_game_packedscene.instance())

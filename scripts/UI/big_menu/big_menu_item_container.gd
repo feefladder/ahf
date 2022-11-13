@@ -19,14 +19,10 @@ onready var manager = get_node_or_null(manager_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    if get_node(resource_loader_path).connect("resources_loaded", self, "_on_Loader_resources_loaded"):
-        print_debug("connect failed!")
-    if connect("increased_int_item", manager, "_on_int_item_increased"):
-        print_debug("connect failed!")
-    if connect("decreased_int_item", manager, "_on_int_item_decreased"):
-        print_debug("connect failed!")
-    if connect("toggle_item_set", manager, "_on_toggle_item_set"):
-        print_debug("connect failed!")
+    printerr(get_node(resource_loader_path).connect("resources_loaded", self, "_on_Loader_resources_loaded"))
+    printerr(connect("increased_int_item", manager, "_on_int_item_increased"))
+    printerr(connect("decreased_int_item", manager, "_on_int_item_decreased"))
+    printerr(connect("toggle_item_set", manager, "_on_toggle_item_set"))
     asset_manager = get_node(asset_manager_path)
 
 func _on_Loader_resources_loaded(which, resources):
@@ -45,17 +41,14 @@ func _on_Loader_resources_loaded(which, resources):
 func add_menu_toggle_item(resource: ToggleResource) -> void:
     var menu_item: HBoxContainer = big_menu_toggle_item_scene.instance()
     menu_item.resource = resource
-    if menu_item.connect("item_pressed", self, "_try_toggle_button"):
-        print_debug("connect failed!")
+    printerr(menu_item.connect("item_pressed", self, "_try_toggle_button"))
     add_child(menu_item)
 
 func add_menu_int_item(resource: IntResource):
     var menu_item: HBoxContainer = big_menu_int_item_scene.instance()
     menu_item.resource = resource
-    if menu_item.connect("increase_pressed", self, "_try_increase_resource"):
-        print_debug("connect failed!")
-    if menu_item.connect("decrease_pressed", self, "_try_decrease_resource"):
-        print_debug("connect failed!")
+    printerr(menu_item.connect("increase_pressed", self, "_try_increase_resource"))
+    printerr(menu_item.connect("decrease_pressed", self, "_try_decrease_resource"))
     add_child(menu_item)
 
 func _try_toggle_button(menu_item: BigMenuToggleItem, is_pressed: bool):

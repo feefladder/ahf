@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -32,16 +32,19 @@
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
 [ext_resource path="res://assets/animals/cock.png" type="Texture" id=31]
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
+[ext_resource path="res://resources/livestock/01_chicken.tres" type="Resource" id=33]
 [ext_resource path="res://scripts/controllers/next_year_button.gd" type="Script" id=34]
 [ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/calculators/yield_calculator.gd" type="Script" id=36]
 [ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
+[ext_resource path="res://resources/livestock/02_goat.tres" type="Resource" id=39]
 [ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/field/field_data.tres" type="Resource" id=41]
 [ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
 [ext_resource path="res://scripts/calculators/fertility_calculator.gd" type="Script" id=43]
 [ext_resource path="res://scripts/display/people/people.gd" type="Script" id=44]
+[ext_resource path="res://resources/livestock/03_cow.tres" type="Resource" id=45]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
 
 [sub_resource type="Resource" id=4]
@@ -287,6 +290,7 @@ texture = ExtResource( 31 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 33 )
 
 [node name="Amount" type="Label" parent="AssetManager/ChickenStat"]
 anchor_left = 0.5
@@ -309,6 +313,7 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 39 )
 
 [node name="Amount" type="Label" parent="AssetManager/GoatStat"]
 anchor_left = 0.5
@@ -331,6 +336,7 @@ texture = ExtResource( 23 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 45 )
 
 [node name="Amount" type="Label" parent="AssetManager/CowStat"]
 anchor_left = 0.5
@@ -599,6 +605,11 @@ __meta__ = {
 visible = false
 script = ExtResource( 42 )
 
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/MoneyStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/LabourStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/ChickenStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/GoatStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/CowStat" method="_on_stat_changed"]
 [connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/CropsBuyMenu" method="next_year"]
 [connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/MeasuresBuyMenu" method="next_year"]
 [connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/LabourBigMenu" method="next_year"]
