@@ -4,7 +4,7 @@
 	"assigned": 1,
 	"timestamp": 1659347154,
 	"hash": "d7f67254e5f8c4d87618e899377928b56ecebd2844e5eb4b644c70554341b808",
-	"description": "Possible pathways for further development:\n - online multiplayer\n -  add server with data download\n   - make 3d field (in progress)\n   - automate modelling\n   - get a server",
+	"description": "Possible pathways for further development:\n - online multiplayer\n -  add server with data download\n   - make 3d field (in progress)\n   - automate modelling\n   - get a server [x]",
 	"todos": [
 
 	]

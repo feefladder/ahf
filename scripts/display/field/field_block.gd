@@ -10,10 +10,11 @@ var y: int
 var has_crop := false
 var has_irrigation := false
 
+onready var db: Node = get_tree().get_root().get_child(0)
+
 func apply(a_measure: PlaceableResource):
 #    resources.append(a_measure)
-    if a_measure in applied_measures:
-        return
+#    if not 
 
     var scene = a_measure.scene.instance()
     self.add_child(scene)
@@ -27,7 +28,8 @@ func remove(a_measure: PlaceableResource):
     if not a_measure in applied_measures:
         return
     applied_measures[a_measure].queue_free()
-    applied_measures.erase(a_measure)
+    if not applied_measures.erase(a_measure):
+        print_debug("Could not erase")
 
 func add_irrigation(irrigation_scene: PackedScene):
     var scene = irrigation_scene.instance()

@@ -19,7 +19,6 @@ var is_dragging_over_field: bool = false
 func _ready():
     state_controller = get_node(state_controller_path)
     #initialize the field
-    print(field_resource)
     for x in range(field_resource.size_x):
         field_block_matrix.append([])
         for y in range(field_resource.size_y):

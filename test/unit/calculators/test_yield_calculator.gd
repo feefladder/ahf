@@ -6,7 +6,7 @@ var field_resource: FieldResource
 
 func before_all():
     #load field resource
-    field_resource = ResourceLoader.load("res://resources/field/field_data.tres")
+    field_resource = ResourceDatabase.load("res://resources/field/field_data.tres")
 
 func before_each():
     yield_calculator = autofree(partial_double(YieldCalculator).new())

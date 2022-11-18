@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://scripts/controllers/crop_handler.gd" type="Script" id=7]
 [ext_resource path="res://assets/UI/Buttons/icon_livestock.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
-[ext_resource path="res://scripts/controllers/loader.gd" type="Script" id=10]
+[ext_resource path="res://scripts/controllers/database.gd" type="Script" id=10]
 [ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
 [ext_resource path="res://scripts/controllers/asset_manager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
@@ -26,7 +26,6 @@
 [ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
 [ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/mouse/planting.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
@@ -62,16 +61,8 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="Loader" type="Node"]
+[node name="Database" type="Node"]
 script = ExtResource( 10 )
-resources_paths = {
-"crop_resource": "crops/",
-"events_resource": "events/",
-"family_resource": "family/",
-"labour_resource": "labour/",
-"livestock_resource": "livestock/",
-"measures_resource": "measures/"
-}
 
 [node name="Background" type="Sprite" parent="."]
 show_behind_parent = true
@@ -129,19 +120,12 @@ script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Crops"
 resource_name = "crop_resource"
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
-asset_manager_path = NodePath("../../AssetManager")
-field_path = NodePath("../../Background/Field")
-planting_scene = ExtResource( 27 )
 
 [node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
 script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Measures"
 resource_name = "measures_resource"
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
-asset_manager_path = NodePath("../../AssetManager")
-field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
 title = "Livestock"

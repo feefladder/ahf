@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/PlaceableItems/crop_resource.gd"
 }, {
+"base": "Node",
+"class": "Database",
+"language": "GDScript",
+"path": "res://scripts/controllers/database.gd"
+}, {
 "base": "MeasureResource",
 "class": "DependableMeasureResource",
 "language": "GDScript",
@@ -203,11 +208,6 @@ _global_script_classes=[ {
 "class": "IrrigationResource",
 "language": "GDScript",
 "path": "res://scripts/resources/PlaceableItems/irrigation_resource.gd"
-}, {
-"base": "Node",
-"class": "Loader",
-"language": "GDScript",
-"path": "res://scripts/controllers/loader.gd"
 }, {
 "base": "PlaceableResource",
 "class": "MeasureResource",
@@ -345,6 +345,7 @@ _global_script_class_icons={
 "CropHandler": "",
 "CropIncomeContainer": "",
 "CropResource": "",
+"Database": "",
 "DependableMeasureResource": "",
 "EOYCalculator": "",
 "EventResource": "",
@@ -364,7 +365,6 @@ _global_script_class_icons={
 "IncomeDisplay": "",
 "IntResource": "",
 "IrrigationResource": "",
-"Loader": "",
 "MeasureResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",
@@ -398,7 +398,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/gut/plugin.cfg" )
 
 [global]
 

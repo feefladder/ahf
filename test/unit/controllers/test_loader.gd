@@ -1,6 +1,6 @@
 extends GutTest
 
-var loader: Loader
+var loader: Database
 var measure: MeasureResource
 var crop_01: CropResource
 var crop_02: CropResource
@@ -10,7 +10,7 @@ func before_each():
     measure = load("res://test/unit/resources/measures/01_terraces.tres")
     crop_01 = load("res://test/unit/resources/crops/irish_potato.tres")
     crop_02 = load("res://test/unit/resources/crops/maize.tres")
-    loader = partial_double(Loader).new()
+    loader = partial_double(Database).new()
     loader.base_path = "res://test/unit/resources/"
     loader.resources_paths = {}
     watch_signals(loader)

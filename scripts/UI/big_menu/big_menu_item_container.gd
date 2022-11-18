@@ -5,10 +5,10 @@ signal increased_int_item(which)
 signal decreased_int_item(which)
 signal toggle_item_set(which, state)
 
-export(NodePath) var resource_loader_path = NodePath("/root/Loader")
-export(NodePath) var asset_manager_path = NodePath("/root/Loader/AssetManager")
+export(NodePath) var resource_loader_path = NodePath("/root/Database")
+export(NodePath) var asset_manager_path = NodePath("/root/Database/AssetManager")
 export(NodePath) var manager_path = NodePath("../")
-export(NodePath) var display_path = NodePath("/root/Loader/Family")
+export(NodePath) var display_path = NodePath("/root/Database/Family")
 
 export(PackedScene) var big_menu_int_item_scene = load("res://scenes/UI/big_menu/big_menu_int_item.tscn")
 export(PackedScene) var big_menu_toggle_item_scene = load("res://scenes/UI/big_menu/big_menu_toggle_item.tscn")
@@ -19,13 +19,13 @@ onready var manager = get_node_or_null(manager_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    printerr(get_node(resource_loader_path).connect("resources_loaded", self, "_on_Loader_resources_loaded"))
+    printerr(get_node(resource_loader_path).connect("resources_loaded", self, "_on_Database_resources_loaded"))
     printerr(connect("increased_int_item", manager, "_on_int_item_increased"))
     printerr(connect("decreased_int_item", manager, "_on_int_item_decreased"))
     printerr(connect("toggle_item_set", manager, "_on_toggle_item_set"))
     asset_manager = get_node(asset_manager_path)
 
-func _on_Loader_resources_loaded(which, resources):
+func _on_Database_resources_loaded(which, resources):
     if which == resource_name:
         for resource in resources:
             if resource is IntResource:

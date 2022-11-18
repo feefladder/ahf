@@ -2,7 +2,7 @@ extends TabMenu
 class_name BigMenu
 
 export(NodePath) var item_container_path = NodePath("ItemContainer")
-export(NodePath) var display_path = NodePath("/root/Loader/Background/Livestock")
+export(NodePath) var display_path = NodePath("/root/Database/Background/Livestock")
 
 export(String) var title
 export(String) var resource_name

@@ -6,7 +6,7 @@ signal asset_changed(which, new_amount)
 export(float) var money
 export(float) var labour
 
-export(NodePath) var resource_loader_path = NodePath("/root/Loader")
+export(NodePath) var resource_loader_path = NodePath("/root/Database")
 export(NodePath) var popup_insufficient_path
 export(NodePath) var popup_max_reached_path
 
