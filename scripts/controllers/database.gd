@@ -28,31 +28,9 @@ func _ready():
     _maybe_copy_db_to_user()
     db = SQLite.new()
     db.path = db_name
-    db.verbosity_level = 1 #2 VERBOSE 1 #NORMAL 0 #QUIET
-    _mock_data()
-
-func _mock_data():
-    var table_name = "field_blocks"
-    var row_dict = {
-        "block_id" : 0,
-        "x" : 0,
-        "y" : 0,
-        "crop" : "maize",
-        "structural_measure" : null
-       }
-    
-    db.open_db()
-    db.insert_row(table_name, row_dict)
-    db.query("select * from " + table_name + ";")
-    print(db.query_result)
-    db.close_db()
-    print_debug(write_if_empty(0,0,"crop", "beans"))
-    print_debug(write_if_empty(0,0,"structural_measure", "terraces"))
-    db.open_db()
-    db.delete_rows(table_name, "*")
 
 func _load_resources(key) -> Array:
-    static_resources[key] = []
+    static_resources[key] = {}
     var resources_path = fields_to_paths[key]
     # TODO: make this class call some API endpoint whenever the game actually implements it
     var directory = Directory.new()
@@ -64,10 +42,11 @@ func _load_resources(key) -> Array:
     var filename = directory.get_next()
     while(filename):
         if not directory.current_is_dir() and filename.ends_with(".tres"):
-            static_resources[key].append(load(base_path + resources_path + filename))
+            var resource = load(base_path + resources_path + filename)
+            static_resources[key][resource.resource_name] = resource
         filename = directory.get_next()
 
-    return static_resources[key]
+    return static_resources[key].values()
 
 func _maybe_copy_db_to_user() -> void:
     if OS.get_name() in ["Android", "iOS", "HTML5"]:
@@ -95,17 +74,69 @@ func _copy_db_to_user() -> void:
         printerr("An error occurred when trying to access the path.")
 
 func write_if_empty(block_x: int, block_y: int, type: String, value: String) -> bool:
-    var table_name = "field_blocks"
-    var condition  = "x = " + str(block_x) + " AND y=" + str(block_y)
+    var table_name := "field_blocks"
+    var bindings := [block_x, block_y]
+    # var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=? AND y=?;"
+    var query_string := "SELECT * FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
+    var condition := "x=" + str(block_x) + " AND y=" + str(block_y)
+    
     db.open_db()
-    db.query("SELECT " + type + " FROM " + table_name + " WHERE " + condition)
-    if db.query_result[0][type] != null:
-        print_debug(db.query_result[0][type])
+    # db.query_with_bindings(query_string, bindings)
+    db.query(query_string)
+    if db.query_result[0][type] == null:
+        # print_debug(db.query_result[0][type])
         # Change name of 'Amanda' to 'Olga' and her age to 30
         db.update_rows(table_name, condition, {type:value})
+        db.close_db()
         return true
+    db.close_db()
     return false
 
-#func write_to_db(block_x: int, block_y: int, type: String, value: String) -> bool:
-#    # Open the database using the db_name found in the path variable
-#    db.open_db()
+func empty_cell(block_x: int, block_y: int, type: String) -> bool:
+    var table_name := "field_blocks"
+    var bindings := [block_x, block_y]
+    # var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=? AND y=?;"
+    var query_string := "SELECT " + type + " FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
+    var condition := "x=" + str(block_x) + " AND y=" + str(block_y)
+
+    db.open_db()
+    # db.query_with_bindings(query_string, bindings)
+    db.query(query_string)
+    if db.query_result[0][type] != null:
+        db.update_rows(table_name, condition, {type:null})
+        db.close_db()
+        return true
+
+    db.close_db()
+    return false
+
+func add_cell(block_x: int, block_y: int) -> bool:
+    var table_name := "field_blocks"
+
+    var query_string := "SELECT * FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
+    var bindings := [block_x, block_y]
+
+    db.open_db()
+    db.query(query_string)
+    if db.query_result_by_reference.size() != 0:
+        db.close_db()
+        return false
+    
+    db.insert_row(table_name, {"x":block_x,"y":block_y})
+    db.close_db()
+    return true
+
+func get_resource(block_x: int, block_y: int, type: String) -> Resource:
+    var table_name := "field_blocks"
+
+    var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=" +str(block_x)+ " AND y=" +str(block_y)+ ";"
+
+    db.open_db()
+    db.query(query_string)
+    var resource_name = db.query_result[0][type]
+    db.close_db()
+
+    if resource_name == null:
+        return null
+
+    return static_resources[type][resource_name]
