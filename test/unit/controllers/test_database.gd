@@ -26,13 +26,18 @@ class TestLoadingAndSignals:
         assert_eq(database._load_resources("measures_resource"),[measure])
 
     func test__load_resources_crops():
-        assert_eq(database._load_resources("crop_resource"), [crop_01, crop_02 ])
+        var loaded_crops := database._load_resources("crop_resource")
+        for crop in [crop_01, crop_02]:
+            assert_true(crop in loaded_crops)
     
     func test_static_resources():
         # add_child(database)
         assert_eq(database.fields_to_paths["crop_resource"], "crops/")
         assert_eq_deep(database.static_resources, {})
-        assert_eq(database._load_resources("crop_resource"),[crop_01,crop_02])
+        var loaded_crops = database._load_resources("crop_resource")
+        for crop in [crop_01, crop_02]:
+            assert_true(crop in loaded_crops)
+    
         gut.p(database.static_resources)
         assert_eq(database.types_to_fields[typeof(crop_01)], "crop")
         assert_eq_deep(
