@@ -53,13 +53,26 @@ class TestLoadingAndSignals:
     func test_signal_crops():
         database.fields_to_paths = {"crops": "crops/"}
         add_child_autofree(database)
-        assert_signal_emitted_with_parameters(database, "resources_loaded", ["crops", [crop_01, crop_02]])
+        # check ["crops", [crop_01, crop_02]] where the order of crops can be different
+        var crop_resources :Array = get_signal_parameters(database, "resources_loaded")
+        assert_eq(crop_resources[0], "crops")
+        assert_eq(crop_resources[1].size(), 2)
+        gut.p(crop_resources)
+        assert_true(crop_01 in crop_resources[1])
+        assert_true(crop_02 in crop_resources[1])
 
     func test_signal_both():
         database.fields_to_paths = {"measures": "measures/", "crops": "crops/"}
         add_child_autofree(database)
         assert_signal_emitted_with_parameters(database, "resources_loaded", ["measures", [measure]], 0)
-        assert_signal_emitted_with_parameters(database, "resources_loaded", ["crops", [crop_01, crop_02]], 1)
+
+        var crop_resources :Array = get_signal_parameters(database, "resources_loaded", 1)
+        # check ["crops", [crop_01, crop_02]] where the order of crops can be different
+        assert_eq(crop_resources[0], "crops")
+        assert_eq(crop_resources[1].size(), 2)
+        assert_true(crop_01 in crop_resources[1])
+        assert_true(crop_02 in crop_resources[1])
+        # assert_signal_emitted_with_parameters(database, "resources_loaded", ["crops", [crop_01, crop_02]], 1)
 
     func test_signal_non_existent_folder():
         database.fields_to_paths = {"non_existent_folder": "non_existent_folder/"}
