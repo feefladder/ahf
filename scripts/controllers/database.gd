@@ -8,12 +8,15 @@ signal resources_loaded(which, resources)
 export(String) var base_path = "res://resources/"
 
 export(Dictionary) var fields_to_paths = {
-    "crop_resource" : "crops/",
-    "livestock_resource" : "livestock/",
-    "labour_resource" : "labour/",
-    "measures_resource" : "measures/",
-    "family_resource" : "family/",
-    "events_resource" : "events/"
+    "crop" : "crops/",
+    "livestock" : "livestock/",
+    "labour" : "labour/",
+    "structural_measure" : "structural_measures/",
+    "measure_improvement" : "measure_improvements/",
+    "fertilization" : "fertilizers/",
+    "irrigation" : "irrigation/",
+    "family" : "family/",
+    "events" : "events/"
 }
 
 var db_name = "res://db/db"
@@ -31,6 +34,7 @@ func _ready():
 
 func _load_resources(key) -> Array:
     static_resources[key] = {}
+    var resources =[]
     var resources_path = fields_to_paths[key]
     # TODO: make this class call some API endpoint whenever the game actually implements it
     var directory = Directory.new()
@@ -38,15 +42,16 @@ func _load_resources(key) -> Array:
         printerr("could not load: ", base_path, resources_path)
         return []
     directory.list_dir_begin()
-    
+
     var filename = directory.get_next()
     while(filename):
         if not directory.current_is_dir() and filename.ends_with(".tres"):
             var resource = load(base_path + resources_path + filename)
             static_resources[key][resource.resource_name] = resource
+            resources.append(resource)
         filename = directory.get_next()
 
-    return static_resources[key].values()
+    return resources
 
 func _maybe_copy_db_to_user() -> void:
     if OS.get_name() in ["Android", "iOS", "HTML5"]:
@@ -73,7 +78,48 @@ func _copy_db_to_user() -> void:
     else:
         printerr("An error occurred when trying to access the path.")
 
-func write_if_empty(block_x: int, block_y: int, type: String, value: String) -> bool:
+
+############################################
+# Writes/updates on field_block related data
+############################################
+
+# initialize a block in the table with coordinates
+func add_block(block_x: int, block_y: int) -> bool:
+    var table_name := "field_blocks"
+
+    var query_string := "SELECT * FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
+    var bindings := [block_x, block_y]
+
+    db.open_db()
+    db.query(query_string)
+    if db.query_result_by_reference.size() != 0:
+        db.close_db()
+        return false
+    
+    db.insert_row(table_name, {"x":block_x,"y":block_y})
+    db.close_db()
+    return true
+
+# get the corresponding resource (crop/measure/irrigation) from a block if it exists
+# returns the resource or null
+func get_block_resource(block_x: int, block_y: int, type: String) -> Resource:
+    var table_name := "field_blocks"
+
+    var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=" +str(block_x)+ " AND y=" +str(block_y)+ ";"
+
+    db.open_db()
+    db.query(query_string)
+    var resource_name = db.query_result[0][type]
+    db.close_db()
+
+    if resource_name == null:
+        return null
+
+    return static_resources[type][resource_name]
+
+# writes e.g. a crop to a block if there is not a crop yet
+# returns true if successful and false if there was already something there
+func write_block_if_empty(block_x: int, block_y: int, type: String, value: String) -> bool:
     var table_name := "field_blocks"
     var bindings := [block_x, block_y]
     # var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=? AND y=?;"
@@ -92,15 +138,14 @@ func write_if_empty(block_x: int, block_y: int, type: String, value: String) -> 
     db.close_db()
     return false
 
-func empty_cell(block_x: int, block_y: int, type: String) -> bool:
+# empties the block
+func empty_block_type(block_x: int, block_y: int, type: String) -> bool:
     var table_name := "field_blocks"
     var bindings := [block_x, block_y]
-    # var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=? AND y=?;"
     var query_string := "SELECT " + type + " FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
     var condition := "x=" + str(block_x) + " AND y=" + str(block_y)
 
     db.open_db()
-    # db.query_with_bindings(query_string, bindings)
     db.query(query_string)
     if db.query_result[0][type] != null:
         db.update_rows(table_name, condition, {type:null})
@@ -109,34 +154,3 @@ func empty_cell(block_x: int, block_y: int, type: String) -> bool:
 
     db.close_db()
     return false
-
-func add_cell(block_x: int, block_y: int) -> bool:
-    var table_name := "field_blocks"
-
-    var query_string := "SELECT * FROM " + table_name +" WHERE x= " + str(block_x) + " AND y=" + str(block_y) + ";"
-    var bindings := [block_x, block_y]
-
-    db.open_db()
-    db.query(query_string)
-    if db.query_result_by_reference.size() != 0:
-        db.close_db()
-        return false
-    
-    db.insert_row(table_name, {"x":block_x,"y":block_y})
-    db.close_db()
-    return true
-
-func get_resource(block_x: int, block_y: int, type: String) -> Resource:
-    var table_name := "field_blocks"
-
-    var query_string := "SELECT " + type + " FROM " + table_name + " WHERE x=" +str(block_x)+ " AND y=" +str(block_y)+ ";"
-
-    db.open_db()
-    db.query(query_string)
-    var resource_name = db.query_result[0][type]
-    db.close_db()
-
-    if resource_name == null:
-        return null
-
-    return static_resources[type][resource_name]

@@ -1,7 +1,5 @@
 extends GutTest
 
-
-
 class TestLoadingAndSignals:
     extends GutTest
 
@@ -16,15 +14,36 @@ class TestLoadingAndSignals:
         crop_02 = load("res://test/unit/resources/crops/maize.tres")
         database = partial_double(Database).new()
         database.base_path = "res://test/unit/resources/"
-        database.fields_to_paths = {}
+        database.fields_to_paths = {
+            "crop_resource":     "crops/",
+            "measures_resource": "measures/"
+        }
         watch_signals(database)
         # add_child(database)
 
     func test___load_resources_measure():
-        assert_eq(database._load_resources("measures/"),[measure])
+        assert_eq(database.fields_to_paths["measures_resource"], "measures/")
+        assert_eq(database._load_resources("measures_resource"),[measure])
 
     func test__load_resources_crops():
-        assert_eq(database._load_resources("crops/"), [crop_01, crop_02 ])
+        assert_eq(database._load_resources("crop_resource"), [crop_01, crop_02 ])
+    
+    func test_static_resources():
+        # add_child(database)
+        assert_eq(database.fields_to_paths["crop_resource"], "crops/")
+        assert_eq_deep(database.static_resources, {})
+        assert_eq(database._load_resources("crop_resource"),[crop_01,crop_02])
+        gut.p(database.static_resources)
+        assert_eq(database.types_to_fields[typeof(crop_01)], "crop")
+        assert_eq_deep(
+            database.static_resources,
+            {"crop":
+                {crop_01.resource_name : 
+                    crop_01, 
+                crop_02.resource_name:
+                    crop_02
+                }
+            })
 
     func test_signal_measure():
         database.fields_to_paths = {"measures": "measures/"}
@@ -98,19 +117,19 @@ class TestDatabaseSQL:
         assert_eq(database.db.query_result[0]["structural_measure"], "terraces")
         database.db.close_db()
     
-    func test_database_empty_cell():
+    func test_database_empty_block_type():
         #true: crop is there
-        assert_true(database.empty_cell(0,0,"crop"))
+        assert_true(database.empty_block_type(0,0,"crop"))
         database.db.open_db()
         database.db.query("SELECT crop FROM field_blocks WHERE x=0 AND y=0")
         assert_eq_deep([{"crop":null}], database.db.query_result)
         database.db.close_db()
         #false: there is no crop anymore
-        assert_false(database.empty_cell(0,0,"crop"))
+        assert_false(database.empty_block_type(0,0,"crop"))
 
-    func test_database_add_cell():
+    func test_database_add_block():
         #false, cell already exists
-        assert_false(database.add_cell(0,0))
+        assert_false(database.add_block(0,0))
 
         database.db.open_db()
         database.db.query("SELECT * FROM field_blocks WHERE x=0 and y=0")
@@ -120,7 +139,7 @@ class TestDatabaseSQL:
 
 
         #true, cell is not in database yet
-        assert_true(database.add_cell(1,0))
+        assert_true(database.add_block(1,0))
 
         database.db.open_db()
         database.db.query("SELECT * FROM field_blocks WHERE x=0 and y=0")
@@ -144,10 +163,10 @@ class TestDatabaseGetCellResources:
         database.fields_to_paths = {}
         self.add_child_autoqfree(database)
         database.db.verbosity_level = 2
-        database.add_cell(0,0)
-        database.add_cell(0,1)
-        database.add_cell(1,0)
-        database.add_cell(1,1)
+        database.add_block(0,0)
+        database.add_block(0,1)
+        database.add_block(1,0)
+        database.add_block(1,1)
     
     func after_each():
         database.db.open_db()

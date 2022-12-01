@@ -8,6 +8,8 @@ export(float) var pump_cost = 100.0
 export(float) var pump_labour = 10.0
 export(float) var water_salinity
 
+const column = "irrigation"
+
 var pump_placed := false
 var field : FieldResource
 

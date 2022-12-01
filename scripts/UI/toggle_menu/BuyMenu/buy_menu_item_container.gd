@@ -4,7 +4,7 @@ class_name BuyMenuItemContainer
 export(PackedScene) var BuyMenuItemScene = preload("res://scenes/UI/buy_menu/buy_menu_item.tscn")
 
 export(NodePath) var path_to_Database = NodePath("/root/Database")
-export(String) var my_resource_name
+export(PoolStringArray) var my_resource_names
 
 export(NodePath) var asset_manager_path = NodePath("/root/Database/AssetManager")
 export(NodePath) var controller_path = NodePath("../../../")
@@ -23,7 +23,7 @@ func add_MenuItem(a_resource: BuyResource):
     add_child(menu_item)
 
 func _on_Database_resources_loaded(which: String, resources: Array) -> void:
-    if which == my_resource_name:
+    if which in my_resource_names:
         for resource in resources:
             add_MenuItem(resource)
         _connect_children()
