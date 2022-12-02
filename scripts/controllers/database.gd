@@ -50,7 +50,6 @@ func _load_resources(key) -> Array:
             static_resources[key][resource.resource_name] = resource
             resources.append(resource)
         filename = directory.get_next()
-
     return resources
 
 func _maybe_copy_db_to_user() -> void:

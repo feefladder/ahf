@@ -9,37 +9,37 @@ class TestLoadingAndSignals:
     var crop_02: CropResource
 
     func before_each():
-        measure = load("res://test/unit/resources/measures/01_terraces.tres")
+        measure = load("res://test/unit/resources/structural_measures/01_terraces.tres")
         crop_01 = load("res://test/unit/resources/crops/irish_potato.tres")
         crop_02 = load("res://test/unit/resources/crops/maize.tres")
         database = partial_double(Database).new()
         database.base_path = "res://test/unit/resources/"
         database.fields_to_paths = {
-            "crop_resource":     "crops/",
-            "measures_resource": "measures/"
+            "crop":     "crops/",
+            "structural_measure": "structural_measures/"
         }
         watch_signals(database)
         # add_child(database)
 
     func test___load_resources_measure():
-        assert_eq(database.fields_to_paths["measures_resource"], "measures/")
-        assert_eq(database._load_resources("measures_resource"),[measure])
+        assert_eq(database.fields_to_paths["structural_measure"], "structural_measures/")
+        assert_eq(database._load_resources("structural_measure"),[measure])
 
     func test__load_resources_crops():
-        var loaded_crops := database._load_resources("crop_resource")
+        var loaded_crops := database._load_resources("crop")
         for crop in [crop_01, crop_02]:
             assert_true(crop in loaded_crops)
     
     func test_static_resources():
         # add_child(database)
-        assert_eq(database.fields_to_paths["crop_resource"], "crops/")
+        assert_eq(database.fields_to_paths["crop"], "crops/")
         assert_eq_deep(database.static_resources, {})
-        var loaded_crops = database._load_resources("crop_resource")
+        var loaded_crops = database._load_resources("crop")
         for crop in [crop_01, crop_02]:
             assert_true(crop in loaded_crops)
     
         gut.p(database.static_resources)
-        assert_eq(database.types_to_fields[typeof(crop_01)], "crop")
+        # assert_eq(database.types_to_fields[typeof(crop_01)], "crop")
         assert_eq_deep(
             database.static_resources,
             {"crop":
@@ -51,29 +51,28 @@ class TestLoadingAndSignals:
             })
 
     func test_signal_measure():
-        database.fields_to_paths = {"measures": "measures/"}
+        database.fields_to_paths = {"structural_measure": "structural_measures/"}
         add_child_autoqfree(database)
-        assert_signal_emitted_with_parameters(database, "resources_loaded", ["measures", [measure]])
+        assert_signal_emitted_with_parameters(database, "resources_loaded", ["structural_measure", [measure]])
 
     func test_signal_crops():
-        database.fields_to_paths = {"crops": "crops/"}
+        database.fields_to_paths = {"crop": "crops/"}
         add_child_autofree(database)
         # check ["crops", [crop_01, crop_02]] where the order of crops can be different
         var crop_resources :Array = get_signal_parameters(database, "resources_loaded")
-        assert_eq(crop_resources[0], "crops")
+        assert_eq(crop_resources[0], "crop")
         assert_eq(crop_resources[1].size(), 2)
         gut.p(crop_resources)
         assert_true(crop_01 in crop_resources[1])
         assert_true(crop_02 in crop_resources[1])
 
     func test_signal_both():
-        database.fields_to_paths = {"measures": "measures/", "crops": "crops/"}
         add_child_autofree(database)
-        assert_signal_emitted_with_parameters(database, "resources_loaded", ["measures", [measure]], 0)
+        assert_signal_emitted_with_parameters(database, "resources_loaded", ["structural_measure", [measure]], 1)
 
-        var crop_resources :Array = get_signal_parameters(database, "resources_loaded", 1)
+        var crop_resources :Array = get_signal_parameters(database, "resources_loaded", 0)
         # check ["crops", [crop_01, crop_02]] where the order of crops can be different
-        assert_eq(crop_resources[0], "crops")
+        assert_eq(crop_resources[0], "crop")
         assert_eq(crop_resources[1].size(), 2)
         assert_true(crop_01 in crop_resources[1])
         assert_true(crop_02 in crop_resources[1])
@@ -105,6 +104,11 @@ class TestDatabaseSQL:
 
     func before_each():
         database = partial_double(Database).new()
+        database.base_path = "res://test/unit/resources/"
+        database.fields_to_paths = {
+            "crop":     "crops/",
+            "structural_measure": "structural_measures/"
+        }
         self.add_child_autoqfree(database)
         database.db.verbosity_level = 0
         database.db.open_db()
@@ -116,9 +120,9 @@ class TestDatabaseSQL:
         database.db.delete_rows(table_name, "*")
         database.db.close_db()
 
-    func test_database_write_if_empty():
+    func test_database_write_block_if_empty():
         # there is already a crop at that cell: "maize" should fail and not update
-        assert_false(database.write_if_empty(0,0,"crop", "beans"))
+        assert_false(database.write_block_if_empty(0,0,"crop", "beans"))
 
         database.db.open_db()
         database.db.query("SELECT crop FROM field_blocks WHERE x=0 AND y=0")
@@ -127,7 +131,7 @@ class TestDatabaseSQL:
         database.db.close_db()
 
         # There is no measure yet, so we can actually update the row.
-        assert_true(database.write_if_empty(0,0,"structural_measure", "terraces"))
+        assert_true(database.write_block_if_empty(0,0,"structural_measure", "terraces"))
 
         database.db.open_db()
         database.db.query("SELECT structural_measure FROM field_blocks WHERE x=0 AND y=0")
@@ -173,14 +177,18 @@ class TestDatabaseGetCellResources:
     var crop_02: CropResource
 
     func before_each():
-        measure = load("res://test/unit/resources/measures/01_terraces.tres")
+        measure = load("res://test/unit/resources/structural_measures/01_terraces.tres")
         crop_01 = load("res://test/unit/resources/crops/irish_potato.tres")
         crop_02 = load("res://test/unit/resources/crops/maize.tres")
         database = partial_double(Database).new()
         database.base_path = "res://test/unit/resources/"
-        database.fields_to_paths = {}
+        # database.fields_to_paths = {}
+        database.fields_to_paths = {
+            "crop":     "crops/",
+            # "structural_measure": "structural_measures/"
+        }
         self.add_child_autoqfree(database)
-        database.db.verbosity_level = 2
+        database.db.verbosity_level = 0
         database.add_block(0,0)
         database.add_block(0,1)
         database.add_block(1,0)
@@ -195,6 +203,6 @@ class TestDatabaseGetCellResources:
         # the idea of this test is to ask the database to get the corresponding resource
         # (crop) that belongs to a table cell.
 
-        database.write_if_empty(0,0, "crop", crop_02.resource_name)
-        assert_eq(database.get_resource(0,0,"crop"), crop_02)
+        database.write_block_if_empty(0,0, "crop", crop_02.resource_name)
+        assert_eq(database.get_block_resource(0,0,"crop"), crop_02)
 

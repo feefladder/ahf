@@ -6,6 +6,7 @@ signal next_year_requested(event)
 export(PackedScene) var annual_review_packedscene = preload("res://scenes/annual_review/annual_review.tscn")
 export(PackedScene) var end_of_game_packedscene = preload("res://scenes/end_of_game.tscn")
 export(NodePath) var years_stat_path = NodePath("../YearsStat")
+export(NodePath) var database_path = NodePath("/root/Database")
 
 var annual_review: AnnualReview
 
@@ -13,9 +14,12 @@ export(int) var current_year := 1
 export(int) var max_years := 20
 
 var years_stat: Stat
+var database: Database
 
 func _ready():
     years_stat = get_node(years_stat_path)
+    
+    database = get_node(database_path)
 
 func _on_NextYearButton_pressed():
     current_year += 1
