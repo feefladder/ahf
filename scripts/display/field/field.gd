@@ -3,38 +3,43 @@ class_name Field
 # the Field manages:
 # - instantiation of FieldBlocks
 # - passing click events of FieldBlocks to the StateManager
-# - keeping track of different measures that are applied and takes note of them
+# - 
+# - keeping track of different measures that are applied and passes them to the database
+
 
 #signal field_pointed(a_block)
 
 export(Resource) var summary
 export(Resource) var field_resource
 export(NodePath) var state_controller_path
+export(NodePath) var database_path = NodePath("/root/Database")
 
 var state_controller: StateController
+var database: Database
 
 var field_block_matrix: Array #2D array actually
 var is_dragging_over_field: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
     state_controller = get_node(state_controller_path)
-    #initialize the field
+    database = get_node(database_path)
+
+func _init_field():
     for x in range(field_resource.size_x):
         field_block_matrix.append([])
         for y in range(field_resource.size_y):
-            var field_block = field_resource.field_block_scene.instance()
-            field_block_matrix[x].append(field_block)
-            field_block.position = (field_resource.dx*x+field_resource.dy*y)*scale
-            field_block.x = x
-            field_block.y = y
-            field_block.scale = scale
-            field_block.name = "block_%d%d" % [x, y]
-#            field_block.disable()
-            field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
-            field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")
-            add_child(field_block)
-
-#    printerr(connect("field_pointed", state_controller, "_on_field_pointed"))
+                database.add_block(x,y)
+                var field_block = field_resource.field_block_scene.instance()
+                field_block_matrix[x].append(field_block)
+                field_block.position = (field_resource.dx*x+field_resource.dy*y)*scale
+                field_block.x = x
+                field_block.y = y
+                field_block.scale = scale
+                field_block.name = "block_%d%d" % [x, y]
+        #            field_block.disable()
+                field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
+                field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")
+                add_child(field_block)
 
 func place_pump(pump_image: StreamTexture):
     var sprite = Sprite.new()
@@ -88,3 +93,7 @@ func remove_crops() -> void:
 
             if not field_block.crop_resource.persistent:
                 field_block.remove_crop()
+
+
+func _on_Database_database_loaded():
+    _init_field()

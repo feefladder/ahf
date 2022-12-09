@@ -18,7 +18,6 @@ var database: Database
 
 func _ready():
     years_stat = get_node(years_stat_path)
-    
     database = get_node(database_path)
 
 func _on_NextYearButton_pressed():

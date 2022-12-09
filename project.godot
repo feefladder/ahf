@@ -199,6 +199,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/income_display.gd"
 }, {
+"base": "Node",
+"class": "Initializer",
+"language": "GDScript",
+"path": "res://scripts/controllers/initializer.gd"
+}, {
 "base": "BuyResource",
 "class": "IntResource",
 "language": "GDScript",
@@ -363,6 +368,7 @@ _global_script_class_icons={
 "GutHookScript": "",
 "GutTest": "",
 "IncomeDisplay": "",
+"Initializer": "",
 "IntResource": "",
 "IrrigationResource": "",
 "MeasureResource": "",

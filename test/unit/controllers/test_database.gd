@@ -98,6 +98,7 @@ class TestDatabaseSQL:
         # "block_id" : 0,
         "x" : 0,
         "y" : 0,
+        "year" : 1,
         "crop" : "maize",
         "structural_measure" : null
     }
@@ -119,6 +120,12 @@ class TestDatabaseSQL:
         database.db.open_db()
         database.db.delete_rows(table_name, "*")
         database.db.close_db()
+
+    func test_database_update_money():
+        assert_true(database.init_money(1000))
+        assert_eq(database.get_money(),1000)
+        assert_eq(database.change_money(500), 1500)
+        assert_eq(database.change_money(-750), 750)
 
     func test_database_write_block_if_empty():
         # there is already a crop at that cell: "maize" should fail and not update
@@ -155,6 +162,7 @@ class TestDatabaseSQL:
 
         database.db.open_db()
         database.db.query("SELECT * FROM field_blocks WHERE x=0 and y=0")
+        gut.p(database.db.select_rows(table_name, "x=0 AND y=0",["year","crop"]))
         assert_eq_deep(database.db.query_result[0]["crop"], "maize")
         assert_eq(database.db.query_result.size(), 1)
         database.db.close_db()
@@ -189,10 +197,10 @@ class TestDatabaseGetCellResources:
         }
         self.add_child_autoqfree(database)
         database.db.verbosity_level = 0
-        database.add_block(0,0)
-        database.add_block(0,1)
-        database.add_block(1,0)
-        database.add_block(1,1)
+        assert_true(database.add_block(0,0))
+        assert_true(database.add_block(0,1))
+        assert_true(database.add_block(1,0))
+        assert_true(database.add_block(1,1))
     
     func after_each():
         database.db.open_db()
@@ -203,6 +211,6 @@ class TestDatabaseGetCellResources:
         # the idea of this test is to ask the database to get the corresponding resource
         # (crop) that belongs to a table cell.
 
-        database.write_block_if_empty(0,0, "crop", crop_02.resource_name)
+        assert_true(database.write_block_if_empty(0,0, "crop", crop_02.resource_name))
         assert_eq(database.get_block_resource(0,0,"crop"), crop_02)
 

@@ -6,7 +6,7 @@ signal asset_changed(which, new_amount)
 export(float) var money
 export(float) var labour
 
-export(NodePath) var resource_loader_path = NodePath("/root/Database")
+export(NodePath) var database_path = NodePath("/root/Database")
 export(NodePath) var popup_insufficient_path
 export(NodePath) var popup_max_reached_path
 
@@ -15,9 +15,11 @@ var persistent_assets: Dictionary
 
 onready var popup_insufficient = get_node(popup_insufficient_path)
 onready var popup_max_reached = get_node(popup_max_reached_path)
+onready var database = get_node(database_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    database.init_money(money)
     emit_signal("asset_changed","money", money)
     emit_signal("asset_changed","labour", labour)
 
@@ -65,7 +67,6 @@ func try_toggle_item(an_item: ToggleResource) -> bool:
         # remove it
         if not increase_assets(an_item.unit_price, an_item.unit_labour):
             return false
-
 
         an_item.implemented = false
         if an_item in acquired_assets:
