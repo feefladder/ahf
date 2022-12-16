@@ -1,14 +1,13 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/resources/int_resources/int_resource.gd" type="Script" id=1]
-[ext_resource path="res://assets/family/man.png" type="Texture" id=2]
+[ext_resource path="res://scripts/resources/int_resources/labourer_resource.gd" type="Script" id=1]
+[ext_resource path="res://resources/labourer_person.tres" type="Resource" id=2]
 
 [resource]
 resource_name = "labourer"
 script = ExtResource( 1 )
-image = ExtResource( 2 )
-unit_price = 100.0
-unit_labour = -100.0
+unit_price = 0.0
+unit_labour = 0.0
 persistent = false
 tooltip_info = {
 "general": "",
@@ -18,3 +17,4 @@ tooltip_info = {
 }
 current_number = 0
 max_number = 5
+person = ExtResource( 2 )

@@ -331,7 +331,7 @@ func get_total_available_labour() -> int:
     rows = db.select_rows(LABOUR_TABLE, "year="+str(year),["amount","name"])
     for labour_item in rows:
         var resource = static_resources[LABOUR_TABLE][labour_item["name"]]
-        labour += resource.labour * labour_item["amount"]
+        labour += resource.unit_labour * labour_item["amount"]
     db.close_db()
     return labour
 

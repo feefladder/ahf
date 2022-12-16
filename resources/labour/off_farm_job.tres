@@ -1,12 +1,13 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/resources/toggle_resource.gd" type="Script" id=1]
+[ext_resource path="res://resources/family/Ade.tres" type="Resource" id=1]
+[ext_resource path="res://scripts/resources/toggle_resources/off_farm_job.gd" type="Script" id=2]
 
 [resource]
 resource_name = "Off farm job"
-script = ExtResource( 1 )
-unit_price = -1000.0
-unit_labour = 100.0
+script = ExtResource( 2 )
+unit_price = -500.0
+unit_labour = 0.0
 persistent = false
 tooltip_info = {
 "general": "",
@@ -14,3 +15,4 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
+person = ExtResource( 1 )

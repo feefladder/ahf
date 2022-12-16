@@ -5,23 +5,15 @@ export(NodePath) var db_path = NodePath("/root/Database")
 
 var family_dict: Dictionary = {}
 var labourers_array: Array = []
+var labourer: PersonResource
 onready var database = get_node_or_null(db_path)
+
+func set_labourer_person(person: PersonResource):
+    labourer = person
 
 func update_to_db():
     update_family_to_db()
-
-    var labourers: Array = database.get_generic_amount(database.LABOUR_TABLE, "labourer")
-    assert(labourers.size() == 1)
-    if labourers[0]["amount"] == labourers_array.size():
-        return
-    var d_l: int = labourers[0]["amount"]-labourers_array.size()
-    if d_l > 0:
-        for _i in range(d_l):
-            labourers_array.append(add_person(labourers[0]["resource"]))
-    else:
-        for _i in range(-d_l):
-            labourers_array.pop_back().queue_free()
-    assert(labourers_array.size() == labourers[0]["amount"])
+    update_labourers_to_db()
 
 func update_family_to_db():
     var family: Array = database.get_family()
@@ -37,6 +29,19 @@ func update_family_to_db():
             family_dict[id]["sprite"].show()
         else:
             family_dict[id]["sprite"].hide()
+
+func update_labourers_to_db():
+    var n_labourers: int = database.get_generic_amount("labourer", database.LABOUR_TABLE)
+    var d_l: int = n_labourers-labourers_array.size()
+    if d_l > 0:
+        for _i in range(d_l):
+            labourers_array.append(add_person(labourer))
+    else:
+        for _i in range(-d_l):
+            var l:Node = labourers_array.pop_back()
+            remove_child(l)
+            l.queue_free()
+    assert(labourers_array.size() == n_labourers)
 
 func add_person(person: Resource) -> Sprite:
     var sprite = Sprite.new()

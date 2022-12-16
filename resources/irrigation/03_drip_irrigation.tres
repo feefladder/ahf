@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://scripts/resources/PlaceableItems/irrigation_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/placeable_items/irrigation_resource.gd" type="Script" id=1]
 [ext_resource path="res://assets/field/Measures/irrigation_horizontal.png" type="Texture" id=2]
 [ext_resource path="res://scenes/field/measures/irrigation.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/field/Measures/irigation_water.png" type="Texture" id=4]

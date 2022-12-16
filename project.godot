@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "CropResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/crop_resource.gd"
+"path": "res://scripts/resources/placeable_items/crop_resource.gd"
 }, {
 "base": "Node",
 "class": "Database",
@@ -112,7 +112,7 @@ _global_script_classes=[ {
 "base": "MeasureResource",
 "class": "DependableMeasureResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/dependable_measure_resource.gd"
+"path": "res://scripts/resources/placeable_items/dependable_measure_resource.gd"
 }, {
 "base": "Node",
 "class": "EOYCalculator",
@@ -147,7 +147,7 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "FertilizerResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/fertilizer_resource.gd"
+"path": "res://scripts/resources/placeable_items/fertilizer_resource.gd"
 }, {
 "base": "YSort",
 "class": "Field",
@@ -202,7 +202,7 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "IrrigationResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/irrigation_resource.gd"
+"path": "res://scripts/resources/placeable_items/irrigation_resource.gd"
 }, {
 "base": "BigMenu",
 "class": "LabourController",
@@ -214,10 +214,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/calculators/labour_calculator.gd"
 }, {
+"base": "IntResource",
+"class": "LabourerResource",
+"language": "GDScript",
+"path": "res://scripts/resources/int_resources/labourer_resource.gd"
+}, {
 "base": "PlaceableResource",
 "class": "MeasureResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/measure_resource.gd"
+"path": "res://scripts/resources/placeable_items/measure_resource.gd"
 }, {
 "base": "BuyMenu",
 "class": "MeasuresHandler",
@@ -242,7 +247,7 @@ _global_script_classes=[ {
 "base": "BuyResource",
 "class": "PlaceableResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/placeable_resource.gd"
+"path": "res://scripts/resources/placeable_items/placeable_resource.gd"
 }, {
 "base": "Control",
 "class": "PopupInsufficient",
@@ -312,7 +317,7 @@ _global_script_classes=[ {
 "base": "BuyResource",
 "class": "ToggleResource",
 "language": "GDScript",
-"path": "res://scripts/resources/toggle_resource.gd"
+"path": "res://scripts/resources/toggle_resources/toggle_resource.gd"
 }, {
 "base": "CanvasItem",
 "class": "Tooltip",
@@ -371,6 +376,7 @@ _global_script_class_icons={
 "IrrigationResource": "",
 "LabourController": "",
 "LabourDBInterface": "",
+"LabourerResource": "",
 "MeasureResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",

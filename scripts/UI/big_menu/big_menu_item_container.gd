@@ -11,7 +11,7 @@ export(String) var resource_name = null
 
 onready var manager = get_node_or_null(manager_path)
 
-func add_menu_toggle_item(resource: ToggleResource) -> void:
+func add_menu_toggle_item(resource: BuyResource) -> void:
     var menu_item: HBoxContainer = big_menu_toggle_item_scene.instance()
     menu_item.resource = resource
     # warning-ignore:return_value_discarded

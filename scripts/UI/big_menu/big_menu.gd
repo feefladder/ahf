@@ -31,7 +31,7 @@ func _on_int_item_decreased(which: IntResource) -> void:
         if display.has_method("decrease_int_item"):
             display.decrease_int_item(which)
 
-func _on_toggle_item_set(which: ToggleResource, to_what: bool) -> void:
+func _on_toggle_item_set(which: BuyResource, to_what: bool) -> void:
     print("set ", which.resource_name, " to ", to_what)
 
 
@@ -40,7 +40,7 @@ func _on_Database_resources_loaded(which, resources):
         for resource in resources:
             if resource is IntResource:
                 item_container.add_menu_int_item(resource)
-            elif resource is ToggleResource:
+            elif resource is BuyResource:
                 item_container.add_menu_toggle_item(resource)
             else:
                 print("Resource: ", resource.resource_name, "not used")

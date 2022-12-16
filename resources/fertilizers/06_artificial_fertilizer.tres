@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://scripts/resources/PlaceableItems/fertilizer_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/placeable_items/fertilizer_resource.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/mouse_icons/artificial_fertilizer.png" type="Texture" id=2]
 
 [resource]

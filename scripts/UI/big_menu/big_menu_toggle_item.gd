@@ -1,7 +1,7 @@
 extends Node
 class_name BigMenuToggleItem
 
-var resource: ToggleResource
+var resource: BuyResource
 
 signal item_pressed(which, is_pressed)
 
