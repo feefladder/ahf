@@ -10,8 +10,8 @@ enum Modes {
 var current_mode = Modes.MODE_SMALL
 
 func _ready():
-    if connect("resized",self,"maybe_set_width"):
-        print_debug("connect failed")
+    # warning-ignore:return_value_discarded
+    connect("resized",self,"maybe_set_width")
 
 func maybe_set_width() -> void:
     if current_mode == Modes.MODE_SMALL:

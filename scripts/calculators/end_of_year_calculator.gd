@@ -8,10 +8,10 @@ onready var eoy_button = get_node(eoy_button_path)
 var summary: SummaryResource
 
 func _ready():
-    if eoy_button.connect("next_year_requested", self, "_on_next_year_requested"):
-        print_debug("eoy-button next_yar_requested connect failed")
-    if connect("summary_completed", eoy_button, "_on_summary_completed"):
-        print_debug("summary_completed connect failed")
+    # warning-ignore:return_value_discarded
+    eoy_button.connect("next_year_requested", self, "_on_next_year_requested")
+    # warning-ignore:return_value_discarded
+    connect("summary_completed", eoy_button, "_on_summary_completed")
 
 func _on_next_year_requested(event: EventResource):
     summary = make_summary(event)

@@ -94,7 +94,7 @@ func try_apply_irrigation(a_block: FieldBlock):
     current_resource.blocks_placed.append(a_block)
     field.set_enable_with_measure(current_resource)
 
-func try_apply_fertilizer(a_block: FieldBlock):
+func try_apply_fertilizer(_a_block: FieldBlock):
     printerr("Applying fertilizer not implemented yet!")
 
 func next_year():

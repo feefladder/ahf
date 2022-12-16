@@ -14,14 +14,14 @@ var _timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    if connect("mouse_entered", self, "_on_mouse_entered"):
-        print_debug("connect failed!")
-    if connect("mouse_exited", self, "_on_mouse_exited"):
-        print_debug("connect failed!")
-    if connect("input_event", self, "_on_input_event"):
-        print_debug("connect failed!")
-    if _timer.connect("timeout", self, "_on_timeout"):
-        print_debug("connect failed!")
+    # warning-ignore:return_value_discarded
+    connect("mouse_entered", self, "_on_mouse_entered")
+    # warning-ignore:return_value_discarded
+    connect("mouse_exited", self, "_on_mouse_exited")
+    # warning-ignore:return_value_discarded
+    connect("input_event", self, "_on_input_event")
+    # warning-ignore:return_value_discarded
+    _timer.connect("timeout", self, "_on_timeout")
     add_child(_timer)
 
 func start(time: float):

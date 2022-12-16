@@ -28,7 +28,9 @@ func _init_field():
     for x in range(field_resource.size_x):
         field_block_matrix.append([])
         for y in range(field_resource.size_y):
+                # warning-ignore:return_value_discarded
                 database.add_block(x,y)
+
                 var field_block = field_resource.field_block_scene.instance()
                 field_block_matrix[x].append(field_block)
                 field_block.position = (field_resource.dx*x+field_resource.dy*y)*scale
@@ -36,7 +38,6 @@ func _init_field():
                 field_block.y = y
                 field_block.scale = scale
                 field_block.name = "block_%d%d" % [x, y]
-        #            field_block.disable()
                 field_block.connect("pressed", state_controller, "_on_fieldblock_pressed")
                 field_block.connect("unpressed", state_controller, "_on_fieldblock_unpressed")
                 add_child(field_block)

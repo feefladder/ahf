@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -47,6 +47,8 @@
 [ext_resource path="res://resources/livestock/03_cow.tres" type="Resource" id=45]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
 [ext_resource path="res://scripts/controllers/initializer.gd" type="Script" id=47]
+[ext_resource path="res://scripts/controllers/labour_controller.gd" type="Script" id=48]
+[ext_resource path="res://scripts/calculators/labour_calculator.gd" type="Script" id=49]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 38 )
@@ -66,7 +68,8 @@ corner_radius_bottom_left = 20
 [node name="Database" type="Node"]
 script = ExtResource( 10 )
 
-[node name="Loader" type="Node" parent="."]
+[node name="LabourCalculator" type="Node" parent="."]
+script = ExtResource( 49 )
 
 [node name="Initializer" type="Node" parent="."]
 script = ExtResource( 47 )
@@ -142,27 +145,25 @@ asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
+database_path = NodePath("../..")
 title = "Livestock"
-resource_name = "livestock"
+resource_names = PoolStringArray( "livestock" )
 
 [node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
-toggle_menu_path = NodePath("../../ToggleButtonContainer")
-display_path = NodePath("../../Background/Family")
-title = "Labour"
-resource_name = "labour"
+script = ExtResource( 48 )
 
 [node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 14 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("../../Background/Family")
 title = "Family"
-resource_name = "family"
+resource_names = PoolStringArray( "family", "household" )
 
 [node name="UpgradesBigMenu" parent="StateController" instance=ExtResource( 26 )]
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("")
 title = "Upgrades"
-resource_name = "upgrades"
+resource_names = PoolStringArray( "upgrades" )
 
 [node name="AssetManager" type="HBoxContainer" parent="."]
 anchor_top = 0.85
@@ -170,8 +171,7 @@ anchor_right = 1.01
 anchor_bottom = 1.0
 theme = ExtResource( 32 )
 script = ExtResource( 12 )
-money = 1000.0
-labour = 1000.0
+money = 1000
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
 popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 

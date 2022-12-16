@@ -11,10 +11,10 @@ onready var income: IncomeDisplay = get_node(income_path)
 onready var expenses = get_node(expenses_path)
 
 func _ready():
-    if income.connect("income_changed",self,"_on_income_changed"):
-        print_debug("connect income changed failed!")
-    if expenses.connect("expenses_changed",self,"_on_expenses_changed"):
-        print_debug("connect expenses changed failed")
+    # warning-ignore:return_value_discarded
+    income.connect("income_changed",self,"_on_income_changed")
+    # warning-ignore:return_value_discarded
+    expenses.connect("expenses_changed",self,"_on_expenses_changed")
 
 func _on_NextYearButton_pressed():
     get_tree().get_root().remove_child(self)

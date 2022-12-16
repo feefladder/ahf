@@ -1,10 +1,9 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://scripts/resources/int_resources/school_resource.gd" type="Script" id=1]
-[ext_resource path="res://resources/family/00_primary_school.tres" type="Resource" id=2]
 
 [resource]
-resource_name = "secondary school"
+resource_name = "primary school"
 script = ExtResource( 1 )
 unit_price = 100.0
 unit_labour = 0.0
@@ -16,8 +15,7 @@ tooltip_info = {
 "short_term_pros": ""
 }
 current_number = 0
-max_number = 5
-min_age = 8
-max_age = 15
-years_till_finished = 3
-previous_education = ExtResource( 2 )
+max_number = 0
+min_age = 5
+max_age = 12
+years_till_finished = 2

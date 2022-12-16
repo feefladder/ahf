@@ -79,11 +79,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/buy_resource.gd"
 }, {
-"base": "PersonResource",
-"class": "ChildResource",
-"language": "GDScript",
-"path": "res://scripts/resources/people_resources/child_resource.gd"
-}, {
 "base": "EventResource",
 "class": "CostEvent",
 "language": "GDScript",
@@ -143,11 +138,6 @@ _global_script_classes=[ {
 "class": "FamilyHandler",
 "language": "GDScript",
 "path": "res://scripts/controllers/family_handler.gd"
-}, {
-"base": "Resource",
-"class": "FamilyResource",
-"language": "GDScript",
-"path": "res://scripts/resources/people_resources/family_resource.gd"
 }, {
 "base": "Resource",
 "class": "FertilityResource",
@@ -213,6 +203,16 @@ _global_script_classes=[ {
 "class": "IrrigationResource",
 "language": "GDScript",
 "path": "res://scripts/resources/PlaceableItems/irrigation_resource.gd"
+}, {
+"base": "BigMenu",
+"class": "LabourController",
+"language": "GDScript",
+"path": "res://scripts/controllers/labour_controller.gd"
+}, {
+"base": "Node",
+"class": "LabourDBInterface",
+"language": "GDScript",
+"path": "res://scripts/calculators/labour_calculator.gd"
 }, {
 "base": "PlaceableResource",
 "class": "MeasureResource",
@@ -344,7 +344,6 @@ _global_script_class_icons={
 "BuyMenuItem": "",
 "BuyMenuItemContainer": "",
 "BuyResource": "",
-"ChildResource": "",
 "CostEvent": "",
 "CropExpensesContainer": "",
 "CropHandler": "",
@@ -357,7 +356,6 @@ _global_script_class_icons={
 "ExpensesDisplay": "",
 "FamilyDisplay": "",
 "FamilyHandler": "",
-"FamilyResource": "",
 "FertilityResource": "",
 "FertilizerResource": "",
 "Field": "",
@@ -371,6 +369,8 @@ _global_script_class_icons={
 "Initializer": "",
 "IntResource": "",
 "IrrigationResource": "",
+"LabourController": "",
+"LabourDBInterface": "",
 "MeasureResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",

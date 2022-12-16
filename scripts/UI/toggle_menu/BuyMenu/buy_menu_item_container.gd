@@ -8,13 +8,16 @@ export(PoolStringArray) var my_resource_names
 
 export(NodePath) var asset_manager_path = NodePath("/root/Database/AssetManager")
 export(NodePath) var controller_path = NodePath("../../../")
+
+var resources_loaded=0
+
 onready var asset_manager = get_node(asset_manager_path)
 onready var controller = get_node(controller_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    if get_node(path_to_Database).connect("resources_loaded",self,"_on_Database_resources_loaded"):
-        print_debug("connect failed!")
+    # warning-ignore:return_value_discarded
+    get_node(path_to_Database).connect("resources_loaded",self,"_on_Database_resources_loaded")
 
 func add_MenuItem(a_resource: BuyResource):
     var menu_item = BuyMenuItemScene.instance()
@@ -24,6 +27,8 @@ func add_MenuItem(a_resource: BuyResource):
 
 func _on_Database_resources_loaded(which: String, resources: Array) -> void:
     if which in my_resource_names:
+        resources_loaded +=1
         for resource in resources:
             add_MenuItem(resource)
-        _connect_children()
+        if resources_loaded == my_resource_names.size():
+            _connect_children()
