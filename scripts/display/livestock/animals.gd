@@ -17,7 +17,7 @@ func make_summary() -> AnimalSummaryResource:
     return summary
 
 
-func add_animal(an_animal: AnimalResource) -> void:
+func add_animal(an_animal: AnimalResource, id: int) -> void:
     var animal_sprite = Sprite.new()
     animal_sprite.texture = an_animal.image
 
@@ -28,16 +28,8 @@ func add_animal(an_animal: AnimalResource) -> void:
     self.add_child(animal_sprite)
 
     #add a reference
-    if(an_animal in animals):
-        animals[an_animal].append(animal_sprite)
-    else:
-        animals[an_animal] = [animal_sprite]
+    animals[id] = animal_sprite
 
-
-func increase_int_item(an_animal: AnimalResource) -> void:
-    add_animal(an_animal)
-
-func decrease_int_item(an_animal: AnimalResource) -> void:
-    if an_animal in animals:
-        var animal_sprite = animals[an_animal].pop_back()
-        animal_sprite.queue_free()
+func remove_animal(id: int) -> void:
+    animals[id].queue_free()
+    animals.erase(id)

@@ -3,11 +3,6 @@ class_name FamilyHandler
 
 var schools : Dictionary
 
-func _ready():
-    print_debug("ready")
-    print(display)
-
-
 func try_increase_resource(an_item: IntResource) -> int:
     if an_item is SchoolResource:
         return send_child_to_school(an_item)

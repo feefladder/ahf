@@ -48,10 +48,10 @@ func _on_Database_resources_loaded(which, resources):
         _use_resources(resources)
 
 func try_increase_resource(an_item: IntResource) -> int:
-    return 0
+    return -1
 
 func try_decrease_resource(an_item: IntResource) -> int:
-    return 0
+    return -1
 
 func try_toggle_item(item: BuyResource) -> bool:
     return false

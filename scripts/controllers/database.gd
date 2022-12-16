@@ -190,21 +190,28 @@ func remove_unique_int_item(name: String, table_name: String) -> int:
     var c_not_sold = "name='"+name+"' AND year_sold IS NULL"
     db.open_db()
     var rows: Array = db.select_rows(table_name, c_just_bought, ["id"])
-    var success:bool=false
+    var id = -1
     if not rows.size():
         rows = db.select_rows(table_name, c_not_sold, ["id"])
         if not rows.size():
-            success = false
+            db.close_db()
+            return id
         else:
-            success = db.delete_rows(table_name, "id="+str(rows[0]["id"]))
+            id = rows[0]["id"]
+            if not db.update_rows(table_name, "id="+str(id), {"year_sold":year}):
+                db.close_db()
+                return -1
     else:
-        success = db.update_rows(table_name, "id="+str(rows[0]["id"]),{"year_sold":year})
+        id=rows[0]["id"]
+        if not db.delete_rows(table_name, "id="+str(id)):
+            db.close_db()
+            return -1
     db.close_db()
-    return rows[0]["id"] if success else -1
+    return id
 
 func get_unique_int_items(name: String, table_name: String=LIVESTOCK_TABLE) -> Array:
     db.open_db()
-    var rows: Array = db.select_rows(table_name, "name='"+name+"'", ["id","name","year_bought"])
+    var rows: Array = db.select_rows(table_name, "name='"+name+"' AND year_sold IS NULL", ["id","name","year_bought"])
     db.close_db()
     return rows
 
