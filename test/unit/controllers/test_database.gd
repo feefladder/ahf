@@ -100,7 +100,6 @@ class TestDatabaseEndOfYear:
         db = partial_double(Database).new()
         stub(db, "_load_resources").to_do_nothing()
         add_child_autoqfree(db)
-        db.db.verbosity_level = 0
 
     func test_eoy_fblock():
         assert_true(db.add_block(0,0))
@@ -143,7 +142,6 @@ class TestDatabaseUniqueIntItems:
         db = partial_double(Database).new()
         stub(db, "_load_resources").to_do_nothing()
         add_child_autoqfree(db)
-        db.db.verbosity_level = 0
 
     func test_db_livestock():
         var items: Array = []
@@ -174,7 +172,6 @@ class TestDatabaseGenericIntItems:
         db = partial_double(Database).new()
         stub(db, "_load_resources").to_do_nothing()
         add_child_autoqfree(db)
-        db.db.verbosity_level = 0
 
     func test_generic_add_item():
         assert_eq(db.add_generic_item("labourer", db.LABOUR_TABLE, 3),1)
@@ -304,7 +301,6 @@ class TestDatabaseSchool:
             db.HOUSEHOLD_TABLE: "household/"
         }
         add_child_autoqfree(db)
-        db.db.verbosity_level = 0
         assert_true(db.add_family([adal]))
         assert_eq(db.add_generic_item(primary_school.resource_name, db.HOUSEHOLD_TABLE, 0),1)
         assert_eq(db.add_generic_item(sec_school.resource_name, db.HOUSEHOLD_TABLE, 0),2)
@@ -490,7 +486,6 @@ class TestDatabaseFBlock:
             "structural_measure": "structural_measures/"
         }
         self.add_child_autoqfree(db)
-        db.db.verbosity_level = 0
         db.db.open_db()
         db.db.insert_row(table_name, row_dict)
         db.db.close_db()
@@ -549,6 +544,55 @@ class TestDatabaseFBlock:
         assert_eq(db.db.query_result.size(), 1)
         db.db.close_db()
 
+class TestDatabaseFBlockSetEnableTests:
+    extends GutTest
+
+    var db: Database
+
+    func before_each():
+        db = partial_double(Database).new()
+        stub(db, "_load_resources").to_do_nothing()
+        add_child_autoqfree(db)
+        for x in range(3):
+            for y in range(3):
+                assert_true(db.add_block(x,y))
+
+    func test_x_order_get_all_with():
+        for x in range(2):
+                assert_true(db.write_block(x,0,"structural_measure","terraces"))
+            
+        assert_eq_deep(
+            db.get_all_with("structural_measure","terraces"),
+            [{"x": 0, "y": 0},{"x": 1, "y": 0}]
+        )
+
+    func test_y_order_get_all_with():
+        for y in range(2):
+                assert_true(db.write_block(0,y,"structural_measure","terraces"))
+            
+        assert_eq_deep(
+            db.get_all_with("structural_measure","terraces"),
+            [{"x": 0, "y": 0},{"x": 0, "y": 1}]
+        )
+
+    func test_double_order_get_all_with():
+        for x in range(2):
+            for y in range(2):
+                assert_true(db.write_block(x,y,"structural_measure","terraces"))
+
+        assert_eq_deep(
+            db.get_all_with("structural_measure","terraces"),
+            [
+                {"x": 0, "y": 0},
+                {"x": 1, "y": 0},
+                {"x": 0, "y": 1},
+                {"x": 1, "y": 1}
+            ]
+        )
+
+
+
+
 
 class TestDatabaseFBlockResource:
     extends GutTest
@@ -568,7 +612,6 @@ class TestDatabaseFBlockResource:
             "crop":     "crops/",
         }
         self.add_child_autoqfree(db)
-        db.db.verbosity_level = 0
         assert_true(db.add_block(0,0))
         assert_true(db.add_block(0,1))
         assert_true(db.add_block(1,0))

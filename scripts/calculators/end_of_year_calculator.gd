@@ -1,22 +1,12 @@
 extends Node
 class_name EOYCalculator
 
-signal summary_completed(summary)
+export(NodePath) var db_path = NodePath("/root/Database")
 
-export(NodePath) var eoy_button_path = NodePath("/root/Database/AssetManager/NextYearButton")
-onready var eoy_button = get_node(eoy_button_path)
-var summary: SummaryResource
+onready var db: Database = get_node(db_path)
 
 func _ready():
-    # warning-ignore:return_value_discarded
-    eoy_button.connect("next_year_requested", self, "_on_next_year_requested")
-    # warning-ignore:return_value_discarded
-    connect("summary_completed", eoy_button, "_on_summary_completed")
+    add_to_group("calculators")
 
-func _on_next_year_requested(event: EventResource):
-    summary = make_summary(event)
-    emit_signal("summary_completed", summary)
-
-func make_summary(_event: EventResource) -> SummaryResource:
-    printerr("Non-overridden make_summary() in ", self.name)
-    return null
+func end_of_year(_event: EventResource) -> void:
+    print_debug("non-overriden end_of_year in calculator!", self)

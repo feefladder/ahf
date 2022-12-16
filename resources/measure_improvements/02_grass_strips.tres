@@ -10,6 +10,8 @@
 resource_name = "grass strips"
 script = ExtResource( 1 )
 image = ExtResource( 3 )
+unit_price = 0.0
+unit_labour = 0.0
 persistent = true
 tooltip_info = {
 "general": "",
@@ -17,8 +19,12 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
+placing_scene = ExtResource( 5 )
+offset = Vector2( -28, -7 )
+scale = Vector2( 1, 1 )
+time_required = 1.0
 erosion_reduction = 10.0
 fertility_increase = 10.0
-placing_scene = ExtResource( 5 )
+salinity_effect = 0.0
 scene = ExtResource( 4 )
 depends_on = ExtResource( 2 )

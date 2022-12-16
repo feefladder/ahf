@@ -1,18 +1,16 @@
-extends Node2D
+extends PlacingBase
 
-signal applied
+var time_required: float = 0.1
 
-var measure: StructuralMeasureResource
-
-func _ready():
+func place():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     $Shovel/AnimationPlayer.play("dig")
-    yield(get_tree().create_timer(measure.time_required), "timeout")
+    yield(get_tree().create_timer(time_required), "timeout")
 
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     Input.warp_mouse_position(get_global_position())
 
     #apply the measure to the block
-    get_parent().apply(measure)
-    emit_signal("applied")
+    item.show()
+    emit_signal("placed")
     queue_free()

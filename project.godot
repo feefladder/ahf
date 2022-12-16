@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/summaries/animal_summary_resource.gd"
 }, {
-"base": "YSort",
+"base": "DisplayBase",
 "class": "Animals",
 "language": "GDScript",
 "path": "res://scripts/display/livestock/animals.gd"
@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/database.gd"
 }, {
+"base": "Node2D",
+"class": "DisplayBase",
+"language": "GDScript",
+"path": "res://scripts/display/display_base.gd"
+}, {
 "base": "Node",
 "class": "EOYCalculator",
 "language": "GDScript",
@@ -124,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/expenses_display.gd"
 }, {
-"base": "Node",
+"base": "DisplayBase",
 "class": "FamilyDisplay",
 "language": "GDScript",
 "path": "res://scripts/display/people/people.gd"
@@ -144,7 +149,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/placeable_items/fertilizer_resource.gd"
 }, {
-"base": "YSort",
+"base": "DisplayBase",
 "class": "Field",
 "language": "GDScript",
 "path": "res://scripts/display/field/field.gd"
@@ -215,7 +220,7 @@ _global_script_classes=[ {
 "path": "res://scripts/resources/int_resources/labourer_resource.gd"
 }, {
 "base": "StructuralMeasureResource",
-"class": "Measure_improvement_resource",
+"class": "MeasureImprovementResource",
 "language": "GDScript",
 "path": "res://scripts/resources/placeable_items/dependable_measure_resource.gd"
 }, {
@@ -360,6 +365,7 @@ _global_script_class_icons={
 "CropIncomeContainer": "",
 "CropResource": "",
 "Database": "",
+"DisplayBase": "",
 "EOYCalculator": "",
 "EventResource": "",
 "ExpensesDisplay": "",
@@ -381,7 +387,7 @@ _global_script_class_icons={
 "LabourController": "",
 "LabourDBInterface": "",
 "LabourerResource": "",
-"Measure_improvement_resource": "",
+"MeasureImprovementResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",
 "NextYearButton": "",

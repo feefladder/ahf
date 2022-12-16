@@ -18,10 +18,11 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
-blocks_placed = [  ]
-time_required = 1.0
+placing_scene = ExtResource( 3 )
+offset = Vector2( 0, 0 )
+scale = Vector2( 1.2, 1 )
+time_required = 0.1
 erosion_reduction = 5.0
 fertility_increase = 0.0
 salinity_effect = 0.0
-placing_scene = ExtResource( 3 )
 scene = ExtResource( 4 )

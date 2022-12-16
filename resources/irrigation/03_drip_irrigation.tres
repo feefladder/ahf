@@ -18,7 +18,8 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
-blocks_placed = [  ]
+offset = Vector2( -4.88501, -1.78699 )
+scale = Vector2( 1, 1 )
 scene = ExtResource( 3 )
 pump_image = ExtResource( 4 )
 pump_cost = 100.0

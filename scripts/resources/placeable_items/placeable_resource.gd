@@ -10,3 +10,6 @@ func _get_offset() -> Vector2:
 
 func _get_scale() -> Vector2:
     return scale
+
+func should_enable(_block: Node) -> bool:
+    return true

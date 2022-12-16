@@ -8,3 +8,9 @@ export(float) var f_actual_yield
 
 func _get_offset():
     return Vector2(0,-image.get_size().y/2*scale.y)
+
+func should_enable(block) -> bool:
+    if resource_name != "remove":
+        return block.is_empty("crop")
+    else:
+        return not block.is_empty("crop")

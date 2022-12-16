@@ -1,4 +1,4 @@
-extends YSort
+extends DisplayBase
 class_name Field
 # the Field manages:
 # - instantiation of FieldBlocks
@@ -51,50 +51,30 @@ func place_pump(pump_image: StreamTexture):
     sprite.scale = scale
     add_child(sprite)
 
-func find_block(a_block: FieldBlock) -> Dictionary:
-    for y in field_block_matrix.size():
-        for x in field_block_matrix[y].size():
-            if field_block_matrix[y][x] == a_block:
-                return {"y": y, "x": x}
-    # this should never happen
-    return {"x": null, "y": null}
-
-
-func set_enable_with_measure(measure):
+func set_enable_with(item: PlaceableResource) -> void:
     for column in field_block_matrix:
         for field_block in column:
-            if measure.should_enable(field_block):
+            if item.should_enable(field_block):
                 field_block.enable()
             else:
                 field_block.disable()
 
-func disable_except(a_block: FieldBlock):
+func disable_except(block: FieldBlock) -> void:
     for column in field_block_matrix:
         for field_block in column:
-            if field_block == a_block:
+            if field_block.x == block.x and field_block.y == block.y:
                 field_block.enable()
             else:
                 field_block.disable()
 
-func disable_all() -> void:
-    for column in field_block_matrix:
-        for field_block in column:
-            field_block.disable()
-
-func enable_all() -> void:
-    for column in field_block_matrix:
-        for field_block in column:
-            field_block.enable()
-
-func remove_crops() -> void:
-    for row in field_block_matrix:
-        for field_block in row:
-            if not field_block.has_crop:
-                continue
-
-            if not field_block.crop_resource.persistent:
-                field_block.remove_crop()
-
-
-func _on_Database_database_loaded():
+func _on_Database_database_loaded() -> void:
     _init_field()
+
+
+func start_year():
+    update_all_to_db()
+
+func update_all_to_db():
+    for column in field_block_matrix:
+        for field_block in column:
+            field_block.update_all_to_db()

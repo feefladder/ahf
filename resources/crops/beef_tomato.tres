@@ -5,6 +5,7 @@
 [ext_resource path="res://scenes/placing/planting.tscn" type="PackedScene" id=3]
 
 [resource]
+resource_name = "beef tomato"
 script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 100.0

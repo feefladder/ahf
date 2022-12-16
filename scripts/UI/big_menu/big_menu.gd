@@ -14,6 +14,7 @@ onready var database = get_node_or_null(database_path)
 onready var asset_manager = get_node_or_null(asset_manager_path)
 
 func _ready():
+    add_to_group("controllers")
     # warning-ignore:return_value_discarded
     database.connect("resources_loaded", self, "_on_Database_resources_loaded")
     if get_node_or_null("Title"):
@@ -56,8 +57,8 @@ func try_decrease_resource(an_item: IntResource) -> int:
 func try_toggle_item(item: BuyResource) -> bool:
     return false
 
-func next_year():
-    pass # Replace with function body.
+func end_of_year():
+    print_debug("unoverridden end_of_year called in ",self)
 
 func _use_resources(_resources: Array):
     pass # to be overridden

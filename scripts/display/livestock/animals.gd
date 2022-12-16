@@ -1,4 +1,4 @@
-extends YSort
+extends DisplayBase
 class_name Animals
 
 const AnimalSummaryResource = preload("res://scripts/resources/summaries/animal_summary_resource.gd")
@@ -7,15 +7,22 @@ var random = RandomNumberGenerator.new()
 
 var animals: Dictionary
 
+onready var db = get_node_or_null("/root/Database")
 # Called when the node enters the scene tree for the first time.
 func _ready():
     random.randomize()
 
+#func start_year():
+#    update_all_to_db()
 
 func make_summary() -> AnimalSummaryResource:
     var summary = AnimalSummaryResource.new()
     return summary
 
+#func update_all_to_db():
+#    for animal in db.get_unique_changed_items(db.LIVESTOCK_TABLE):
+#        if animal["year_sold"] is null:
+#
 
 func add_animal(an_animal: AnimalResource, id: int) -> void:
     var animal_sprite = Sprite.new()

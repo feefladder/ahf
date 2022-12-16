@@ -1,7 +1,7 @@
 extends Node
 
 export(NodePath) var loader_path = NodePath("/root/Database")
-export(String) var resources_name = "events_resource"
+export(String) var resources_name = "events"
 
 var events : Array
 

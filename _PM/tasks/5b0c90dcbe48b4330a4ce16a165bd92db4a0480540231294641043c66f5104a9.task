@@ -1,0 +1,11 @@
+{
+	"title": "tablename singleton",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671182812,
+	"hash": "5b0c90dcbe48b4330a4ce16a165bd92db4a0480540231294641043c66f5104a9",
+	"description": "put all table names of the database into some singleton, so they can be accessed from anywhere, regardless of tree structure",
+	"todos": [
+
+	]
+}

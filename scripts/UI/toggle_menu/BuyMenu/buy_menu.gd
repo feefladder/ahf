@@ -11,6 +11,7 @@ onready var database = get_node(database_path)
 onready var buy_menu_item_container = get_node("VBoxContainer/ScrollContainer/BuyMenuItemContainer")
 
 func _ready():
+    add_to_group("controllers")
     database.connect("resources_loaded", self, "_on_Database_resources_loaded")
     database.connect("all_resources_loaded", self, "_on_Database_all_resources_loaded")
     if get_node_or_null("VboxContainer/Title"):
@@ -28,3 +29,9 @@ func _use_resources(resources: Array) -> void:
 func _on_Database_all_resources_loaded():
     #TODO: this is ugly...
     buy_menu_item_container._connect_children()
+
+func next_year():
+    print_debug("unoverridden next_year called in ",self)
+
+func start_year():
+    print_debug("unoverridden start_year called in ",self)

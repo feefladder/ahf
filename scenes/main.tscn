@@ -130,8 +130,8 @@ field_path = NodePath("../../Background/Field")
 script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Measures"
-resources_names = PoolStringArray(  )
-database_path = NodePath("/root/Database")
+resources_names = PoolStringArray( "structural_measure", "measure_improvement", "fertilization" )
+database_path = NodePath("../..")
 asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
 
@@ -601,11 +601,6 @@ script = ExtResource( 42 )
 [connection signal="asset_changed" from="AssetManager" to="AssetManager/ChickenStat" method="_on_stat_changed"]
 [connection signal="asset_changed" from="AssetManager" to="AssetManager/GoatStat" method="_on_stat_changed"]
 [connection signal="asset_changed" from="AssetManager" to="AssetManager/CowStat" method="_on_stat_changed"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/CropsBuyMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/MeasuresBuyMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/LabourBigMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/FamilyBigMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="AssetManager/NextYearButton" method="_on_NextYearButton_pressed"]
 [connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BigMenuTooltip/TextContainer" to="Tooltips/BigMenuTooltip" method="_on_TextContainer_resized"]

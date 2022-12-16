@@ -1,4 +1,4 @@
-extends Node
+extends DisplayBase
 class_name FamilyDisplay
 
 export(NodePath) var db_path = NodePath("/root/Database")
@@ -11,7 +11,10 @@ onready var database = get_node_or_null(db_path)
 func set_labourer_person(person: PersonResource):
     labourer = person
 
-func update_to_db():
+func start_year():
+    update_all_to_db()
+
+func update_all_to_db():
     update_family_to_db()
     update_labourers_to_db()
 
@@ -53,8 +56,3 @@ func add_person(person: Resource) -> Sprite:
     add_child(sprite)
     return sprite
 
-# func add_labourer(labourer: IntResource) -> void:
-#     labourers_array.append(add_person(labourer))
-
-# func remove_labourer() -> void:
-#     labourers_array.pop_back().queue_free()

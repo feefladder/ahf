@@ -28,7 +28,6 @@ func try_decrease_resource(item: IntResource) -> int:
     return new_amount
 
 func try_toggle_item(item: BuyResource) -> bool:
-    database.db.verbosity_level=2
     #only getting an off-farm job in this case -> has influence on family
     var amount = database.get_generic_amount(item.resource_name, database.LABOUR_TABLE)
     if amount == 0:
@@ -56,8 +55,9 @@ func try_toggle_item(item: BuyResource) -> bool:
         asset_manager.increase_assets(item.unit_price, 0)
     return true
 
-func next_year():
-    pass # Replace with function body.
+func end_of_year():
+    print_debug("end_of_year called on ",self)
+    database.set_next(database.LABOUR_TABLE, "amount", 0)
 
 func _use_resources(resources: Array) -> void:
     for resource in resources:

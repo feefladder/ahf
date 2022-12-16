@@ -9,6 +9,7 @@ var total_expenses: float
 
 onready var income: IncomeDisplay = get_node(income_path)
 onready var expenses = get_node(expenses_path)
+onready var database: Database = get_node("/root/Database")
 
 func _ready():
     # warning-ignore:return_value_discarded
@@ -17,6 +18,9 @@ func _ready():
     expenses.connect("expenses_changed",self,"_on_expenses_changed")
 
 func _on_NextYearButton_pressed():
+    database.year += 1
+    get_tree().call_group("controllers","start_year")
+    get_tree().call_group("displays","start_year")
     get_tree().get_root().remove_child(self)
     queue_free()
 

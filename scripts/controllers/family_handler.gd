@@ -76,7 +76,6 @@ func call_child_from_school(school: SchoolResource) -> int:
     if children.size() == 0:
         print_debug("tried to call child from school, but none were going")
         return -1
-    print_debug(children)
     var child_coming = children[0]
     asset_manager.increase_assets(school.unit_price, school.unit_labour)
     # move child on farm
@@ -85,12 +84,7 @@ func call_child_from_school(school: SchoolResource) -> int:
     display.update_family_to_db()
     return database.change_generic_item(school.resource_name, database.HOUSEHOLD_TABLE, -1)
 
-func next_year():
-    database.increase_year(database.FAMILY_TABLE)
+func end_of_year():
     database.increment_next(database.FAMILY_TABLE, "age")
     database.set_next(database.FAMILY_TABLE, "on_farm", true)
-    display.update_family()
-
-    database.increase_year(database.HOUSEHOLD_TABLE)
     database.set_next(database.HOUSEHOLD_TABLE, "amount", 0)
-    # do something so also the buymenuitems reflect db changes

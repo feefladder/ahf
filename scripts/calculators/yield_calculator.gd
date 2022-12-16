@@ -1,22 +1,6 @@
 extends EOYCalculator
 class_name YieldCalculator
 
-# - crop and fertility calculations at the end of the year
-var field: FieldResource
-var block_matrix: Array
-
-func _ready():
-    summary = FieldSummaryResource.new()
-    summary.type = CropResource
-    summary.field = get_parent().field_resource
-    block_matrix = get_parent().field_block_matrix
-
-func make_summary(event: EventResource):
-    for row in block_matrix:
-        for block in row:
-            calculate_yield(block, event)
-    return summary
-
 func calculate_yield(block: FieldBlock, event: YieldEventResource) -> void:
     if not block.has_crop:
         return
@@ -32,6 +16,6 @@ func calculate_yield(block: FieldBlock, event: YieldEventResource) -> void:
     if event:
         final_yield *= (1-event.calc_yield_reduction(block))
 
-    final_yield *= summary.field.field_block_area
-    print("calculated yield for: ", block, " with value: ", final_yield)
-    summary.add_crop_data(block.crop_resource, final_yield)
+#    final_yield *= summary.field.field_block_area
+#    print("calculated yield for: ", block, " with value: ", final_yield)
+#    summary.add_crop_data(block.crop_resource, final_yield)

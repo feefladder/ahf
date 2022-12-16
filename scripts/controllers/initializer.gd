@@ -1,9 +1,6 @@
 extends Node
 class_name Initializer
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var db
 
 func init_db() -> bool:
@@ -11,14 +8,19 @@ func init_db() -> bool:
     db.open_db()
     get_parent().default_field = _init_field_table() # add farm table in a similar way whenever necessary
     var success: bool = _init_fertility_table()
-    success = _init_field_blocks_table() && success
-    success = _init_livestock_table() && success
-    success = _init_household_table() && success
-    success = _init_family_table() && success
-    success = _init_school_table() && success
-    success = _init_labour_table() && success
-    success = _init_asset_table() && success
-    success = _init_upgrades_table() && success
+    success = _init_field_blocks_table() and success
+    success = _init_livestock_table() and success
+    success = _init_household_table() and success
+    success = _init_family_table() and success
+    success = _init_school_table() and success
+    success = _init_labour_table() and success
+    success = _init_asset_table() and success
+    success = _init_upgrades_table() and success
+
+    success = _init_crop_sum_table() and success
+    success = _init_asset_sum_table() and success
+    success = _init_livestock_sum_table() and success
+
     db.close_db()
 
     return success
@@ -31,6 +33,11 @@ func _init_field_table() -> int:
             "data_type":"int",
             "primary_key":true,
             "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
+            "default":get_parent().year
         },
         "water_supply":{
             "data_type":"text",
@@ -48,6 +55,10 @@ func _init_fertility_table() -> bool:
             "data_type":"int",
             "primary_key":true,
             "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
         },
         "field":{
             "data_type":"int",
@@ -95,22 +106,9 @@ func _init_field_blocks_table() -> bool:
             "data_type":"int",
             "not_null":true,
         },
-        "crop":{
-            "data_type":"text"
-        },
-        "structural_measure":{
-            "data_type":"text",
-        },
-        "measure_improvement":{
-            "data_type":"text",
-        },
-        "irrigation":{
-            "data_type":"text",
-        },
-        "fertilization":{
-            "data_type":"text",
-        },
        }
+    for col in get_parent().field_cols:
+        table_dict[col] = {"data_type":"text"}
     return db.create_table(table_name,table_dict)
 
 func _init_livestock_table() -> bool:
@@ -273,6 +271,10 @@ func _init_upgrades_table() -> bool:
             "primary_key":true,
             "auto_increment":true,
         },
+        "name":{
+            "data_type":"text",
+            "not_null":true,
+        },
         "year_bought":{
             "data_type":"int",
             "not_null":true,
@@ -283,4 +285,61 @@ func _init_upgrades_table() -> bool:
             "default":0,
         },
         }
+    return db.create_table(table_name,table_dict)
+
+func _init_crop_sum_table() -> bool:
+    var table_name = get_parent().CROP_SUM_TABLE
+    var table_dict = {
+        "id":{
+            "data_type":"int",
+            "primary_key":true,
+            "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
+        },
+        "name":{
+            "data_type":"text",
+            "not_null":true,
+        }
+    }
+    return db.create_table(table_name,table_dict)
+
+func _init_asset_sum_table() -> bool:
+    var table_name = get_parent().ASSET_SUM_TABLE
+    var table_dict = {
+        "id":{
+            "data_type":"int",
+            "primary_key":true,
+            "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
+        },
+        "name":{
+            "data_type":"text",
+            "not_null":true,
+        }
+    }
+    return db.create_table(table_name,table_dict)
+
+func _init_livestock_sum_table() -> bool:
+    var table_name = get_parent().LIV_SUM_TABLE
+    var table_dict = {
+        "id":{
+            "data_type":"int",
+            "primary_key":true,
+            "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
+        },
+        "name":{
+            "data_type":"text",
+            "not_null":true,
+        }
+    }
     return db.create_table(table_name,table_dict)

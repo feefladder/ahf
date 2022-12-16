@@ -4,14 +4,11 @@ class_name IrrigationResource
 export(PackedScene) var scene
 export(StreamTexture) var pump_image
 
+export(Resource) var water_source
+
 export(float) var pump_cost = 100.0
 export(float) var pump_labour = 10.0
 export(float) var water_salinity
-
-const column = "irrigation"
-
-var pump_placed := false
-var field : FieldResource
 
 #func should_enable(block) -> bool:
 #    if not pump_placed:

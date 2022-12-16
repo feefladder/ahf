@@ -10,7 +10,6 @@ signal timeout(which)
 var _mouse_down := false
 var _mouse_over := false
 var _enabled := true
-var _timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,28 +19,11 @@ func _ready():
     connect("mouse_exited", self, "_on_mouse_exited")
     # warning-ignore:return_value_discarded
     connect("input_event", self, "_on_input_event")
-    # warning-ignore:return_value_discarded
-    _timer.connect("timeout", self, "_on_timeout")
-    add_child(_timer)
-
-func start(time: float):
-    _timer.start(time)
-
-func resume():
-    _timer.set_paused(false)
-
-func pause():
-    _timer.set_paused(true)
-
-func _on_timeout():
-    _timer.stop()
-    emit_signal("timeout", self)
 
 func _on_input_event(_viewport, event, _shape_idx):
     # mouse clicks on same block
     if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
         _mouse_down = event.pressed
-
         if not _enabled:
             return
 
@@ -84,8 +66,9 @@ func _on_mouse_exited():
         emit_signal("unpressed", self)
 
 func disable():
+    if not _enabled:
+        return
     _enabled = false
-    _timer.stop()
     modulate = Color("#666")
 
 func enable():

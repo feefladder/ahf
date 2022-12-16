@@ -11,7 +11,6 @@ func try_increase_resource(item: IntResource) -> int:
     return database.get_unique_int_items(item.resource_name, database.LIVESTOCK_TABLE).size()
 
 func try_decrease_resource(item: IntResource) -> int:
-    database.db.verbosity_level=2
     if database.get_unique_int_items(item.resource_name, database.LIVESTOCK_TABLE).size() == 0:
         return -1
     var id: int = database.remove_unique_int_item(item.resource_name, database.LIVESTOCK_TABLE)

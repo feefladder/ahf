@@ -1,0 +1,11 @@
+{
+	"title": "start_year database",
+	"category": 2,
+	"assigned": 0,
+	"timestamp": 1671196231,
+	"hash": "da817fb783f5457b169c15ebaa4551791c4c0853d1279d2bc344eccdfade8d91",
+	"description": "make display update properly on start year:\n - group call?\n - display call!",
+	"todos": [
+
+	]
+}
