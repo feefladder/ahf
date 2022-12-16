@@ -1,0 +1,11 @@
+{
+	"title": "field_block array",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671171066,
+	"hash": "f2c69f4467a1d391c83b36dffef6730ad869a9810be8b7e0a593ec3ac9e069bb",
+	"description": "convert the field_block_matrix to an array\npossibly implement it in c++ as extension but taht probably has to wait till Godot 4",
+	"todos": [
+
+	]
+}

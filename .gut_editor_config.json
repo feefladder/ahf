@@ -2,7 +2,7 @@
  "background_color": "ff343434",
  "config_file": "res://.gutconfig.json",
  "dirs": [
-  "res://test/unit"
+  "res://test/unit/controllers"
  ],
  "disable_colors": false,
  "double_strategy": "partial",
@@ -11,7 +11,7 @@
  "font_size": 15,
  "hide_orphans": false,
  "ignore_pause": true,
- "include_subdirs": true,
+ "include_subdirs": false,
  "inner_class": null,
  "junit_xml_file": "",
  "junit_xml_timestamp": false,
@@ -23,8 +23,8 @@
  "selected": null,
  "should_exit": false,
  "should_exit_on_success": false,
- "should_maximize": false,
- "compact_mode": false,
+ "should_maximize": true,
+ "compact_mode": true,
  "show_help": false,
  "suffix": ".gd",
  "tests": [

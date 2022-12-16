@@ -1,48 +1,64 @@
 extends FieldBlockInputs
 class_name FieldBlock
 
-# - keeping track of whether a measure or crop can be applied to a fieldblock
-var applied_measures: Dictionary
-var crop_resource: CropResource
+signal placed
+
 var x: int
 var y: int
+var row_width: int
 
-var has_crop := false
-var has_irrigation := false
+onready var db: Node = get_tree().get_root().get_child(0)
 
-func apply(a_measure: PlaceableResource):
-#    resources.append(a_measure)
-    if a_measure in applied_measures:
-        return
+func update_all_to_db() -> void:
+    for col in db.field_cols:
+        # print_debug(col)
+        update_to_db(col)
 
-    var scene = a_measure.scene.instance()
-    self.add_child(scene)
-    if scene is CollisionPolygon2D:
-        var sp = $SoilPoly
-        sp.call_deferred("queue_free")
+func update_to_db(col_name: String) -> void:
+    # print_debug("updating to db: ", col_name)
+    var resource = db.get_block_resource(x,y,col_name)
+    if resource != null:
+        place(resource, col_name)
+        # assuming there is not already the same resource
+    elif get_node_or_null(col_name) != null:
+        remove(col_name)
+#        remove(col_name)
+    
 
-    applied_measures[a_measure] = scene
+func remove(what: String):
+    var node = get_node_or_null(what)
+    if node == null:
+        # actually not always an error!
+        printerr("Could not remove "+what+" from "+str(self))
+    else:
+        node.queue_free()
 
-func remove(a_measure: PlaceableResource):
-    if not a_measure in applied_measures:
-        return
-    applied_measures[a_measure].queue_free()
-    applied_measures.erase(a_measure)
+func place(r: PlaceableResource, name: String):
+    print_debug("placing item: ",r.resource_name, " on ",x,",",y)
+    var sprite = Sprite.new()
+    sprite.name = name
+    sprite.texture = r.image
+    sprite.scale = r.scale
+    sprite.position = r.offset
+    print_debug("offset: ",r.offset," position: ",sprite.position)
+    sprite.visible = false
+    add_child(sprite)
 
-func add_irrigation(irrigation_scene: PackedScene):
-    var scene = irrigation_scene.instance()
-    self.add_child(scene)
+    # this should free itself
+    var p_scene = r.placing_scene.instance()
+    p_scene.item=sprite
+    add_child(p_scene)
+    yield(p_scene,"placed")
+    emit_signal("placed")
 
-func add_crop(a_crop: CropResource):
-    $Crop.texture = a_crop.image
-    crop_resource = a_crop
-    $Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
-    has_crop = true
+func has(type: String, name: String):
+    return db.block_has(x,y, type, name)
 
-func show_crop() -> void:
-    $Crop.show()
+func is_empty(type: String):
+    return db.block_empty(x,y,type)
 
-func remove_crop():
-    $Crop.hide()
-    has_crop = false
-    crop_resource = null
+func get_all_with(type: String, name: String):
+    return db.get_all_with(type, name)
+
+func get_all_empty(type: String):
+    return db.get_all_empty(type)

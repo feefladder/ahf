@@ -12,21 +12,26 @@ export(NodePath) var target_path
 var selected_button: ToggleButton = null
 
 onready var target_node = get_node(target_path)
-onready var tooltip: Tooltip = get_node(tooltip_path)
+# onready var tooltip: Tooltip = get_node(tooltip_path)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    printerr(connect("tab_changed",target_node,"_on_tab_changed"))
+    # warning-ignore:return_value_discarded
+    connect("tab_changed",target_node,"_on_tab_changed")
     _connect_children()
 
 func _connect_children():
     for a_button in self.get_children():
         if a_button is ToggleButton:
+            # warning-ignore:return_value_discarded
             a_button.connect("hovered",self,"_on_button_hovered")
+            # warning-ignore:return_value_discarded
             a_button.connect("un_hovered",self,"_on_button_un_hovered")
+            # warning-ignore:return_value_discarded
             a_button.connect("pressed",self,"_on_button_pressed")
-
-            a_button.connect("hovered", tooltip, "_on_object_hovered")
-            a_button.connect("un_hovered", tooltip, "_on_object_un_hovered")
+            # warning-ignore:return_value_discarded
+#            a_button.connect("hovered", tooltip, "_on_object_hovered")
+            # warning-ignore:return_value_discarded
+#            a_button.connect("un_hovered", tooltip, "_on_object_un_hovered")
 
 func deselect():
     if selected_button != null:

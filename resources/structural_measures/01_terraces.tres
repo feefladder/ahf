@@ -1,0 +1,28 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://scripts/resources/placeable_items/measure_resource.gd" type="Script" id=1]
+[ext_resource path="res://assets/field/tile_terrace.png" type="Texture" id=2]
+[ext_resource path="res://scenes/placing/digging_shovel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/field/measures/terrace_collision.tscn" type="PackedScene" id=4]
+
+[resource]
+resource_name = "terraces"
+script = ExtResource( 1 )
+image = ExtResource( 2 )
+unit_price = 0.0
+unit_labour = 50.0
+persistent = true
+tooltip_info = {
+"general": "",
+"long_term_pros": "",
+"short_term_cons": "",
+"short_term_pros": ""
+}
+placing_scene = ExtResource( 3 )
+offset = Vector2( 0, 0 )
+scale = Vector2( 1.2, 1 )
+time_required = 0.1
+erosion_reduction = 5.0
+fertility_increase = 0.0
+salinity_effect = 0.0
+scene = ExtResource( 4 )

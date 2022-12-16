@@ -10,3 +10,4 @@ func add_crop_data(crop: CropResource, crop_yield: float):
         crop_summary[crop]["area"] += field.field_block_area
     else:
         crop_summary[crop] = {"yield" : crop_yield, "area" : field.field_block_area}
+    print("added: ", crop, "to summary, summary is now: ", crop_summary)

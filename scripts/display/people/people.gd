@@ -1,77 +1,58 @@
-extends Node
+extends DisplayBase
 class_name FamilyDisplay
 
-var people_dict: Dictionary = {}
+export(NodePath) var db_path = NodePath("/root/Database")
 
-func  show_family(family: FamilyResource):
-    print(family.family)
-    for member in family.on_farm_members:
-        var sprite = add_person(member)
-        people_dict[member] = sprite
+var family_dict: Dictionary = {}
+var labourers_array: Array = []
+var labourer: PersonResource
+onready var database = get_node_or_null(db_path)
+
+func set_labourer_person(person: PersonResource):
+    labourer = person
+
+func start_year():
+    update_all_to_db()
+
+func update_all_to_db():
+    update_family_to_db()
+    update_labourers_to_db()
+
+func update_family_to_db():
+    var family: Array = database.get_family()
+    for member in family:
+        var id: int = member["id"]
+        if not id in family_dict:
+            family_dict[id] = member #since dicts are copied 
+            family_dict[id]["sprite"] = add_person(member["resource"])
+        else:
+            family_dict[id]["on_farm"] = member["on_farm"]
+
+        if family_dict[id]["on_farm"]:
+            family_dict[id]["sprite"].show()
+        else:
+            family_dict[id]["sprite"].hide()
+
+func update_labourers_to_db():
+    var n_labourers: int = database.get_generic_amount("labourer", database.LABOUR_TABLE)
+    var d_l: int = n_labourers-labourers_array.size()
+    if d_l > 0:
+        for _i in range(d_l):
+            labourers_array.append(add_person(labourer))
+    else:
+        for _i in range(-d_l):
+            var l:Node = labourers_array.pop_back()
+            remove_child(l)
+            l.queue_free()
+    assert(labourers_array.size() == n_labourers)
 
 func add_person(person: Resource) -> Sprite:
     var sprite = Sprite.new()
     sprite.texture = person.image
     var scale = 0.5
     sprite.scale = Vector2(scale, scale)
-    sprite.position += sprite.scale*Vector2(50.0*people_dict.size(),-sprite.texture.get_size().y /2)
+    var nr_people = family_dict.size()+labourers_array.size()
+    sprite.position += sprite.scale*Vector2(50.0*nr_people,-sprite.texture.get_size().y /2)
     add_child(sprite)
     return sprite
 
-func show_person(person: PersonResource):
-    people_dict[person].show()
-
-func hide_person(person: PersonResource):
-    people_dict[person].hide()
-
-func update_family(family: FamilyResource):
-    if not family.family.size() == people_dict.size():
-        printerr("re-initialize of family display required (TODO)")
-    for person in people_dict:
-        if person in family.on_farm_members:
-            people_dict[person].show()
-        elif person in family.off_farm_members:
-            people_dict[person].hide()
-        else:
-            printerr("person in family neither on-farm or off-farm: ", person.resource_name)
-            remove_all_labourers(person)
-
-func increase_int_item(item):
-    if item is PersonResource:
-        add_labourer(item)
-
-func decrease_int_item(item):
-    if item is PersonResource:
-        remove_labourer(item)
-
-func _on_int_item_increased(which: IntResource):
-    add_labourer(which)
-
-func _on_int_item_decreased(which: IntResource):
-    remove_labourer(which)
-
-func add_labourer(labourer: IntResource) -> void:
-    var sprite = add_person(labourer)
-    if not labourer in people_dict:
-        people_dict[labourer] = [sprite]
-    else:
-        people_dict[labourer].append(sprite)
-
-func remove_all_labourers(labourer: IntResource) -> void:
-    if not labourer in people_dict:
-        printerr("remove_labourer called with invalid labourer! " + labourer.resource_name)
-        return
-    for sprite in people_dict[labourer]:
-        sprite.queue_free()
-    if not people_dict.erase(labourer):
-        printerr("removing labourer failed!")
-
-func remove_labourer(labourer: IntResource) -> void:
-    if not labourer in people_dict:
-        printerr("remove_labourer called with invalid labourer! " + labourer.resource_name)
-        return
-    var sprite = people_dict[labourer].pop_back()
-    sprite.queue_free()
-    if not people_dict[labourer].size():
-        if not people_dict.erase(labourer):
-            printerr("removing labourer failed")

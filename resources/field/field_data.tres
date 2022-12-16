@@ -5,6 +5,7 @@
 [ext_resource path="res://resources/field/start_fertiltiy.tres" type="Resource" id=3]
 
 [resource]
+resource_name = "primary_field"
 script = ExtResource( 1 )
 fertility = ExtResource( 3 )
 field_block_area = 0.04

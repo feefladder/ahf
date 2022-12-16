@@ -1,4 +1,6 @@
 .vscode/
+.fuse_hidden*
+sandbox.db
 
 # Godot-specific ignores
 .import/

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://scripts/resources/PlaceableItems/crop_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/placeable_items/crop_resource.gd" type="Script" id=1]
 [ext_resource path="res://scripts/resources/events/yield_event_resource.gd" type="Script" id=2]
-[ext_resource path="res://resources/measures/03_drip_irrigation.tres" type="Resource" id=3]
+[ext_resource path="res://resources/irrigation/03_drip_irrigation.tres" type="Resource" id=3]
 [ext_resource path="res://assets/events/drought.png" type="Texture" id=4]
 
 [resource]

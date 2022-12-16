@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/summaries/animal_summary_resource.gd"
 }, {
-"base": "YSort",
+"base": "DisplayBase",
 "class": "Animals",
 "language": "GDScript",
 "path": "res://scripts/display/livestock/animals.gd"
@@ -79,11 +79,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/buy_resource.gd"
 }, {
-"base": "PersonResource",
-"class": "ChildResource",
-"language": "GDScript",
-"path": "res://scripts/resources/people_resources/child_resource.gd"
-}, {
 "base": "EventResource",
 "class": "CostEvent",
 "language": "GDScript",
@@ -107,12 +102,17 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "CropResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/crop_resource.gd"
+"path": "res://scripts/resources/placeable_items/crop_resource.gd"
 }, {
-"base": "MeasureResource",
-"class": "DependableMeasureResource",
+"base": "Node",
+"class": "Database",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/dependable_measure_resource.gd"
+"path": "res://scripts/controllers/database.gd"
+}, {
+"base": "Node2D",
+"class": "DisplayBase",
+"language": "GDScript",
+"path": "res://scripts/display/display_base.gd"
 }, {
 "base": "Node",
 "class": "EOYCalculator",
@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/expenses_display.gd"
 }, {
-"base": "Node",
+"base": "DisplayBase",
 "class": "FamilyDisplay",
 "language": "GDScript",
 "path": "res://scripts/display/people/people.gd"
@@ -140,11 +140,6 @@ _global_script_classes=[ {
 "path": "res://scripts/controllers/family_handler.gd"
 }, {
 "base": "Resource",
-"class": "FamilyResource",
-"language": "GDScript",
-"path": "res://scripts/resources/people_resources/family_resource.gd"
-}, {
-"base": "Resource",
 "class": "FertilityResource",
 "language": "GDScript",
 "path": "res://scripts/resources/field_resources/fertility_resource.gd"
@@ -152,9 +147,9 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "FertilizerResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/fertilizer_resource.gd"
+"path": "res://scripts/resources/placeable_items/fertilizer_resource.gd"
 }, {
-"base": "YSort",
+"base": "DisplayBase",
 "class": "Field",
 "language": "GDScript",
 "path": "res://scripts/display/field/field.gd"
@@ -194,6 +189,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/income_display.gd"
 }, {
+"base": "Node",
+"class": "Initializer",
+"language": "GDScript",
+"path": "res://scripts/controllers/initializer.gd"
+}, {
 "base": "BuyResource",
 "class": "IntResource",
 "language": "GDScript",
@@ -202,17 +202,27 @@ _global_script_classes=[ {
 "base": "PlaceableResource",
 "class": "IrrigationResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/irrigation_resource.gd"
+"path": "res://scripts/resources/placeable_items/irrigation_resource.gd"
+}, {
+"base": "BigMenu",
+"class": "LabourController",
+"language": "GDScript",
+"path": "res://scripts/controllers/labour_controller.gd"
 }, {
 "base": "Node",
-"class": "Loader",
+"class": "LabourDBInterface",
 "language": "GDScript",
-"path": "res://scripts/controllers/loader.gd"
+"path": "res://scripts/calculators/labour_calculator.gd"
 }, {
-"base": "PlaceableResource",
-"class": "MeasureResource",
+"base": "IntResource",
+"class": "LabourerResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/measure_resource.gd"
+"path": "res://scripts/resources/int_resources/labourer_resource.gd"
+}, {
+"base": "StructuralMeasureResource",
+"class": "MeasureImprovementResource",
+"language": "GDScript",
+"path": "res://scripts/resources/placeable_items/dependable_measure_resource.gd"
 }, {
 "base": "BuyMenu",
 "class": "MeasuresHandler",
@@ -237,7 +247,12 @@ _global_script_classes=[ {
 "base": "BuyResource",
 "class": "PlaceableResource",
 "language": "GDScript",
-"path": "res://scripts/resources/PlaceableItems/placeable_resource.gd"
+"path": "res://scripts/resources/placeable_items/placeable_resource.gd"
+}, {
+"base": "Node2D",
+"class": "PlacingBase",
+"language": "GDScript",
+"path": "res://scripts/UI/placing/placing_base.gd"
 }, {
 "base": "Control",
 "class": "PopupInsufficient",
@@ -279,6 +294,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/story/story_resource.gd"
 }, {
+"base": "PlaceableResource",
+"class": "StructuralMeasureResource",
+"language": "GDScript",
+"path": "res://scripts/resources/placeable_items/measure_resource.gd"
+}, {
 "base": "Resource",
 "class": "SummaryResource",
 "language": "GDScript",
@@ -307,7 +327,7 @@ _global_script_classes=[ {
 "base": "BuyResource",
 "class": "ToggleResource",
 "language": "GDScript",
-"path": "res://scripts/resources/toggle_resource.gd"
+"path": "res://scripts/resources/toggle_resources/toggle_resource.gd"
 }, {
 "base": "CanvasItem",
 "class": "Tooltip",
@@ -339,19 +359,18 @@ _global_script_class_icons={
 "BuyMenuItem": "",
 "BuyMenuItemContainer": "",
 "BuyResource": "",
-"ChildResource": "",
 "CostEvent": "",
 "CropExpensesContainer": "",
 "CropHandler": "",
 "CropIncomeContainer": "",
 "CropResource": "",
-"DependableMeasureResource": "",
+"Database": "",
+"DisplayBase": "",
 "EOYCalculator": "",
 "EventResource": "",
 "ExpensesDisplay": "",
 "FamilyDisplay": "",
 "FamilyHandler": "",
-"FamilyResource": "",
 "FertilityResource": "",
 "FertilizerResource": "",
 "Field": "",
@@ -362,15 +381,19 @@ _global_script_class_icons={
 "GutHookScript": "",
 "GutTest": "",
 "IncomeDisplay": "",
+"Initializer": "",
 "IntResource": "",
 "IrrigationResource": "",
-"Loader": "",
-"MeasureResource": "",
+"LabourController": "",
+"LabourDBInterface": "",
+"LabourerResource": "",
+"MeasureImprovementResource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",
 "NextYearButton": "",
 "PersonResource": "",
 "PlaceableResource": "",
+"PlacingBase": "",
 "PopupInsufficient": "",
 "PopupMaxReached": "",
 "PriceEventResource": "",
@@ -379,6 +402,7 @@ _global_script_class_icons={
 "Stat": "",
 "StateController": "",
 "StoryResource": "",
+"StructuralMeasureResource": "",
 "SummaryResource": "",
 "TabButton": "",
 "TabMenu": "",
@@ -398,7 +422,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/gut/plugin.cfg" )
 
 [global]
 

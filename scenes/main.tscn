@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://scripts/controllers/crop_handler.gd" type="Script" id=7]
 [ext_resource path="res://assets/UI/Buttons/icon_livestock.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
-[ext_resource path="res://scripts/controllers/loader.gd" type="Script" id=10]
+[ext_resource path="res://scripts/controllers/database.gd" type="Script" id=10]
 [ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
 [ext_resource path="res://scripts/controllers/asset_manager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
@@ -26,23 +26,27 @@
 [ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
 [ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/mouse/planting.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
 [ext_resource path="res://assets/animals/cock.png" type="Texture" id=31]
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
+[ext_resource path="res://resources/livestock/01_chicken.tres" type="Resource" id=33]
 [ext_resource path="res://scripts/controllers/next_year_button.gd" type="Script" id=34]
 [ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/calculators/yield_calculator.gd" type="Script" id=36]
 [ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
+[ext_resource path="res://resources/livestock/02_goat.tres" type="Resource" id=39]
 [ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
 [ext_resource path="res://resources/field/field_data.tres" type="Resource" id=41]
 [ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
 [ext_resource path="res://scripts/calculators/fertility_calculator.gd" type="Script" id=43]
 [ext_resource path="res://scripts/display/people/people.gd" type="Script" id=44]
+[ext_resource path="res://resources/livestock/03_cow.tres" type="Resource" id=45]
 [ext_resource path="res://scripts/controllers/measures_handler.gd" type="Script" id=46]
+[ext_resource path="res://scripts/controllers/livestock_controller.gd" type="Script" id=47]
+[ext_resource path="res://scripts/controllers/labour_controller.gd" type="Script" id=48]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 38 )
@@ -59,16 +63,8 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="Loader" type="Node"]
+[node name="Database" type="Node"]
 script = ExtResource( 10 )
-resources_paths = {
-"crop_resource": "crops/",
-"events_resource": "events/",
-"family_resource": "family/",
-"labour_resource": "labour/",
-"livestock_resource": "livestock/",
-"measures_resource": "measures/"
-}
 
 [node name="Background" type="Sprite" parent="."]
 show_behind_parent = true
@@ -125,43 +121,41 @@ crop_handler_path = NodePath("CropsBuyMenu")
 script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Crops"
-resource_name = "crop_resource"
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+resources_names = PoolStringArray( "crop" )
+database_path = NodePath("/root/Database")
 asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
-planting_scene = ExtResource( 27 )
 
 [node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
 script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Measures"
-resource_name = "measures_resource"
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+resources_names = PoolStringArray( "structural_measure", "measure_improvement", "fertilization" )
+database_path = NodePath("../..")
 asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
-title = "Livestock"
-resource_name = "livestock_resource"
+script = ExtResource( 47 )
+resource_names = PoolStringArray( "livestock" )
 
 [node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
-toggle_menu_path = NodePath("../../ToggleButtonContainer")
+script = ExtResource( 48 )
 display_path = NodePath("../../Background/Family")
-title = "Labour"
-resource_name = "labour_resource"
+resource_names = PoolStringArray( "labour" )
 
 [node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 14 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("../../Background/Family")
 title = "Family"
-resource_name = "family_resource"
+resource_names = PoolStringArray( "family", "household" )
 
 [node name="UpgradesBigMenu" parent="StateController" instance=ExtResource( 26 )]
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("")
 title = "Upgrades"
-resource_name = "upgrades_resource"
+resource_names = PoolStringArray( "upgrades" )
 
 [node name="AssetManager" type="HBoxContainer" parent="."]
 anchor_top = 0.85
@@ -169,11 +163,7 @@ anchor_right = 1.01
 anchor_bottom = 1.0
 theme = ExtResource( 32 )
 script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-money = 1000.0
-labour = 1000.0
+money = 1000
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
 popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 
@@ -290,6 +280,7 @@ texture = ExtResource( 31 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 33 )
 
 [node name="Amount" type="Label" parent="AssetManager/ChickenStat"]
 anchor_left = 0.5
@@ -312,6 +303,7 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 39 )
 
 [node name="Amount" type="Label" parent="AssetManager/GoatStat"]
 anchor_left = 0.5
@@ -334,6 +326,7 @@ texture = ExtResource( 23 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )
+type = ExtResource( 45 )
 
 [node name="Amount" type="Label" parent="AssetManager/CowStat"]
 anchor_left = 0.5
@@ -602,11 +595,12 @@ __meta__ = {
 visible = false
 script = ExtResource( 42 )
 
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/CropsBuyMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/MeasuresBuyMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/LabourBigMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="StateController/FamilyBigMenu" method="next_year"]
-[connection signal="pressed" from="AssetManager/NextYearButton" to="AssetManager/NextYearButton" method="_on_NextYearButton_pressed"]
+[connection signal="database_loaded" from="." to="Background/Field" method="_on_Database_database_loaded"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/MoneyStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/LabourStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/ChickenStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/GoatStat" method="_on_stat_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/CowStat" method="_on_stat_changed"]
 [connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BigMenuTooltip/TextContainer" to="Tooltips/BigMenuTooltip" method="_on_TextContainer_resized"]

@@ -8,6 +8,43 @@ aspects of the farm, each for a specific part (Crops, Assets, Family, Labour).
 
 in general, it works like the following:
 
+Data Schema
+-----------
+
+In determining which data schema should be used, the following considerations were made:
+
+* compliance with GeoPackage-type data:
+
+  In a GeoPackage, rasters (such as elevation, but also categorical data, such as the
+  PKID of a crop that is planted there) are stored as a BLOB in a table that has the
+  same name as the raster. However, because farms are normally relatively small (12 grid
+  cells in the demo and not expecting to have much more than ~200 grid cells), and there
+  is a lot of per-cell processing, the choice has been made to implement a field in the
+  following way:
+
+  .. uml::
+     
+     @startuml
+
+      entity field_block {
+         * block_id <<generated>>
+         --
+         * name: text
+         * x: integer
+         * y: integer
+         * field: number <<FK>>
+         * crop: text
+         * structural_measure: text
+         * structural_improvement: text
+         * irrigation: text
+         * fertilizer: text
+      }
+   
+   
+
+     @enduml
+* 
+
 .. uml::
 
    @startuml

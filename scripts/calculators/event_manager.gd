@@ -1,7 +1,7 @@
 extends Node
 
-export(NodePath) var loader_path = NodePath("/root/Loader")
-export(String) var resources_name = "events_resource"
+export(NodePath) var loader_path = NodePath("/root/Database")
+export(String) var resources_name = "events"
 
 var events : Array
 
@@ -16,7 +16,7 @@ func _on_resources_loaded(which, resources):
         print(events)
 
 func get_event() -> EventResource:
-    if (randi() % 10 < 5):
+    if (randi() % 10 < 4):
         var event_nothing = EventResource.new()
         event_nothing.resource_name = "nothing"
         event_nothing.description = "no events happened this year"

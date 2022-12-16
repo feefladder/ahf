@@ -1,4 +1,4 @@
-extends YSort
+extends DisplayBase
 class_name Animals
 
 const AnimalSummaryResource = preload("res://scripts/resources/summaries/animal_summary_resource.gd")
@@ -7,17 +7,24 @@ var random = RandomNumberGenerator.new()
 
 var animals: Dictionary
 
+onready var db = get_node_or_null("/root/Database")
 # Called when the node enters the scene tree for the first time.
 func _ready():
     random.randomize()
 
+#func start_year():
+#    update_all_to_db()
 
 func make_summary() -> AnimalSummaryResource:
     var summary = AnimalSummaryResource.new()
     return summary
 
+#func update_all_to_db():
+#    for animal in db.get_unique_changed_items(db.LIVESTOCK_TABLE):
+#        if animal["year_sold"] is null:
+#
 
-func add_animal(an_animal: AnimalResource) -> void:
+func add_animal(an_animal: AnimalResource, id: int) -> void:
     var animal_sprite = Sprite.new()
     animal_sprite.texture = an_animal.image
 
@@ -28,16 +35,8 @@ func add_animal(an_animal: AnimalResource) -> void:
     self.add_child(animal_sprite)
 
     #add a reference
-    if(an_animal in animals):
-        animals[an_animal].append(animal_sprite)
-    else:
-        animals[an_animal] = [animal_sprite]
+    animals[id] = animal_sprite
 
-
-func increase_int_item(an_animal: AnimalResource) -> void:
-    add_animal(an_animal)
-
-func decrease_int_item(an_animal: AnimalResource) -> void:
-    if an_animal in animals:
-        var animal_sprite = animals[an_animal].pop_back()
-        animal_sprite.queue_free()
+func remove_animal(id: int) -> void:
+    animals[id].queue_free()
+    animals.erase(id)

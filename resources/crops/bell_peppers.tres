@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://scripts/resources/PlaceableItems/crop_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/placeable_items/crop_resource.gd" type="Script" id=1]
 [ext_resource path="res://assets/field/Crops/bell_peppers.png" type="Texture" id=2]
+[ext_resource path="res://scenes/placing/planting.tscn" type="PackedScene" id=3]
 
 [resource]
 resource_name = "bell peppers"
@@ -16,7 +17,9 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
-blocks_placed = [  ]
+placing_scene = ExtResource( 3 )
+offset = Vector2( 0, 0 )
+scale = Vector2( 0.441, 0.441 )
 sell_price = 10.0
 max_yield = 125.0
 f_wlimited_yield = 0.8

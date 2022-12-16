@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/resources/people_resources/person_resource.gd" type="Script" id=1]
+[ext_resource path="res://assets/family/man.png" type="Texture" id=2]
+
+[resource]
+resource_name = "Adal"
+script = ExtResource( 1 )
+image = ExtResource( 2 )
+labour = 100.0
+yearly_costs = 500.0
+food_costs = 250.0
+food_needs = 20.0
+is_family_member = true
+age = 8

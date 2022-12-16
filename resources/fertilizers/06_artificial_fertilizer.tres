@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/resources/placeable_items/fertilizer_resource.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/mouse_icons/artificial_fertilizer.png" type="Texture" id=2]
+
+[resource]
+resource_name = "artificial fertilizer"
+script = ExtResource( 1 )
+image = ExtResource( 2 )
+unit_price = 0.0
+unit_labour = 0.0
+persistent = false
+tooltip_info = {
+"general": "Industrially made fertilizer, with known NPK contents",
+"long_term_pros": "",
+"short_term_cons": "difficult to access",
+"short_term_pros": "very good crop growth"
+}
+blocks_placed = [  ]
+soil_structure_effect = 0.0
+long_term_fertilization = 0.0

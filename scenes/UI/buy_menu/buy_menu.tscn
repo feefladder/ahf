@@ -13,7 +13,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CropsBuyMenu" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.05
 theme = ExtResource( 3 )
@@ -21,7 +21,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CropsBuyMenu"]
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "bla"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_right = 153.0
 margin_bottom = 453.0
 size_flags_horizontal = 3
@@ -31,14 +36,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BuyMenuItemContainer" type="VBoxContainer" parent="CropsBuyMenu/ScrollContainer"]
+[node name="BuyMenuItemContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 153.0
 size_flags_horizontal = 15
 script = ExtResource( 1 )
 tooltip_path = NodePath("../../../../../Tooltips/BuyMenuTooltip")
 target_path = NodePath("../../..")
 
-[node name="BackButton" type="Button" parent="CropsBuyMenu"]
+[node name="BackButton" type="Button" parent="VBoxContainer"]
 margin_top = 463.0
 margin_right = 153.0
 margin_bottom = 503.0
@@ -48,4 +53,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="CropsBuyMenu/BackButton" to="." method="deactivate"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="deactivate"]
