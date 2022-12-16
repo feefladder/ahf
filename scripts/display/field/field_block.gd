@@ -14,45 +14,35 @@ onready var db: Node = get_tree().get_root().get_child(0)
 
 func update_to_db(col_name: String):
     var resource = db.get_block_resource(x,y,col_name)
-    if resource is null:
+    if resource == null:
         remove(col_name)
+#        remove(col_name)
     else:
+        place(resource, col_name)
         # assuming there is not already the same resource
-        var scene = resource.placing_scene.instance()
-        
 
-func apply(a_measure: PlaceableResource):
-#    resources.append(a_measure)
-#    if not 
-    var scene = a_measure.scene.instance()
-    self.add_child(scene)
-    if scene is CollisionPolygon2D:
-        var sp = $SoilPoly
-        sp.call_deferred("queue_free")
 
-    applied_measures[a_measure] = scene
+func remove(what: String):
+    var node = get_node_or_null(what)
+    if node == null:
+        # actually not always an error!
+        printerr("Could not remove "+what+" from "+str(self))
+    else:
+        node.queue_free()
 
-func remove(a_measure: PlaceableResource):
-    if not a_measure in applied_measures:
-        return
-    applied_measures[a_measure].queue_free()
-    if not applied_measures.erase(a_measure):
-        print_debug("Could not erase")
+func place(r: PlaceableResource, name: String):
+    print_debug("placing item: ",r.resource_name, " on ",x,",",y)
+    var sprite = Sprite.new()
+    sprite.name = name
+    sprite.texture = r.image
+    sprite.scale = r.scale
+    sprite.position = r.offset
+    print_debug("offset: ",r.offset," position: ",sprite.position)
+    sprite.visible = false
+    add_child(sprite)
 
-func add_irrigation(irrigation_scene: PackedScene):
-    var scene = irrigation_scene.instance()
-    self.add_child(scene)
+    # this should free itself
+    var p_scene = r.placing_scene.instance()
+    p_scene.item=sprite
+    add_child(p_scene)
 
-func add_crop(a_crop: CropResource):
-    $Crop.texture = a_crop.image
-    crop_resource = a_crop
-    $Crop.position = Vector2(0,-$Crop.texture.get_size().y/2*$Crop.scale.y)
-    has_crop = true
-
-func show_crop() -> void:
-    $Crop.show()
-
-func remove_crop():
-    $Crop.hide()
-    has_crop = false
-    crop_resource = null

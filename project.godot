@@ -244,6 +244,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/placeable_items/placeable_resource.gd"
 }, {
+"base": "Node2D",
+"class": "PlacingBase",
+"language": "GDScript",
+"path": "res://scripts/UI/placing/placing_base.gd"
+}, {
 "base": "Control",
 "class": "PopupInsufficient",
 "language": "GDScript",
@@ -382,6 +387,7 @@ _global_script_class_icons={
 "NextYearButton": "",
 "PersonResource": "",
 "PlaceableResource": "",
+"PlacingBase": "",
 "PopupInsufficient": "",
 "PopupMaxReached": "",
 "PriceEventResource": "",

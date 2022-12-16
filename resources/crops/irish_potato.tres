@@ -14,7 +14,8 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
-blocks_placed = [  ]
+offset = Vector2( 0, 0 )
+scale = Vector2( 0.441, 0.441 )
 sell_price = 100.0
 max_yield = 156.25
 f_wlimited_yield = 0.8

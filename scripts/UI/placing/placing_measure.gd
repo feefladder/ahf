@@ -6,8 +6,6 @@ var measure: StructuralMeasureResource
 
 func _ready():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-    # add the block to the placed array
-    measure.blocks_placed.append(get_parent())
     $Shovel/AnimationPlayer.play("dig")
     yield(get_tree().create_timer(measure.time_required), "timeout")
 

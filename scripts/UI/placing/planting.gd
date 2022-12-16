@@ -1,38 +1,37 @@
-extends Node2D
+extends PlacingBase
 
 export(float) var growth_time = 5.0
 
-var crop: Sprite
-
-func _ready():
+func place():
+    print_debug("planting crop!",self)
     $AnimationPlayer.play("plant")
     yield($AnimationPlayer, "animation_finished")
-    tween_crop()
+    tween_item()
     queue_free()
 
-func tween_crop():
+func tween_item():
     var tween = Tween.new()
-    crop.add_child(tween)
+    item.add_child(tween)
     tween.interpolate_property(
-            crop,
+            item,
             "position",
             Vector2(0.0,0.0),
-            crop.position,
+            item.position,
             growth_time,
             Tween.TRANS_CUBIC,
             Tween.EASE_OUT
     )
     tween.interpolate_property(
-            crop,
+            item,
             "scale",
             Vector2(0.0, 0.0),
-            crop.scale,
+            item.scale,
             growth_time,
             Tween.TRANS_CUBIC,
             Tween.EASE_OUT
     )
-    crop.scale = Vector2(0.0, 0.0)
-    crop.position = Vector2(0.0, 0.0)
+    item.scale = Vector2(0.0, 0.0)
+    item.position = Vector2(0.0, 0.0)
     tween.start()
     tween.connect("tween_all_completed",tween,"queue_free")
-    crop.show()
+    item.show()

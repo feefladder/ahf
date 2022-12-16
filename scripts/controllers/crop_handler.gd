@@ -4,7 +4,7 @@ class_name CropHandler
 export(NodePath) var asset_manager_path = NodePath("../../AssetManager")
 export(NodePath) var field_path = NodePath("../../Background/Field")
 
-export(PackedScene) var planting_scene = preload("res://scenes/mouse/planting.tscn")
+# export(PackedScene) var planting_scene = preload("res://scenes/mouse/planting.tscn")
 
 
 var current_crop
