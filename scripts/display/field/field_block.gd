@@ -1,21 +1,29 @@
 extends FieldBlockInputs
 class_name FieldBlock
 
-# - keeping track of whether a measure or crop can be applied to a fieldblock
-var applied_measures: Dictionary
-var crop_resource: CropResource
 var x: int
 var y: int
 
-var has_crop := false
-var has_irrigation := false
+var crop: Node
+var structural_measure: Node
+var measure_improvement: Node
+var irrigation: Node
+var fertilization: Node
 
 onready var db: Node = get_tree().get_root().get_child(0)
+
+func update_to_db(col_name: String):
+    var resource = db.get_block_resource(x,y,col_name)
+    if resource is null:
+        remove(col_name)
+    else:
+        # assuming there is not already the same resource
+        var scene = resource.placing_scene.instance()
+        
 
 func apply(a_measure: PlaceableResource):
 #    resources.append(a_measure)
 #    if not 
-
     var scene = a_measure.scene.instance()
     self.add_child(scene)
     if scene is CollisionPolygon2D:

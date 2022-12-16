@@ -2,7 +2,7 @@ extends Node2D
 
 signal applied
 
-var measure: MeasureResource
+var measure: StructuralMeasureResource
 
 func _ready():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

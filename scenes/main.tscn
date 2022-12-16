@@ -122,8 +122,8 @@ crop_handler_path = NodePath("CropsBuyMenu")
 script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Crops"
-fields_names = PoolStringArray( "crop" )
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
+resources_names = PoolStringArray( "crop" )
+database_path = NodePath("/root/Database")
 asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
 planting_scene = ExtResource( 27 )
@@ -133,9 +133,6 @@ script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "Measures"
 fields_names = PoolStringArray( "structural_measure", "measure_improvement", "irrigation", "fertilization" )
-buy_menu_item_container_path = NodePath("CropsBuyMenu/ScrollContainer/BuyMenuItemContainer")
-asset_manager_path = NodePath("../../AssetManager")
-field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 47 )

@@ -4,7 +4,7 @@ class TestLoadingAndSignals:
     extends GutTest
 
     var db: Database
-    var measure: MeasureResource
+    var measure: StructuralMeasureResource
     var crop_01: CropResource
     var crop_02: CropResource
 
@@ -554,7 +554,7 @@ class TestDatabaseFBlockResource:
     extends GutTest
 
     var db: Database
-    var measure: MeasureResource
+    var measure: StructuralMeasureResource
     var crop_01: CropResource
     var crop_02: CropResource
 

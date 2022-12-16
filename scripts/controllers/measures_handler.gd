@@ -41,7 +41,7 @@ func fieldblock_pressed(a_block: FieldBlock):
     if not current_resource:
         return
 
-    if current_resource is MeasureResource:
+    if current_resource is StructuralMeasureResource:
         if not a_block in current_resource.blocks_placed:
             try_apply_measure(a_block)
     elif current_resource is IrrigationResource:
@@ -56,7 +56,7 @@ func get_min_number() -> int:
         printerr("get_min_number should be called when there is a resource!")
         return -1
 
-    if current_resource is MeasureResource:
+    if current_resource is StructuralMeasureResource:
         return current_resource.get_min_number()
     return 1
 

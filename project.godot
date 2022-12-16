@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/database.gd"
 }, {
-"base": "MeasureResource",
-"class": "DependableMeasureResource",
-"language": "GDScript",
-"path": "res://scripts/resources/placeable_items/dependable_measure_resource.gd"
-}, {
 "base": "Node",
 "class": "EOYCalculator",
 "language": "GDScript",
@@ -219,10 +214,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/int_resources/labourer_resource.gd"
 }, {
-"base": "PlaceableResource",
-"class": "MeasureResource",
+"base": "StructuralMeasureResource",
+"class": "Measure_improvement_resource",
 "language": "GDScript",
-"path": "res://scripts/resources/placeable_items/measure_resource.gd"
+"path": "res://scripts/resources/placeable_items/dependable_measure_resource.gd"
 }, {
 "base": "BuyMenu",
 "class": "MeasuresHandler",
@@ -288,6 +283,11 @@ _global_script_classes=[ {
 "class": "StoryResource",
 "language": "GDScript",
 "path": "res://scripts/story/story_resource.gd"
+}, {
+"base": "PlaceableResource",
+"class": "StructuralMeasureResource",
+"language": "GDScript",
+"path": "res://scripts/resources/placeable_items/measure_resource.gd"
 }, {
 "base": "Resource",
 "class": "SummaryResource",
@@ -355,7 +355,6 @@ _global_script_class_icons={
 "CropIncomeContainer": "",
 "CropResource": "",
 "Database": "",
-"DependableMeasureResource": "",
 "EOYCalculator": "",
 "EventResource": "",
 "ExpensesDisplay": "",
@@ -377,7 +376,7 @@ _global_script_class_icons={
 "LabourController": "",
 "LabourDBInterface": "",
 "LabourerResource": "",
-"MeasureResource": "",
+"Measure_improvement_resource": "",
 "MeasuresHandler": "",
 "MouseIndicator": "",
 "NextYearButton": "",
@@ -391,6 +390,7 @@ _global_script_class_icons={
 "Stat": "",
 "StateController": "",
 "StoryResource": "",
+"StructuralMeasureResource": "",
 "SummaryResource": "",
 "TabButton": "",
 "TabMenu": "",

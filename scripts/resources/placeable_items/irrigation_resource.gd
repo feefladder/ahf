@@ -13,23 +13,23 @@ const column = "irrigation"
 var pump_placed := false
 var field : FieldResource
 
-func should_enable(block) -> bool:
-    if not pump_placed:
-        return false
-    if block in blocks_placed:
-        return false
-
-    if not blocks_placed.size():
-        print("no blocks placed yet!")
-        return block.x == field.size_x - 1 and block.y == field.size_y - 1
-    else:
-        for placed in blocks_placed:
-            # we can expand along the edge
-            if placed.x == field.size_x - 1 and block.x == field.size_x - 1 and block.y == placed.y - 1:
-                return true
-
-            #and lay horizontal lines
-            if block.y == placed.y and block.x == placed.x - 1:
-                return true
-
-        return false
+#func should_enable(block) -> bool:
+#    if not pump_placed:
+#        return false
+#    if block in blocks_placed:
+#        return false
+#
+#    if not blocks_placed.size():
+#        print("no blocks placed yet!")
+#        return block.x == field.size_x - 1 and block.y == field.size_y - 1
+#    else:
+#        for placed in blocks_placed:
+#            # we can expand along the edge
+#            if placed.x == field.size_x - 1 and block.x == field.size_x - 1 and block.y == placed.y - 1:
+#                return true
+#
+#            #and lay horizontal lines
+#            if block.y == placed.y and block.x == placed.x - 1:
+#                return true
+#
+#        return false

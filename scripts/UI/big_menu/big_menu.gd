@@ -35,7 +35,7 @@ func _on_toggle_item_set(which: BuyResource, to_what: bool) -> void:
     print("set ", which.resource_name, " to ", to_what)
 
 
-func _on_Database_resources_loaded(which, resources):
+func _on_Database_resources_loaded(which: String, resources: Array):
     if which in resource_names:
         for resource in resources:
             if resource is IntResource:
