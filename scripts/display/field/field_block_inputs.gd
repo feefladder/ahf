@@ -11,6 +11,11 @@ var _mouse_down := false
 var _mouse_over := false
 var _enabled := true
 
+const M_COLOR_HIGHLIGHT := Color("#cfc")
+const M_COLOR_UN_HIGHLIGHT := Color("#fff")
+const M_COLOR_SUPER_HIGHLIGHT := Color("#6f6")
+const M_COLOR_DISABLE := Color("#666")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     # warning-ignore:return_value_discarded
@@ -69,18 +74,35 @@ func disable():
     if not _enabled:
         return
     _enabled = false
-    modulate = Color("#666")
+    tween_modulate(modulate, M_COLOR_DISABLE)
 
 func enable():
-    if not _enabled:
-        un_highlight()
-        _enabled = true
+    if _enabled:
+        return
+    un_highlight()
+    _enabled = true
 
 func highlight():
-    modulate = Color("#cfc")
+    tween_modulate(modulate, M_COLOR_HIGHLIGHT)
 
 func un_highlight():
-    modulate = Color("#fff")
+    tween_modulate(modulate, M_COLOR_UN_HIGHLIGHT)
 
 func super_highlight():
-    modulate = Color("#6f6")
+    tween_modulate(modulate, M_COLOR_SUPER_HIGHLIGHT)
+
+func tween_modulate(start: Color, end: Color, time=0.5):
+    var tween = Tween.new()
+    add_child(tween)
+    tween.interpolate_property(
+        self,
+        "modulate",
+        start,
+        end,
+        time,
+        Tween.TRANS_CUBIC,
+        Tween.EASE_OUT
+    )
+    tween.start()
+    tween.connect("tween_all_completed",tween,"queue_free")
+
