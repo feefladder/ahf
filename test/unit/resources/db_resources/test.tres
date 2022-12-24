@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/db_resources/test_resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+aabb = AABB( 1, 2, 3, 4, 5, 6 )
+a_Vector2 = Vector2( 1, 2 )
+a_Rect2 = Rect2( -1, 1, 1, 1 )
+a_Vector3 = Vector3( 1, 2, 3 )
+a_Transform2D = Transform2D( 1, 2, 4, 5, 1, 2 )
+a_Plane = Plane( 1, 2, 4, 3 )
+a_Quat = Quat( 1, 2, 3, 1 )
+a_AABB = AABB( 1, 1, 1, 2, 3, 4 )
+a_Basis = Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 )
+a_Transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 3 )
+a_Color = Color( 0.654902, 0.117647, 0.117647, 1 )

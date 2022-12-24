@@ -1,4 +1,5 @@
 extends BigMenu
+class_name LivestockController
 
 func try_increase_resource(item: IntResource) -> int:
     if database.get_unique_int_items(item.resource_name, database.LIVESTOCK_TABLE).size() >= item.max_number:
@@ -19,6 +20,3 @@ func try_decrease_resource(item: IntResource) -> int:
     return database.get_unique_int_items(item.resource_name, database.LIVESTOCK_TABLE).size()
 
 # no toggle items or anything to do with resources
-
-func next_year():
-    pass # Replace with function body.

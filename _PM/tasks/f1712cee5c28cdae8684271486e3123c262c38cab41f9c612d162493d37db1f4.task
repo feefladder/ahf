@@ -1,0 +1,11 @@
+{
+	"title": "people",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671712622,
+	"hash": "f1712cee5c28cdae8684271486e3123c262c38cab41f9c612d162493d37db1f4",
+	"description": "make people move to places where labour is used:\n - livestock\n - field\nTo do before:\n - make people a group\n - still have references to other places\n - add people as child to nodes",
+	"todos": [
+
+	]
+}

@@ -34,9 +34,6 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.02
@@ -146,7 +143,7 @@ margin_right = 481.0
 margin_bottom = 77.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 11 )
-text = "yield x area x fertility x price = total"
+text = "yield x area x price = total"
 align = 2
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Balance/Income/VBoxContainer"]
@@ -253,9 +250,6 @@ custom_styles/panel = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 crop_summary_item_packedscene = ExtResource( 9 )
 
 [node name="AssetItemContainer" type="VBoxContainer" parent="VBoxContainer/Balance/Expenses/VBoxContainer"]

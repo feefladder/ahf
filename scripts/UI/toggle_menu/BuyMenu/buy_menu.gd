@@ -22,7 +22,7 @@ func _on_Database_resources_loaded(which: String, resources: Array):
         buy_menu_item_container.add_items(resources)
     _use_resources(resources)
 
-func _use_resources(resources: Array) -> void:
+func _use_resources(_resources: Array) -> void:
     #override in child
     pass
 

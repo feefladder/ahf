@@ -1,19 +1,23 @@
-extends Node
+extends AnnualReviewBase
 class_name CropExpensesContainer
 
 export(PackedScene) var crop_summary_item_packedscene
 
-func add_crop_summary(field_summary: FieldSummaryResource) -> float:
-    var total : float = 0
+const calculation = "%d x %.2f = %.2f"
 
-    for crop_key in field_summary.crop_summary:
-        var num_placed = field_summary.crop_summary[crop_key]["area"] / field_summary.field.field_block_area
+func show_review() -> void:
+    var c_resources: Dictionary = db.static_resources["crop"] #TODO: make nice
+    var field_resource: FieldResource = db.static_resources[db.RESOURCE_TABLES]["primary_field"]
+
+    var crop_sum: Array = db.get_avg_summary(db.CROP_SUM_TABLE, "yield", "crop")
+    for c_dict in crop_sum:
+        var c_resource: CropResource = c_resources[c_dict["crop"]]
+        
+        var amount: int = c_dict["crop_n"]
+        var price: float = c_resource.unit_price
+        var total: float = amount*price
+
         var crop_item = crop_summary_item_packedscene.instance()
-        crop_item.resource = crop_key
-        crop_item.calculation = "%.2f x %.2f =" % [num_placed, crop_key.unit_price]
-        crop_item.total = num_placed * crop_key.unit_price
-        self.add_child(crop_item)
-
-        total += crop_item.total
-
-    return total
+        crop_item.resource = c_resource
+        crop_item.calculation = calculation % [amount, price, total]
+        add_child(crop_item)

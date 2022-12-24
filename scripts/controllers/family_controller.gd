@@ -18,7 +18,6 @@ func try_decrease_resource(an_item: IntResource) -> int:
 func try_toggle_item(item: BuyResource) -> bool:
     # health insurance
     var amount = database.get_generic_amount(item.resource_name, database.HOUSEHOLD_TABLE)
-    print_debug(amount)
     if amount == 0:
         # get health insurance
         if not asset_manager.has_enough(item.unit_price, item.unit_labour):
@@ -38,7 +37,6 @@ func try_toggle_item(item: BuyResource) -> bool:
 func _use_resources(resources:Array) -> void:
     if resources[0] is IntResource:
         for resource in resources:
-            print_debug(resource.resource_name)
             if resource is SchoolResource:
                 schools[resource] = []
             database.add_generic_item(resource.resource_name, database.HOUSEHOLD_TABLE, 0)
@@ -55,7 +53,6 @@ func send_child_to_school(school: SchoolResource) -> int:
         return -1
 
     var children: Array = database.get_eligible_children(school)
-    print_debug(children)
     if children.size() == 0:
         return -1 # no eligible children
     # send the child that has had the most years on this school and if equal, the oldest

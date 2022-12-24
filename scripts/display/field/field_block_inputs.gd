@@ -5,7 +5,6 @@ class_name FieldBlockInputs
 #signal un_hovered(which)
 signal pressed(which)
 signal unpressed(which)
-signal timeout(which)
 
 var _mouse_down := false
 var _mouse_over := false
@@ -36,9 +35,8 @@ func _on_input_event(_viewport, event, _shape_idx):
             super_highlight()
             emit_signal("pressed",self)
         else:
-            emit_signal("unpressed", self)
             un_highlight()
-   
+            emit_signal("unpressed", self)
 
 func _input(event):
     # mouse clicks next to block
@@ -48,8 +46,8 @@ func _input(event):
         else:
             _mouse_down = false
         if _mouse_over and _enabled:
+            super_highlight()
             emit_signal("pressed", self)
-            highlight()
 
 func _on_mouse_entered():
     _mouse_over = true

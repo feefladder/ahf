@@ -8,7 +8,7 @@ resource_name = "manure"
 script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 0.0
-unit_labour = 0.0
+unit_labour = 5.0
 persistent = false
 tooltip_info = {
 "general": "manure from animals",
@@ -16,6 +16,7 @@ tooltip_info = {
 "short_term_cons": PoolStringArray( "high labour requirement", "need animals" ),
 "short_term_pros": "good crop growth"
 }
-blocks_placed = [  ]
-soil_structure_effect = 0.0
+offset = Vector2( 0, 0 )
+scale = Vector2( 1, 1 )
+soil_structure_effect = 1.5
 long_term_fertilization = 0.0

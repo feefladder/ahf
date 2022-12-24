@@ -20,7 +20,6 @@ func should_enable(block):
     if not block.is_empty("structural_measure"):
         return false
     var blocks_placed: Array = block.get_all_with("structural_measure", resource_name)
-    print_debug(blocks_placed)
     if blocks_placed.size() == 0:
         return block.y == 0
     elif blocks_placed.size() % 3 != 0:

@@ -16,6 +16,7 @@ func _ready():
     income.connect("income_changed",self,"_on_income_changed")
     # warning-ignore:return_value_discarded
     expenses.connect("expenses_changed",self,"_on_expenses_changed")
+    get_tree().call_group("annual_review","show_review")
 
 func _on_NextYearButton_pressed():
     database.year += 1
@@ -27,21 +28,6 @@ func _on_NextYearButton_pressed():
 func add_event(event: EventResource):
     if event:
         $VBoxContainer/EventDisplay.display_event(event)
-
-func add_summary(summary):
-    if not summary:
-        printerr("not sure what you're trying to do with: ", summary)
-        return
-    if summary is FieldSummaryResource:
-        income.add_crop_summary(summary)
-        expenses.add_crop_summary(summary)
-    elif summary is AssetSummaryResource:
-        income.add_asset_summary(summary)
-        expenses.add_asset_summary(summary)
-    elif summary is SummaryResource:
-        printerr("summary making not implemented for ", summary.get_class())
-    else:
-        printerr("not sure what you're trying to do with: ", summary)
 
 func _on_income_changed(new_amount: float) -> void:
     total_income = new_amount

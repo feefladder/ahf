@@ -17,18 +17,20 @@ onready var popup_max_reached = get_node(popup_max_reached_path)
 onready var database = get_node(database_path)
 
 func _ready():
-    database.connect("all_resources_loaded",self,"_on_labour_known")
+    database.connect("all_resources_loaded",self,"_on_all_resources_loaded")
 
-func _on_labour_known():
-    available_labour = database.get_total_available_labour()
+func _on_all_resources_loaded():
     database.add_generic_item("money",database.ASSET_TABLE,money)
     database.add_generic_item("used_labour",database.ASSET_TABLE,0)
+    _on_people_changed()
+
+func _on_people_changed():
+    available_labour = database.get_total_available_labour()
     emit_signal("asset_changed","money", money)
     # used labour should be 0
     emit_signal("asset_changed","labour", available_labour-used_labour)
 
 func has_enough(req_money: float, req_labour: float) -> bool:
-#    money = database.get_generic_amount("money",database.ASSET_TABLE)
     var labour = available_labour-used_labour
     if (money < req_money or labour < req_labour):
         var insufficients = {}

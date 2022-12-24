@@ -3,7 +3,6 @@ extends PlacingBase
 export(float) var growth_time = 5.0
 
 func place():
-    print_debug("planting crop!",self)
     $AnimationPlayer.play("plant")
     yield($AnimationPlayer, "animation_finished")
     tween_item()

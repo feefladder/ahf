@@ -3,6 +3,9 @@ class_name LabourController
 
 signal people_changed
 
+func _ready():
+    connect("people_changed", asset_manager, "_on_people_changed")
+
 func try_increase_resource(item: IntResource) -> int:
     if database.get_generic_amount(item.resource_name, database.LABOUR_TABLE) >= item.max_number:
         return -1
@@ -56,7 +59,6 @@ func try_toggle_item(item: BuyResource) -> bool:
     return true
 
 func end_of_year():
-    print_debug("end_of_year called on ",self)
     database.set_next(database.LABOUR_TABLE, "amount", 0)
 
 func _use_resources(resources: Array) -> void:
@@ -64,4 +66,4 @@ func _use_resources(resources: Array) -> void:
         database.add_generic_item(resource.resource_name, database.LABOUR_TABLE, 0)
         if resource is LabourerResource:
             display.set_labourer_person(resource.person)
-    emit_signal("people_changed")
+    # do not emit_signal("people_changed"), because not all resources are loaded

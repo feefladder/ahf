@@ -44,17 +44,20 @@ func _on_Database_resources_loaded(which: String, resources: Array):
             elif resource is BuyResource:
                 item_container.add_menu_toggle_item(resource)
             else:
-                print("Resource: ", resource.resource_name, "not used")
+                print_debug("Resource: ", resource.resource_name, "not used")
 
         _use_resources(resources)
 
-func try_increase_resource(an_item: IntResource) -> int:
+func try_increase_resource(_an_item: IntResource) -> int:
+    print_debug("unoverridden try_increase_resource!")
     return -1
 
-func try_decrease_resource(an_item: IntResource) -> int:
+func try_decrease_resource(_an_item: IntResource) -> int:
+    print_debug("unoverridden try_decrease_resource!")
     return -1
 
-func try_toggle_item(item: BuyResource) -> bool:
+func try_toggle_item(_an_item: BuyResource) -> bool:
+    print_debug("unoverridden try_toggle_item!")
     return false
 
 func end_of_year():

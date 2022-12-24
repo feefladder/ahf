@@ -24,3 +24,5 @@ sell_price = 12.0
 max_yield = 7.0
 f_wlimited_yield = 0.8
 f_actual_yield = 0.6
+ec_threshold = 0.9
+b = 0.09

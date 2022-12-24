@@ -4,7 +4,7 @@ class_name Database
 const SQLite := preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
 
 const FIELD_TABLE := "fields"
-const FERTILITY_TABLE := "fertility"
+const RESOURCE_TABLES := "resources"
 const FBLOCK_TABLE := "field_blocks"
 const LIVESTOCK_TABLE := "livestock"
 const FAMILY_TABLE := "family"
@@ -14,43 +14,43 @@ const UPGRADE_TABLE := "upgrades"
 const ASSET_TABLE := "assets"
 const LABOUR_TABLE := "labour"
 
+const EVENT_SUM_TABLE := "events"
 const CROP_SUM_TABLE := "crop_summary"
 const ASSET_SUM_TABLE := "asset_summary"
 const LIV_SUM_TABLE := "livestock_summary"
 
-const field_tables := [
-    FERTILITY_TABLE,
+const FIELD_TABLES := [
+    # FERTILITY_TABLE,
     FBLOCK_TABLE,
     FIELD_TABLE, #Fert and Fblock have foreign keys
 ]
 
-const people_tables := [
+const PEOPLE_TABLES := [
     SCHOOL_TABLE, #has foreign keys to household and family
     HOUSEHOLD_TABLE, #has schools
     FAMILY_TABLE,
     LABOUR_TABLE,
 ]
 
-const unique_tables := [
+const UNIQUE_TABLES := [
     LIVESTOCK_TABLE,
     UPGRADE_TABLE,
 ]
 
-const summary_tables := [
+const SUMMARY_TABLES := [
+    EVENT_SUM_TABLE,
     CROP_SUM_TABLE,
     ASSET_SUM_TABLE,
     LIV_SUM_TABLE,
 ]
 
-const all_tables := (
+const ALL_TABLES := (
     [ASSET_TABLE]+
-    field_tables+
-    people_tables+
-    unique_tables+
-    summary_tables
+    FIELD_TABLES+
+    PEOPLE_TABLES+
+    UNIQUE_TABLES+
+    SUMMARY_TABLES
 )
-
-
 
 const field_cols := [
         "crop",
@@ -71,12 +71,13 @@ export(Dictionary) var fields_to_paths = {
     LABOUR_TABLE : "labour/",
     FAMILY_TABLE : "family/",
     HOUSEHOLD_TABLE : "household/",
+    RESOURCE_TABLES : "db_resources/",
     field_cols[0] : "crops/",
     field_cols[1] : "structural_measures/",
     field_cols[2] : "measure_improvements/",
     field_cols[3] : "fertilizers/",
     field_cols[4] : "irrigation/",
-    "events" : "events/"
+    EVENT_SUM_TABLE : "events/"
 }
 
 
@@ -86,6 +87,15 @@ var db: SQLite
 var year := 1 setget _set_year, _get_year
 var initializer : Initializer
 var default_field := -1
+var resource_table_columns :Dictionary = {}
+
+# tables that are initialized based on the properties of the resource
+var resource_tables := [
+    # Add more whenever there is a resource that changes its values rather than amount
+    # over time (maybe assets? -> no)
+]
+
+
 
 func _init():
     initializer = Initializer.new()
@@ -104,6 +114,8 @@ func _exit_tree():
 
 func _ready():
     emit_signal("database_loaded")
+    # warning-ignore:return_value_discarded
+    connect("resources_loaded", initializer, "_on_resources_loaded")
     for key in fields_to_paths:
         emit_signal("resources_loaded", key, _load_resources(key))
     emit_signal("all_resources_loaded")
@@ -157,7 +169,7 @@ func _copy_db_to_user() -> void:
 func clear_database() -> bool:
     var success : bool = true
     db.open_db()
-    for tn in all_tables:
+    for tn in ALL_TABLES + resource_tables:
         success = success and db.delete_rows(tn,"1=1")
     db.close_db()
     return success
@@ -165,7 +177,7 @@ func clear_database() -> bool:
 func obliterate_database() -> bool:
     var success : bool = true
     db.open_db()
-    for tn in all_tables:
+    for tn in ALL_TABLES + resource_tables:
         success = success and db.drop_table(tn)
     db.close_db()
     return success
@@ -179,7 +191,6 @@ func _set_year(new_year: int) -> bool:
     if new_year < year:
         return false
     # do some necessary stuff like checking if all tables have values corresponding to this year
-    print_debug("year set to bla")
     year = new_year
     return true
 
@@ -190,8 +201,9 @@ func increase_all_tables_years() -> bool:
     var success = true
     for table in (
         [ASSET_TABLE]+
-        field_tables+
-        people_tables
+        FIELD_TABLES+
+        PEOPLE_TABLES+
+        resource_tables
     ):
         success = increase_year(table) and success
     return success
@@ -230,6 +242,39 @@ func set_next(table_name:String, column:String, set_to, additional_conditions: S
     return success
 
 ############################################
+# Writes/updates on summaries
+############################################
+
+func add_summary(table_name: String, values: Dictionary) -> int:
+    values["year"] = year #this actually modifies the dict - maybe copy
+    db.open_db()
+    var success: bool = db.insert_row(table_name, values)
+    var id: int = db.last_insert_rowid
+    db.close_db()
+    if success:
+        return id
+    else:
+        return 0
+
+func get_summary(table_name: String) -> Array:
+    db.open_db()
+    db.query("SELECT * FROM "+table_name+" WHERE year="+str(year))
+    var summary:Array = db.query_result
+    db.close_db()
+    return summary.duplicate()
+
+func get_avg_summary(table_name: String, col: String, group_by: String) -> Array:
+    db.open_db()
+    db.query(
+        " SELECT AVG("+col+") AS "+col+"_avg, COUNT("+group_by+") AS "+group_by+"_n, "+group_by+
+        " FROM "+table_name+
+        " GROUP BY "+group_by
+        )
+    var result: Array = db.query_result
+    db.close_db()
+    return result.duplicate()
+
+############################################
 # Writes/updates on items 
 ############################################
 
@@ -237,9 +282,17 @@ func set_next(table_name:String, column:String, set_to, additional_conditions: S
 #column
 #thus they allow for you to track over time which is which
 func add_unique_int_item(name: String, table_name: String=LIVESTOCK_TABLE) -> int:
+    var c_just_sold = "year_sold='"+str(year)+"'"
     db.open_db()
-    var success: bool = db.insert_row(table_name, {"year_bought":year,"name":name})
-    var id:int = db.last_insert_rowid
+    var rows: Array = db.select_rows(table_name, c_just_sold, ["id"])
+    var id:int=0
+    var success:bool=false
+    if rows.size():
+        id = rows[0]["id"]
+        success = db.update_rows(table_name, "id="+str(id), {"year_sold":null})
+    else:
+        success = db.insert_row(table_name, {"year_bought":year,"name":name})
+        id = db.last_insert_rowid
     db.close_db()
     if success:
         return id
@@ -275,19 +328,19 @@ func get_unique_int_items(name: String, table_name: String=LIVESTOCK_TABLE) -> A
     db.open_db()
     var rows: Array = db.select_rows(table_name, "name='"+name+"' AND year_sold IS NULL", ["id","name","year_bought"])
     db.close_db()
-    return rows
+    return rows.duplicate()
 
 func get_unique_changed_item(name: String, table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "name='name"+name+"' AND ( year_bought="+str(year)+" OR year_sold="+str(year)+" )"
     var rows: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
     db.close_db()
-    return rows
+    return rows.duplicate()
 
 func get_unique_changed_items(table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "year_bought="+str(year)+" OR year_sold="+str(year)
     var rows: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
     db.close_db()
-    return rows
+    return rows.duplicate()
 
 # generic int items are stored each year with an "amount" column and tracked by
 # comparing columns
@@ -335,7 +388,28 @@ func get_generic_changed_items(table_name: String) -> Array:
     db.query(query_string)
     var rows = db.query_result
     db.close_db()
-    return rows
+    return rows.duplicate()
+
+###########################################
+# Writes/updates on fertility
+###########################################
+
+func get_current_fertility(field=0)->Array:
+    if not field:
+        field=default_field
+    db.open_db()
+    var rows = db.select_rows("FertilityResource", #TODO: make nice
+        "year="+str(year)+
+        " AND field="+str(field)
+        ,[
+            "nutrient_status",
+            "soil_structure",
+            "erosion_rate",
+            "salinity",
+            "compound_fertility"
+    ])
+    db.close_db()
+    return rows.duplicate()
 
 
 ###########################################
@@ -383,7 +457,7 @@ func get_family() -> Array:
     db.close_db()
     for person in rows:
         person["resource"] = static_resources[FAMILY_TABLE][person["name"]]
-    return rows
+    return rows.duplicate()
 
 
 ############################################
@@ -400,7 +474,8 @@ func get_total_available_labour() -> int:
     rows = db.select_rows(LABOUR_TABLE, "year="+str(year),["amount","name"])
     for labour_item in rows:
         var resource = static_resources[LABOUR_TABLE][labour_item["name"]]
-        labour += resource.unit_labour * labour_item["amount"]
+        if resource is LabourerResource:
+            labour += resource.person.labour * labour_item["amount"]
     db.close_db()
     return labour
 
@@ -564,6 +639,7 @@ func get_block_resource(block_x: int, block_y: int, type: String, field=0) -> Re
     var result: Array = db.select_rows(FBLOCK_TABLE, condition, [type])
     db.close_db()
 
+    assert(result.size()==1)
     var resource_type = result[0][type]
     if resource_type == null:
         return null
@@ -622,33 +698,28 @@ func block_has(block_x: int, block_y: int, type: String, name: String, field=0) 
     db.close_db()
     return has
 
-func get_all_with(type: String, name: String, field=0) -> Array:
-    if not field:
-        field=default_field
-    db.open_db()
-    var rows = db.select_rows(FBLOCK_TABLE,
-        "year="+str(year)+
-        " AND field="+str(field)+
-        " AND "+type+"='"+name+"'"+
-        " ORDER BY y,x ASC",
-        ["x","y"]
-    )
-    db.close_db()
-    return rows
+func get_blocks_and_resources(conditions: String="1=1", resource_types: PoolStringArray=[], field:int=0) -> Array:
+    var b_dicts: Array = get_all_blocks(conditions, resource_types, field)
+    for r_type in resource_types:
+        for b_dict in b_dicts:
+            var r_name = b_dict[r_type]
+            if r_name != null:
+                b_dict[r_type+"_resource"] = static_resources[r_type][r_name]
+    return b_dicts
 
-func get_all_empty(type: String, field=0) -> Array:
+func get_all_blocks(conditions: String="1=1", extra_cols: Array=[], field:int=0) -> Array:
     if not field:
         field=default_field
     db.open_db()
     var rows = db.select_rows(FBLOCK_TABLE,
         "year="+str(year)+
         " AND field="+str(field)+
-        " AND "+type+" IS NULL"+
+        " AND "+conditions+
         " ORDER BY y,x ASC",
-        ["x","y"]
+        ["x","y"]+extra_cols
     )
     db.close_db()
-    return rows
+    return rows.duplicate()
 
 # empties the block
 func empty_block_type(block_x: int, block_y: int, type: String, field=0) -> bool:

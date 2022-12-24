@@ -11,11 +11,9 @@ onready var db: Node = get_tree().get_root().get_child(0)
 
 func update_all_to_db() -> void:
     for col in db.field_cols:
-        # print_debug(col)
         update_to_db(col)
 
 func update_to_db(col_name: String) -> void:
-    # print_debug("updating to db: ", col_name)
     var resource = db.get_block_resource(x,y,col_name)
     if resource != null:
         place(resource, col_name)
@@ -34,13 +32,11 @@ func remove(what: String):
         node.queue_free()
 
 func place(r: PlaceableResource, name: String):
-    print_debug("placing item: ",r.resource_name, " on ",x,",",y)
     var sprite = Sprite.new()
     sprite.name = name
     sprite.texture = r.image
     sprite.scale = r.scale
     sprite.position = r.offset
-    print_debug("offset: ",r.offset," position: ",sprite.position)
     sprite.visible = false
     add_child(sprite)
 
@@ -58,7 +54,7 @@ func is_empty(type: String):
     return db.block_empty(x,y,type)
 
 func get_all_with(type: String, name: String):
-    return db.get_all_with(type, name)
+    return db.get_all_blocks(type+"='"+name+"'")
 
 func get_all_empty(type: String):
-    return db.get_all_empty(type)
+    return db.get_all_blocks(type+" IS NULL")

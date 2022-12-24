@@ -1,7 +1,7 @@
 extends Resource
 class_name FertilityResource
 
-export(float, 0, 1) var salinity
+export(float, 0, 10) var salinity #dS/m http://dx.doi.org/10.19026/rjees.6.5771 -> 0.3515
 export(float, 0, 1) var nutrient_status
 export(float, 0, 1) var soil_structure
 export(float) var erosion_rate
@@ -12,3 +12,6 @@ func _set_compound_fertility(_something: float):
 
 func _get_compount_fertility() -> float:
     return (1-salinity)*nutrient_status*soil_structure
+
+func get_class():
+    return "FertilityResource"
