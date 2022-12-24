@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3-dev (1:1.2.0-alpha1+devel+202207092234+3c2958b9eb)"
+   sodipodi:docname="Money.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="22.492256"
+     inkscape:cx="26.453549"
+     inkscape:cy="1116.8288"
+     inkscape:window-width="1920"
+     inkscape:window-height="939"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1"
+       empspacing="4" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4"
+       inkscape:export-filename="money.png"
+       inkscape:export-xdpi="960"
+       inkscape:export-ydpi="960">
+      <rect
+         style="fill:#217821;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="rect1"
+         width="5.2916665"
+         height="3.1750102"
+         x="0"
+         y="293.15833" />
+      <rect
+         style="fill:#2ca02c;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="rect2"
+         width="4.7624998"
+         height="2.6458373"
+         x="0.26458332"
+         y="293.42291" />
+      <rect
+         style="fill:#217821;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="rect3"
+         width="4.2333331"
+         height="1.5875013"
+         x="0.52916664"
+         y="293.95209" />
+      <circle
+         style="fill:#2ca02c;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="path3"
+         cx="2.6458333"
+         cy="294.74582"
+         r="1.3229166" />
+      <circle
+         style="fill:#217821;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="circle3"
+         cx="2.6458333"
+         cy="294.74582"
+         r="1.0583333" />
+      <circle
+         style="fill:#2ca02c;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round"
+         id="circle4"
+         cx="2.6458333"
+         cy="294.74582"
+         r="0.79374993" />
+    </g>
+  </g>
+</svg>
