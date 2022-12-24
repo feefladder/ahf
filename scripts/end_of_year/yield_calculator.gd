@@ -10,7 +10,10 @@ func calculate_yield(b_dict: Dictionary, f_dict: Dictionary, event: YieldEventRe
         # factor due to water stress (in case there is no irrigation)
         # from GYGA
         final_yield *= b_dict["crop_resource"].f_wlimited_yield
-    final_yield *= f_dict["nutrient_status"]
+    # if there is fertilization, yield is not reduced by nutrients
+    if not b_dict["fertilization"]:
+        final_yield *= f_dict["nutrient_status"]
+
     final_yield *= f_dict["soil_structure"]
     if f_dict["salinity"] > c_res.ec_threshold:
         # Ya/Ym=1-(EC_e-EC_e,thresh)*b/100 (if b is percentage, FAO 56, eq 89, p 176) 

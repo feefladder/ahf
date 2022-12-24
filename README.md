@@ -57,7 +57,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 - [x] Make Open Source
 - [ ] Multi-language Support
-    - [ ] English
+    - [x] English
     - [ ] Hausa
     - [ ] Swahili
 

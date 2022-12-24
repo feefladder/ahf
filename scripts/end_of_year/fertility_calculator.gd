@@ -13,17 +13,14 @@ var new_fertility: FertilityResource
 #    calc_fertility()
 #    return summary
 
-func calc_fertility() -> void:
-    new_fertility = FertilityResource.new()
-    print(fertility.duplicate(true)) #not supposed to have subresources though
+func end_of_year():
     calc_salinity()
     calc_nutrients()
     calc_soil_structure()
     calc_erosion()
-    fertility = new_fertility
 
 func calc_salinity() -> void:
-    print("salinity: ", fertility.salinity)
+    print_debug("salinity increase not implemented yet! ", fertility.salinity)
 
 func calc_soil_structure() -> void:
     print("soil structure: ", fertility.soil_structure)
