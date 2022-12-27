@@ -1,9 +1,8 @@
 extends Node
 
-const calculation = "%.2f x %.2f x %.2f x %.2f ="
-
 var resource: Resource
 var amount: int
+var dict: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready():
     if not resource:
@@ -13,7 +12,7 @@ func _ready():
 
     $Title.text = resource.resource_name
     # yield × area × fertility × price = total
-    $Amount.text = "%.2f" % (amount)
+    $Amount.text = "%.2f" % (dict["d_money"])
 #    $Icon.texture = crop_resource.image
 
 

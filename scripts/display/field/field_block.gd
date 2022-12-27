@@ -21,7 +21,7 @@ func update_to_db(col_name: String) -> void:
     elif get_node_or_null(col_name) != null:
         remove(col_name)
 #        remove(col_name)
-    
+   
 
 func remove(what: String):
     var node = get_node_or_null(what)

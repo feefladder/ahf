@@ -12,7 +12,7 @@ func show_review() -> void:
     var crop_sum: Array = db.get_avg_summary(db.CROP_SUM_TABLE, "yield", "crop")
     for c_dict in crop_sum:
         var c_resource: CropResource = c_resources[c_dict["crop"]]
-        
+       
         var area: float = field_resource.field_block_area*c_dict["crop_n"]
         var avg_yield: float = c_dict["yield_avg"]
         var price: float = c_resource.sell_price

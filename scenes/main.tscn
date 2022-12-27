@@ -596,6 +596,8 @@ visible = false
 script = ExtResource( 42 )
 
 [connection signal="database_loaded" from="." to="Background/Field" method="_on_Database_database_loaded"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/MoneyStat" method="_on_AssetManager_asset_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/LabourStat" method="_on_AssetManager_asset_changed"]
 [connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]
 [connection signal="resized" from="Tooltips/BigMenuTooltip/TextContainer" to="Tooltips/BigMenuTooltip" method="_on_TextContainer_resized"]

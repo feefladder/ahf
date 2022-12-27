@@ -71,6 +71,7 @@ export(Dictionary) var fields_to_paths = {
     LABOUR_TABLE : "labour/",
     FAMILY_TABLE : "family/",
     HOUSEHOLD_TABLE : "household/",
+    UPGRADE_TABLE : "upgrades/",
     RESOURCE_TABLES : "db_resources/",
     field_cols[0] : "crops/",
     field_cols[1] : "structural_measures/",
@@ -183,7 +184,7 @@ func obliterate_database() -> bool:
     return success
 
 #############################################
-# functions to control what happens at the end of the year. 
+# functions to control what happens at the end of the year.
 # These work on the next year
 # ###########################################
 
@@ -241,9 +242,23 @@ func set_next(table_name:String, column:String, set_to, additional_conditions: S
     db.close_db()
     return success
 
+func set_next_dict(table_name:String, values: Dictionary, additional_conditions: String="") -> bool:
+    var condition = "year="+str(year+1)+" "+additional_conditions
+    db.open_db()
+    var success:bool=db.update_rows(table_name,condition,values)
+    db.close_db()
+    return success
+
 ############################################
 # Writes/updates on summaries
 ############################################
+
+func get_resource(resource_name: String) -> Resource:
+    for dict in static_resources:
+        print_debug(dict)
+        if static_resources[dict].get(resource_name):
+            return static_resources[dict].get(resource_name)
+    return null
 
 func add_summary(table_name: String, values: Dictionary) -> int:
     values["year"] = year #this actually modifies the dict - maybe copy
@@ -255,6 +270,14 @@ func add_summary(table_name: String, values: Dictionary) -> int:
         return id
     else:
         return 0
+
+func add_summaries(table_name: String, summaries: Array) -> bool:
+    for s in summaries:
+        s["year"] = year #this actually modifies the array - maybe copy?
+    db.open_db()
+    var success: bool = db.insert_rows(table_name, summaries)
+    db.close_db()
+    return success
 
 func get_summary(table_name: String) -> Array:
     db.open_db()
@@ -275,7 +298,7 @@ func get_avg_summary(table_name: String, col: String, group_by: String) -> Array
     return result.duplicate()
 
 ############################################
-# Writes/updates on items 
+# Writes/updates on items
 ############################################
 
 #unique int items are stored with "year_bought" column and are sold with "year_sold"
@@ -328,19 +351,26 @@ func get_unique_int_items(name: String, table_name: String=LIVESTOCK_TABLE) -> A
     db.open_db()
     var rows: Array = db.select_rows(table_name, "name='"+name+"' AND year_sold IS NULL", ["id","name","year_bought"])
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 func get_unique_changed_item(name: String, table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "name='name"+name+"' AND ( year_bought="+str(year)+" OR year_sold="+str(year)+" )"
+    db.open_db()
     var rows: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 func get_unique_changed_items(table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "year_bought="+str(year)+" OR year_sold="+str(year)
-    var rows: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
+    db.open_db()
+    db.query("SELECT name, year_bought, year_sold, COUNT(name) AS n"+
+        " FROM "+table_name+
+        " WHERE "+condition+
+        " GROUP BY name"
+    )
+    var rows: Array = db.query_result
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 # generic int items are stored each year with an "amount" column and tracked by
 # comparing columns
@@ -354,6 +384,16 @@ func add_generic_item(name:String, table_name:String, amount) -> int:
         return id
     else:
         return 0
+
+func get_generic_amounts(table_name: String, additional_conditions: String = "1=1") -> Array:
+    db.open_db()
+    var rows: Array = db.select_rows(table_name,"year="+str(year)+" AND "+additional_conditions,["name","amount"])
+    db.close_db()
+    # for row in rows:
+    #     var name: String = row["name"]
+    #     row[name+"_resource"] = static_resources[table_name][name]
+    return rows.duplicate(true)
+
 
 func get_generic_amount(name: String, table_name: String):
     var condition = "name='"+name+"' AND year="+str(year)
@@ -373,7 +413,6 @@ func change_generic_item(name:String, table_name:String, d_amount) -> int:
     else:
         return -1
 
-
 func get_generic_changed_items(table_name: String) -> Array:
     # https://learnsql.com/blog/difference-between-two-rows-in-sql/
 
@@ -388,28 +427,22 @@ func get_generic_changed_items(table_name: String) -> Array:
     db.query(query_string)
     var rows = db.query_result
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 ###########################################
 # Writes/updates on fertility
 ###########################################
 
-func get_current_fertility(field=0)->Array:
+func get_current_fertility(cols:Array, field=0)->Array:
     if not field:
         field=default_field
     db.open_db()
     var rows = db.select_rows("FertilityResource", #TODO: make nice
         "year="+str(year)+
         " AND field="+str(field)
-        ,[
-            "nutrient_status",
-            "soil_structure",
-            "erosion_rate",
-            "salinity",
-            "compound_fertility"
-    ])
+        ,cols)
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 
 ###########################################
@@ -457,7 +490,7 @@ func get_family() -> Array:
     db.close_db()
     for person in rows:
         person["resource"] = static_resources[FAMILY_TABLE][person["name"]]
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 
 ############################################
@@ -607,7 +640,7 @@ func add_block(block_x: int, block_y: int, field=0) -> bool:
     if not field:
         field=default_field
     db.open_db()
-   
+  
     var blocks : Array = db.select_rows(
         FBLOCK_TABLE,
         "x= " + str(block_x) +
@@ -619,7 +652,7 @@ func add_block(block_x: int, block_y: int, field=0) -> bool:
     if blocks.size() != 0:
         db.close_db()
         return false
-    
+   
     var success: bool = db.insert_row(FBLOCK_TABLE, {"x":block_x,"y":block_y,"year":year,"field":field})
     db.close_db()
     return success
@@ -719,7 +752,7 @@ func get_all_blocks(conditions: String="1=1", extra_cols: Array=[], field:int=0)
         ["x","y"]+extra_cols
     )
     db.close_db()
-    return rows.duplicate()
+    return rows.duplicate(true)
 
 # empties the block
 func empty_block_type(block_x: int, block_y: int, type: String, field=0) -> bool:

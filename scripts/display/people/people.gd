@@ -23,7 +23,7 @@ func update_family_to_db():
     for member in family:
         var id: int = member["id"]
         if not id in family_dict:
-            family_dict[id] = member #since dicts are copied 
+            family_dict[id] = member #since dicts are copied
             family_dict[id]["sprite"] = add_person(member["resource"])
         else:
             family_dict[id]["on_farm"] = member["on_farm"]

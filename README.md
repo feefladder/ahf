@@ -56,7 +56,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 ## Roadmap
 
 - [x] Make Open Source
-- [ ] Multi-language Support
+- [x] Multi-language Support
     - [x] English
     - [ ] Hausa
     - [ ] Swahili

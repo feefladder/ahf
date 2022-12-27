@@ -150,7 +150,9 @@ func _add_cols_recursive(table_dict: Dictionary, resource: Resource, f: FuncRef)
         else:
             print_debug("could not do anything with ",p_dict) #TODO automatic creation of extra tables etc
 
-func _add_mcol_recursive(table_dict: Dictionary, name_prefix: String, f: FuncRef, thing, delim:String =".") -> void:
+func _add_mcol_recursive(table_dict: Dictionary, name_prefix: String, f: FuncRef, thing, delim =".") -> void:
+    if delim == null:
+        delim="."
     match typeof(thing):
         TYPE_VECTOR2:
             f.call_func(table_dict, name_prefix+delim+"x", thing.x)
@@ -214,43 +216,6 @@ func _init_field_table() -> int:
     db.query("INSERT INTO "+table_name+" DEFAULT VALUES;")
     db.query("SELECT id FROM "+table_name)
     return db.query_result[0]["id"]
-
-func _init_fertility_table() -> bool:
-    var table_name : String = database.FERTILITY_TABLE
-    var table_dict = {
-        "id":{
-            "data_type":"int",
-            "primary_key":true,
-            "auto_increment":true,
-        },
-        "year":{
-            "data_type":"int",
-            "not_null":true,
-        },
-        "field":{
-            "data_type":"int",
-            "foreign_key":database.FIELD_TABLE+".id",
-            "not_null":true,
-        },
-        "nutrient_status":{
-            "data_type":"real",
-            "not_null":true,
-        },
-        "soil_structure":{
-            "data_type":"real",
-            "not_null":true,
-        },
-        "erosion_rate":{
-            "data_type":"real",
-            "not_null":true,
-        },
-        "salinity":{
-            "data_type":"real",
-            "not_null":true,
-        }
-        }
-    return db.create_table(table_name,table_dict)
-
 
 func _init_field_blocks_table() -> bool:
     var table_name : String = database.FBLOCK_TABLE
@@ -496,7 +461,15 @@ func _init_asset_sum_table() -> bool:
         "name":{
             "data_type":"text",
             "not_null":true,
-        }
+        },
+        "amount":{
+            "data_type":"int",
+            "not_null":true,
+        },
+        "d_money":{
+            "data_type":"real",
+            "not_null":true,
+        },
     }
     return db.create_table(table_name,table_dict)
 

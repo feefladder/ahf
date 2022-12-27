@@ -23,7 +23,7 @@ In determining which data schema should be used, the following considerations we
   following way:
 
   .. uml::
-     
+    
      @startuml
 
       entity field_block {
@@ -39,11 +39,11 @@ In determining which data schema should be used, the following considerations we
          * irrigation: text
          * fertilizer: text
       }
-   
-   
+  
+  
 
      @enduml
-* 
+*
 
 .. uml::
 

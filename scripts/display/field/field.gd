@@ -3,7 +3,7 @@ class_name Field
 # the Field manages:
 # - instantiation of FieldBlocks
 # - passing click events of FieldBlocks to the StateManager
-# - 
+# -
 # - keeping track of different measures that are applied and passes them to the database
 
 

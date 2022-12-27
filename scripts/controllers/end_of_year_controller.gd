@@ -51,7 +51,8 @@ func _on_NextYearButton_pressed():
         get_tree().get_root().add_child(end_of_game_packedscene.instance())
     else:
         var event: EventResource = get_event()
-        db.add_summary(db.EVENT_SUM_TABLE, {"event":event.resource_name})
+        if not db.add_summary(db.EVENT_SUM_TABLE, {"event":event.resource_name}):
+            print_debug("add_summary failed")
         get_tree().call_group("calculators","end_of_year",event)
 
         annual_review = annual_review_packedscene.instance()

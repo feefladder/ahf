@@ -7,7 +7,7 @@ export(float, 0,1) var f_wlimited_yield #-
 export(float, 0,1) var f_actual_yield
 export(float, 0.5, 10) var ec_threshold #dS/m
 export(float, 0,1) var b #/(dS/m)
-
+export(float) var long_term_fertilization := 0.0
 
 func _get_offset():
     return Vector2(0,-image.get_size().y/2*scale.y)

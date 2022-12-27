@@ -26,3 +26,4 @@ f_wlimited_yield = 0.8
 f_actual_yield = 0.8
 ec_threshold = 1.0
 b = 0.19
+long_term_fertilization = 0.0

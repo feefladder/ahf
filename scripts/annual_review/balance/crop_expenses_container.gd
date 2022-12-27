@@ -7,12 +7,11 @@ const calculation = "%d x %.2f = %.2f"
 
 func show_review() -> void:
     var c_resources: Dictionary = db.static_resources["crop"] #TODO: make nice
-    var field_resource: FieldResource = db.static_resources[db.RESOURCE_TABLES]["primary_field"]
 
     var crop_sum: Array = db.get_avg_summary(db.CROP_SUM_TABLE, "yield", "crop")
     for c_dict in crop_sum:
         var c_resource: CropResource = c_resources[c_dict["crop"]]
-        
+       
         var amount: int = c_dict["crop_n"]
         var price: float = c_resource.unit_price
         var total: float = amount*price

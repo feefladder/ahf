@@ -1,7 +1,12 @@
 extends BigMenu
 class_name FamilyHandler
 
+signal people_changed
+
 var schools : Dictionary
+
+func _ready():
+    connect("people_changed", asset_manager, "_on_people_changed")
 
 func try_increase_resource(an_item: IntResource) -> int:
     if an_item is SchoolResource:
@@ -85,3 +90,6 @@ func end_of_year():
     database.increment_next(database.FAMILY_TABLE, "age")
     database.set_next(database.FAMILY_TABLE, "on_farm", true)
     database.set_next(database.HOUSEHOLD_TABLE, "amount", 0)
+
+func start_year():
+    display.update_family_to_db()

@@ -13,3 +13,7 @@ func _on_stat_changed(which: String, new_amount: float) -> void:
 
     if which == type:
         $Amount.text = String(new_amount) + unit
+
+
+func _on_AssetManager_asset_changed(which, new_amount):
+    _on_stat_changed(which, new_amount)

@@ -8,5 +8,6 @@ script = ExtResource( 1 )
 salinity = 0.0
 nutrient_status = 0.183
 soil_structure = 0.249
+bulk_density = 1233.0
 erosion_rate = 50.0
 compound_fertility = 0.0
