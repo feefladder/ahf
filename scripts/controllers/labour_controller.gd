@@ -60,6 +60,20 @@ func try_toggle_item(item: BuyResource) -> bool:
 
 func end_of_year():
     database.set_next(database.LABOUR_TABLE, "amount", 0)
+    
+
+func start_year():
+    display.update_family_to_db()
+    emit_signal("people_changed")
+    # set the menu to database things
+    for menu_item in item_container.get_children():
+        var resource = menu_item.resource
+        var amount:int = database.get_generic_amount(resource.resource_name, database.LABOUR_TABLE)
+        if "amount" in menu_item:
+            menu_item.amount = amount
+        elif menu_item.has_method("set_toggle"):
+            menu_item.set_toggle(amount >= 1)
+
 
 func _use_resources(resources: Array) -> void:
     for resource in resources:

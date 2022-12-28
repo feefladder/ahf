@@ -34,9 +34,9 @@ func _try_toggle_button(menu_item: BigMenuToggleItem, is_pressed: bool) -> void:
 func _try_increase_resource(menu_item: BigMenuIntItem) -> void:
     var new_number = manager.try_increase_resource(menu_item.resource)
     if new_number != -1:
-        menu_item.change_number(new_number)
+        menu_item.amount = new_number
 
 func _try_decrease_resource(menu_item: BigMenuIntItem) -> void:
     var new_number = manager.try_decrease_resource(menu_item.resource)
     if new_number != -1:
-        menu_item.change_number(new_number)
+        menu_item.amount = new_number

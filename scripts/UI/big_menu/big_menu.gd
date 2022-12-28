@@ -20,22 +20,6 @@ func _ready():
     if get_node_or_null("Title"):
         $Title.text = title
 
-func _on_int_item_increased(which: IntResource) -> void:
-    # TODO: call db and do things
-    if display:
-        if display.has_method("increase_int_item"):
-            display.increase_int_item(which)
-
-func _on_int_item_decreased(which: IntResource) -> void:
-    # TODO: call db and do things
-    if display:
-        if display.has_method("decrease_int_item"):
-            display.decrease_int_item(which)
-
-func _on_toggle_item_set(which: BuyResource, to_what: bool) -> void:
-    print("set ", which.resource_name, " to ", to_what)
-
-
 func _on_Database_resources_loaded(which: String, resources: Array):
     if which in resource_names:
         for resource in resources:

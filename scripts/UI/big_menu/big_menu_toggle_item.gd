@@ -9,10 +9,6 @@ signal item_pressed(which, is_pressed)
 func _ready():
     $Title.text = resource.resource_name
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
 func set_toggle(to_what: bool) -> void:
     $CheckBox.set_pressed_no_signal(to_what)
 

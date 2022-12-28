@@ -19,7 +19,6 @@ func end_of_year(_event) -> void:
     ])
     
     fert_dict = db.get_current_fertility(["salinity","nutrient_status","soil_structure","bulk_density","erosion_rate"])[0]
-    db.db.verbosity_level=2
     fert_dict["salinity"] = calc_salinity()
     fert_dict["nutrient_status"] = calc_nutrients()
     fert_dict["soil_structure"] = calc_soil_structure()
@@ -27,7 +26,6 @@ func end_of_year(_event) -> void:
     erode_soil()
     fert_dict["erosion_rate"] = calc_erosion()
     db.set_next_dict("FertilityResource", fert_dict)
-    db.db.verbosity_level=0
     # print_debug(fert_dict)
 
 func calc_salinity() -> float:

@@ -68,3 +68,7 @@ func increase_assets(inc_money: float, inc_labour: float) -> bool:
 
 func make_summary() -> AssetSummaryResource:
     return $AssetCalculator.make_summary()
+
+func start_year():
+    print_debug("year started, yay!")
+    money = database.get_generic_amount("money", database.ASSET_TABLE)

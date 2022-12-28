@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/events/event_resource.gd"
 }, {
-"base": "Node",
+"base": "AnnualReviewBase",
 "class": "ExpensesDisplay",
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/expenses_display.gd"
@@ -204,7 +204,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gut/test.gd"
 }, {
-"base": "Node",
+"base": "AnnualReviewBase",
 "class": "IncomeDisplay",
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/income_display.gd"

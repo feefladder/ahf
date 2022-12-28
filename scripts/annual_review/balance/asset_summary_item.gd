@@ -12,8 +12,8 @@ func _ready():
 
     $Title.text = resource.resource_name
     # yield × area × fertility × price = total
-    $Amount.text = "%.2f" % (dict["d_money"])
-#    $Icon.texture = crop_resource.image
+    $Amount.text = "%.2f" % abs(dict["d_money"])
+    # $Icon.texture = crop_resource.image
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
