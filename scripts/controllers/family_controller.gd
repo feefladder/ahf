@@ -58,6 +58,7 @@ func send_child_to_school(school: SchoolResource) -> int:
         return -1
 
     var children: Array = database.get_eligible_children(school)
+    print_debug("eligible_children: ", children)
     if children.size() == 0:
         return -1 # no eligible children
     # send the child that has had the most years on this school and if equal, the oldest
@@ -93,3 +94,10 @@ func end_of_year():
 
 func start_year():
     display.update_family_to_db()
+    for menu_item in item_container.get_children():
+        var resource = menu_item.resource
+        var amount:int = database.get_generic_amount(resource.resource_name, database.HOUSEHOLD_TABLE)
+        if "amount" in menu_item:
+            menu_item.amount = amount
+        elif menu_item.has_method("set_toggle"):
+            menu_item.set_toggle(amount >= 1)

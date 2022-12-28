@@ -230,7 +230,11 @@ func increment_next(table_name: String, column:String, name:String="") -> bool:
     if name != "":
         condition += " AND name='"+name+"'"
     db.open_db()
-    var success:bool=db.update_rows(table_name,condition,{column: column+"+1"})
+    var success:bool=db.query(
+        " UPDATE "+table_name+
+        " SET "+column+"="+column+"+1"+
+        " WHERE "+condition
+        )
     db.close_db()
     return success
 
