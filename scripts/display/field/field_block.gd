@@ -43,6 +43,7 @@ func place(r: PlaceableResource, name: String):
     # this should free itself
     var p_scene = r.placing_scene.instance()
     p_scene.item=sprite
+    p_scene.time = r.time
     add_child(p_scene)
     yield(p_scene,"placed")
     emit_signal("placed")

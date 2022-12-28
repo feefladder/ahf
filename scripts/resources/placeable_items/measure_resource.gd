@@ -1,7 +1,6 @@
 extends PlaceableResource
 class_name StructuralMeasureResource
 
-export(float) var time_required = 0.1
 export(float) var erosion_reduction
 export(float) var fertility_increase
 export(float) var salinity_effect

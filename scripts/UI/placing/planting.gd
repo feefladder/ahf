@@ -1,7 +1,5 @@
 extends PlacingBase
 
-export(float) var growth_time = 5.0
-
 func place():
     $AnimationPlayer.play("plant")
     yield($AnimationPlayer, "animation_finished")
@@ -16,7 +14,7 @@ func tween_item():
             "position",
             Vector2(0.0,0.0),
             item.position,
-            growth_time,
+            time,
             Tween.TRANS_CUBIC,
             Tween.EASE_OUT
     )
@@ -25,7 +23,7 @@ func tween_item():
             "scale",
             Vector2(0.0, 0.0),
             item.scale,
-            growth_time,
+            time,
             Tween.TRANS_CUBIC,
             Tween.EASE_OUT
     )

@@ -16,6 +16,8 @@ tooltip_info = {
 "short_term_cons": "",
 "short_term_pros": ""
 }
-blocks_placed = [  ]
+offset = Vector2( 0, 10 )
+scale = Vector2( 0.05, 0.05 )
+time = 5.0
 soil_structure_effect = 0.0
 long_term_fertilization = 0.0

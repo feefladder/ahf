@@ -73,10 +73,11 @@ func set_current_measure(which: BuyMenuItem):
     field.set_enable_with(current_resource)
 
 func try_apply(block: FieldBlock, col: String) -> bool:
-    if not asset_manager.decrease_assets(current_resource.unit_price, current_resource.unit_labour):
+    if not asset_manager.has_enough(current_resource.unit_price, current_resource.unit_labour):
         return false
     if not database.write_block_if_empty(block.x, block.y, col, current_resource.resource_name):
         return false
+    asset_manager.decrease_assets(current_resource.unit_price, current_resource.unit_labour)
     field.disable_except(block)
     block.update_to_db(col)
     yield(block,"placed")

@@ -1,11 +1,9 @@
 extends PlacingBase
 
-var time_required: float = 0.1
-
 func place():
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     $Shovel/AnimationPlayer.play("dig")
-    yield(get_tree().create_timer(time_required), "timeout")
+    yield(get_tree().create_timer(time), "timeout")
 
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     Input.warp_mouse_position(get_global_position())
