@@ -15,13 +15,16 @@ func update_all_to_db() -> void:
 
 func update_to_db(col_name: String) -> void:
     var resource = db.get_block_resource(x,y,col_name)
-    if resource != null:
+    if resource != null and get_node_or_null(col_name) == null:
         place(resource, col_name)
         # assuming there is not already the same resource
-    elif get_node_or_null(col_name) != null:
+    elif get_node_or_null(col_name) != null and resource == null:
         remove(col_name)
 #        remove(col_name)
-   
+    else:
+        pass
+        # print_debug("did not have to change anything for ",self)
+
 
 func remove(what: String):
     var node = get_node_or_null(what)

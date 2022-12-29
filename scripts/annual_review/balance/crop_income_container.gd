@@ -4,6 +4,7 @@ class_name CropIncomeContainer
 export(PackedScene) var crop_summary_item_packedscene
 
 const calculation = "%.2f x %.2f x %.2f = %.2f"
+var crop_income := 0.0
 
 func show_review() -> void:
     var c_resources: Dictionary = db.static_resources["crop"] #TODO: make nice
@@ -22,3 +23,6 @@ func show_review() -> void:
         crop_item.resource = c_resource
         crop_item.calculation = calculation % [avg_yield, area, price, total]
         add_child(crop_item)
+        crop_income += total
+    
+

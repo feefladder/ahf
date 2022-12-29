@@ -4,6 +4,7 @@ class_name CropExpensesContainer
 export(PackedScene) var crop_summary_item_packedscene
 
 const calculation = "%d x %.2f = %.2f"
+var crop_expenses := 0.0
 
 func show_review() -> void:
     var c_resources: Dictionary = db.static_resources["crop"] #TODO: make nice

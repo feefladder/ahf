@@ -27,7 +27,7 @@ func try_plant_crop(block) -> bool:
     if not asset_manager.has_enough(current_crop.unit_price, current_crop.unit_labour):
         return false
     if database.write_block_if_empty(block.x, block.y, "crop", current_crop.resource_name):
-        asset_manager.decrease_assets(current_crop.unit_price, current_crop.unit_labour)
+        asset_manager.buy_item(current_crop)
         block.update_to_db("crop")
         field.set_enable_with(current_crop)
         return true
@@ -37,7 +37,7 @@ func try_plant_crop(block) -> bool:
 func try_remove_crop(block) -> bool:
     var block_crop = database.get_block_resource(block.x, block.y, "crop")
     if database.empty_block_type(block.x, block.y, "crop"):
-        asset_manager.increase_assets(block_crop.unit_price, block_crop.unit_labour)
+        asset_manager.sell_item(block_crop)
         block.update_to_db("crop")
         return true
     else:

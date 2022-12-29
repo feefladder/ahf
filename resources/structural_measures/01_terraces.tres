@@ -11,7 +11,6 @@ script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 0.0
 unit_labour = 50.0
-persistent = true
 tooltip_info = {
 "general": "",
 "long_term_pros": "",
@@ -21,7 +20,7 @@ tooltip_info = {
 placing_scene = ExtResource( 3 )
 offset = Vector2( 0, 0 )
 scale = Vector2( 1.2, 1 )
-time_required = 0.1
+time = 1.0
 erosion_reduction = 0.8
 fertility_increase = 0.0
 salinity_effect = 0.0

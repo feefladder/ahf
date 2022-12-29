@@ -16,6 +16,9 @@ func end_of_year(_event: EventResource) -> void:
     print_debug("created asset summaries: ",summaries)
     db.add_summaries(db.ASSET_SUM_TABLE, summaries)
     db.db.verbosity_level=0
+    if subtotal != get_parent().used_money:
+        print_debug("oh noes, calculations do not match!", subtotal, get_parent().used_money)
+
 
 func add_unique_sum(table_name: String) -> void:
     var res_dict: Dictionary = db.static_resources[table_name]

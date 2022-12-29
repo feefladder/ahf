@@ -12,7 +12,7 @@ var total_income := 0.0
 
 onready var asset_sum_container = get_node(asset_sum_container_path)
 
-func show_review():
+func show_review():#dict: Dictionary):
     for asset_dict in db.get_summary(db.ASSET_SUM_TABLE):
         if asset_dict["d_money"] > 0:
             #income

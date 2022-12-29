@@ -12,15 +12,17 @@ func init_db() -> bool:
     database.default_field = _init_field_table() # add farm table in a similar way whenever necessary
     var success: bool = _init_field_blocks_table()
     # tables for buying/selling
+    success = _init_asset_table() and success
+    # success = _init_buyresource_table() and success
     success = _init_livestock_table() and success
     success = _init_household_table() and success
     success = _init_family_table() and success
     success = _init_school_table() and success
     success = _init_labour_table() and success
-    success = _init_asset_table() and success
+    
     success = _init_upgrades_table() and success
-    # summary tables
-    db.create_table("events",{
+    # table for end-of-year events
+    success = db.create_table("events",{
         "id":{
             "data_type":"int",
             "primary_key":true,
@@ -34,7 +36,8 @@ func init_db() -> bool:
         "event":{
             "data_type":"text",
         }
-    })
+    }) and success
+    # summary tables
     success = _init_crop_sum_table() and success
     success = _init_asset_sum_table() and success
     success = _init_livestock_sum_table() and success
@@ -83,10 +86,27 @@ const MCOL_TYPES := {
 #     TYPE_COLOR_ARRAY : TYPE_COLOR,
 # }
 
+# func _init_buyresource_table() -> bool:
+#     if not create_table_from_resource(BuyResource.new(), {
+#         "year":{
+#             "data_type":"int",
+#             "not_null":true,
+#             "default":database.year
+#         },
+#         "amount":{
+#             "data_type":"int",
+#             "not_null":true
+#         }
+#     }):
+#         print_debug("no buyresource table!")
+#         return false
+#     else:
+#         return true
+
 func _on_resources_loaded(which: String, resources: Array) -> void:
+    db.open_db()
     # add a generic table with years and the quantitative values of member variables
     if which == database.RESOURCE_TABLES:
-        db.open_db()
         for resource in resources:
             if not resource.get_class() in database.resource_tables:
                 if not create_table_from_resource(resource, {
@@ -106,7 +126,23 @@ func _on_resources_loaded(which: String, resources: Array) -> void:
                     continue
             if not insert_row_from_resource(resource,{"year":database.year,"field":database.default_field}):
                 print_debug("Could not populate table for: ", resource, resource.get_class())
-        db.close_db()
+    else:
+        pass
+        # for resource in resources:
+        #     if not resource is BuyResource:
+        #         # or continue, if there are 
+        #         continue
+        #     # print_debug(resource.get_class())
+        #     db.query("SELECT name FROM PRAGMA_TABLE_INFO(\""+resource.get_class()+"\")")
+        #     if not db.insert_row(resource.get_class(),{
+        #         "year":database.year,
+        #         "resource_name":resource.resource_name,
+        #         "unit_price":resource.unit_price,
+        #         "unit_labour":resource.unit_labour,
+        #         "amount":0
+        #     }):
+        #         print_debug("failed inserting row for: ", resource)
+    db.close_db()
 
 func create_table_from_resource(resource: Resource, extra_cols: Dictionary ={}, pk_name: String ="id") -> bool:
     database.resource_tables.append(resource.get_class())
@@ -123,6 +159,13 @@ func create_table_from_resource(resource: Resource, extra_cols: Dictionary ={}, 
 func insert_row_from_resource(resource: Resource, extra_cols: Dictionary = {}) -> int:
     var row_dict = extra_cols
     var f = funcref(self, "_populate_col")
+
+    # db.query("SELECT name FROM PRAGMA_TABLE_INFO(\""+resource.get_class()+"\")")
+    # var col_dicts: Array = db.query_result
+    # var col_names: Array = []
+    # for col in col_dicts:
+    #     col_names.append(col["name"])
+
     _add_cols_recursive(row_dict, resource, f)
     if db.insert_row(resource.get_class(), row_dict):
         return db.last_insert_rowid

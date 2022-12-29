@@ -14,7 +14,7 @@ func try_increase_resource(item: IntResource) -> int:
         return -1
     var new_amount : int = database.change_generic_item(item.resource_name, database.LABOUR_TABLE, 1)
     display.update_labourers_to_db()
-    asset_manager.decrease_assets(item.unit_price, item.unit_labour)
+    asset_manager.buy_item(item)
     emit_signal("people_changed")
     return new_amount
 
@@ -26,7 +26,7 @@ func try_decrease_resource(item: IntResource) -> int:
         return -1
     var new_amount : int = database.change_generic_item(item.resource_name, database.LABOUR_TABLE, -1)
     display.update_labourers_to_db()
-    asset_manager.increase_assets(item.unit_price, item.unit_labour)
+    asset_manager.sell_item(item)
     emit_signal("people_changed")
     return new_amount
 
@@ -44,7 +44,7 @@ func try_toggle_item(item: BuyResource) -> bool:
             return false
         display.update_family_to_db()
         emit_signal("people_changed")
-        asset_manager.decrease_assets(item.unit_price, 0)
+        asset_manager.buy_item(item)
     else:
         if not asset_manager.has_enough(-item.unit_price, -item.person.labour):
             return false
@@ -55,7 +55,7 @@ func try_toggle_item(item: BuyResource) -> bool:
             return false
         display.update_family_to_db()
         emit_signal("people_changed")
-        asset_manager.increase_assets(item.unit_price, 0)
+        asset_manager.sell_item(item)
     return true
 
 func end_of_year():

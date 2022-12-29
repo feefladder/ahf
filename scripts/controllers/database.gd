@@ -376,6 +376,37 @@ func get_unique_changed_items(table_name: String=LIVESTOCK_TABLE) -> Array:
     db.close_db()
     return rows.duplicate(true)
 
+func buy_sell_item(item: BuyResource, d_amount: int) -> bool:
+    var condition = "year="+str(year)+" AND resource_name='"+item.resource_name+"'"
+    db.verbosity_level = 2
+    db.open_db()
+    var row = db.select_rows("BuyResource",condition,["amount"])
+    if row.size() == 1:
+        if not []:
+            print_debug("hello world!")
+        if row[0]["amount"] + d_amount ==0:
+            db.delete_rows(item.get_class(),condition)
+        else:
+            db.update_rows(item.get_class(),condition,{"amount":row[0]["amount"]+d_amount})
+    elif row.size() == 0:
+        if not db.insert_row(item.get_class(),{
+            "year":year,
+            "resource_name":item.resource_name,
+            "unit_price":item.unit_price,
+            "unit_labour":item.unit_labour,
+            "amount":d_amount
+        }):
+            print_debug("failed inserting row for: ", item)
+            db.close_db()
+            return false
+    else:
+        print_debug("something went terribly wrong!")
+        db.close_db()
+        return false
+    db.close_db()
+    db.verbosity_level = 0
+    return true
+
 # generic int items are stored each year with an "amount" column and tracked by
 # comparing columns
 func add_generic_item(name:String, table_name:String, amount) -> int:

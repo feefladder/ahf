@@ -77,7 +77,7 @@ func try_apply(block: FieldBlock, col: String) -> bool:
         return false
     if not database.write_block_if_empty(block.x, block.y, col, current_resource.resource_name):
         return false
-    asset_manager.decrease_assets(current_resource.unit_price, current_resource.unit_labour)
+    asset_manager.buy_item(current_resource)
     field.disable_except(block)
     block.update_to_db(col)
     yield(block,"placed")
