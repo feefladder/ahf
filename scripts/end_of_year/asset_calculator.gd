@@ -21,7 +21,7 @@ func end_of_year(_event: EventResource) -> void:
 
 
 func add_unique_sum(table_name: String) -> void:
-    var res_dict: Dictionary = db.static_resources[table_name]
+    var res_dict: Dictionary = db.static_resources
     var d_items: Array = db.get_unique_changed_items(table_name)
     for d_item in d_items:
         var name: String = d_item["name"]
@@ -49,7 +49,7 @@ func add_unique_sum(table_name: String) -> void:
             print_debug("something went terribly wrong: ", d_item)
 
 func add_generic_sum(table_name: String) -> void:
-    var res_dict: Dictionary = db.static_resources[table_name]
+    var res_dict: Dictionary = db.static_resources
     var items = db.get_generic_amounts(table_name, "amount IS NOT NULL")
     print_debug(items)
     for item in items:

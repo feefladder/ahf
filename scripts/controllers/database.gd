@@ -124,7 +124,6 @@ func _ready():
 
 # loads resources from the file paths, returns an array of resources and adds them to the dictionary
 func _load_resources(key) -> Array:
-    static_resources[key] = {}
     var resources =[]
     var resources_path = fields_to_paths[key]
     # TODO: make this class call some API endpoint whenever the game actually implements it
@@ -138,7 +137,7 @@ func _load_resources(key) -> Array:
     while(filename):
         if not directory.current_is_dir() and filename.ends_with(".tres"):
             var resource = load(base_path + resources_path + filename)
-            static_resources[key][resource.resource_name] = resource
+            static_resources[resource.resource_name] = resource
             resources.append(resource)
         filename = directory.get_next()
     return resources
@@ -258,10 +257,8 @@ func set_next_dict(table_name:String, values: Dictionary, additional_conditions:
 ############################################
 
 func get_resource(resource_name: String) -> Resource:
-    for dict in static_resources:
-        print_debug(dict)
-        if static_resources[dict].get(resource_name):
-            return static_resources[dict].get(resource_name)
+    if static_resources.get(resource_name):
+        return static_resources.get(resource_name)
     return null
 
 func add_summary(table_name: String, values: Dictionary) -> int:
@@ -426,7 +423,7 @@ func get_generic_amounts(table_name: String, additional_conditions: String = "1=
     db.close_db()
     # for row in rows:
     #     var name: String = row["name"]
-    #     row[name+"_resource"] = static_resources[table_name][name]
+    #     row[name+"_resource"] = static_resources[name]
     return rows.duplicate(true)
 
 
@@ -524,7 +521,7 @@ func get_family() -> Array:
     var rows = db.select_rows(FAMILY_TABLE, "year="+str(year), ["id","name","on_farm"])
     db.close_db()
     for person in rows:
-        person["resource"] = static_resources[FAMILY_TABLE][person["name"]]
+        person["resource"] = static_resources[person["name"]]
     return rows.duplicate(true)
 
 
@@ -538,10 +535,10 @@ func get_total_available_labour() -> int:
     db.open_db()
     var rows = db.select_rows(FAMILY_TABLE, "year="+str(year)+" AND on_farm=1",["name"])
     for person in rows:
-        labour += static_resources[FAMILY_TABLE][person["name"]].labour
+        labour += static_resources[person["name"]].labour
     rows = db.select_rows(LABOUR_TABLE, "year="+str(year),["amount","name"])
     for labour_item in rows:
-        var resource = static_resources[LABOUR_TABLE][labour_item["name"]]
+        var resource = static_resources[labour_item["name"]]
         if resource is LabourerResource:
             labour += resource.person.labour * labour_item["amount"]
     db.close_db()
@@ -712,7 +709,7 @@ func get_block_resource(block_x: int, block_y: int, type: String, field=0) -> Re
     if resource_type == null:
         return null
 
-    return static_resources[type][resource_type]
+    return static_resources[resource_type]
 
 func write_block(block_x: int, block_y: int, type:String, value:String, field=0) -> bool:
     if not field:
@@ -772,7 +769,7 @@ func get_blocks_and_resources(conditions: String="1=1", resource_types: PoolStri
         for b_dict in b_dicts:
             var r_name = b_dict[r_type]
             if r_name != null:
-                b_dict[r_type+"_resource"] = static_resources[r_type][r_name]
+                b_dict[r_type+"_resource"] = static_resources[r_name]
     return b_dicts
 
 func get_all_blocks(conditions: String="1=1", extra_cols: Array=[], field:int=0) -> Array:
