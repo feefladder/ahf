@@ -12,7 +12,7 @@ func _ready():
 
     $Title.text = resource.resource_name
     # yield × area × fertility × price = total
-    $Amount.text = "%.2f" % abs(dict["d_money"])
+    $Amount.text = "%.2f" % abs(dict["amount"]*resource.unit_price)
     # $Icon.texture = crop_resource.image
 
 

@@ -50,6 +50,12 @@ func buy_item(item: BuyResource) -> bool:
     if not has_enough(item.unit_price, item.unit_labour):
         return false
 
+    database.buy_sell_item(
+        item.resource_name,
+        database.BUY_SELL_TABLE, 
+        1
+    )
+
     used_money += item.unit_price
     used_labour += item.unit_labour
     emit_signal("asset_changed","money", available_money-used_money)
@@ -60,6 +66,12 @@ func sell_item(item: BuyResource) -> bool:
     if not has_enough(-item.unit_price, -item.unit_labour):
         return false
     
+    database.buy_sell_item(
+        item.resource_name,
+        database.BUY_SELL_TABLE,
+        -1
+    )
+
     used_money -= item.unit_price
     used_labour -= item.unit_labour
     emit_signal("asset_changed","money", available_money-used_money)

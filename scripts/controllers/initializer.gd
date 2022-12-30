@@ -13,7 +13,8 @@ func init_db() -> bool:
     var success: bool = _init_field_blocks_table()
     # tables for buying/selling
     success = _init_asset_table() and success
-    # success = _init_buyresource_table() and success
+    success = _init_buyresource_table() and success
+    success = _init_buy_sell_table() and success
     success = _init_livestock_table() and success
     success = _init_household_table() and success
     success = _init_family_table() and success
@@ -86,23 +87,6 @@ const MCOL_TYPES := {
 #     TYPE_COLOR_ARRAY : TYPE_COLOR,
 # }
 
-# func _init_buyresource_table() -> bool:
-#     if not create_table_from_resource(BuyResource.new(), {
-#         "year":{
-#             "data_type":"int",
-#             "not_null":true,
-#             "default":database.year
-#         },
-#         "amount":{
-#             "data_type":"int",
-#             "not_null":true
-#         }
-#     }):
-#         print_debug("no buyresource table!")
-#         return false
-#     else:
-#         return true
-
 func _on_resources_loaded(which: String, resources: Array) -> void:
     db.open_db()
     # add a generic table with years and the quantitative values of member variables
@@ -128,20 +112,18 @@ func _on_resources_loaded(which: String, resources: Array) -> void:
                 print_debug("Could not populate table for: ", resource, resource.get_class())
     else:
         pass
-        # for resource in resources:
-        #     if not resource is BuyResource:
-        #         # or continue, if there are 
-        #         continue
-        #     # print_debug(resource.get_class())
-        #     db.query("SELECT name FROM PRAGMA_TABLE_INFO(\""+resource.get_class()+"\")")
-        #     if not db.insert_row(resource.get_class(),{
-        #         "year":database.year,
-        #         "resource_name":resource.resource_name,
-        #         "unit_price":resource.unit_price,
-        #         "unit_labour":resource.unit_labour,
-        #         "amount":0
-        #     }):
-        #         print_debug("failed inserting row for: ", resource)
+        for resource in resources:
+            if not resource is BuyResource:
+                # or break, if there are only buyresources
+                continue
+            # print_debug(resource.get_class())
+            # db.query("SELECT name FROM PRAGMA_TABLE_INFO(\""+resource.get_class()+"\")")
+            if not db.insert_row(database.BUYRESOURCE_TABLE,{
+                "name":resource.resource_name,
+                "unit_price":resource.unit_price,
+                "unit_labour":resource.unit_labour,
+            }):
+                print_debug("failed inserting row for: ", resource)
     db.close_db()
 
 func create_table_from_resource(resource: Resource, extra_cols: Dictionary ={}, pk_name: String ="id") -> bool:
@@ -418,6 +400,55 @@ func _init_asset_table() -> bool:
         },
         }
     return db.create_table(table_name,table_dict)
+
+func _init_buyresource_table() -> bool:
+    # create a table with all resources we can buy, so end-of-year calculations on assets
+    # are easier (they can be done with a join on the BUY_SELL_TABLE)
+    var table_dict = {
+        "id":{ # because it is uniqe_int_item
+            "data_type":"int",
+            "primary_key":true,
+            "auto_increment":true,
+        },
+        "name":{
+            "data_type":"text",
+            "not_null":true,
+        },
+        "unit_price":{
+            "data_type":"real",
+            "not_null":true,
+        },
+        "unit_labour":{
+            "data_type":"real",
+            "not_null":true,
+        },
+    }
+    return db.create_table(database.BUYRESOURCE_TABLE, table_dict)
+    
+
+func _init_buy_sell_table() -> bool:
+    var table_dict = {
+        "id":{
+            "data_type":"int",
+            "not_null":true,
+            "primary_key":true,
+            "auto_increment":true,
+        },
+        "year":{
+            "data_type":"int",
+            "not_null":true,
+        },
+        "id_resource":{
+            "data_type":"int",
+            "foreign_key":database.BUYRESOURCE_TABLE+".id",
+            "not_null":true,
+        },
+        "amount":{
+            "data_type":"int",
+            "not_null":true,
+        },
+    }
+    return db.create_table(database.BUY_SELL_TABLE, table_dict)
 
 func _init_labour_table() -> bool:
     var table_name : String = database.LABOUR_TABLE

@@ -12,6 +12,8 @@ const HOUSEHOLD_TABLE := "household"
 const SCHOOL_TABLE := "school"
 const UPGRADE_TABLE := "upgrades"
 const ASSET_TABLE := "assets"
+const BUY_SELL_TABLE := "buy_sell"
+const BUYRESOURCE_TABLE := "buyresources"
 const LABOUR_TABLE := "labour"
 
 const EVENT_SUM_TABLE := "events"
@@ -23,6 +25,12 @@ const FIELD_TABLES := [
     # FERTILITY_TABLE,
     FBLOCK_TABLE,
     FIELD_TABLE, #Fert and Fblock have foreign keys
+]
+
+const ASSET_TABLES := [
+    ASSET_TABLE,
+    BUY_SELL_TABLE,
+    BUYRESOURCE_TABLE,
 ]
 
 const PEOPLE_TABLES := [
@@ -45,7 +53,7 @@ const SUMMARY_TABLES := [
 ]
 
 const ALL_TABLES := (
-    [ASSET_TABLE]+
+    ASSET_TABLES+
     FIELD_TABLES+
     PEOPLE_TABLES+
     UNIQUE_TABLES+
@@ -296,7 +304,21 @@ func get_avg_summary(table_name: String, col: String, group_by: String) -> Array
         )
     var result: Array = db.query_result
     db.close_db()
-    return result.duplicate()
+    return result.duplicate(true)
+
+func get_asset_summary(condition: String="1=1", col:String="unit_price") -> Array:
+    db.verbosity_level = 2
+    db.open_db()
+    db.query(
+        " SELECT amount, name, "+col+" FROM "+BUY_SELL_TABLE+
+        "   LEFT JOIN "+BUYRESOURCE_TABLE+" ON id_resource="+BUYRESOURCE_TABLE+".id"+
+        " WHERE year="+str(year)+" AND "+condition
+    )
+    var result: Array = db.query_result
+    print_debug(result)
+    db.close_db()
+    db.verbosity_level = 0
+    return result.duplicate(true)
 
 ############################################
 # Writes/updates on items
@@ -308,11 +330,11 @@ func get_avg_summary(table_name: String, col: String, group_by: String) -> Array
 func add_unique_int_item(name: String, table_name: String=LIVESTOCK_TABLE) -> int:
     var c_just_sold = "year_sold='"+str(year)+"'"
     db.open_db()
-    var rows: Array = db.select_rows(table_name, c_just_sold, ["id"])
+    var result: Array = db.select_rows(table_name, c_just_sold, ["id"])
     var id:int=0
     var success:bool=false
-    if rows.size():
-        id = rows[0]["id"]
+    if result.size():
+        id = result[0]["id"]
         success = db.update_rows(table_name, "id="+str(id), {"year_sold":null})
     else:
         success = db.insert_row(table_name, {"year_bought":year,"name":name})
@@ -328,20 +350,20 @@ func remove_unique_int_item(name: String, table_name: String) -> int:
     var c_just_bought = "name='"+name+"' AND year_bought="+str(year)
     var c_not_sold = "name='"+name+"' AND year_sold IS NULL"
     db.open_db()
-    var rows: Array = db.select_rows(table_name, c_just_bought, ["id"])
+    var result: Array = db.select_rows(table_name, c_just_bought, ["id"])
     var id = -1
-    if not rows.size():
-        rows = db.select_rows(table_name, c_not_sold, ["id"])
-        if not rows.size():
+    if not result.size():
+        result = db.select_rows(table_name, c_not_sold, ["id"])
+        if not result.size():
             db.close_db()
             return id
         else:
-            id = rows[0]["id"]
+            id = result[0]["id"]
             if not db.update_rows(table_name, "id="+str(id), {"year_sold":year}):
                 db.close_db()
                 return -1
     else:
-        id=rows[0]["id"]
+        id= result[0]["id"]
         if not db.delete_rows(table_name, "id="+str(id)):
             db.close_db()
             return -1
@@ -350,16 +372,16 @@ func remove_unique_int_item(name: String, table_name: String) -> int:
 
 func get_unique_int_items(name: String, table_name: String=LIVESTOCK_TABLE) -> Array:
     db.open_db()
-    var rows: Array = db.select_rows(table_name, "name='"+name+"' AND year_sold IS NULL", ["id","name","year_bought"])
+    var result: Array = db.select_rows(table_name, "name='"+name+"' AND year_sold IS NULL", ["id","name","year_bought"])
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 func get_unique_changed_item(name: String, table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "name='name"+name+"' AND ( year_bought="+str(year)+" OR year_sold="+str(year)+" )"
     db.open_db()
-    var rows: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
+    var result: Array = db.select_rows(table_name, condition, ["id","year_bought","year_sold"])
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 func get_unique_changed_items(table_name: String=LIVESTOCK_TABLE) -> Array:
     var condition = "year_bought="+str(year)+" OR year_sold="+str(year)
@@ -369,40 +391,10 @@ func get_unique_changed_items(table_name: String=LIVESTOCK_TABLE) -> Array:
         " WHERE "+condition+
         " GROUP BY name"
     )
-    var rows: Array = db.query_result
+    var result: Array = db.query_result
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
-func buy_sell_item(item: BuyResource, d_amount: int) -> bool:
-    var condition = "year="+str(year)+" AND resource_name='"+item.resource_name+"'"
-    db.verbosity_level = 2
-    db.open_db()
-    var row = db.select_rows("BuyResource",condition,["amount"])
-    if row.size() == 1:
-        if not []:
-            print_debug("hello world!")
-        if row[0]["amount"] + d_amount ==0:
-            db.delete_rows(item.get_class(),condition)
-        else:
-            db.update_rows(item.get_class(),condition,{"amount":row[0]["amount"]+d_amount})
-    elif row.size() == 0:
-        if not db.insert_row(item.get_class(),{
-            "year":year,
-            "resource_name":item.resource_name,
-            "unit_price":item.unit_price,
-            "unit_labour":item.unit_labour,
-            "amount":d_amount
-        }):
-            print_debug("failed inserting row for: ", item)
-            db.close_db()
-            return false
-    else:
-        print_debug("something went terribly wrong!")
-        db.close_db()
-        return false
-    db.close_db()
-    db.verbosity_level = 0
-    return true
 
 # generic int items are stored each year with an "amount" column and tracked by
 # comparing columns
@@ -419,12 +411,12 @@ func add_generic_item(name:String, table_name:String, amount) -> int:
 
 func get_generic_amounts(table_name: String, additional_conditions: String = "1=1") -> Array:
     db.open_db()
-    var rows: Array = db.select_rows(table_name,"year="+str(year)+" AND "+additional_conditions,["name","amount"])
+    var result: Array = db.select_rows(table_name,"year="+str(year)+" AND "+additional_conditions,["name","amount"])
     db.close_db()
-    # for row in rows:
+    # for row in result:
     #     var name: String = row["name"]
     #     row[name+"_resource"] = static_resources[name]
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 
 func get_generic_amount(name: String, table_name: String):
@@ -445,6 +437,38 @@ func change_generic_item(name:String, table_name:String, d_amount) -> int:
     else:
         return -1
 
+func buy_sell_item(name: String, table_name: String, d_amount: int) -> bool:
+    print_debug(d_amount)
+    db.verbosity_level = 2
+    db.open_db()
+    # get the resource id from BUYRESOURCE_TABLE
+    var id_resource: int=db.select_rows(BUYRESOURCE_TABLE, "name='"+name+"'", ["id"])[0]["id"]
+    # make query condition with resource id
+    var condition: String = "year="+str(year)+" AND id_resource='"+str(id_resource)+"'"
+    var row = db.select_rows(table_name, condition, ["amount"])
+    if row.size() == 1:
+        if row[0]["amount"] + d_amount == 0:
+            db.delete_rows(table_name,condition)
+        else:
+            db.update_rows(table_name,condition,{"amount":row[0]["amount"]+d_amount})
+    elif row.size() == 0:
+        if not db.insert_row(table_name,{
+            "year":year,
+            "id_resource":id_resource,
+            "amount":d_amount,
+        }):
+            print_debug("failed inserting row for: ", name)
+            db.close_db()
+            return false
+    else:
+        print_debug("something went terribly wrong!")
+        db.close_db()
+        return false
+    db.close_db()
+    db.verbosity_level = 0
+    return true
+        
+
 func get_generic_changed_items(table_name: String) -> Array:
     # https://learnsql.com/blog/difference-between-two-rows-in-sql/
 
@@ -457,9 +481,9 @@ func get_generic_changed_items(table_name: String) -> Array:
     )
     db.open_db()
     db.query(query_string)
-    var rows = db.query_result
+    var result = db.query_result
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 ###########################################
 # Writes/updates on fertility
@@ -469,12 +493,12 @@ func get_current_fertility(cols:Array, field=0)->Array:
     if not field:
         field=default_field
     db.open_db()
-    var rows = db.select_rows("FertilityResource", #TODO: make nice
+    var result = db.select_rows("FertilityResource", #TODO: make nice
         "year="+str(year)+
         " AND field="+str(field)
         ,cols)
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 
 ###########################################
@@ -518,11 +542,11 @@ func move_person(name: String, on_farm: bool) -> int:
 
 func get_family() -> Array:
     db.open_db()
-    var rows = db.select_rows(FAMILY_TABLE, "year="+str(year), ["id","name","on_farm"])
+    var result = db.select_rows(FAMILY_TABLE, "year="+str(year), ["id","name","on_farm"])
     db.close_db()
-    for person in rows:
+    for person in result:
         person["resource"] = static_resources[person["name"]]
-    return rows.duplicate(true)
+    return result.duplicate(true)
 
 
 ############################################
@@ -533,11 +557,11 @@ func get_family() -> Array:
 func get_total_available_labour() -> int:
     var labour: int = 0
     db.open_db()
-    var rows = db.select_rows(FAMILY_TABLE, "year="+str(year)+" AND on_farm=1",["name"])
-    for person in rows:
+    var result = db.select_rows(FAMILY_TABLE, "year="+str(year)+" AND on_farm=1",["name"])
+    for person in result:
         labour += static_resources[person["name"]].labour
-    rows = db.select_rows(LABOUR_TABLE, "year="+str(year),["amount","name"])
-    for labour_item in rows:
+    result = db.select_rows(LABOUR_TABLE, "year="+str(year),["amount","name"])
+    for labour_item in result:
         var resource = static_resources[labour_item["name"]]
         if resource is LabourerResource:
             labour += resource.person.labour * labour_item["amount"]
@@ -595,14 +619,14 @@ func send_child_to_school(id_person: int, school: SchoolResource) -> bool:
     # var id_person := get_id(child, FAMILY_TABLE)
     var success : bool
     db.open_db()
-    var rows = db.select_rows(
+    var result = db.select_rows(
         SCHOOL_TABLE,
             "id_school="+str(id_school)+
             " AND id_person="+str(id_person)+
             " AND year="+str(year)
         ,["id"]
     )
-    if rows.size() == 0:
+    if result.size() == 0:
         # isnert the row
         success = db.insert_row(SCHOOL_TABLE,{
             "id_school":id_school,
@@ -611,12 +635,12 @@ func send_child_to_school(id_person: int, school: SchoolResource) -> bool:
             "year":year,
         })
     else:
-        assert(rows.size()==1)
+        assert( result.size()==1)
         # update the row
         success = db.query(
             " UPDATE "+SCHOOL_TABLE+
             " SET years_went=years_went+1"+
-            " WHERE id="+str(rows[0]["id"])
+            " WHERE id="+str( result[0]["id"])
             )
     db.close_db()
     return success
@@ -624,7 +648,7 @@ func send_child_to_school(id_person: int, school: SchoolResource) -> bool:
 func call_child_from_school(id_person: int, school: SchoolResource) -> bool:
     var id_school := get_id(school.resource_name, HOUSEHOLD_TABLE)
     db.open_db()
-    var rows = db.select_rows(
+    var result = db.select_rows(
         SCHOOL_TABLE,
             "id_school="+str(id_school)+
             " AND id_person="+str(id_person)+
@@ -633,7 +657,7 @@ func call_child_from_school(id_person: int, school: SchoolResource) -> bool:
     )
     var success = db.query(
         "UPDATE "+SCHOOL_TABLE+" SET years_went=years_went-1"+
-        " WHERE id="+str(rows[0]["id"])
+        " WHERE id="+str( result[0]["id"])
     )
     db.close_db()
     return success
@@ -776,7 +800,7 @@ func get_all_blocks(conditions: String="1=1", extra_cols: Array=[], field:int=0)
     if not field:
         field=default_field
     db.open_db()
-    var rows = db.select_rows(FBLOCK_TABLE,
+    var result = db.select_rows(FBLOCK_TABLE,
         "year="+str(year)+
         " AND field="+str(field)+
         " AND "+conditions+
@@ -784,7 +808,43 @@ func get_all_blocks(conditions: String="1=1", extra_cols: Array=[], field:int=0)
         ["x","y"]+extra_cols
     )
     db.close_db()
-    return rows.duplicate(true)
+    return result.duplicate(true)
+
+func get_planted_crops(field:int=0) -> Array:
+    if not field:
+        field=default_field
+    db.open_db()
+    db.query(
+        " SELECT crop, COUNT(crop) AS amount"+
+        " FROM "+FBLOCK_TABLE+
+        " WHERE crop IS NOT NULL AND year="+str(year)+
+        " GROUP BY crop"
+    )
+    var result:Array = db.query_result
+    # TODO: account for perennial crops
+    db.close_db()
+    return result.duplicate(true)
+
+func get_measures_just_applied(type:String, field:int=0) -> Array:
+    if not field:
+        field=default_field
+    db.open_db()
+    db.query(
+        " SELECT "+type+","+
+            " COUNT( "+type+" ) AS amount"+
+        " FROM ("+
+            " SELECT year, "+type+", LAG( "+type+" )"+
+                " OVER ( PARTITION BY x,y ORDER BY year ) AS prev "+
+            " FROM field_blocks"+
+            " WHERE (year=0 OR year=1) AND "+type+" IS NOT NULL"+
+        " ) "+
+        " WHERE prev IS NULL OR prev!="+type+""+
+        " GROUP BY "+type
+    )
+    var result = db.query_result
+    db.close_db()
+    return result.duplicate(true)
+
 
 # empties the block
 func empty_block_type(block_x: int, block_y: int, type: String, field=0) -> bool:

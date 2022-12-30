@@ -1,4 +1,4 @@
-extends EOYCalculator
+                                            extends EOYCalculator
 class_name YieldCalculator
 
 func calculate_yield(b_dict: Dictionary, f_dict: Dictionary, event: YieldEventResource) -> Dictionary:

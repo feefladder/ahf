@@ -13,6 +13,8 @@ func end_of_year(_event: EventResource) -> void:
         add_unique_sum(t_name)
     for t_name in [db.HOUSEHOLD_TABLE, db.LABOUR_TABLE]:
         add_generic_sum(t_name)
+    for col_name in db.field_cols.slice(1,db.field_cols.size()):
+        add_measure(col_name)
     print_debug("created asset summaries: ",summaries)
     db.add_summaries(db.ASSET_SUM_TABLE, summaries)
     db.db.verbosity_level=0
@@ -61,5 +63,14 @@ func add_generic_sum(table_name: String) -> void:
         })
         subtotal += d_money
 
-
-# 
+func add_measure(col_name: String) -> void:
+    var measures = db.get_measures_just_applied(col_name)
+    print_debug(measures)
+    for measure in measures:
+        var d_money = -db.static_resources[measure[col_name]].unit_price*measure["amount"]
+        summaries.append({
+            "name":measure[col_name],
+            "amount": measure["amount"],
+            "d_money":d_money
+        })
+        subtotal += d_money
