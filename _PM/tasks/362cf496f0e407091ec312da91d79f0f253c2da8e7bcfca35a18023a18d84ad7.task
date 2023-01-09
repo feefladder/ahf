@@ -1,0 +1,11 @@
+{
+	"title": "maybe use foreign keys for buyresources",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1672354642,
+	"hash": "362cf496f0e407091ec312da91d79f0f253c2da8e7bcfca35a18023a18d84ad7",
+	"description": "now we have a buyresource table, maybe use forgeign keys in stead of strings whenever buyresources are referenced.",
+	"todos": [
+
+	]
+}

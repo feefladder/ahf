@@ -20,22 +20,6 @@ func _ready():
     if get_node_or_null("Title"):
         $Title.text = title
 
-func _on_int_item_increased(which: IntResource) -> void:
-    # TODO: call db and do things
-    if display:
-        if display.has_method("increase_int_item"):
-            display.increase_int_item(which)
-
-func _on_int_item_decreased(which: IntResource) -> void:
-    # TODO: call db and do things
-    if display:
-        if display.has_method("decrease_int_item"):
-            display.decrease_int_item(which)
-
-func _on_toggle_item_set(which: BuyResource, to_what: bool) -> void:
-    print("set ", which.resource_name, " to ", to_what)
-
-
 func _on_Database_resources_loaded(which: String, resources: Array):
     if which in resource_names:
         for resource in resources:
@@ -44,17 +28,20 @@ func _on_Database_resources_loaded(which: String, resources: Array):
             elif resource is BuyResource:
                 item_container.add_menu_toggle_item(resource)
             else:
-                print("Resource: ", resource.resource_name, "not used")
+                print_debug("Resource: ", resource.resource_name, "not used")
 
         _use_resources(resources)
 
-func try_increase_resource(an_item: IntResource) -> int:
+func try_increase_resource(_an_item: IntResource) -> int:
+    print_debug("unoverridden try_increase_resource!")
     return -1
 
-func try_decrease_resource(an_item: IntResource) -> int:
+func try_decrease_resource(_an_item: IntResource) -> int:
+    print_debug("unoverridden try_decrease_resource!")
     return -1
 
-func try_toggle_item(item: BuyResource) -> bool:
+func try_toggle_item(_an_item: BuyResource) -> bool:
+    print_debug("unoverridden try_toggle_item!")
     return false
 
 func end_of_year():

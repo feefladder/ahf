@@ -22,7 +22,7 @@ func before_all():
 
 
 func before_each():
-    asset_manager = partial_double("res://scripts/controllers/asset_manager.gd").new()
+    asset_manager = partial_double("res://scripts/controllers/asset_controller.gd").new()
     asset_manager.money = 100
     asset_manager.labour = 100
 

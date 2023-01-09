@@ -8,3 +8,6 @@ export(int) var size_x = 3
 export(int) var size_y = 4
 export(Vector2) var dx = Vector2(-58.0,-24.0)
 export(Vector2) var dy = Vector2(58, -40)
+
+func get_class():
+    return "FieldResource"

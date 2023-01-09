@@ -10,7 +10,6 @@ script = ExtResource( 1 )
 image = ExtResource( 2 )
 unit_price = 100.0
 unit_labour = 12.0
-persistent = false
 tooltip_info = {
 "general": "",
 "long_term_pros": "",
@@ -20,7 +19,11 @@ tooltip_info = {
 placing_scene = ExtResource( 3 )
 offset = Vector2( 0, 0 )
 scale = Vector2( 0.441, 0.441 )
+time = 5.0
 sell_price = 200.0
 max_yield = 312.5
 f_wlimited_yield = 0.8
 f_actual_yield = 0.8
+ec_threshold = 1.3
+b = 0.09
+long_term_fertilization = 0.0

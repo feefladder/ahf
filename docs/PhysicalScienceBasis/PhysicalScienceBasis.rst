@@ -18,7 +18,10 @@ global project for estimating yields in different agro-ecological zones. Further
 effects of drought and irrigation can be estimated based on the FAO irrigation
 and drainage paper :xcite:`[@AllenFAOIrrigationDrainage1998]`.
 
+It must be noted that salinity cannot be separated from water stress, and thus properly
+taking salinity into account, requires
 
+.. image:: img/salinity_graph_56p181.png
 
 Erosion modelling
 -----------------

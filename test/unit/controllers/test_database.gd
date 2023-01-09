@@ -29,7 +29,7 @@ class TestLoadingAndSignals:
         var loaded_crops := db._load_resources("crop")
         for crop in [crop_01, crop_02]:
             assert_true(crop in loaded_crops)
-    
+   
     func test_static_resources():
         # add_child(db)
         assert_eq(db.fields_to_paths["crop"], "crops/")
@@ -37,18 +37,16 @@ class TestLoadingAndSignals:
         var loaded_crops = db._load_resources("crop")
         for crop in [crop_01, crop_02]:
             assert_true(crop in loaded_crops)
-    
+   
         gut.p(db.static_resources)
         # assert_eq(db.types_to_fields[typeof(crop_01)], "crop")
         assert_eq_deep(
             db.static_resources,
-            {"crop":
-                {crop_01.resource_name : 
-                    crop_01, 
+                {crop_01.resource_name :
+                    crop_01,
                 crop_02.resource_name:
                     crop_02
-                }
-            })
+                })
 
     func test_signal_measure():
         db.fields_to_paths = {"structural_measure": "structural_measures/"}
@@ -98,7 +96,7 @@ class TestDatabaseEndOfYear:
 
     func before_each():
         db = partial_double(Database).new()
-        stub(db, "_load_resources").to_do_nothing()
+        stub(db, "_load_resources").to_return([])
         add_child_autoqfree(db)
 
     func test_eoy_fblock():
@@ -140,7 +138,7 @@ class TestDatabaseUniqueIntItems:
 
     func before_each():
         db = partial_double(Database).new()
-        stub(db, "_load_resources").to_do_nothing()
+        stub(db, "_load_resources").to_return([])
         add_child_autoqfree(db)
 
     func test_db_livestock():
@@ -170,7 +168,7 @@ class TestDatabaseGenericIntItems:
 
     func before_each():
         db = partial_double(Database).new()
-        stub(db, "_load_resources").to_do_nothing()
+        stub(db, "_load_resources").to_return([])
         add_child_autoqfree(db)
 
     func test_generic_add_item():
@@ -188,7 +186,7 @@ class TestDatabaseGenericIntItems:
         assert_true(db.db.query("SELECT * FROM "+db.LABOUR_TABLE+";"))
         assert_eq_deep(db.db.query_result,[{"id":1,"name":"labourer","year":1,"amount":12}])
         db.db.close_db()
-    
+   
 
     func test_db_assets():
         assert_eq(db.add_generic_item("money", db.ASSET_TABLE, 1000.0),1)
@@ -214,7 +212,7 @@ class TestDatabaseGenericIntItems:
             db.get_generic_changed_items(db.LABOUR_TABLE),
             [{"name":"labourer","amount":5,"d_amount":5}]
         )
-    
+   
     func test_generic_unchanged_item():
         assert_eq(db.add_generic_item("labourer", db.LABOUR_TABLE, 5),1)
         db.year+=1
@@ -255,7 +253,7 @@ class TestDatabaseGenericIntItems:
                 {"name":"off farm job","amount":1,"d_amount":1}
             ]
         )
-    
+   
     func test_generic_changed_items_one_unchanged():
         assert_eq(db.add_generic_item("labourer", db.LABOUR_TABLE, 0),1)
         assert_eq(db.add_generic_item("off farm job", db.LABOUR_TABLE, 0),2)
@@ -322,7 +320,7 @@ class TestDatabaseSchool:
             db.get_eligible_children(primary_school),
             [{"name":"Adal","years_went":null,"id":1,"age":8}]
         )
-    
+   
     func test_eligible_school():
         db.db.open_db()
         db.db.insert_row(db.SCHOOL_TABLE, {
@@ -334,7 +332,7 @@ class TestDatabaseSchool:
             db.get_eligible_children(primary_school),
             [{"name":"Adal","years_went":0,"id":1,"age":8}]
         )
-    
+   
     func test_not_eligible_school_finished():
         db.db.open_db()
         db.db.insert_row(db.SCHOOL_TABLE, {
@@ -347,7 +345,7 @@ class TestDatabaseSchool:
             db.get_eligible_children(primary_school),
             []
         )
-    
+   
     func test_not_eligible_too_old():
         db.db.open_db()
         db.db.update_rows(db.FAMILY_TABLE,"1=1",{"age":13})
@@ -362,7 +360,7 @@ class TestDatabaseSchool:
             db.get_eligible_children(sec_school),
             []
         )
-    
+   
     func test_not_eligible_previous_not_finished():
         db.db.open_db()
         db.db.insert_row(db.SCHOOL_TABLE, {
@@ -426,14 +424,14 @@ class TestDatabaseSchool:
             [{"id":1,"id_school":1,"id_person":1,"year":1,"years_went":2}]
         )
         db.db.close_db()
-    
+   
     func test_children_going_no_prev():
         assert_true(db.send_child_to_school(1,primary_school))
         assert_eq_deep(
             db.get_children_going_to_school(primary_school),
             [{"name":"Adal","id":1}]
         )
-    
+   
     func test_children_going_prev():
         assert_true(db.send_child_to_school(1,primary_school))
         assert_true(db.increase_year(db.SCHOOL_TABLE))
@@ -445,13 +443,13 @@ class TestDatabaseSchool:
             db.get_children_going_to_school(primary_school),
             [{"name":"Adal","id":1}]
         )
-    
+   
     func test_children_not_going_no_prev():
         assert_eq_deep(
             db.get_children_going_to_school(primary_school),
             []
         )
-    
+   
     func test_children_not_going_prev():
         assert_true(db.send_child_to_school(1,primary_school))
         assert_true(db.increase_year(db.SCHOOL_TABLE))
@@ -513,7 +511,7 @@ class TestDatabaseFBlock:
         assert_eq(db.db.query_result.size(), 1)
         assert_eq(db.db.query_result[0]["structural_measure"], "terraces")
         db.db.close_db()
-    
+   
     func test_db_empty_block_type():
         #true: crop is there
         assert_true(db.empty_block_type(0,0,"crop"))
@@ -551,37 +549,37 @@ class TestDatabaseFBlockSetEnableTests:
 
     func before_each():
         db = partial_double(Database).new()
-        stub(db, "_load_resources").to_do_nothing()
+        stub(db, "_load_resources").to_return([])
         add_child_autoqfree(db)
         for x in range(3):
             for y in range(3):
                 assert_true(db.add_block(x,y))
 
-    func test_x_order_get_all_with():
+    func test_x_order_get_all_blocks():
         for x in range(2):
                 assert_true(db.write_block(x,0,"structural_measure","terraces"))
-            
+           
         assert_eq_deep(
-            db.get_all_with("structural_measure","terraces"),
+            db.get_all_blocks("structural_measure='terraces'",[],0),
             [{"x": 0, "y": 0},{"x": 1, "y": 0}]
         )
 
-    func test_y_order_get_all_with():
+    func test_y_order_get_all_blocks():
         for y in range(2):
                 assert_true(db.write_block(0,y,"structural_measure","terraces"))
-            
+           
         assert_eq_deep(
-            db.get_all_with("structural_measure","terraces"),
+            db.get_all_blocks("structural_measure='terraces'",[],0),
             [{"x": 0, "y": 0},{"x": 0, "y": 1}]
         )
 
-    func test_double_order_get_all_with():
+    func test_double_order_get_all_blocks():
         for x in range(2):
             for y in range(2):
                 assert_true(db.write_block(x,y,"structural_measure","terraces"))
 
         assert_eq_deep(
-            db.get_all_with("structural_measure","terraces"),
+            db.get_all_blocks("structural_measure='terraces'",[],0),
             [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -616,12 +614,12 @@ class TestDatabaseFBlockResource:
         assert_true(db.add_block(0,1))
         assert_true(db.add_block(1,0))
         assert_true(db.add_block(1,1))
-    
+   
     func after_each():
         db.db.open_db()
         db.db.delete_rows("field_blocks", "*")
         db.db.close_db()
-    
+   
     func test_get_crop():
         # the idea of this test is to ask the db to get the corresponding resource
         # (crop) that belongs to a table cell.

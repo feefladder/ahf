@@ -3,6 +3,7 @@ class_name PlacingBase
 
 signal placed
 var item: Sprite
+var time: float
 
 func _ready():
     place()

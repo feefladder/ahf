@@ -1,20 +1,22 @@
 extends Node
 class_name BigMenuIntItem
 
-var resource: IntResource
-
 signal increase_pressed(which)
 signal decrease_pressed(which)
+
+var resource: IntResource
+var amount: int =0 setget _set_number
+
 
 func _ready():
     $Icon.texture = resource.image
     $TypeLabel.text = resource.resource_name
-    $NumberLabel.text = String(resource.current_number)
+    $NumberLabel.text = String(amount)
     $Pricetag.text = String(resource.unit_price)
 
-func change_number(new_number: int) -> void:
-    resource.current_number = new_number
-    $NumberLabel.text = String(resource.current_number)
+func _set_number(new_number: int) -> void:
+    amount = new_number
+    $NumberLabel.text = String(amount)
 
 
 func _on_DecreaseButton_pressed():

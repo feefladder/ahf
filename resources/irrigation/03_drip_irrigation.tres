@@ -24,4 +24,4 @@ scene = ExtResource( 3 )
 pump_image = ExtResource( 4 )
 pump_cost = 100.0
 pump_labour = 10.0
-water_salinity = 0.0
+water_salinity = 0.352

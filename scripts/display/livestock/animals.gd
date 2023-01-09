@@ -39,4 +39,5 @@ func add_animal(an_animal: AnimalResource, id: int) -> void:
 
 func remove_animal(id: int) -> void:
     animals[id].queue_free()
+    # warning-ignore:return_value_discarded
     animals.erase(id)

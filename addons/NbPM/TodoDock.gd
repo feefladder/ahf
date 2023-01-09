@@ -142,7 +142,7 @@ func _update_gui():
 
 
                 # TODO REMOVE
-       
+      
                 var task = _has_task(file.file_path, todo.description)
                 if task == "":
                     #child_todo.add_button(2, icon_ref.get_icon("Add", "EditorIcons"))
@@ -176,7 +176,7 @@ func _scan_directory(path = "res://"):
                 file_path += file_name
             else:
                 file_path += "/" + file_name
-   
+  
             if dir.current_is_dir():
                 # Recursive call to scan directory
                 if not file_name in exclude_dir_list:
@@ -188,7 +188,7 @@ func _scan_directory(path = "res://"):
                     # Scan file
                     changes += _scan_file(path, file_name)
                     #print("-----------------------------------")
-   
+  
             file_name = dir.get_next()
 
         dir.list_dir_end()
