@@ -42,13 +42,11 @@ class TestLoadingAndSignals:
         # assert_eq(db.types_to_fields[typeof(crop_01)], "crop")
         assert_eq_deep(
             db.static_resources,
-            {"crop":
                 {crop_01.resource_name :
                     crop_01,
                 crop_02.resource_name:
                     crop_02
-                }
-            })
+                })
 
     func test_signal_measure():
         db.fields_to_paths = {"structural_measure": "structural_measures/"}

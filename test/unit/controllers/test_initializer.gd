@@ -37,7 +37,7 @@ class TestTablesCreated:
         assert_true(initializer.create_table_from_resource(test_resource, {}, "id"))
         assert_eq(initializer.insert_row_from_resource(test_resource, {}),1)
         assert_eq_deep(database.db.select_rows(tr_name,"",["\"a_Transform.basis.z\""]),[{"a_Transform.basis.z":1}])
-        database.asdf
+        # database.asdf
         assert_true(database.db.drop_table(test_resource.get_class()))
         database.db.close_db()
 

@@ -509,7 +509,7 @@ func _init_crop_sum_table() -> bool:
             "data_type":"int",
             "not_null":true,
         },
-        "crop":{
+        "name":{
             "data_type":"text",
             "not_null":true,
         },

@@ -2,7 +2,7 @@
 class_name YieldCalculator
 
 func calculate_yield(b_dict: Dictionary, f_dict: Dictionary, event: YieldEventResource) -> Dictionary:
-    var results_dict = {"crop":b_dict["crop"]}
+    var results_dict = {"name":b_dict["crop"]}
     var c_res = b_dict["crop_resource"]
     # theoretical maximum yield (cannot be obtained)
     var final_yield = b_dict["crop_resource"].max_yield
@@ -29,7 +29,7 @@ func calculate_yield(b_dict: Dictionary, f_dict: Dictionary, event: YieldEventRe
     return results_dict
 
 func end_of_year(event: EventResource) -> void:
-    # db.db.verbosity_level=2
+    db.db.verbosity_level=2
     # get all blocks
     var crop_b_dicts: Array = db.get_blocks_and_resources("crop IS NOT NULL", ["crop","structural_measure","irrigation","fertilization"])
     var f_dict: Dictionary = db.get_current_fertility(["salinity","nutrient_status","soil_structure","bulk_density","erosion_rate"])[0]
@@ -37,7 +37,7 @@ func end_of_year(event: EventResource) -> void:
         if not db.add_summary(db.CROP_SUM_TABLE, calculate_yield(b_dict, f_dict, event)):
             print_debug("add summary failed")
 
-    # db.db.verbosity_level=0
+    db.db.verbosity_level=0
     # get the current year's fertility
 
 #    final_yield *= summary.field.field_block_area

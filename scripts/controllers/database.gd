@@ -3,22 +3,38 @@ class_name Database
 
 const SQLite := preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
 
+# table with id and water source
 const FIELD_TABLE := "fields"
+# tables that get creaeted based on resource values (field, fertility)
 const RESOURCE_TABLES := "resources"
+# field blocks with crops etc
 const FBLOCK_TABLE := "field_blocks"
+#livestock (unique resources)
 const LIVESTOCK_TABLE := "livestock"
+# family (unique, with on-farm and age)
 const FAMILY_TABLE := "family"
+# table with schools and others (insurance)
 const HOUSEHOLD_TABLE := "household"
+# table with school years for each family member
 const SCHOOL_TABLE := "school"
+# table with upgrades (house, car etc)
 const UPGRADE_TABLE := "upgrades"
+# table with money and used labour
 const ASSET_TABLE := "assets"
+# table with items bought and sold this year
 const BUY_SELL_TABLE := "buy_sell"
+# table with items that can be bought and sold
 const BUYRESOURCE_TABLE := "buyresources"
+# table with labourers and off-farm job
 const LABOUR_TABLE := "labour"
 
+# table with event that happened this year
 const EVENT_SUM_TABLE := "events"
+# table with crop yields
 const CROP_SUM_TABLE := "crop_summary"
+# table with additional income/costs (living expenses, sickness)
 const ASSET_SUM_TABLE := "asset_summary"
+# table with livestock income
 const LIV_SUM_TABLE := "livestock_summary"
 
 const FIELD_TABLES := [
@@ -300,6 +316,7 @@ func get_avg_summary(table_name: String, col: String, group_by: String) -> Array
     db.query(
         " SELECT AVG("+col+") AS "+col+"_avg, COUNT("+group_by+") AS "+group_by+"_n, "+group_by+
         " FROM "+table_name+
+        " WHERE year="+str(year)+
         " GROUP BY "+group_by
         )
     var result: Array = db.query_result
@@ -307,7 +324,6 @@ func get_avg_summary(table_name: String, col: String, group_by: String) -> Array
     return result.duplicate(true)
 
 func get_asset_summary(condition: String="1=1", col:String="unit_price") -> Array:
-    db.verbosity_level = 2
     db.open_db()
     db.query(
         " SELECT amount, name, "+col+" FROM "+BUY_SELL_TABLE+
@@ -315,9 +331,7 @@ func get_asset_summary(condition: String="1=1", col:String="unit_price") -> Arra
         " WHERE year="+str(year)+" AND "+condition
     )
     var result: Array = db.query_result
-    print_debug(result)
     db.close_db()
-    db.verbosity_level = 0
     return result.duplicate(true)
 
 ############################################
@@ -428,7 +442,7 @@ func get_generic_amount(name: String, table_name: String):
     return row[0]["amount"]
 
 func change_generic_item(name:String, table_name:String, d_amount) -> int:
-    var condition = "name='"+name+"'"
+    var condition = "name='"+name+"' AND year="+str(year)
     db.open_db()
     var success: bool = db.query("UPDATE "+table_name+" SET amount=amount+"+str(d_amount)+" WHERE "+condition+";")
     db.close_db()
@@ -439,7 +453,6 @@ func change_generic_item(name:String, table_name:String, d_amount) -> int:
 
 func buy_sell_item(name: String, table_name: String, d_amount: int) -> bool:
     print_debug(d_amount)
-    db.verbosity_level = 2
     db.open_db()
     # get the resource id from BUYRESOURCE_TABLE
     var id_resource: int=db.select_rows(BUYRESOURCE_TABLE, "name='"+name+"'", ["id"])[0]["id"]
@@ -465,7 +478,6 @@ func buy_sell_item(name: String, table_name: String, d_amount: int) -> bool:
         db.close_db()
         return false
     db.close_db()
-    db.verbosity_level = 0
     return true
         
 

@@ -160,7 +160,7 @@ anchor_right = 1.01
 anchor_bottom = 1.0
 theme = ExtResource( 32 )
 script = ExtResource( 12 )
-available_money = 1000
+start_money = 1000
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
 popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 
@@ -339,6 +339,7 @@ margin_right = 1034.0
 margin_bottom = 90.0
 text = "next year"
 script = ExtResource( 34 )
+max_years = 12
 
 [node name="EventManager" type="Node" parent="AssetManager/NextYearButton"]
 script = ExtResource( 19 )
