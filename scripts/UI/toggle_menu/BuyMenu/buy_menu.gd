@@ -14,8 +14,7 @@ func _ready():
     add_to_group("controllers")
     database.connect("resources_loaded", self, "_on_Database_resources_loaded")
     database.connect("all_resources_loaded", self, "_on_Database_all_resources_loaded")
-    if get_node_or_null("VboxContainer/Title"):
-        $VBoxContainer/Title.text = title
+    $VBoxContainer/Title.text = tr(title)
 
 func _on_Database_resources_loaded(which: String, resources: Array):
     if which in resources_names:

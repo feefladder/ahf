@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
 [ext_resource path="res://scripts/controllers/family_controller.gd" type="Script" id=14]
 [ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
+[ext_resource path="res://scripts/UI/label_best_fit.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
 [ext_resource path="res://scripts/UI/tooltips/tooltip.gd" type="Script" id=18]
 [ext_resource path="res://scripts/end_of_year/event_manager.gd" type="Script" id=19]
@@ -115,18 +116,19 @@ script = ExtResource( 13 )
 crop_handler_path = NodePath("CropsBuyMenu")
 
 [node name="CropsBuyMenu" parent="StateController" instance=ExtResource( 2 )]
+visible = false
 script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
-title = "Crops"
+title = "crops"
 resources_names = PoolStringArray( "crop" )
-database_path = NodePath("/root/Database")
 asset_manager_path = NodePath("../../AssetManager")
 field_path = NodePath("../../Background/Field")
 
 [node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
+visible = false
 script = ExtResource( 46 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
-title = "Measures"
+title = "measures"
 resources_names = PoolStringArray( "structural_measure", "measure_improvement", "fertilization" )
 database_path = NodePath("../..")
 asset_manager_path = NodePath("../../AssetManager")
@@ -134,24 +136,26 @@ field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 47 )
+title = "livestock"
 resource_names = PoolStringArray( "livestock" )
 
 [node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 48 )
 display_path = NodePath("../../Background/Family")
+title = "labour"
 resource_names = PoolStringArray( "labour" )
 
 [node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
 script = ExtResource( 14 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("../../Background/Family")
-title = "Family"
+title = "family"
 resource_names = PoolStringArray( "family", "household" )
 
 [node name="UpgradesBigMenu" parent="StateController" instance=ExtResource( 26 )]
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 display_path = NodePath("")
-title = "Upgrades"
+title = "upgrades"
 resource_names = PoolStringArray( "upgrades" )
 
 [node name="AssetManager" type="HBoxContainer" parent="."]
@@ -185,7 +189,8 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 text = "Money"
 align = 1
-autowrap = true
+clip_text = true
+script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -217,7 +222,8 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 text = "Money"
 align = 1
-autowrap = true
+clip_text = true
+script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -249,9 +255,9 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 text = "fertility"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+clip_text = true
+max_lines_visible = 1
+script = ExtResource( 16 )
 
 [node name="Amount" type="Label" parent="AssetManager/FertilityStat"]
 anchor_top = 0.5
@@ -283,9 +289,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "0"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 16 )
 
 [node name="GoatStat" type="TextureRect" parent="AssetManager"]
 margin_left = 618.0
@@ -306,6 +310,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "0"
 align = 2
+script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -329,6 +334,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "0"
 align = 2
+script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -415,14 +421,10 @@ __meta__ = {
 }
 
 [node name="Tooltip" type="PanelContainer" parent="Tooltips"]
-visible = false
 margin_right = 386.0
 margin_bottom = 28.0
 mouse_filter = 2
 script = ExtResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextContainer" type="VBoxContainer" parent="Tooltips/Tooltip"]
 margin_right = 386.0
