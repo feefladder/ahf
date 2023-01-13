@@ -4,10 +4,10 @@ image: barichello/godot-ci:latest
 # project.godot is at the repo root
 
 # Cache imported assets between runs
-cache:
-  key: import-assets
-  paths:
-    - .import/
+# cache:
+#   key: import-assets
+#   paths:
+#     - .import/
 
 stages:
   - test

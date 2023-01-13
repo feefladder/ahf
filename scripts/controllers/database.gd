@@ -1,7 +1,7 @@
 extends Node
 class_name Database
 
-const SQLite := preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
+const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
 
 # table with id and water source
 const FIELD_TABLE := "fields"

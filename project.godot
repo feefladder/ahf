@@ -289,6 +289,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/events/price_event_resource.gd"
 }, {
+"base": "Reference",
+"class": "SQLiteWrapper",
+"language": "GDScript",
+"path": "res://addons/godot-sqlite/godot-sqlite-wrapper.gd"
+}, {
 "base": "IntResource",
 "class": "SchoolResource",
 "language": "GDScript",
@@ -421,6 +426,7 @@ _global_script_class_icons={
 "PopupInsufficient": "",
 "PopupMaxReached": "",
 "PriceEventResource": "",
+"SQLiteWrapper": "",
 "SchoolResource": "",
 "Stat": "",
 "StateController": "",
@@ -446,7 +452,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/gut/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg" )
 
 [global]
 
