@@ -20,79 +20,76 @@ onready var _gut_layer = $GutLayer
 
 
 func _ready():
-    if(_gut_config == null):
-        _gut_config = GutConfig.new()
-        _gut_config.load_options(RUNNER_JSON_PATH)
+	if(_gut_config == null):
+		_gut_config = GutConfig.new()
+		_gut_config.load_panel_options(RUNNER_JSON_PATH)
 
-
-    # The command line will call run_tests on its own.  When used from the panel
-    # we have to kick off the tests ourselves b/c there's no way I know of to
-    # interact with the scene that was run via play_custom_scene.
-    if(!_cmdln_mode):
-        call_deferred('run_tests')
+	# The command line will call run_tests on its own.  When used from the panel
+	# we have to kick off the tests ourselves b/c there's no way I know of to
+	# interact with the scene that was run via play_custom_scene.
+	if(!_cmdln_mode):
+		call_deferred('run_tests')
 
 
 func run_tests():
-    if(_gut == null):
-        _gut = Gut.new()
+	if(_gut == null):
+		_gut = Gut.new()
 
-    _gut.set_add_children_to(self)
-    if(_gut_config.options.gut_on_top):
-        _gut_layer.add_child(_gut)
-    else:
-        add_child(_gut)
+	_gut.set_add_children_to(self)
+	if(_gut_config.options.gut_on_top):
+		_gut_layer.add_child(_gut)
+	else:
+		add_child(_gut)
 
-    if(!_cmdln_mode):
-        _gut.connect('tests_finished', self, '_on_tests_finished',
-            [_gut_config.options.should_exit, _gut_config.options.should_exit_on_success])
+	if(!_cmdln_mode):
+		_gut.connect('tests_finished', self, '_on_tests_finished',
+			[_gut_config.options.should_exit, _gut_config.options.should_exit_on_success])
 
-    _gut_config.config_gut(_gut)
-    if(_gut_config.options.gut_on_top):
-        _gut.get_gui().goto_bottom_right_corner()
+	_gut_config.config_gut(_gut)
+	if(_gut_config.options.gut_on_top):
+		_gut.get_gui().goto_bottom_right_corner()
 
-    var run_rest_of_scripts = _gut_config.options.unit_test_name == ''
-    _gut.test_scripts(run_rest_of_scripts)
+	var run_rest_of_scripts = _gut_config.options.unit_test_name == ''
+	_gut.test_scripts(run_rest_of_scripts)
 
 
 func _write_results():
-    # bbcode_text appears to be empty.  I'm not 100% sure why.  Until that is
-    # figured out we have to just get the text which stinks.
-    var content = _gut.get_gui().get_text_box().text
+	var content = _gut.get_logger().get_gui_bbcode()
 
-    var f = File.new()
-    var result = f.open(RESULT_FILE, f.WRITE)
-    if(result == OK):
-        f.store_string(content)
-        f.close()
-    else:
-        print('ERROR Could not save bbcode, result = ', result)
+	var f = File.new()
+	var result = f.open(RESULT_FILE, f.WRITE)
+	if(result == OK):
+		f.store_string(content)
+		f.close()
+	else:
+		print('ERROR Could not save bbcode, result = ', result)
 
-    var exporter = ResultExporter.new()
-    var f_result = exporter.write_summary_file(_gut, RESULT_JSON)
-    _wrote_results = true
+	var exporter = ResultExporter.new()
+	var f_result = exporter.write_json_file(_gut, RESULT_JSON)
+	_wrote_results = true
 
 
 func _exit_tree():
-    if(!_wrote_results and !_cmdln_mode):
-        _write_results()
+	if(!_wrote_results and !_cmdln_mode):
+		_write_results()
 
 
 func _on_tests_finished(should_exit, should_exit_on_success):
-    _write_results()
+	_write_results()
 
-    if(should_exit):
-        get_tree().quit()
-    elif(should_exit_on_success and _gut.get_fail_count() == 0):
-        get_tree().quit()
+	if(should_exit):
+		get_tree().quit()
+	elif(should_exit_on_success and _gut.get_fail_count() == 0):
+		get_tree().quit()
 
 
 func get_gut():
-    if(_gut == null):
-        _gut = Gut.new()
-    return _gut
+	if(_gut == null):
+		_gut = Gut.new()
+	return _gut
 
 func set_gut_config(which):
-    _gut_config = which
+	_gut_config = which
 
 func set_cmdln_mode(is_it):
-    _cmdln_mode = is_it
+	_cmdln_mode = is_it
