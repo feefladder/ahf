@@ -1,5 +1,5 @@
 extends HBoxContainer
-class_name AssetManager
+class_name AssetController
 
 signal asset_changed(which, new_amount)
 

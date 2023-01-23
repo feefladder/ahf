@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/annual_review_base.gd"
 }, {
+"base": "HBoxContainer",
+"class": "AssetController",
+"language": "GDScript",
+"path": "res://scripts/controllers/asset_controller.gd"
+}, {
 "base": "CategoryReview",
 "class": "AssetExpensesSummary",
 "language": "GDScript",
@@ -43,11 +48,6 @@ _global_script_classes=[ {
 "class": "AssetIncomeSummary",
 "language": "GDScript",
 "path": "res://scripts/annual_review/balance/income/income_display.gd"
-}, {
-"base": "HBoxContainer",
-"class": "AssetManager",
-"language": "GDScript",
-"path": "res://scripts/controllers/asset_controller.gd"
 }, {
 "base": "SummaryResource",
 "class": "AssetSummaryResource",
@@ -289,6 +289,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/events/price_event_resource.gd"
 }, {
+"base": "Reference",
+"class": "SQLiteWrapper",
+"language": "GDScript",
+"path": "res://addons/godot-sqlite/godot-sqlite-wrapper.gd"
+}, {
 "base": "IntResource",
 "class": "SchoolResource",
 "language": "GDScript",
@@ -370,9 +375,9 @@ _global_script_class_icons={
 "Animals": "",
 "AnnualReview": "",
 "AnnualReviewBase": "",
+"AssetController": "",
 "AssetExpensesSummary": "",
 "AssetIncomeSummary": "",
-"AssetManager": "",
 "AssetSummaryResource": "",
 "BigMenu": "",
 "BigMenuIntItem": "",
@@ -421,6 +426,7 @@ _global_script_class_icons={
 "PopupInsufficient": "",
 "PopupMaxReached": "",
 "PriceEventResource": "",
+"SQLiteWrapper": "",
 "SchoolResource": "",
 "Stat": "",
 "StateController": "",
@@ -455,7 +461,7 @@ scene=false
 [locale]
 
 test="nl"
-translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ha_NG.translation", "res://assets/translations.nl.translation" )
+translations=PoolStringArray(  )
 locale_filter=[ 0, [ "en", "nl" ] ]
 
 [physics]
