@@ -45,6 +45,6 @@ func best_fit_check():
             font.size -= 1
     else:
         if rect_size.y < max_font_size:
-            font.size = rect_size.y
+            font.size = int(rect_size.y)
         while rect_size.x < font.get_string_size(tr(text)).x:
             font.size -= 1

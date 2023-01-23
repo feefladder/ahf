@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
 [ext_resource path="res://scripts/UI/label_best_fit.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
-[ext_resource path="res://scripts/UI/tooltips/tooltip.gd" type="Script" id=18]
 [ext_resource path="res://scripts/end_of_year/event_manager.gd" type="Script" id=19]
 [ext_resource path="res://assets/Background1.png" type="Texture" id=20]
 [ext_resource path="res://scripts/display/livestock/animals.gd" type="Script" id=21]
@@ -33,9 +32,7 @@
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
 [ext_resource path="res://resources/livestock/01_chicken.tres" type="Resource" id=33]
 [ext_resource path="res://scripts/controllers/end_of_year_controller.gd" type="Script" id=34]
-[ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
 [ext_resource path="res://scripts/end_of_year/yield_calculator.gd" type="Script" id=36]
-[ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
 [ext_resource path="res://resources/livestock/02_goat.tres" type="Resource" id=39]
 [ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
@@ -121,7 +118,7 @@ script = ExtResource( 7 )
 toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "crops"
 resources_names = PoolStringArray( "crop" )
-asset_manager_path = NodePath("../../AssetManager")
+asset_controller_path = NodePath("../../AssetController")
 field_path = NodePath("../../Background/Field")
 
 [node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
@@ -131,7 +128,7 @@ toggle_menu_path = NodePath("../../ToggleButtonContainer")
 title = "measures"
 resources_names = PoolStringArray( "structural_measure", "measure_improvement", "fertilization" )
 database_path = NodePath("../..")
-asset_manager_path = NodePath("../../AssetManager")
+asset_controller_path = NodePath("../../AssetController")
 field_path = NodePath("../../Background/Field")
 
 [node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
@@ -158,7 +155,7 @@ display_path = NodePath("")
 title = "upgrades"
 resource_names = PoolStringArray( "upgrades" )
 
-[node name="AssetManager" type="HBoxContainer" parent="."]
+[node name="AssetController" type="HBoxContainer" parent="."]
 anchor_top = 0.85
 anchor_right = 1.01
 anchor_bottom = 1.0
@@ -168,12 +165,12 @@ start_money = 1000
 popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
 popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
 
-[node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]
+[node name="MoneyStat" parent="AssetController" instance=ExtResource( 4 )]
 margin_right = 119.0
 type = "money"
 unit = "₦"
 
-[node name="LabourStat" type="ColorRect" parent="AssetManager"]
+[node name="LabourStat" type="ColorRect" parent="AssetController"]
 margin_left = 123.0
 margin_right = 243.0
 margin_bottom = 90.0
@@ -183,7 +180,7 @@ script = ExtResource( 24 )
 type = "labour"
 unit = "/7"
 
-[node name="Title" type="Label" parent="AssetManager/LabourStat"]
+[node name="Title" type="Label" parent="AssetController/LabourStat"]
 anchor_top = 0.1
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -195,7 +192,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Amount" type="Label" parent="AssetManager/LabourStat"]
+[node name="Amount" type="Label" parent="AssetController/LabourStat"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.9
@@ -206,7 +203,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="YearsStat" type="ColorRect" parent="AssetManager"]
+[node name="YearsStat" type="ColorRect" parent="AssetController"]
 margin_left = 247.0
 margin_right = 367.0
 margin_bottom = 90.0
@@ -216,7 +213,7 @@ script = ExtResource( 24 )
 type = "years"
 unit = "/20"
 
-[node name="Title" type="Label" parent="AssetManager/YearsStat"]
+[node name="Title" type="Label" parent="AssetController/YearsStat"]
 anchor_top = 0.1
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -228,7 +225,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Amount" type="Label" parent="AssetManager/YearsStat"]
+[node name="Amount" type="Label" parent="AssetController/YearsStat"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.9
@@ -239,7 +236,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FertilityStat" type="ColorRect" parent="AssetManager"]
+[node name="FertilityStat" type="ColorRect" parent="AssetController"]
 margin_left = 371.0
 margin_right = 490.0
 margin_bottom = 90.0
@@ -249,7 +246,7 @@ script = ExtResource( 24 )
 type = "fertility"
 unit = "%"
 
-[node name="Title" type="Label" parent="AssetManager/FertilityStat"]
+[node name="Title" type="Label" parent="AssetController/FertilityStat"]
 anchor_top = 0.1
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -259,7 +256,7 @@ clip_text = true
 max_lines_visible = 1
 script = ExtResource( 16 )
 
-[node name="Amount" type="Label" parent="AssetManager/FertilityStat"]
+[node name="Amount" type="Label" parent="AssetController/FertilityStat"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.9
@@ -270,7 +267,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChickenStat" type="TextureRect" parent="AssetManager"]
+[node name="ChickenStat" type="TextureRect" parent="AssetController"]
 margin_left = 494.0
 margin_right = 614.0
 margin_bottom = 90.0
@@ -282,7 +279,7 @@ stretch_mode = 6
 script = ExtResource( 1 )
 type = ExtResource( 33 )
 
-[node name="Amount" type="Label" parent="AssetManager/ChickenStat"]
+[node name="Amount" type="Label" parent="AssetController/ChickenStat"]
 anchor_left = 0.5
 anchor_top = 0.7
 anchor_right = 1.0
@@ -291,7 +288,7 @@ text = "0"
 align = 2
 script = ExtResource( 16 )
 
-[node name="GoatStat" type="TextureRect" parent="AssetManager"]
+[node name="GoatStat" type="TextureRect" parent="AssetController"]
 margin_left = 618.0
 margin_right = 738.0
 margin_bottom = 90.0
@@ -303,7 +300,7 @@ stretch_mode = 6
 script = ExtResource( 1 )
 type = ExtResource( 39 )
 
-[node name="Amount" type="Label" parent="AssetManager/GoatStat"]
+[node name="Amount" type="Label" parent="AssetController/GoatStat"]
 anchor_left = 0.5
 anchor_top = 0.7
 anchor_right = 1.0
@@ -315,7 +312,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CowStat" type="TextureRect" parent="AssetManager"]
+[node name="CowStat" type="TextureRect" parent="AssetController"]
 margin_left = 742.0
 margin_right = 862.0
 margin_bottom = 90.0
@@ -327,7 +324,7 @@ stretch_mode = 6
 script = ExtResource( 1 )
 type = ExtResource( 45 )
 
-[node name="Amount" type="Label" parent="AssetManager/CowStat"]
+[node name="Amount" type="Label" parent="AssetController/CowStat"]
 anchor_left = 0.5
 anchor_top = 0.7
 anchor_right = 1.0
@@ -339,7 +336,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NextYearButton" type="Button" parent="AssetManager"]
+[node name="NextYearButton" type="Button" parent="AssetController"]
 margin_left = 866.0
 margin_right = 1034.0
 margin_bottom = 90.0
@@ -347,7 +344,7 @@ text = "next year"
 script = ExtResource( 34 )
 max_years = 12
 
-[node name="EventManager" type="Node" parent="AssetManager/NextYearButton"]
+[node name="EventManager" type="Node" parent="AssetController/NextYearButton"]
 script = ExtResource( 19 )
 
 [node name="ToggleButtonContainer" type="VBoxContainer" parent="."]
@@ -361,7 +358,6 @@ script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
-tooltip_path = NodePath("../Tooltips/Tooltip")
 target_path = NodePath("../StateController")
 
 [node name="CropsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
@@ -370,6 +366,7 @@ margin_bottom = 61.0
 icon = ExtResource( 30 )
 title = "crops"
 target = NodePath("../../StateController/CropsBuyMenu")
+tooltip_text = "plant and remove crops"
 
 [node name="MeasuresToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_top = 71.0
@@ -378,6 +375,7 @@ margin_bottom = 133.0
 icon = ExtResource( 9 )
 title = "measures"
 target = NodePath("../../StateController/MeasuresBuyMenu")
+tooltip_text = "apply measures, irrigation and fertilizer."
 
 [node name="AnimalsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_top = 143.0
@@ -386,6 +384,7 @@ margin_bottom = 205.0
 icon = ExtResource( 8 )
 title = "livestock"
 target = NodePath("../../StateController/LivestockBigMenu")
+tooltip_text = "buy and sell livestock"
 
 [node name="LabourToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_top = 215.0
@@ -394,6 +393,7 @@ margin_bottom = 276.0
 icon = ExtResource( 5 )
 title = "labour"
 target = NodePath("../../StateController/LabourBigMenu")
+tooltip_text = "hire labourers or get an off-farm job"
 
 [node name="FamilyToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_top = 286.0
@@ -402,6 +402,7 @@ margin_bottom = 348.0
 icon = ExtResource( 22 )
 title = "family"
 target = NodePath("../../StateController/FamilyBigMenu")
+tooltip_text = "manage family"
 
 [node name="UpgradesToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
 margin_top = 358.0
@@ -410,78 +411,13 @@ margin_bottom = 420.0
 icon = ExtResource( 22 )
 title = "upgrades"
 target = NodePath("../../StateController/UpgradesBigMenu")
+tooltip_text = "buy upgrades"
 
 [node name="Tooltips" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 32 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tooltip" type="PanelContainer" parent="Tooltips"]
-margin_right = 386.0
-margin_bottom = 28.0
-mouse_filter = 2
-script = ExtResource( 18 )
-
-[node name="TextContainer" type="VBoxContainer" parent="Tooltips/Tooltip"]
-margin_right = 386.0
-margin_bottom = 28.0
-mouse_filter = 2
-
-[node name="Text" type="Label" parent="Tooltips/Tooltip/TextContainer"]
-margin_right = 386.0
-margin_bottom = 28.0
-size_flags_vertical = 3
-text = "some text that is very long"
-script = ExtResource( 35 )
-
-[node name="BuyMenuTooltip" type="PanelContainer" parent="Tooltips"]
-visible = false
-margin_right = 14.0
-margin_bottom = 28.0
-mouse_filter = 2
-script = ExtResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-give_me_a_better_name = false
-
-[node name="TextContainer" type="VBoxContainer" parent="Tooltips/BuyMenuTooltip"]
-margin_right = 14.0
-margin_bottom = 28.0
-mouse_filter = 2
-
-[node name="Text" type="Label" parent="Tooltips/BuyMenuTooltip/TextContainer"]
-margin_right = 14.0
-margin_bottom = 28.0
-size_flags_vertical = 3
-script = ExtResource( 35 )
-max_width = 100.0
-
-[node name="BigMenuTooltip" type="PanelContainer" parent="Tooltips"]
-visible = false
-margin_right = 14.0
-margin_bottom = 28.0
-mouse_filter = 2
-script = ExtResource( 37 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextContainer" type="VBoxContainer" parent="Tooltips/BigMenuTooltip"]
-margin_right = 14.0
-margin_bottom = 28.0
-mouse_filter = 2
-
-[node name="Text" type="Label" parent="Tooltips/BigMenuTooltip/TextContainer"]
-margin_right = 14.0
-margin_bottom = 28.0
-size_flags_vertical = 3
-script = ExtResource( 35 )
-max_width = 100.0
 
 [node name="PopupInsufficient" type="Panel" parent="Tooltips"]
 visible = false
@@ -589,14 +525,10 @@ __meta__ = {
 }
 
 [node name="MouseIndicator" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 42 )
 
 [connection signal="database_loaded" from="." to="Background/Field" method="_on_Database_database_loaded"]
-[connection signal="asset_changed" from="AssetManager" to="AssetManager/MoneyStat" method="_on_AssetManager_asset_changed"]
-[connection signal="asset_changed" from="AssetManager" to="AssetManager/LabourStat" method="_on_AssetManager_asset_changed"]
-[connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
-[connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]
-[connection signal="resized" from="Tooltips/BigMenuTooltip/TextContainer" to="Tooltips/BigMenuTooltip" method="_on_TextContainer_resized"]
+[connection signal="asset_changed" from="AssetController" to="AssetController/MoneyStat" method="_on_AssetController_asset_changed"]
+[connection signal="asset_changed" from="AssetController" to="AssetController/LabourStat" method="_on_AssetController_asset_changed"]
 [connection signal="pressed" from="Tooltips/PopupInsufficient/Panel/Button" to="Tooltips/PopupInsufficient" method="hide"]
 [connection signal="pressed" from="Tooltips/PopupMaxReached/Panel/Button" to="Tooltips/PopupMaxReached" method="hide"]

@@ -17,6 +17,7 @@ func _ready():
 
 func _on_NextYearButton_pressed():
     database.year += 1
+    # warning-ignore:return_value_discarded
     database.change_generic_item("money", database.ASSET_TABLE, total_income-total_expenses)
     get_tree().call_group("controllers","start_year")
     get_tree().call_group("displays","start_year")

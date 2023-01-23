@@ -1,11 +1,10 @@
 extends BigMenu
 class_name FamilyHandler
 
-signal people_changed
-
 var schools : Dictionary
 
 func _ready():
+    # warning-ignore:return_value_discarded
     connect("people_changed", asset_controller, "_on_people_changed")
 
 func try_increase_resource(an_item: IntResource) -> int:

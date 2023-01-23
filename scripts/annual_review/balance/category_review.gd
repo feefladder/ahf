@@ -32,7 +32,7 @@ func get_summary() -> Array:
     print_debug("unoverridden get_summary!")
     return []
 
-func make_calculation(dict: Dictionary) -> String:
+func make_calculation(_dict: Dictionary) -> String:
     # make the calculation string. Also update total
     print_debug("unoverridden make_calculation!")
     return ""

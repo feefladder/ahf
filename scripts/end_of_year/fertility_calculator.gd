@@ -25,6 +25,7 @@ func end_of_year(_event) -> void:
     f_erosion_protection = calc_erosion_protection()
     erode_soil()
     fert_dict["erosion_rate"] = calc_erosion()
+    # warning-ignore:return_value_discarded
     db.set_next_dict("FertilityResource", fert_dict)
     # print_debug(fert_dict)
 

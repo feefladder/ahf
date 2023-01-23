@@ -1,0 +1,11 @@
+{
+	"title": "tooltips",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1674490901,
+	"hash": "c2686cd7a244a72d27a0621e07efb56c3517ab1017815d442d8a814ddc9c367b",
+	"description": "make tooltips for:\nToggleButton:\n - just some text set per node\nBuyMenu:\n - crops\n - measures:\n  - structural measure\n  - measure improvement\n  - irrigation -> make some interface for buying water pump etc\n  - fertilization\n",
+	"todos": [
+
+	]
+}
