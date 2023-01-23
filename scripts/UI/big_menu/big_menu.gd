@@ -4,14 +4,14 @@ class_name BigMenu
 export(NodePath) var item_container_path = NodePath("ItemContainer")
 export(NodePath) var display_path = NodePath("/root/Database/Background/Livestock")
 export(NodePath) var database_path = NodePath("/root/Database")
-export(NodePath) var asset_manager_path = NodePath("/root/Database/AssetManager")
+export(NodePath) var asset_controller_path = NodePath("/root/Database/AssetController")
 
 export(String) var title
 export(PoolStringArray) var resource_names
 onready var item_container = get_node_or_null(item_container_path)
 onready var display = get_node_or_null(display_path)
 onready var database = get_node_or_null(database_path)
-onready var asset_manager = get_node_or_null(asset_manager_path)
+onready var asset_controller = get_node_or_null(asset_controller_path)
 
 func _ready():
     add_to_group("controllers")

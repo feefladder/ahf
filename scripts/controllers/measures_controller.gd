@@ -1,13 +1,13 @@
 extends BuyMenu
 class_name MeasuresHandler
 
-export(NodePath) var asset_manager_path = NodePath("../../AssetManager")
+export(NodePath) var asset_controller_path = NodePath("../../AssetController")
 export(NodePath) var field_path = NodePath("../../Background/Field")
 
 var current_resource: BuyResource
 var state: Node
 
-onready var asset_manager: AssetManager = get_node(asset_manager_path)
+onready var asset_controller: AssetController = get_node(asset_controller_path)
 onready var field: Field = get_node(field_path)
 
 #func _ready():
@@ -28,13 +28,13 @@ func _on_tab_changed(which: BuyMenuItem):
     # current_resource = which.resource
     # var min_number = get_min_number()
     # if current_resource is IrrigationResource:
-    #     if asset_manager.decrease_assets(current_resource.pump_cost, current_resource.pump_labour):
+    #     if asset_controller.decrease_assets(current_resource.pump_cost, current_resource.pump_labour):
     #         field.place_pump(current_resource.pump_image)
     #         current_resource.pump_placed = true
     #         set_current_measure(which)
     #     else:
     #         $BuyMenu/ScrollContainer/BuyMenuItemContainer.deselect()
-    # if asset_manager.has_enough(min_number*which.resource.unit_price, min_number*which.resource.unit_labour):
+    # if asset_controller.has_enough(min_number*which.resource.unit_price, min_number*which.resource.unit_labour):
     #         set_current_measure(which)
     # else:
     #     $BuyMenu/ScrollContainer/BuyMenuItemContainer.deselect()
@@ -73,11 +73,11 @@ func set_current_measure(which: BuyMenuItem):
     field.set_enable_with(current_resource)
 
 func try_apply(block: FieldBlock, col: String) -> bool:
-    if not asset_manager.has_enough(current_resource.unit_price, current_resource.unit_labour):
+    if not asset_controller.has_enough(current_resource.unit_price, current_resource.unit_labour):
         return false
     if not database.write_block_if_empty(block.x, block.y, col, current_resource.resource_name):
         return false
-    asset_manager.buy_item(current_resource)
+    asset_controller.buy_item(current_resource)
     field.disable_except(block)
     block.update_to_db(col)
     yield(block,"placed")

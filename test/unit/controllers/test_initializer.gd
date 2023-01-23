@@ -36,8 +36,13 @@ class TestTablesCreated:
         database.db.open_db()
         assert_true(initializer.create_table_from_resource(test_resource, {}, "id"))
         assert_eq(initializer.insert_row_from_resource(test_resource, {}),1)
-        assert_eq_deep(database.db.select_rows(tr_name,"",["\"a_Transform.basis.z\""]),[{"a_Transform.basis.z":1}])
-        # database.asdf
+
+        assert_eq_deep(
+            database.db.select_rows(tr_name,"",["\"a_Transform.basis.z.z\""]), # <- use \" to denote col name
+            [{
+                "a_Transform.basis.z.z":1.0
+            }]
+        )
         assert_true(database.db.drop_table(test_resource.get_class()))
         database.db.close_db()
 

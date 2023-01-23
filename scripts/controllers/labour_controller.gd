@@ -4,17 +4,17 @@ class_name LabourController
 signal people_changed
 
 func _ready():
-    connect("people_changed", asset_manager, "_on_people_changed")
+    connect("people_changed", asset_controller, "_on_people_changed")
 
 func try_increase_resource(item: IntResource) -> int:
     if database.get_generic_amount(item.resource_name, database.LABOUR_TABLE) >= item.max_number:
         return -1
     # labourer
-    if not asset_manager.has_enough(item.unit_price, item.unit_labour):
+    if not asset_controller.has_enough(item.unit_price, item.unit_labour):
         return -1
     var new_amount : int = database.change_generic_item(item.resource_name, database.LABOUR_TABLE, 1)
     display.update_labourers_to_db()
-    asset_manager.buy_item(item)
+    asset_controller.buy_item(item)
     emit_signal("people_changed")
     return new_amount
 
@@ -22,11 +22,11 @@ func try_decrease_resource(item: IntResource) -> int:
     if database.get_generic_amount(item.resource_name, database.LABOUR_TABLE) <= 0:
         return -1
     # labourer
-    if not asset_manager.has_enough(-item.unit_price, -item.unit_labour):
+    if not asset_controller.has_enough(-item.unit_price, -item.unit_labour):
         return -1
     var new_amount : int = database.change_generic_item(item.resource_name, database.LABOUR_TABLE, -1)
     display.update_labourers_to_db()
-    asset_manager.sell_item(item)
+    asset_controller.sell_item(item)
     emit_signal("people_changed")
     return new_amount
 
@@ -35,7 +35,7 @@ func try_toggle_item(item: BuyResource) -> bool:
     var amount = database.get_generic_amount(item.resource_name, database.LABOUR_TABLE)
     if amount == 0:
         # get an off farm job
-        if not asset_manager.has_enough(item.unit_price, item.person.labour):
+        if not asset_controller.has_enough(item.unit_price, item.person.labour):
             return false
         # off farm job -> move off farm
         database.change_generic_item(item.resource_name, database.LABOUR_TABLE, 1)
@@ -44,9 +44,9 @@ func try_toggle_item(item: BuyResource) -> bool:
             return false
         display.update_family_to_db()
         emit_signal("people_changed")
-        asset_manager.buy_item(item)
+        asset_controller.buy_item(item)
     else:
-        if not asset_manager.has_enough(-item.unit_price, -item.person.labour):
+        if not asset_controller.has_enough(-item.unit_price, -item.person.labour):
             return false
         # no off farm job -> move on farm
         database.change_generic_item(item.resource_name, database.LABOUR_TABLE, -1)
@@ -55,7 +55,7 @@ func try_toggle_item(item: BuyResource) -> bool:
             return false
         display.update_family_to_db()
         emit_signal("people_changed")
-        asset_manager.sell_item(item)
+        asset_controller.sell_item(item)
     return true
 
 func end_of_year():
