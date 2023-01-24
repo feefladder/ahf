@@ -41,8 +41,10 @@ The game deploys by CI/CD on:
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [unity](https://unity.com/)
-* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+* [Godot](https://godotengine.org/)
+* [Godot-SQLite](https://github.com/2shady4u/godot-sqlite)
+* [Godot Unit Testing](https://github.com/bitwes/Gut/)
+* [Godot-ci](https://github.com/abarichello/godot-ci)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -54,8 +56,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 ## Roadmap
 
 - [x] Make Open Source
-- [ ] Multi-language Support
-    - [ ] English
+- [x] Multi-language Support
+    - [x] English
     - [ ] Hausa
     - [ ] Swahili
 

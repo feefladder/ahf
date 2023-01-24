@@ -1,0 +1,295 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://scripts/annual_review/annual_review.gd" type="Script" id=1]
+[ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/farmzy/farmz2u character-02.png" type="Texture" id=3]
+[ext_resource path="res://assets/theme/small_header_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/theme/big_header_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scripts/annual_review/event/event_display.gd" type="Script" id=6]
+[ext_resource path="res://assets/UI/Stats/money.png" type="Texture" id=7]
+[ext_resource path="res://scripts/annual_review/balance/income/income_display.gd" type="Script" id=8]
+[ext_resource path="res://assets/theme/panel_expenses.tres" type="StyleBox" id=9]
+[ext_resource path="res://scripts/annual_review/balance/income/crop_income_summary.gd" type="Script" id=10]
+[ext_resource path="res://scripts/annual_review/balance/expenses/expenses_display.gd" type="Script" id=11]
+[ext_resource path="res://scripts/annual_review/balance/total/income_total.gd" type="Script" id=12]
+[ext_resource path="res://scripts/annual_review/balance/total/full_total.gd" type="Script" id=13]
+[ext_resource path="res://scripts/annual_review/balance/expenses/crop_expenses_container.gd" type="Script" id=14]
+[ext_resource path="res://assets/farmerfam.png" type="Texture" id=15]
+[ext_resource path="res://scenes/annual_review/category_summary.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/annual_review/balance/total/expenses_total.gd" type="Script" id=17]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.513726, 0.301961, 0.0941176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.33, 0.1947, 0.0594, 1 )
+
+[node name="AnnualReview" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+income_path = NodePath("Control/Income")
+expenses_path = NodePath("Control/Expenses")
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.02
+anchor_top = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.98
+
+[node name="EventDisplay" type="Panel" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 0.2
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 6 )
+
+[node name="EventText" type="Label" parent="Control/EventDisplay"]
+anchor_left = 0.2
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.9
+size_flags_horizontal = 3
+text = "bal bla bal "
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/EventDisplay"]
+anchor_right = 0.2
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EventTitle" type="Label" parent="Control/EventDisplay/VBoxContainer"]
+margin_right = 196.0
+margin_bottom = 23.0
+text = "nto Gullying"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EventImage" type="TextureRect" parent="Control/EventDisplay/VBoxContainer"]
+margin_top = 28.0
+margin_right = 196.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 3
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Control"]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.3
+custom_fonts/font = ExtResource( 5 )
+text = "annual review"
+align = 1
+
+[node name="Income" type="Panel" parent="Control"]
+anchor_top = 0.3
+anchor_right = 0.475
+anchor_bottom = 0.85
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Income"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 5
+
+[node name="Title" type="Label" parent="Control/Income/VBoxContainer"]
+margin_right = 466.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 4 )
+text = "income"
+align = 1
+
+[node name="CropIncomeSummary" parent="Control/Income/VBoxContainer" instance=ExtResource( 16 )]
+margin_right = 466.0
+margin_bottom = 77.0
+script = ExtResource( 10 )
+title = "Crops"
+calculation_text = "yield x area x price = total"
+
+[node name="LivestockIncomeSummary" parent="Control/Income/VBoxContainer" instance=ExtResource( 16 )]
+margin_top = 82.0
+margin_right = 466.0
+margin_bottom = 126.0
+title = "Livestock"
+calculation_text = "amount x income = total"
+
+[node name="AssetIncomeSummary" parent="Control/Income/VBoxContainer" instance=ExtResource( 16 )]
+margin_top = 131.0
+margin_right = 466.0
+margin_bottom = 175.0
+script = ExtResource( 8 )
+title = "Assets"
+calculation_text = "amount x price = total"
+
+[node name="Control" type="Control" parent="Control/Income/VBoxContainer"]
+margin_top = 180.0
+margin_right = 466.0
+margin_bottom = 288.0
+size_flags_vertical = 3
+
+[node name="Total" type="HBoxContainer" parent="Control/Income/VBoxContainer"]
+margin_top = 293.0
+margin_right = 466.0
+margin_bottom = 316.0
+
+[node name="Title" type="Label" parent="Control/Income/VBoxContainer/Total"]
+margin_right = 401.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "total income:"
+
+[node name="Amount" type="Label" parent="Control/Income/VBoxContainer/Total"]
+margin_left = 405.0
+margin_right = 466.0
+margin_bottom = 23.0
+text = "0.00"
+script = ExtResource( 12 )
+
+[node name="Expenses" type="Panel" parent="Control"]
+anchor_left = 0.525
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.85
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 9 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Expenses"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 5
+
+[node name="Title" type="Label" parent="Control/Expenses/VBoxContainer"]
+margin_right = 466.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 4 )
+text = "expenses"
+align = 1
+
+[node name="CropExpensesSummary" parent="Control/Expenses/VBoxContainer" instance=ExtResource( 16 )]
+margin_right = 466.0
+margin_bottom = 77.0
+custom_styles/panel = ExtResource( 9 )
+script = ExtResource( 14 )
+title = "crops"
+calculation_text = "amount x price = total"
+
+[node name="AssetExpensesSummary" parent="Control/Expenses/VBoxContainer" instance=ExtResource( 16 )]
+margin_top = 82.0
+margin_right = 466.0
+margin_bottom = 126.0
+custom_styles/panel = ExtResource( 9 )
+script = ExtResource( 11 )
+asset_sum_item_scene = null
+crop_sum_container_path = NodePath("")
+asset_sum_container_path = NodePath("")
+
+[node name="AdditionalExpensesSummary" parent="Control/Expenses/VBoxContainer" instance=ExtResource( 16 )]
+margin_top = 131.0
+margin_right = 466.0
+margin_bottom = 175.0
+custom_styles/panel = ExtResource( 9 )
+title = "Livestock"
+calculation_text = "amount x income = total"
+
+[node name="Control" type="Control" parent="Control/Expenses/VBoxContainer"]
+margin_top = 180.0
+margin_right = 466.0
+margin_bottom = 288.0
+size_flags_vertical = 3
+
+[node name="Total" type="HBoxContainer" parent="Control/Expenses/VBoxContainer"]
+margin_top = 293.0
+margin_right = 466.0
+margin_bottom = 316.0
+
+[node name="Title" type="Label" parent="Control/Expenses/VBoxContainer/Total"]
+margin_right = 401.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "total expenses:"
+
+[node name="Amount" type="Label" parent="Control/Expenses/VBoxContainer/Total"]
+margin_left = 405.0
+margin_right = 466.0
+margin_bottom = 23.0
+text = "0.00"
+script = ExtResource( 17 )
+
+[node name="CenterContainer" type="Control" parent="Control"]
+anchor_top = 0.85
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/CenterContainer"]
+anchor_left = 0.3
+anchor_right = 0.4
+anchor_bottom = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Stat" type="TextureRect" parent="Control/CenterContainer"]
+anchor_left = 0.4
+anchor_right = 0.6
+anchor_bottom = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Control/CenterContainer/Stat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "total"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="Control/CenterContainer/Stat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "100"
+align = 1
+valign = 1
+script = ExtResource( 13 )
+
+[node name="NextYearButton" type="Button" parent="."]
+anchor_left = 0.8
+anchor_top = 0.85
+anchor_right = 1.02
+anchor_bottom = 1.0
+text = "next year"
+
+[connection signal="pressed" from="NextYearButton" to="." method="_on_NextYearButton_pressed"]

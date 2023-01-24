@@ -1,0 +1,600 @@
+[gd_scene load_steps=50 format=2]
+
+[ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/animals/goat.png" type="Texture" id=3]
+[ext_resource path="res://scenes/UI/stat.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/UI/Buttons/icon_labour.png" type="Texture" id=5]
+[ext_resource path="res://scripts/UI/popups/popup_insufficient.gd" type="Script" id=6]
+[ext_resource path="res://scripts/controllers/crop_controller.gd" type="Script" id=7]
+[ext_resource path="res://assets/UI/Buttons/icon_livestock.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/Buttons/icon_measures.png" type="Texture" id=9]
+[ext_resource path="res://scripts/controllers/database.gd" type="Script" id=10]
+[ext_resource path="res://assets/farmzy/farmz2u character-06.png" type="Texture" id=11]
+[ext_resource path="res://scripts/controllers/asset_controller.gd" type="Script" id=12]
+[ext_resource path="res://scripts/controllers/state_controller.gd" type="Script" id=13]
+[ext_resource path="res://scripts/controllers/family_controller.gd" type="Script" id=14]
+[ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
+[ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
+[ext_resource path="res://scripts/UI/tooltips/tooltip.gd" type="Script" id=18]
+[ext_resource path="res://scripts/end_of_year/event_manager.gd" type="Script" id=19]
+[ext_resource path="res://assets/Background1.png" type="Texture" id=20]
+[ext_resource path="res://scripts/display/livestock/animals.gd" type="Script" id=21]
+[ext_resource path="res://assets/UI/Buttons/icon_family.png" type="Texture" id=22]
+[ext_resource path="res://assets/animals/cow.png" type="Texture" id=23]
+[ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
+[ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
+[ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
+[ext_resource path="res://assets/field/field.png" type="Texture" id=28]
+[ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
+[ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
+[ext_resource path="res://assets/animals/cock.png" type="Texture" id=31]
+[ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
+[ext_resource path="res://resources/livestock/01_chicken.tres" type="Resource" id=33]
+[ext_resource path="res://scripts/controllers/end_of_year_controller.gd" type="Script" id=34]
+[ext_resource path="res://scripts/UI/tooltips/max_width_text.gd" type="Script" id=35]
+[ext_resource path="res://scripts/end_of_year/yield_calculator.gd" type="Script" id=36]
+[ext_resource path="res://scripts/UI/tooltips/big_menu_tooltip.gd" type="Script" id=37]
+[ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
+[ext_resource path="res://resources/livestock/02_goat.tres" type="Resource" id=39]
+[ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
+[ext_resource path="res://resources/db_resources/field_data.tres" type="Resource" id=41]
+[ext_resource path="res://scripts/UI/mouse_indicator.gd" type="Script" id=42]
+[ext_resource path="res://scripts/end_of_year/fertility_calculator.gd" type="Script" id=43]
+[ext_resource path="res://scripts/display/people/people.gd" type="Script" id=44]
+[ext_resource path="res://resources/livestock/03_cow.tres" type="Resource" id=45]
+[ext_resource path="res://scripts/controllers/measures_controller.gd" type="Script" id=46]
+[ext_resource path="res://scripts/controllers/livestock_controller.gd" type="Script" id=47]
+[ext_resource path="res://scripts/controllers/labour_controller.gd" type="Script" id=48]
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 38 )
+crop_summary = {
+}
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.780392, 0, 0, 0.592157 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.615686, 0.501961, 0.227451, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Database" type="Node"]
+script = ExtResource( 10 )
+
+[node name="Background" type="Sprite" parent="."]
+show_behind_parent = true
+scale = Vector2( 1.48986, 1.26539 )
+z_index = -3
+texture = ExtResource( 20 )
+centered = false
+region_rect = Rect2( 0, 0, 1000, 1000 )
+script = ExtResource( 25 )
+
+[node name="Livestock" type="YSort" parent="Background"]
+position = Vector2( 218.813, 311.366 )
+script = ExtResource( 21 )
+
+[node name="LivestockCalculator" type="Node" parent="Background/Livestock"]
+
+[node name="Hill" type="Sprite" parent="Background"]
+position = Vector2( 382.588, 320.059 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 28 )
+
+[node name="Field" type="YSort" parent="Background"]
+position = Vector2( 416.819, 369.846 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 1
+script = ExtResource( 17 )
+summary = SubResource( 4 )
+field_resource = ExtResource( 41 )
+state_controller_path = NodePath("../../StateController")
+
+[node name="YieldCalculator" type="Node" parent="Background/Field"]
+script = ExtResource( 36 )
+
+[node name="FertilityCalculator" type="Node" parent="Background/Field"]
+script = ExtResource( 43 )
+
+[node name="Family" type="YSort" parent="Background"]
+position = Vector2( 55.7099, 391.974 )
+script = ExtResource( 44 )
+
+[node name="StateController" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 32 )
+script = ExtResource( 13 )
+crop_handler_path = NodePath("CropsBuyMenu")
+
+[node name="CropsBuyMenu" parent="StateController" instance=ExtResource( 2 )]
+script = ExtResource( 7 )
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+title = "Crops"
+resources_names = PoolStringArray( "crop" )
+database_path = NodePath("/root/Database")
+asset_manager_path = NodePath("../../AssetManager")
+field_path = NodePath("../../Background/Field")
+
+[node name="MeasuresBuyMenu" parent="StateController" instance=ExtResource( 2 )]
+script = ExtResource( 46 )
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+title = "Measures"
+resources_names = PoolStringArray( "structural_measure", "measure_improvement", "fertilization" )
+database_path = NodePath("../..")
+asset_manager_path = NodePath("../../AssetManager")
+field_path = NodePath("../../Background/Field")
+
+[node name="LivestockBigMenu" parent="StateController" instance=ExtResource( 26 )]
+script = ExtResource( 47 )
+resource_names = PoolStringArray( "livestock" )
+
+[node name="LabourBigMenu" parent="StateController" instance=ExtResource( 26 )]
+script = ExtResource( 48 )
+display_path = NodePath("../../Background/Family")
+resource_names = PoolStringArray( "labour" )
+
+[node name="FamilyBigMenu" parent="StateController" instance=ExtResource( 26 )]
+script = ExtResource( 14 )
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+display_path = NodePath("../../Background/Family")
+title = "Family"
+resource_names = PoolStringArray( "family", "household" )
+
+[node name="UpgradesBigMenu" parent="StateController" instance=ExtResource( 26 )]
+toggle_menu_path = NodePath("../../ToggleButtonContainer")
+display_path = NodePath("")
+title = "Upgrades"
+resource_names = PoolStringArray( "upgrades" )
+
+[node name="AssetManager" type="HBoxContainer" parent="."]
+anchor_top = 0.85
+anchor_right = 1.01
+anchor_bottom = 1.0
+theme = ExtResource( 32 )
+script = ExtResource( 12 )
+start_money = 1000
+popup_insufficient_path = NodePath("../Tooltips/PopupInsufficient")
+popup_max_reached_path = NodePath("../Tooltips/PopupMaxReached")
+
+[node name="MoneyStat" parent="AssetManager" instance=ExtResource( 4 )]
+margin_right = 119.0
+type = "money"
+unit = "₦"
+
+[node name="LabourStat" type="ColorRect" parent="AssetManager"]
+margin_left = 123.0
+margin_right = 243.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+color = Color( 0.713726, 0, 0, 1 )
+script = ExtResource( 24 )
+type = "labour"
+unit = "/7"
+
+[node name="Title" type="Label" parent="AssetManager/LabourStat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "Money"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="AssetManager/LabourStat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YearsStat" type="ColorRect" parent="AssetManager"]
+margin_left = 247.0
+margin_right = 367.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+color = Color( 0.235294, 0.341176, 0.615686, 1 )
+script = ExtResource( 24 )
+type = "years"
+unit = "/20"
+
+[node name="Title" type="Label" parent="AssetManager/YearsStat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "Money"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="AssetManager/YearsStat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FertilityStat" type="ColorRect" parent="AssetManager"]
+margin_left = 371.0
+margin_right = 490.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+color = Color( 0.235294, 0.341176, 0.615686, 1 )
+script = ExtResource( 24 )
+type = "fertility"
+unit = "%"
+
+[node name="Title" type="Label" parent="AssetManager/FertilityStat"]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.5
+text = "fertility"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="AssetManager/FertilityStat"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.9
+text = "50%"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChickenStat" type="TextureRect" parent="AssetManager"]
+margin_left = 494.0
+margin_right = 614.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 31 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
+type = ExtResource( 33 )
+
+[node name="Amount" type="Label" parent="AssetManager/ChickenStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoatStat" type="TextureRect" parent="AssetManager"]
+margin_left = 618.0
+margin_right = 738.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
+type = ExtResource( 39 )
+
+[node name="Amount" type="Label" parent="AssetManager/GoatStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CowStat" type="TextureRect" parent="AssetManager"]
+margin_left = 742.0
+margin_right = 862.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
+texture = ExtResource( 23 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
+type = ExtResource( 45 )
+
+[node name="Amount" type="Label" parent="AssetManager/CowStat"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextYearButton" type="Button" parent="AssetManager"]
+margin_left = 866.0
+margin_right = 1034.0
+margin_bottom = 90.0
+text = "next year"
+script = ExtResource( 34 )
+max_years = 12
+
+[node name="EventManager" type="Node" parent="AssetManager/NextYearButton"]
+script = ExtResource( 19 )
+
+[node name="ToggleButtonContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.85
+anchor_top = 0.1
+anchor_right = 1.02
+anchor_bottom = 0.8
+theme = ExtResource( 32 )
+custom_constants/separation = 10
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+tooltip_path = NodePath("../Tooltips/Tooltip")
+target_path = NodePath("../StateController")
+
+[node name="CropsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_right = 174.0
+margin_bottom = 61.0
+icon = ExtResource( 30 )
+title = "crops"
+target = NodePath("../../StateController/CropsBuyMenu")
+
+[node name="MeasuresToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_top = 71.0
+margin_right = 174.0
+margin_bottom = 133.0
+icon = ExtResource( 9 )
+title = "measures"
+target = NodePath("../../StateController/MeasuresBuyMenu")
+
+[node name="AnimalsToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_top = 143.0
+margin_right = 174.0
+margin_bottom = 205.0
+icon = ExtResource( 8 )
+title = "livestock"
+target = NodePath("../../StateController/LivestockBigMenu")
+
+[node name="LabourToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_top = 215.0
+margin_right = 174.0
+margin_bottom = 276.0
+icon = ExtResource( 5 )
+title = "labour"
+target = NodePath("../../StateController/LabourBigMenu")
+
+[node name="FamilyToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_top = 286.0
+margin_right = 174.0
+margin_bottom = 348.0
+icon = ExtResource( 22 )
+title = "family"
+target = NodePath("../../StateController/FamilyBigMenu")
+
+[node name="UpgradesToggleButton" parent="ToggleButtonContainer" instance=ExtResource( 29 )]
+margin_top = 358.0
+margin_right = 174.0
+margin_bottom = 420.0
+icon = ExtResource( 22 )
+title = "upgrades"
+target = NodePath("../../StateController/UpgradesBigMenu")
+
+[node name="Tooltips" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tooltip" type="PanelContainer" parent="Tooltips"]
+visible = false
+margin_right = 386.0
+margin_bottom = 28.0
+mouse_filter = 2
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextContainer" type="VBoxContainer" parent="Tooltips/Tooltip"]
+margin_right = 386.0
+margin_bottom = 28.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="Tooltips/Tooltip/TextContainer"]
+margin_right = 386.0
+margin_bottom = 28.0
+size_flags_vertical = 3
+text = "some text that is very long"
+script = ExtResource( 35 )
+
+[node name="BuyMenuTooltip" type="PanelContainer" parent="Tooltips"]
+visible = false
+margin_right = 14.0
+margin_bottom = 28.0
+mouse_filter = 2
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+give_me_a_better_name = false
+
+[node name="TextContainer" type="VBoxContainer" parent="Tooltips/BuyMenuTooltip"]
+margin_right = 14.0
+margin_bottom = 28.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="Tooltips/BuyMenuTooltip/TextContainer"]
+margin_right = 14.0
+margin_bottom = 28.0
+size_flags_vertical = 3
+script = ExtResource( 35 )
+max_width = 100.0
+
+[node name="BigMenuTooltip" type="PanelContainer" parent="Tooltips"]
+visible = false
+margin_right = 14.0
+margin_bottom = 28.0
+mouse_filter = 2
+script = ExtResource( 37 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextContainer" type="VBoxContainer" parent="Tooltips/BigMenuTooltip"]
+margin_right = 14.0
+margin_bottom = 28.0
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="Tooltips/BigMenuTooltip/TextContainer"]
+margin_right = 14.0
+margin_bottom = 28.0
+size_flags_vertical = 3
+script = ExtResource( 35 )
+max_width = 100.0
+
+[node name="PopupInsufficient" type="Panel" parent="Tooltips"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+label_path = NodePath("Panel/Label")
+
+[node name="Panel" type="Panel" parent="Tooltips/PopupInsufficient"]
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tooltips/PopupInsufficient/Panel"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.4
+text = "You don't have enough money"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Tooltips/PopupInsufficient/Panel"]
+anchor_top = 0.4
+anchor_right = 0.3
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="Tooltips/PopupInsufficient/Panel"]
+anchor_left = 0.45
+anchor_top = 0.55
+anchor_right = 0.8
+anchor_bottom = 0.75
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PopupMaxReached" type="Panel" parent="Tooltips"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Tooltips/PopupMaxReached"]
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tooltips/PopupMaxReached/Panel"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.4
+text = "You don't have enough money"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Tooltips/PopupMaxReached/Panel"]
+anchor_top = 0.4
+anchor_right = 0.3
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="Tooltips/PopupMaxReached/Panel"]
+anchor_left = 0.45
+anchor_top = 0.55
+anchor_right = 0.8
+anchor_bottom = 0.75
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MouseIndicator" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 42 )
+
+[connection signal="database_loaded" from="." to="Background/Field" method="_on_Database_database_loaded"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/MoneyStat" method="_on_AssetManager_asset_changed"]
+[connection signal="asset_changed" from="AssetManager" to="AssetManager/LabourStat" method="_on_AssetManager_asset_changed"]
+[connection signal="resized" from="Tooltips/Tooltip/TextContainer" to="Tooltips/Tooltip" method="_on_TextContainer_resized"]
+[connection signal="resized" from="Tooltips/BuyMenuTooltip/TextContainer" to="Tooltips/BuyMenuTooltip" method="_on_TextContainer_resized"]
+[connection signal="resized" from="Tooltips/BigMenuTooltip/TextContainer" to="Tooltips/BigMenuTooltip" method="_on_TextContainer_resized"]
+[connection signal="pressed" from="Tooltips/PopupInsufficient/Panel/Button" to="Tooltips/PopupInsufficient" method="hide"]
+[connection signal="pressed" from="Tooltips/PopupMaxReached/Panel/Button" to="Tooltips/PopupMaxReached" method="hide"]

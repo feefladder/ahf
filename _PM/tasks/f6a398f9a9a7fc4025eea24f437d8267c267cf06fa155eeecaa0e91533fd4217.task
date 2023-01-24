@@ -1,0 +1,11 @@
+{
+	"title": "foreign keys increment",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671181260,
+	"hash": "f6a398f9a9a7fc4025eea24f437d8267c267cf06fa155eeecaa0e91533fd4217",
+	"description": "With the current functionality for increasing the year, foreign keys are not properly updated, and all foreign keys from previous years will point to the record for the current (or future) year",
+	"todos": [
+
+	]
+}

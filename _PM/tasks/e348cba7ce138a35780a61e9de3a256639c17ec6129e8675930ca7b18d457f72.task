@@ -1,0 +1,11 @@
+{
+	"title": "documentation on Sqlite",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1668462317,
+	"hash": "e348cba7ce138a35780a61e9de3a256639c17ec6129e8675930ca7b18d457f72",
+	"description": "make documentation on sqlite:\n* GeoPackage\n* proposed database schema\n* proposed extensions to make it work\n* link with FarmDESIGN\n* link with MMF processing model\n* why it is easier\n* why it cannot be implemented yet: HTML5 error\n* possible other drawbacks: increase of size",
+	"todos": [
+
+	]
+}

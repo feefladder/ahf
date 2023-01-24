@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/family/man.png" type="Texture" id=2]
+[ext_resource path="res://scripts/story/story_manager.gd" type="Script" id=3]
+
+[node name="Control" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="."]
+anchor_left = 0.1
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.9
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Text" type="RichTextLabel" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.4
+text = "Ade is an aspiring farmer with a growing family"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.7
+anchor_top = 0.75
+anchor_right = 0.9
+anchor_bottom = 0.85
+text = "next"
+__meta__ = {
+"_edit_use_anchors_": true
+}
