@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://scripts/resources/field_resources/field_resource.gd" type="Script" id=1]
+[ext_resource path="res://scenes/field/field_block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/db_resources/start_fertiltiy.tres" type="Resource" id=3]
+
+[resource]
+resource_name = "primary_field"
+script = ExtResource( 1 )
+fertility = ExtResource( 3 )
+field_block_area = 0.04
+field_block_scene = ExtResource( 2 )
+size_x = 3
+size_y = 4
+dx = Vector2( -58, -24 )
+dy = Vector2( 58, -40 )

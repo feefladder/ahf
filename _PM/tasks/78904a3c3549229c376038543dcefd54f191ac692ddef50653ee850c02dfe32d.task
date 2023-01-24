@@ -1,0 +1,11 @@
+{
+	"title": "per-block fertility",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671168718,
+	"hash": "78904a3c3549229c376038543dcefd54f191ac692ddef50653ee850c02dfe32d",
+	"description": "Make fertility a per-block thing, so that crop rotations etc can actually be implemented",
+	"todos": [
+
+	]
+}

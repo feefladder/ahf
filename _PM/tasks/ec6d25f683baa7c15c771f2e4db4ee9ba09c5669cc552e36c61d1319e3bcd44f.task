@@ -1,0 +1,11 @@
+{
+	"title": "eoy database",
+	"category": 2,
+	"assigned": 0,
+	"timestamp": 1671196191,
+	"hash": "ec6d25f683baa7c15c771f2e4db4ee9ba09c5669cc552e36c61d1319e3bcd44f",
+	"description": "make database update properly for\ndb itself:\n - either increment all tables or make some safeguard\notehrs:\n - crops\n - measures -> add dialogue? -> at start of new year\n - labourers\n - field_block: update_all or something\n - livestock: idk? increase age",
+	"todos": [
+
+	]
+}

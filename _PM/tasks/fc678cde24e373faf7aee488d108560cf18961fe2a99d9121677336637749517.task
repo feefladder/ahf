@@ -1,0 +1,11 @@
+{
+	"title": "Initialize db before export",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671889411,
+	"hash": "fc678cde24e373faf7aee488d108560cf18961fe2a99d9121677336637749517",
+	"description": "Separate creating tables from populating tables, to decrease loading times in exported project",
+	"todos": [
+
+	]
+}

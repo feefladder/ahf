@@ -1,0 +1,11 @@
+{
+	"title": "Database signals",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1671168662,
+	"hash": "ef33370ff6681f01eba8433748e50148dc5402a801b1a51ba6b6215f6beaf959",
+	"description": "Actually it would be better if controllers just update the database when items are clicked and the database sends signals based on which tables have changed, that view items can then connect to.",
+	"todos": [
+
+	]
+}

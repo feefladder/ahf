@@ -1,0 +1,11 @@
+{
+	"title": "AssetManager Increase Assets check",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1659376564,
+	"hash": "d4f3897341d79b20dc132d8506d646a34b03ac7b8789031315ff808cb0439d3d",
+	"description": "AssetManager does not check for increase assets, while this is possible for the labour menu (or other cases when people leave the farm)",
+	"todos": [
+
+	]
+}

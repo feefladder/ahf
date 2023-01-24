@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/resources/placeable_items/crop_resource.gd" type="Script" id=1]
+[ext_resource path="res://scripts/resources/events/price_event_resource.gd" type="Script" id=2]
+
+[resource]
+resource_name = "overproduction"
+script = ExtResource( 2 )
+description = "Because of over-production in the region, market values for your crops were low. You receives 10% less income from the harvest of all your crops except coffee."
+affected_items = [ ExtResource( 1 ) ]
+price_change = -0.1
