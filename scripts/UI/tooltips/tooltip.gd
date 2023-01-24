@@ -1,4 +1,4 @@
-extends CanvasItem
+extends Control
 class_name Tooltip
 
 export(float, 0, 10, 0.05) var delay = 0.5
@@ -26,18 +26,16 @@ func _ready():
     _timer.connect("timeout",self,"_on_custom_show")
     add_child(_timer)
     _set_text()
-    # _set_position()
+    # _set_pos()
 
 func _process(_delta):
     if visible and follow_mouse:
-        _set_position()
+        _set_pos()
 
 func _on_object_hovered() -> void:
-    print_debug("object ", _current_node.tooltip_text)
     self.rect_size = Vector2(0,0)
-    $Text.rect_size = Vector2(0,0)
+    # $Text.rect_size = Vector2(0,0)
     _set_text()
-    _set_position()
     _timer.start(delay)
 
 
@@ -45,17 +43,18 @@ func _on_object_un_hovered() -> void:
     _timer.stop()
     hide()
 
-func _set_position() -> void:
+func _set_pos() -> void:
+    print_debug("poepoa")
     var raw_position = _get_screen_pos()
     if raw_position.x > get_viewport().size.x/2:
-        self.rect_position = -Vector2($Text.rect_size.x,0)
+        self.rect_position = -Vector2(rect_size.x,0)
     else:
         self.rect_position = Vector2(_current_node.rect_size.x,0)
     # print_debug(raw_position)
     #  = raw_position
 
 func _set_text() -> void:
-    $Text.text = _current_node.tooltip_text
+    get_node_or_null("Text").text = _current_node.tooltip_text
 
 func _get_screen_pos() -> Vector2:
     if follow_mouse:
@@ -68,6 +67,6 @@ func _get_screen_pos() -> Vector2:
     return Vector2()
 
 func _on_custom_show() -> void:
-    print_debug("show ", _current_node.tooltip_text)
     _timer.stop()
     show()
+    _set_pos()

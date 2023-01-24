@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/UI/toggle_menu/BuyMenu/buy_menu_item.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/shovel.png" type="Texture" id=2]
+[ext_resource path="res://scenes/UI/tooltips/placeable_tooltip.tscn" type="PackedScene" id=3]
 
 [node name="BuyMenuItem" type="TextureRect"]
 margin_right = 139.0
@@ -11,9 +12,6 @@ rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 icon = ExtResource( 2 )
 title = "remove"
 
@@ -34,3 +32,5 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tooltip" parent="." instance=ExtResource( 3 )]
