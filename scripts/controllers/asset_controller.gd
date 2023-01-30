@@ -82,11 +82,11 @@ func sell_item(item: BuyResource) -> bool:
     emit_signal("asset_changed","labour", available_labour-used_labour)
     return true
 
-func start_year():
+func start_year() -> void:
     available_money = database.get_generic_amount("money", database.ASSET_TABLE)
     print_debug(available_money)
     used_money = 0.0
-    used_labour = 0.0 # TODO: <- not true
+    used_labour = 0.0 # TODO: <- not true: labour used by animals..
     emit_signal("asset_changed","money", available_money-used_money)
     emit_signal("asset_changed","labour", available_labour-used_labour)
     # money = database.get_generic_amount("money", database.ASSET_TABLE)

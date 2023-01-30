@@ -13,6 +13,8 @@ func calculate_yield(b_dict: Dictionary, f_dict: Dictionary, event: YieldEventRe
     # if there is fertilization, yield is not reduced by nutrients
     if not b_dict["fertilization"]:
         final_yield *= f_dict["nutrient_status"]
+    else:
+        pass # TODO: nutrient status also has an effect when fertilizers are applied
 
     final_yield *= f_dict["soil_structure"]
     if f_dict["salinity"] > c_res.ec_threshold:

@@ -112,4 +112,4 @@ func erode_soil() -> void:
 func calc_erosion() -> float:
     var prelim_erosion: float = fert_dict["erosion_rate"]
     print_debug("base erosion rate does not change!")
-    return prelim_erosion#*(1.0-f_erosion_protection)
+    return prelim_erosion #* (1.0 - f_erosion_protection)
