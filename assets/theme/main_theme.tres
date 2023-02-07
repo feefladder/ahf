@@ -47,6 +47,17 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 7.0
+content_margin_right = 7.0
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color( 0, 0.192157, 0.00784314, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.0986667, 0.37, 0, 1 )
 border_width_left = 2
@@ -59,17 +70,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=6]
-content_margin_left = 7.0
-content_margin_right = 7.0
-content_margin_top = 7.0
-content_margin_bottom = 7.0
-bg_color = Color( 0, 0.192157, 0.00784314, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [resource]
 default_font = ExtResource( 1 )
@@ -88,6 +88,13 @@ CheckBox/icons/radio_unchecked = null
 CheckBox/icons/radio_unchecked_disabled = null
 CheckBox/icons/unchecked = ExtResource( 7 )
 CheckBox/icons/unchecked_disabled = null
+HSlider/icons/grabber = null
+HSlider/icons/grabber_disabled = null
+HSlider/icons/grabber_highlight = null
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = ExtResource( 3 )
+HSlider/styles/grabber_area_highlight = SubResource( 4 )
+HSlider/styles/slider = SubResource( 6 )
 Panel/styles/panel = ExtResource( 5 )
 PanelContainer/styles/panel = ExtResource( 5 )
 VBoxContainer/constants/separation = 5

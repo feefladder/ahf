@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://scripts/UI/animal_stat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/buy_menu/buy_menu.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://scripts/UI/toggle_menu/toggle_button_container.gd" type="Script" id=15]
 [ext_resource path="res://scripts/UI/label_best_fit.gd" type="Script" id=16]
 [ext_resource path="res://scripts/display/field/field.gd" type="Script" id=17]
+[ext_resource path="res://assets/UI/gears.png" type="Texture" id=18]
 [ext_resource path="res://scripts/end_of_year/event_manager.gd" type="Script" id=19]
 [ext_resource path="res://assets/Background1.png" type="Texture" id=20]
 [ext_resource path="res://scripts/display/livestock/animals.gd" type="Script" id=21]
@@ -25,6 +26,7 @@
 [ext_resource path="res://scripts/UI/stat.gd" type="Script" id=24]
 [ext_resource path="res://scenes/field/Background.gd" type="Script" id=25]
 [ext_resource path="res://scenes/UI/big_menu/BigMenu.tscn" type="PackedScene" id=26]
+[ext_resource path="res://assets/UI/language_symbols/english.png" type="Texture" id=27]
 [ext_resource path="res://assets/field/field.png" type="Texture" id=28]
 [ext_resource path="res://scenes/UI/tabs/ToggleButton.tscn" type="PackedScene" id=29]
 [ext_resource path="res://assets/UI/Buttons/icon_seeds.png" type="Texture" id=30]
@@ -32,7 +34,9 @@
 [ext_resource path="res://assets/theme/main_theme.tres" type="Theme" id=32]
 [ext_resource path="res://resources/livestock/01_chicken.tres" type="Resource" id=33]
 [ext_resource path="res://scripts/controllers/end_of_year_controller.gd" type="Script" id=34]
+[ext_resource path="res://assets/UI/language_symbols/dutch.png" type="Texture" id=35]
 [ext_resource path="res://scripts/end_of_year/yield_calculator.gd" type="Script" id=36]
+[ext_resource path="res://assets/UI/language_symbols/hausa.png" type="Texture" id=37]
 [ext_resource path="res://scripts/resources/summaries/field_summary_resource.gd" type="Script" id=38]
 [ext_resource path="res://resources/livestock/02_goat.tres" type="Resource" id=39]
 [ext_resource path="res://scripts/UI/popups/popup_max_reached.gd" type="Script" id=40]
@@ -44,6 +48,7 @@
 [ext_resource path="res://scripts/controllers/measures_controller.gd" type="Script" id=46]
 [ext_resource path="res://scripts/controllers/livestock_controller.gd" type="Script" id=47]
 [ext_resource path="res://scripts/controllers/labour_controller.gd" type="Script" id=48]
+[ext_resource path="res://scripts/UI/settings/language_settings.gd" type="Script" id=49]
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 38 )
@@ -254,7 +259,6 @@ text = "fertility"
 align = 1
 clip_text = true
 max_lines_visible = 1
-script = ExtResource( 16 )
 
 [node name="Amount" type="Label" parent="AssetController/FertilityStat"]
 anchor_top = 0.5
@@ -524,6 +528,82 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="SettingsPanel" type="Panel" parent="Tooltips"]
+anchor_left = 0.275391
+anchor_top = 0.171667
+anchor_right = 0.598633
+anchor_bottom = 0.741667
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltips/SettingsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelBestFit" type="Label" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 17.0
+margin_right = 330.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "settings"
+align = 1
+clip_text = true
+script = ExtResource( 16 )
+
+[node name="LabelBestFit2" type="Label" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 81.0
+margin_right = 330.0
+margin_bottom = 104.0
+size_flags_vertical = 6
+text = "language"
+clip_text = true
+script = ExtResource( 16 )
+
+[node name="LanguageButtonContainer" type="HBoxContainer" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 127.0
+margin_right = 330.0
+margin_bottom = 186.0
+size_flags_vertical = 3
+script = ExtResource( 49 )
+target_path = NodePath(".")
+language_images_dict = {
+"en": ExtResource( 27 ),
+"ha_NG": ExtResource( 37 ),
+"nl": ExtResource( 35 )
+}
+
+[node name="LabelBestFit3" type="Label" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 209.0
+margin_right = 330.0
+margin_bottom = 232.0
+size_flags_vertical = 6
+text = "volume"
+script = ExtResource( 16 )
+
+[node name="HSlider" type="HSlider" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 255.0
+margin_right = 330.0
+margin_bottom = 271.0
+size_flags_vertical = 2
+value = 50.0
+ticks_on_borders = true
+
+[node name="Button" type="Button" parent="Tooltips/SettingsPanel/VBoxContainer"]
+margin_top = 318.0
+margin_right = 330.0
+margin_bottom = 341.0
+text = "done"
+
+[node name="SettingsButton" type="TextureButton" parent="Tooltips"]
+anchor_left = 0.95
+anchor_right = 1.0
+anchor_bottom = 0.1
+texture_normal = ExtResource( 18 )
+expand = true
+stretch_mode = 5
+
 [node name="MouseIndicator" type="Node2D" parent="."]
 script = ExtResource( 42 )
 
@@ -532,3 +612,5 @@ script = ExtResource( 42 )
 [connection signal="asset_changed" from="AssetController" to="AssetController/LabourStat" method="_on_AssetController_asset_changed"]
 [connection signal="pressed" from="Tooltips/PopupInsufficient/Panel/Button" to="Tooltips/PopupInsufficient" method="hide"]
 [connection signal="pressed" from="Tooltips/PopupMaxReached/Panel/Button" to="Tooltips/PopupMaxReached" method="hide"]
+[connection signal="pressed" from="Tooltips/SettingsPanel/VBoxContainer/Button" to="Tooltips/SettingsPanel" method="hide"]
+[connection signal="pressed" from="Tooltips/SettingsButton" to="Tooltips/SettingsPanel" method="show"]

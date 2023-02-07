@@ -5,7 +5,7 @@ export(String) var type
 export(String) var unit
 
 func _ready() -> void:
-    $Title.text = tr(type)
+    $Title.text = type
 
 func _on_stat_changed(which: String, new_amount: float) -> void:
     if not which is String:

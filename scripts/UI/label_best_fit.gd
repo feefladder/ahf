@@ -1,4 +1,5 @@
 extends Label
+class_name LabelBestFit
 
 var prev_text: String = text
 var max_font_size : int
@@ -23,7 +24,6 @@ func get_theme():
     if my_theme != null:
         return my_theme
     while control != null && "theme" in control:
-        print_debug(control)
         my_theme = control.theme
         if my_theme != null:
             break
@@ -33,6 +33,7 @@ func get_theme():
 func _set(k, _v):
     if "text" == k:
         best_fit_check()
+        text = _v
 
 func best_fit_check():
     if font == null:

@@ -8,4 +8,4 @@ var controller: Node
 
 func _ready():
     $Icon.texture = resource.image
-    $Title.text = tr(resource.resource_name)
+    $Title.set_text(resource.resource_name)

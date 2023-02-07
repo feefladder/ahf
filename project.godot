@@ -224,6 +224,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/resources/placeable_items/irrigation_resource.gd"
 }, {
+"base": "Label",
+"class": "LabelBestFit",
+"language": "GDScript",
+"path": "res://scripts/UI/label_best_fit.gd"
+}, {
 "base": "BigMenu",
 "class": "LabourController",
 "language": "GDScript",
@@ -413,6 +418,7 @@ _global_script_class_icons={
 "Initializer": "",
 "IntResource": "",
 "IrrigationResource": "",
+"LabelBestFit": "",
 "LabourController": "",
 "LabourDBInterface": "",
 "LabourerResource": "",
@@ -461,8 +467,8 @@ scene=false
 [locale]
 
 test="nl"
-translations=PoolStringArray(  )
-locale_filter=[ 0, [ "en", "nl" ] ]
+translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ha_NG.translation", "res://assets/translations.nl.translation" )
+locale_filter=[ 1, [ "en", "ha_NG", "nl" ] ]
 
 [physics]
 

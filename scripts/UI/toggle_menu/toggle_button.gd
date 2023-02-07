@@ -15,7 +15,7 @@ func _ready():
     # warning-ignore:return_value_discarded
     connect("mouse_exited",self,"_on_mouse_exited")
     $Icon.texture = icon
-    $Title.text = tr(title)
+    $Title.text = title
 
 func _gui_input(event):
     if event is InputEventMouseButton:
