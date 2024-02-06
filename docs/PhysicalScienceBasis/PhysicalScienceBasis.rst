@@ -19,7 +19,7 @@ effects of drought and irrigation can be estimated based on the FAO irrigation
 and drainage paper :xcite:`[@AllenFAOIrrigationDrainage1998]`.
 
 It must be noted that salinity cannot be separated from water stress, and thus properly
-taking salinity into account, requires
+taking salinity into account, requires a temporally explicit model with a timestep that is short enough to model the plant response to water unavailability.
 
 .. image:: img/salinity_graph_56p181.png
 
@@ -32,7 +32,7 @@ For modelling erosion, several different models can be used. However, we want a
 model that is:
 
 * fast
-* easy to implement/based on Python
+* easy to implement
 * based on easily deriveable properties
 * using a yearly timestep for making a reference
 * using a daily timestep for coupling with plant growth models
@@ -48,8 +48,13 @@ Influence of erosion on nutrients is determined as follows:
  #. readily soluble and soil-bound nutrients are completely leeched from the top layer
  #. good soil structure reduces erosion
 
+Influence of erosion on soil organic carbon and plant growth has been modelled by 
+
 Salinity modelling
 ------------------
+
+
+
 text
 
 .. uml::

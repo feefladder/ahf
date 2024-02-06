@@ -1,0 +1,98 @@
+\documentclass[journal, dvipsnames]{IEEEtran}
+\usepackage{orcidlink}
+\usepackage{array}
+\usepackage{ducksay}
+% \usepackage{polyglossia}
+\usepackage[english]{babel}
+\usepackage{fontspec}
+% \usepackage{unicode-math}
+% \usepackage{minted}
+
+% \setmonofont{JuliaMono-Bold.ttf}[
+%     Contextuals = Alternate,
+%     CharacterVariant=1,
+%     Scale = MatchLowercase,
+%     BoldFont = JuliaMono-Bold.ttf,
+%     Numbers = OldStyle
+% ]
+
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%% Useful packages
+% https://www.overleaf.com/learn/latex/Typesetting_quotations#csquotes_package
+\usepackage{csquotes}
+% for svg https://tex.stackexchange.com/questions/442077/is-it-possible-to-use-svg-images-with-overleaf
+\usepackage{svg}
+\usepackage{tikzbricks}
+\usepackage{tikzducks}
+% For table
+\usepackage{colortbl}
+
+
+% For references
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{fedLearning.bib} % Replace with your actual BibTeX file
+\addbibresource{principles.bib}
+\addbibresource{OGHPapers.bib}
+\addbibresource{KMS.bib}
+\addbibresource{gbif.bib}
+% For referring to description items
+% use like
+% \begin{description}
+%     \descitem{item name}{itLabel}
+% \end{description}
+% \descref{itLabel} $\rightarrow$ [item name](the_item)
+% https://tex.stackexchange.com/a/293/241038
+\newcounter{desccount}
+\newcommand{\descitem}[2]{
+  \item[#1] \refstepcounter{desccount}\label{#2}%
+  \expandafter\xdef\csname#2\endcsname{#1}%
+}
+
+\newcommand{\descref}[1]{\hyperref[#1]{\csname#1\endcsname}}
+
+\setmonofont{JuliaMono-Bold}[
+    Contextuals = Alternate,
+    CharacterVariant=1,
+    Scale = MatchLowercase,
+    BoldFont = JuliaMono-Black,
+    Numbers = OldStyle
+]
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+\hypersetup{colorlinks=true}
+
+\title{Re-Implementing the African Highland Farmer game in the Nigerian context of the Jos plateau for educating Dutch highschool students on land management}
+\author{Fee Gevaert \orcidlink{https://orcid.org/0009-0008-2311-6336} \today{}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+-- the abstract goes here
+\end{abstract}
+
+\input{introduction}
+
+\input{methods}
+
+\input{literature_review}
+
+\input{implementation}
+
+\input{field_test}
+
+\input{results}
+
+\input{discussion}
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+\printbibliography
+\end{document}
+
+

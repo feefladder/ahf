@@ -42,7 +42,7 @@ Implementing biophysical properties in the game can further be divided into thre
 phases:
 
 #. obtaining the data for an area of interest
-#. unifying the data for this area
+#. harmonizing the data for this area
 #. pre-processing data in well-tested models
 #. using the outputs in the game
 #. gradually moving preprocessing into the game where needed
@@ -87,8 +87,11 @@ Soil data
 Soil data can be obtained in 30m resolution by adapting the
 `iSDASoil tutorials <https://github.com/iSDA-Africa/isdasoil-tutorial>`_.
 
+This is a very interoperable access option: It uses STAC catalog for discovery and Cloud-Optimized Geotiffs (COG)s for data access. The problem for directly implementing this in Godot, is that data access for cloud-optimized GeoTiffs is normally done through GDAL, which uses libcurl for network access. Libcurl cannot be compiled to WebAssembly, so the resulting game cannot be compiled to webassembly. Additionally, Javascript libraries could be used, 
+
 Pedotransfer functions
 ......................
+
 
 
 Landuse data
