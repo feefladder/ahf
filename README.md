@@ -26,7 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-African highland farmer is an open source simulation game. The aim is to mix farmer's education with fun. the game is built [unity](https://unity.com)
+African highland farmer is an open source simulation game. The aim is to mix farmer's education with fun. the game is built in [Godot](godotengine.org)
 
 The game deploys by CI/CD on:
 * Production: [play.farmz2u.com/ahf](https://play.farmz2u.com/ahf) - production branch
