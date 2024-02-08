@@ -41,7 +41,7 @@ De leerling kan, na het volgen van de lesmodules het volgende:
   3. heeft een idee van de stikstof- en fosforkringloop en de invloed daarvan op gewassenteelt
   2. kan uitleggen hoe mest en compost verder bijdragen aan bodemvruchtbaarheid (in vergelijking met kunstmest)
 - duurzame sociale verandering
-  1. kan mondeling uitleggen hoe een gedeeld doel en communicatie bijdraagt aan sociale cohesie en duurzame positieve verandering
+  1. kan mondeling uitleggen welke factoren bijdragen aan duurzame sociale verandering.
   2. 
 
 het volgende gaat waarschijnlijk iets ver voor middelbare scholieren, maar het is mijn persoonlijke doel eigenlijk.
